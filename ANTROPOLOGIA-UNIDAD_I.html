@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antropología — Unidad I: ¿Qué es Antropología?</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f4f8;--surface:#fff;--border:#c0d0e0;
+  --ink:#061828;--muted:#3a5a78;
+  --a1:#1a4fc4;--a2:#c41a1a;--a3:#1a9a5c;--a4:#b8860b;--a5:#7a1ac4;
+  --a1l:#e8eef9;--a2l:#fdeaea;--a3l:#e3f4e8;--a4l:#fff8e1;--a5l:#f0e8fb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;line-height:1.7;}
+
+.hero{background:var(--ink);color:#f0f6ff;padding:56px 48px 48px;position:relative;overflow:hidden;}
+.hero::after{content:'🗿';font-size:220px;position:absolute;right:20px;bottom:-30px;line-height:1;pointer-events:none;opacity:.06;}
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.unit-badge{background:var(--a1);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:4px 14px;border-radius:4px;}
+.subject-tag{font-size:12px;font-weight:500;color:rgba(240,246,255,0.45);letter-spacing:2px;text-transform:uppercase;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,8vw,5rem);line-height:.92;letter-spacing:1px;margin-bottom:16px;}
+.hero h1 span{color:#5cb8f8;}
+.hero-desc{max-width:560px;font-size:15px;color:rgba(240,246,255,0.6);margin-bottom:32px;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:10px;}
+.pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;}
+.pill-dot{width:8px;height:8px;border-radius:50%;}
+
+.nav-strip{background:var(--a1);display:flex;overflow-x:auto;position:sticky;top:0;z-index:10;}
+.nav-strip a{color:rgba(255,255,255,.75);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:12px 20px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.15);transition:all .2s;}
+.nav-strip a:hover{background:rgba(255,255,255,.12);color:#fff;}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 28px 100px;}
+
+.sec-head{display:flex;align-items:flex-start;margin:56px 0 24px;border-left:5px solid var(--a1);padding-left:18px;}
+.sec-head.red{border-color:var(--a2);} .sec-head.green{border-color:var(--a3);} .sec-head.gold{border-color:var(--a4);} .sec-head.purple{border-color:var(--a5);}
+.sec-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--a1);margin-right:14px;flex-shrink:0;}
+.sec-head.red .sec-num{color:var(--a2);} .sec-head.green .sec-num{color:var(--a3);} .sec-head.gold .sec-num{color:var(--a4);} .sec-head.purple .sec-num{color:var(--a5);}
+.sec-info h2{font-family:'Bebas Neue',sans-serif;font-size:1.85rem;letter-spacing:.5px;line-height:1.1;}
+.sec-info p{font-size:13px;color:var(--muted);font-weight:500;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 26px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.card-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+.concept-box{border-radius:12px;padding:18px 22px;margin:12px 0;text-align:center;}
+.concept-box.blue{background:linear-gradient(135deg,#061828,#1a4fc4);}
+.concept-box.red{background:linear-gradient(135deg,#2a0a0a,#c41a1a);}
+.concept-box.green{background:linear-gradient(135deg,#0a2a18,#1a9a5c);}
+.concept-box.gold{background:linear-gradient(135deg,#2a1800,#b8860b);}
+.concept-box.purple{background:linear-gradient(135deg,#1a0a2a,#7a1ac4);}
+.concept-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;color:#fff;margin-bottom:6px;}
+.concept-def{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;}
+
+.tip{border-radius:10px;padding:13px 16px;font-size:13.5px;margin-top:14px;display:flex;gap:10px;align-items:flex-start;}
+.tip.blue{background:rgba(26,79,196,.08);border-left:3px solid var(--a1);}
+.tip.red{background:rgba(196,26,26,.08);border-left:3px solid var(--a2);}
+.tip.green{background:rgba(26,154,92,.08);border-left:3px solid var(--a3);}
+.tip.gold{background:rgba(184,134,11,.08);border-left:3px solid var(--a4);}
+.tip.purple{background:rgba(122,26,196,.08);border-left:3px solid var(--a5);}
+.tip-ico{font-size:18px;flex-shrink:0;margin-top:1px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px;}
+@media(max-width:600px){.two-col,.three-col,.char-grid{grid-template-columns:1fr;}}
+
+.mini-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.mini-card .mc-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.mini-card .mc-val{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.5px;}
+.mini-card .mc-body{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.55;}
+
+.char-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+.char-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;border-left:4px solid var(--a1);}
+.char-card.red{border-color:var(--a2);}.char-card.green{border-color:var(--a3);}.char-card.gold{border-color:var(--a4);}.char-card.purple{border-color:var(--a5);}
+.char-card .cc-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.5px;margin-bottom:6px;}
+.char-card .cc-title.blue{color:var(--a1);}.char-card .cc-title.red{color:var(--a2);}.char-card .cc-title.green{color:var(--a3);}.char-card .cc-title.gold{color:var(--a4);}.char-card .cc-title.purple{color:var(--a5);}
+.char-card .cc-body{font-size:13px;line-height:1.6;}
+.char-card .cc-ex{font-size:12px;margin-top:8px;padding:6px 10px;border-radius:6px;font-style:italic;}
+.char-card .cc-ex.blue{background:var(--a1l);color:var(--a1);}.char-card .cc-ex.red{background:var(--a2l);color:var(--a2);}
+.char-card .cc-ex.green{background:var(--a3l);color:var(--a3);}.char-card .cc-ex.gold{background:var(--a4l);color:var(--a4);}
+.char-card .cc-ex.purple{background:var(--a5l);color:var(--a5);}
+
+.stab{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+.stab th{text-align:left;padding:9px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid;background:rgba(0,0,0,.02);}
+.stab.blue th{color:var(--a1);border-color:var(--a1);}
+.stab.red th{color:var(--a2);border-color:var(--a2);}
+.stab.green th{color:var(--a3);border-color:var(--a3);}
+.stab.gold th{color:var(--a4);border-color:var(--a4);}
+.stab.purple th{color:var(--a5);border-color:var(--a5);}
+.stab td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.stab tr:last-child td{border-bottom:none;}
+.stab tr:nth-child(even) td{background:rgba(0,0,0,.015);}
+
+.bubbles{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.bubble{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 16px;}
+.bubble .b-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.bubble .b-main{font-weight:600;font-size:14px;margin-bottom:3px;}
+.bubble .b-sub{font-size:12.5px;color:var(--muted);}
+
+.wb-section{background:var(--ink);color:#f0f6ff;border-radius:16px;padding:32px;margin-top:60px;}
+.wb-title{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:1px;margin-bottom:6px;}
+.wb-title span{color:#5cb8f8;}
+.wb-sub{color:rgba(240,246,255,.5);font-size:13.5px;margin-bottom:28px;}
+.wb-group{margin-bottom:28px;}
+.wb-group-title{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:2px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:12px;}
+.wb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.wb-word{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;}
+.wb-word .en{font-weight:700;font-size:13.5px;margin-bottom:2px;}
+.wb-word .es{font-size:12px;color:rgba(240,246,255,.55);}
+
+footer{text-align:center;padding:28px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--border);margin-top:20px;}
+
+/* ═══ ACTIVIDADES DEL LIBRO (práctica) ═══ */
+.activity-box{background:var(--surface);border:2px dashed var(--a5);border-radius:14px;padding:20px 22px;margin:8px 0 20px;}
+.activity-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.activity-head .ac-ico{font-size:1.4rem;}
+.activity-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.5px;color:var(--a5);}
+.activity-item{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;}
+.activity-item .ai-title{font-family:'Bebas Neue',sans-serif;color:var(--a5);font-size:1.05rem;letter-spacing:.5px;margin-bottom:4px;}
+.activity-item .ai-crit{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic;}
+
+/* ═══ QUIZ INTERACTIVO ═══ */
+.quiz-box{background:var(--surface);border:2px dashed var(--border);border-radius:14px;padding:20px 22px;margin:8px 0 32px;}
+.quiz-box.blue{border-color:var(--a1);}.quiz-box.red{border-color:var(--a2);}
+.quiz-box.green{border-color:var(--a3);}.quiz-box.gold{border-color:var(--a4);}
+.quiz-box.purple{border-color:var(--a5);}
+.quiz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.quiz-head .qz-ico{font-size:1.5rem;}
+.quiz-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.5px;}
+.quiz-head span.qz-sub{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+.quiz-score{font-size:12px;font-weight:700;margin-bottom:14px;color:var(--muted);}
+.qz-question{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.qz-question:last-child{margin-bottom:0;}
+.qz-qtext{font-weight:600;font-size:13.5px;margin-bottom:10px;display:flex;gap:8px;align-items:flex-start;}
+.qz-qtext .qz-num{font-family:'Bebas Neue',sans-serif;flex-shrink:0;font-size:1.05rem;line-height:1.3;}
+.qz-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle;}
+.qz-opts{display:flex;flex-direction:column;gap:6px;}
+.qz-tf-opts{display:flex;gap:8px;}
+.qz-opt{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-size:13px;cursor:pointer;text-align:left;transition:all .15s;font-family:inherit;color:var(--ink);}
+.qz-tf-opts .qz-opt{flex:1;text-align:center;font-weight:600;}
+.qz-opt:hover:not(.disabled){background:var(--a1l);border-color:var(--a1);}
+.qz-opt.correct{background:rgba(26,154,92,.18);border-color:var(--a3);font-weight:700;color:#0a4a2a;}
+.qz-opt.incorrect{background:rgba(196,26,26,.18);border-color:var(--a2);font-weight:700;color:#7a1414;}
+.qz-opt.disabled{cursor:default;}
+.qz-explain{font-size:12.5px;margin-top:9px;padding:9px 13px;border-radius:8px;background:rgba(0,0,0,.04);display:none;line-height:1.5;}
+.qz-explain.show{display:block;}
+.qz-explain b{color:var(--a3);}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="unit-badge">UNIDAD I</div>
+    <div class="subject-tag">Antropología · ¿Qué es Antropología?</div>
+  </div>
+  <h1>ANTROPOLOGÍA<br><span>EL ESTUDIO DEL SER HUMANO</span></h1>
+  <p class="hero-desc">¿Por qué celebramos las fiestas que celebramos? ¿Por qué nuestro cuerpo es como es? La antropología estudia ambas cosas: tu biología y tu cultura, juntas. Descubrirás qué estudia esta ciencia, cómo investiga y en qué áreas de tu vida diaria está presente, con ejemplos muy fáciles y cotidianos.</p>
+  <div class="hero-pills">
+    <div class="pill"><div class="pill-dot" style="background:#5cb8f8"></div>1.1 Concepto de Antropología</div>
+    <div class="pill"><div class="pill-dot" style="background:#ff8fa0"></div>1.2 Objeto de estudio</div>
+    <div class="pill"><div class="pill-dot" style="background:#86efac"></div>1.3 Planteamientos teórico-metodológicos</div>
+    <div class="pill"><div class="pill-dot" style="background:#fcd45c"></div>1.4 Ramas y disciplinas</div>
+    <div class="pill"><div class="pill-dot" style="background:#c4b5fd"></div>1.5 Relación con otras ciencias</div>
+    <div class="pill"><div class="pill-dot" style="background:#5cb8f8"></div>1.6 Áreas de aplicación</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-strip">
+  <a href="#concepto">1.1 Concepto</a>
+  <a href="#objeto">1.2 Objeto de estudio</a>
+  <a href="#metodologico">1.3 Teórico-metodológico</a>
+  <a href="#ramas">1.4 Ramas y disciplinas</a>
+  <a href="#relacion">1.5 Relación con ciencias</a>
+  <a href="#aplicacion">1.6 Áreas de aplicación</a>
+  <a href="#practica">📝 Practica tú</a>
+  <a href="#retos">Retos</a>
+  <a href="#glosario">Glosario</a>
+</div>
+
+<div class="wrap">
+
+<!-- 1.1 CONCEPTO DE ANTROPOLOGÍA -->
+<div id="concepto">
+  <div class="sec-head blue">
+    <div class="sec-num">1.1</div>
+    <div class="sec-info">
+      <h2>Concepto de Antropología</h2>
+      <p>Qué significa la palabra y qué abarca esta ciencia</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Origen de la palabra</div>
+    <div class="concept-box blue">
+      <div class="concept-title">ANTROPOLOGÍA</div>
+      <div class="concept-def">Del griego <em>anthropos</em> (hombre) y <em>logia</em> (estudio o ciencia). Es la ciencia que estudia al ser humano en todos los lugares y en todas las épocas, de forma integral.</div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🕵️</span>
+      <span><strong>Ejemplo fácil:</strong> es como un detective que investiga dos pistas al mismo tiempo: tu cuerpo (biología) y las tradiciones de tu familia (cultura), para entender quién eres por completo.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Los dos grandes campos</div>
+    <div class="two-col">
+      <div class="mini-card"><div class="mc-label" style="color:var(--a1)">Antropología física o biológica</div><div class="mc-val">El cuerpo</div><div class="mc-body">Estudia la evolución biológica y la adaptación fisiológica del ser humano.</div></div>
+      <div class="mini-card"><div class="mc-label" style="color:var(--a1)">Antropología social o cultural</div><div class="mc-val">La cultura</div><div class="mc-body">Estudia a las personas que viven en sociedad: su lengua, cultura y costumbres.</div></div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">📖</span>
+      <span>El antropólogo inglés <strong>Edward B. Tylor</strong> fue quien introdujo el término "cultura" en la antropología, en su obra "La cultura primitiva" (1871).</span>
+    </div>
+  </div>
+
+  <div class="quiz-box blue" id="box-concepto">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Concepto de Antropología</span></div>
+    <div class="quiz-score" id="score-concepto"></div>
+    <div class="qz-container" id="qz-concepto"></div>
+  </div>
+</div>
+
+<!-- 1.2 OBJETO DE ESTUDIO -->
+<div id="objeto">
+  <div class="sec-head red">
+    <div class="sec-num">1.2</div>
+    <div class="sec-info">
+      <h2>Objeto de estudio</h2>
+      <p>No, los antropólogos no solo trabajan con huesos y piedras</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">¿Qué estudia exactamente?</div>
+    <div class="concept-box red">
+      <div class="concept-title">OBJETO DE ESTUDIO</div>
+      <div class="concept-def">La humanidad, en todos los lugares y en todas las épocas. La antropología ofrece una perspectiva <strong>humanística, científica, biológica, histórica, psicológica y sociológica</strong> al mismo tiempo (una perspectiva holística, es decir, del todo).</div>
+    </div>
+    <div class="tip red">
+      <span class="tip-ico">🎒</span>
+      <span><strong>Ejemplo fácil:</strong> es muy común imaginar a un antropólogo excavando huesos y piedras antiguas, pero eso es solo una parte (la arqueología). La antropología es mucho más amplia: también estudia por qué celebramos ciertas fiestas, cómo hablamos, o cómo nos organizamos en familia.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Un tipo de "turismo intelectual"</div>
+    <div class="concept-def">La antropología permite observar costumbres de otras personas, a veces parecidas a las propias y otras veces muy distintas, ofreciendo información para ilustrar, entretener y hasta asombrarnos con las costumbres del mundo.</div>
+  </div>
+
+  <div class="quiz-box red" id="box-objeto">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Objeto de estudio</span></div>
+    <div class="quiz-score" id="score-objeto"></div>
+    <div class="qz-container" id="qz-objeto"></div>
+  </div>
+</div>
+
+<!-- 1.3 PLANTEAMIENTOS TEÓRICO-METODOLÓGICOS -->
+<div id="metodologico">
+  <div class="sec-head green">
+    <div class="sec-num">1.3</div>
+    <div class="sec-info">
+      <h2>Planteamientos teórico-metodológicos</h2>
+      <p>Cómo investigan los antropólogos, si no pueden "experimentar" con personas</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Un reto especial</div>
+    <div class="concept-def" style="margin-bottom:10px">La antropología no puede usar la experimentación como las ciencias naturales, por razones <strong>biológicas, legales y morales</strong> (no se puede "experimentar" con personas o sociedades). Por eso, los antropólogos prefieren el contacto cercano y la observación directa.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">5 métodos o formas de conocer</div>
+    <table class="stab green">
+      <tr><th>Método</th><th>En qué consiste</th></tr>
+      <tr><td>Empirismo</td><td>Toma la experiencia como base principal del conocimiento.</td></tr>
+      <tr><td>Pragmatismo</td><td>Valora los resultados prácticos e inmediatos de una idea.</td></tr>
+      <tr><td>Comparación</td><td>Señala semejanzas y diferencias entre dos o más fenómenos (simétrica o asimétrica).</td></tr>
+      <tr><td>Positivismo</td><td>Pasa por observación, experimentación e inferencia (Auguste Comte).</td></tr>
+      <tr><td>Dialéctica</td><td>Analiza fenómenos en movimiento: tesis, antítesis (Karl Marx).</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Técnicas de investigación</div>
+    <table class="stab green">
+      <tr><th>Técnica</th><th>En qué consiste</th></tr>
+      <tr><td>La ficha</td><td>Recordatorio ordenado sobre temas específicos, útil para elaborar hipótesis.</td></tr>
+      <tr><td>La entrevista</td><td>Diálogo con una o varias personas sobre el tema que se estudia.</td></tr>
+      <tr><td>La encuesta</td><td>Serie de preguntas a varias personas; si es por escrito, se llama cuestionario.</td></tr>
+      <tr><td>La observación</td><td>Usar los sentidos para recabar datos (simple, experimental o por equipo).</td></tr>
+      <tr><td>Técnica genealógica</td><td>Usa símbolos para construir gráficamente la historia familiar (parentesco).</td></tr>
+      <tr><td>Técnica lingüística</td><td>Recopila vocabulario para analizar el lenguaje de una sociedad.</td></tr>
+      <tr><td>Diario de campo</td><td>Recurso principal del antropólogo; registra los datos tal como se presentan.</td></tr>
+    </table>
+    <div class="tip green">
+      <span class="tip-ico">📓</span>
+      <span><strong>Ejemplo fácil:</strong> el diario de campo es como un diario personal, pero en vez de escribir tus sentimientos, el antropólogo anota todo lo que observa de la sociedad que estudia, día a día.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box green" id="box-metodologico">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Planteamientos teórico-metodológicos</span></div>
+    <div class="quiz-score" id="score-metodologico"></div>
+    <div class="qz-container" id="qz-metodologico"></div>
+  </div>
+</div>
+
+<!-- 1.4 RAMAS Y DISCIPLINAS -->
+<div id="ramas">
+  <div class="sec-head gold">
+    <div class="sec-num">1.4</div>
+    <div class="sec-info">
+      <h2>Diferentes ramas y disciplinas de la antropología</h2>
+      <p>La antropología se divide en muchas especialidades</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Principales ramas</div>
+    <table class="stab gold">
+      <tr><th>Rama</th><th>Qué estudia</th></tr>
+      <tr><td>Prehistoria</td><td>Las sociedades que existieron antes de la escritura.</td></tr>
+      <tr><td>Arqueología</td><td>Los pueblos del pasado a través de restos materiales (cerámica, herramientas, huesos).</td></tr>
+      <tr><td>Antropología lingüística</td><td>La cultura a través de los sistemas de comunicación, sobre todo el lenguaje.</td></tr>
+      <tr><td>Etnografía</td><td>Las costumbres y tradiciones de un grupo humano específico.</td></tr>
+      <tr><td>Antropología Aplicada</td><td>Investigaciones que promueven cambios socioeconómicos en las sociedades.</td></tr>
+      <tr><td>Etnohistoria</td><td>Sociedades que, al entrar en contacto con otras, cambiaron su cultura original.</td></tr>
+      <tr><td>Antropología Filosófica</td><td>La pregunta fundamental: ¿Qué es el hombre?</td></tr>
+      <tr><td>Paleontología</td><td>Los seres vegetales y animales de periodos anteriores, mediante fósiles.</td></tr>
+      <tr><td>Paleoantropología</td><td>Los homínidos o seres humanos originarios y su desarrollo físico.</td></tr>
+      <tr><td>Primatología</td><td>Los primates no humanos (monos, simios), para entender mejor al ser humano.</td></tr>
+    </table>
+    <div class="tip gold">
+      <span class="tip-ico">🦴</span>
+      <span><strong>Ejemplo fácil:</strong> si encuentras una vasija antigua, el arqueólogo estudia el objeto en sí; si encuentras un hueso de un antepasado humano, el paleoantropólogo estudia cómo era ese cuerpo; y si estudias cómo hablan los chimpancés para entender el lenguaje humano, eso es primatología.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box gold" id="box-ramas">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Diferentes ramas y disciplinas de la antropología</span></div>
+    <div class="quiz-score" id="score-ramas"></div>
+    <div class="qz-container" id="qz-ramas"></div>
+  </div>
+</div>
+
+<!-- 1.5 RELACIÓN CON OTRAS CIENCIAS -->
+<div id="relacion">
+  <div class="sec-head purple">
+    <div class="sec-num">1.5</div>
+    <div class="sec-info">
+      <h2>Relación de la antropología con otras ciencias</h2>
+      <p>Ninguna ciencia trabaja completamente sola</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Ciencias con las que se relaciona</div>
+    <div class="char-grid">
+      <div class="char-card purple"><div class="cc-title purple">Y SOCIOLOGÍA</div><div class="cc-body">Comparten interés en las relaciones y el comportamiento social. Tradicionalmente, la sociología estudiaba sociedades industrializadas y la antropología, las no industriales.</div></div>
+      <div class="char-card blue"><div class="cc-title blue">Y PSICOLOGÍA</div><div class="cc-body">La antropología aporta datos transculturales, mostrando que el comportamiento humano varía según la cultura.</div></div>
+      <div class="char-card green"><div class="cc-title green">E HISTORIA</div><div class="cc-body">La historia investiga el pasado con documentos; la antropología se interesa por el presente mediante el conocimiento directo.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">CIENCIA POLÍTICA Y ECONOMÍA</div><div class="cc-body">Ayuda a comprender que la ley, el crimen y los sistemas económicos no son iguales ni universales en todas las culturas.</div></div>
+    </div>
+    <div class="tip purple">
+      <span class="tip-ico">🤝</span>
+      <span><strong>Ejemplo fácil:</strong> un psicólogo puede estudiar cómo piensa una persona de su propia sociedad, pero el antropólogo ayuda a comparar: ¿piensan igual las personas de otra cultura? Esa comparación enriquece a ambas ciencias.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box purple" id="box-relacion">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Relación con otras ciencias</span></div>
+    <div class="quiz-score" id="score-relacion"></div>
+    <div class="qz-container" id="qz-relacion"></div>
+  </div>
+</div>
+
+<!-- 1.6 PRINCIPALES ÁREAS DE APLICACIÓN -->
+<div id="aplicacion">
+  <div class="sec-head blue">
+    <div class="sec-num">1.6</div>
+    <div class="sec-info">
+      <h2>Principales áreas de aplicación</h2>
+      <p>Dónde trabaja un antropólogo en la vida real</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Áreas de aplicación</div>
+    <table class="stab blue">
+      <tr><th>Área</th><th>Qué hace</th></tr>
+      <tr><td>Antropología médica</td><td>Estudia la relación proveedor de salud-paciente y los sistemas de salud.</td></tr>
+      <tr><td>Antropología del desarrollo</td><td>Genera modelos de desarrollo social, económico y cultural.</td></tr>
+      <tr><td>Antropología económica</td><td>Analiza la producción, distribución y consumo desde lo social y cultural.</td></tr>
+      <tr><td>Antropología industrial</td><td>Estudia las organizaciones, su desarrollo e innovación.</td></tr>
+      <tr><td>Antropología y medioambiente</td><td>Mide el impacto ambiental de proyectos en determinadas áreas.</td></tr>
+      <tr><td>Antropología forense</td><td>Ayuda a identificar restos humanos y esclarecer hechos ante un juicio.</td></tr>
+    </table>
+    <div class="tip blue">
+      <span class="tip-ico">🔬</span>
+      <span><strong>Ejemplo fácil:</strong> cuando en una serie de detectives identifican un cuerpo usando huesos encontrados, ¡ese es un antropólogo forense trabajando! No es solo ficción, es una profesión real.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box blue" id="box-aplicacion">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Principales áreas de aplicación</span></div>
+    <div class="quiz-score" id="score-aplicacion"></div>
+    <div class="qz-container" id="qz-aplicacion"></div>
+  </div>
+</div>
+
+<!-- PRACTICA TÚ: ACTIVIDADES DEL LIBRO -->
+<div id="practica">
+  <div class="sec-head green">
+    <div class="sec-num">📝</div>
+    <div class="sec-info">
+      <h2>Practica tú — Actividades finales de la Unidad</h2>
+      <p>Las mismas actividades del libro, para que las resuelvas y entregues</p>
+    </div>
+  </div>
+
+  <div class="activity-box">
+    <div class="activity-head"><span class="ac-ico">1️⃣</span><h4>Actividad 1</h4></div>
+    <div class="activity-item">
+      <div class="ai-title">Ensayo sobre la Antropología</div>
+      Realiza una breve investigación acerca de la Antropología y elabora un breve ensayo explicado con tus propias palabras que contenga los principales elementos que definen a la antropología.
+      <div class="ai-crit">Criterio de evaluación: se solicita un archivo en Word con la actividad descrita.</div>
+    </div>
+  </div>
+
+  <div class="activity-box">
+    <div class="activity-head"><span class="ac-ico">2️⃣</span><h4>Actividad 2</h4></div>
+    <div class="activity-item">
+      <div class="ai-title">Resumen del desarrollo histórico</div>
+      Elabora un resumen de una cuartilla acerca del desarrollo histórico de la Antropología; no olvides resaltar la importancia de los autores.
+      <div class="ai-crit">Criterio de evaluación: archivo en Word, con claridad en la redacción y ortografía. La tarea debe estar completa, ser clara y congruente con el tema.</div>
+    </div>
+  </div>
+
+  <div class="activity-box">
+    <div class="activity-head"><span class="ac-ico">3️⃣</span><h4>Actividad 3</h4></div>
+    <div class="activity-item">
+      <div class="ai-title">Ensayo sobre el objeto de estudio</div>
+      Redacta un pequeño ensayo sobre el objeto de estudio antropológico, identificando claramente los rasgos y características de dicho objeto.
+      <div class="ai-crit">Criterio de evaluación: se solicita un archivo en Word con la actividad descrita.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     RETOS FINALES
+═══════════════════════════════════ -->
+<div id="retos">
+  <div class="sec-head red">
+    <div class="sec-num">🏆</div>
+    <div class="sec-info">
+      <h2>Retos de repaso — Unidad I</h2>
+      <p>Pon a prueba todo lo aprendido sobre antropología</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="bubbles">
+      <div class="bubble blue"><div class="b-label">🔵 Reto 1 — Física o cultural</div><div class="b-main">Clasifica estos temas como "antropología física" o "antropología social/cultural": el color de ojos, las fiestas tradicionales, la estructura del esqueleto, el idioma que hablas.</div></div>
+      <div class="bubble green"><div class="b-label">🟢 Reto 2 — Elige tu técnica</div><div class="b-main">Si quisieras investigar las tradiciones de tu propia familia, ¿qué técnica usarías: entrevista, encuesta u observación? Explica por qué.</div></div>
+      <div class="bubble gold"><div class="b-label">🟡 Reto 3 — Identifica la rama</div><div class="b-main">Si encuentras un fósil de un antepasado humano de hace un millón de años, ¿qué rama de la antropología lo estudiaría?</div></div>
+      <div class="bubble purple"><div class="b-label">🟣 Reto 4 — BOSS LEVEL: Área de aplicación</div><div class="b-main">Describe una situación de tu comunidad donde se podría aplicar la antropología médica o la antropología forense.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- WORD BANK / GLOSARIO -->
+<div id="glosario" class="wb-section">
+  <div class="wb-title">GLOSARIO DE <span>TÉRMINOS</span></div>
+  <p class="wb-sub">Antropología · Unidad I · Copia: término → definición → tu propio ejemplo</p>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#5cb8f8">🗿 CONCEPTOS BÁSICOS</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Antropología</div><div class="es">Ciencia que estudia al ser humano en todos los lugares y épocas.</div></div>
+      <div class="wb-word"><div class="en">Antropología física/biológica</div><div class="es">Estudia la evolución biológica del ser humano.</div></div>
+      <div class="wb-word"><div class="en">Antropología social/cultural</div><div class="es">Estudia lengua, cultura y costumbres.</div></div>
+      <div class="wb-word"><div class="en">Holístico</div><div class="es">Que estudia algo de forma integral, considerando el todo.</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#86efac">🔬 MÉTODOS Y TÉCNICAS</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Empirismo</div><div class="es">Toma la experiencia como base del conocimiento.</div></div>
+      <div class="wb-word"><div class="en">Positivismo</div><div class="es">Observación, experimentación e inferencia.</div></div>
+      <div class="wb-word"><div class="en">Dialéctica</div><div class="es">Analiza fenómenos mediante tesis y antítesis.</div></div>
+      <div class="wb-word"><div class="en">Diario de campo</div><div class="es">Registro de lo observado durante la investigación.</div></div>
+      <div class="wb-word"><div class="en">Técnica genealógica</div><div class="es">Analiza el parentesco mediante símbolos.</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#fcd45c">🏛️ RAMAS Y APLICACIONES</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Arqueología</div><div class="es">Estudia pueblos del pasado mediante restos materiales.</div></div>
+      <div class="wb-word"><div class="en">Etnografía</div><div class="es">Describe costumbres de un grupo humano.</div></div>
+      <div class="wb-word"><div class="en">Paleoantropología</div><div class="es">Estudia a los homínidos y seres humanos originarios.</div></div>
+      <div class="wb-word"><div class="en">Primatología</div><div class="es">Estudia a los primates no humanos.</div></div>
+      <div class="wb-word"><div class="en">Antropología forense</div><div class="es">Identifica restos humanos para casos legales.</div></div>
+    </div>
+  </div>
+
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:16px 18px;font-size:13px;color:rgba(240,246,255,.65);margin-top:4px">
+    🎯 <strong style="color:#fff">Tarea — Unidad I de Antropología:</strong><br>
+    1. Resuelve las 3 Actividades Finales de Unidad en un archivo de Word.<br>
+    2. Explica con tus palabras la diferencia entre antropología física y antropología social/cultural, con un ejemplo de cada una.<br>
+    3. Elige 3 ramas de la antropología y describe en qué situación de la vida real se aplicarían.<br>
+    4. Entrevista a un familiar sobre una tradición de tu familia y redacta un párrafo describiéndola (practica la técnica de la entrevista).
+  </div>
+</div>
+
+</div><!-- /wrap -->
+<footer>Antropología · Unidad I — ¿Qué es Antropología?</footer>
+
+<script>
+/* ═══ QUIZ ENGINE ═══ */
+function initQuiz(containerId, scoreId, colorClass, questions){
+  const container = document.getElementById(containerId);
+  const scoreEl = document.getElementById(scoreId);
+  let answered = 0, correct = 0;
+  const total = questions.length;
+  scoreEl.textContent = `Progreso: 0 / ${total} respondidas`;
+
+  questions.forEach((qz, i) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'qz-question';
+
+    const qText = document.createElement('div');
+    qText.className = 'qz-qtext';
+    const tag = qz.type === 'tf'
+      ? '<span class="qz-tag" style="background:var(--'+colorClass+')">V / F</span>'
+      : '<span class="qz-tag" style="background:var(--'+colorClass+')">OPCIÓN MÚLTIPLE</span>';
+    qText.innerHTML = `<span class="qz-num">${i+1}.</span><span>${qz.q} ${tag}</span>`;
+    qDiv.appendChild(qText);
+
+    const optsDiv = document.createElement('div');
+    optsDiv.className = qz.type === 'tf' ? 'qz-tf-opts' : 'qz-opts';
+
+    const explainDiv = document.createElement('div');
+    explainDiv.className = 'qz-explain';
+    explainDiv.innerHTML = qz.exp;
+
+    const opts = qz.type === 'tf' ? ['Verdadero', 'Falso'] : qz.options;
+    const correctIdx = qz.type === 'tf' ? (qz.correct ? 0 : 1) : qz.correct;
+
+    opts.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'qz-opt';
+      btn.textContent = qz.type === 'tf' ? opt : String.fromCharCode(97 + idx) + ') ' + opt;
+      btn.onclick = () => {
+        if (qDiv.dataset.done) return;
+        qDiv.dataset.done = '1';
+        answered++;
+        if (idx === correctIdx) correct++;
+        Array.from(optsDiv.children).forEach((b, bi) => {
+          b.classList.add('disabled');
+          if (bi === correctIdx) b.classList.add('correct');
+          else if (bi === idx) b.classList.add('incorrect');
+        });
+        explainDiv.classList.add('show');
+        scoreEl.textContent = `Progreso: ${answered} / ${total} respondidas · ✅ ${correct} correctas`;
+      };
+      optsDiv.appendChild(btn);
+    });
+
+    qDiv.appendChild(optsDiv);
+    qDiv.appendChild(explainDiv);
+    container.appendChild(qDiv);
+  });
+}
+
+/* ===== 1.1 CONCEPTO DE ANTROPOLOGÍA ===== */
+initQuiz('qz-concepto','score-concepto','a1',[
+{type:'mc', q:'¿De qué palabras griegas proviene "antropología"?', options:['Bios y logos','Anthropos y logia','Physis y logos','Pathos y ethos'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'mc', q:'"Anthropos" significa:', options:['Estudio','Hombre','Vida','Ciencia'], correct:1, exp:'<b>Respuesta correcta: b) Hombre.</b>'},
+{type:'tf', q:'La antropología estudia al ser humano en todas las épocas y lugares.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'La antropología contiene dos grandes campos, que son:', options:['Física y matemática','Física (biológica) y social (cultural)','Solo social','Solo biológica'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'mc', q:'La antropología física o biológica se ocupa de:', options:['La evolución biológica y adaptación fisiológica del ser humano','Solo la lengua','Solo las costumbres','Solo la economía'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'La antropología social o cultural estudia las formas de evolución de la lengua, cultura y costumbres de las personas que viven en sociedad.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'¿Quién introdujo el término "cultura" en la antropología?', options:['Darwin','Edward B. Tylor','Karl Marx','Freud'], correct:1, exp:'<b>Respuesta correcta: b) Edward B. Tylor.</b>'},
+{type:'tf', q:'La antropología es la única ciencia que estudia al ser humano.', correct:false, exp:'<b>Falso.</b> La psicología, sociología e historia también lo estudian, aunque de forma distinta.'}
+]);
+
+/* ===== 1.2 OBJETO DE ESTUDIO ===== */
+initQuiz('qz-objeto','score-objeto','a2',[
+{type:'mc', q:'El objeto de estudio de la antropología es:', options:['Solo los huesos y piedras','La humanidad en todos los lugares y en todas las épocas','Solo las plantas','Solo los animales'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'Es común confundir a un antropólogo con alguien que solo trabaja con huesos y piedras.', correct:true, exp:'<b>Verdadero.</b> Eso corresponde más bien a la arqueología, que es solo una sub-área.'},
+{type:'mc', q:'La antropología ofrece una perspectiva:', options:['Solo biológica','Humanística, científica, biológica, histórica, psicológica y sociológica','Solo histórica','Solo psicológica'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'La arqueología es exactamente lo mismo que la antropología completa.', correct:false, exp:'<b>Falso.</b> La arqueología es una sub-área dentro de la antropología.'},
+{type:'mc', q:'La antropología se puede describir como un tipo de:', options:['Turismo intelectual','Deporte','Arte únicamente','Religión'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'La antropología permite comparar nuestras costumbres con las de otros, encontrando similitudes y diferencias.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'¿Qué otras disciplinas también han pretendido estudiar a la humanidad?', options:['Filosofía, historia, sociología y psicología','Solo la química','Solo la física','Ninguna'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'Observar culturas distintas a la nuestra puede servir para entretener, ilustrar y asombrarnos.', correct:true, exp:'<b>Verdadero.</b>'}
+]);
+
+/* ===== 1.3 PLANTEAMIENTOS TEÓRICO-METODOLÓGICOS ===== */
+initQuiz('qz-metodologico','score-metodologico','a3',[
+{type:'mc', q:'¿Por qué la antropología no puede usar la experimentación como las ciencias naturales?', options:['Por falta de interés','Por razones biológicas, legales y morales','Por falta de dinero','No es cierto, sí puede'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'mc', q:'El empirismo toma como base principal:', options:['La experiencia','Los números','La imaginación','La religión'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'El pragmatismo, propuesto por William James, valora el resultado práctico e inmediato de una idea.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'La comparación simétrica se da cuando los objetos comparados:', options:['Comparten la mayoría de sus elementos','No tienen nada en común','Son completamente opuestos','No se pueden comparar'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'mc', q:'El método positivista de Auguste Comte requiere pasar por las fases de:', options:['Observación, experimentación e inferencia','Solo observación','Solo inferencia','Ninguna fase específica'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'La técnica de la encuesta, cuando se hace por escrito con muchas preguntas, recibe el nombre de cuestionario.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'El diario de campo es:', options:['Un recurso que ya no se usa','El principal recurso que respalda al antropólogo para reconstruir el hecho social que estudia','Solo para biólogos','Un tipo de entrevista'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'La técnica genealógica se usa para analizar, mediante símbolos, la estructura doméstica y las relaciones de parentesco de una familia.', correct:true, exp:'<b>Verdadero.</b>'}
+]);
+
+/* ===== 1.4 RAMAS Y DISCIPLINAS ===== */
+initQuiz('qz-ramas','score-ramas','a4',[
+{type:'mc', q:'La Prehistoria estudia:', options:['Las sociedades que existieron antes de la escritura','Solo el presente','Solo los animales','Solo las plantas'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'mc', q:'Los arqueólogos estudian a los pueblos del pasado a través de:', options:['El análisis de restos materiales (cerámica, herramientas, huesos)','Solo entrevistas','Solo internet','Solo fotografías modernas'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'La antropología lingüística analiza la cultura a través de los sistemas de comunicación, principalmente el lenguaje.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'La etnografía es un método que describe:', options:['Las costumbres y tradiciones de un grupo humano','Solo las rocas','Solo las matemáticas','Solo la física'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'mc', q:'La antropología aplicada se encarga de:', options:['Hacer investigaciones que promuevan cambios socioeconómicos en las sociedades','Solo estudiar fósiles','Solo estudiar el lenguaje','Nada en particular'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'La paleontología estudia los seres vegetales y animales de periodos anteriores al actual, basándose en restos fósiles.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'La paleoantropología se enfoca en el estudio de:', options:['Los homínidos o seres humanos originarios y su desarrollo físico y social','Solo plantas','Solo rocas','Solo el clima'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'La primatología estudia a los primates contemporáneos no humanos, como monos y simios, para entender mejor al ser humano.', correct:true, exp:'<b>Verdadero.</b>'}
+]);
+
+/* ===== 1.5 RELACIÓN CON OTRAS CIENCIAS ===== */
+initQuiz('qz-relacion','score-relacion','a5',[
+{type:'mc', q:'¿Qué comparten la antropología y la sociología?', options:['Nada en común','Su interés en las relaciones, organización y comportamiento social','Solo el nombre','Solo la metodología estadística'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'Tradicionalmente, la sociología se enfocó en sociedades industrializadas y la antropología en sociedades no industriales.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'La antropología aporta a la psicología:', options:['Datos transculturales','Nada relevante','Solo matemáticas','Solo biología'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'mc', q:'La principal diferencia entre historia y antropología es que la historia investiga el pasado a través de documentos, mientras que la antropología:', options:['Se interesa por el presente mediante el conocimiento directo','No estudia nada','Solo estudia el futuro','Es idéntica a la historia'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'La antropología se relaciona con la ciencia política y la economía al estudiar sistemas políticos y económicos de diferentes culturas.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'La antropología y las humanidades comparten el interés por:', options:['La enculturación, proceso por el que se aprende y transmite la cultura','Solo los números','Solo la física','Nada'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'Un método clave compartido con la sociología moderna es la observación participante.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'La antropología se considera una ciencia:', options:['Completamente aislada de las demás','Autónoma pero con trabajos de carácter interdisciplinario','Inútil','Igual a la biología'], correct:1, exp:'<b>Respuesta correcta: b.</b>'}
+]);
+
+/* ===== 1.6 ÁREAS DE APLICACIÓN ===== */
+initQuiz('qz-aplicacion','score-aplicacion','a1',[
+{type:'mc', q:'La antropología médica se preocupa de:', options:['La relación proveedor de salud-paciente y los sistemas de salud','Solo las matemáticas','Solo la física','Nada relacionado con la salud'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'mc', q:'La antropología del desarrollo se encarga de:', options:['Generar y aplicar modelos de desarrollo social, económico y cultural','Solo estudiar fósiles','Solo el lenguaje','Nada'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'La antropología económica analiza la producción, distribución y consumo desde el punto de vista social y cultural.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'La antropología industrial se encarga del estudio de:', options:['Las organizaciones industriales, su desarrollo e innovación','Solo el clima','Solo la historia antigua','Nada relacionado con empresas'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'La antropología y el medioambiente miden el impacto ambiental de proyectos sobre determinadas áreas.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'La antropología forense facilita:', options:['Los peritajes para identificar restos humanos en casos legales','Solo el estudio de plantas','Solo matemáticas','Nada relevante'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'La antropología forense puede ayudar a esclarecer hechos ante un juicio.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'¿Cuál de estas NO es un área de aplicación mencionada de la antropología?', options:['Antropología médica','Antropología forense','Antropología espacial','Antropología industrial'], correct:2, exp:'<b>Respuesta correcta: c) Antropología espacial.</b> No se mencionó como área de aplicación.'}
+]);
+</script>
+</body>
+</html>
