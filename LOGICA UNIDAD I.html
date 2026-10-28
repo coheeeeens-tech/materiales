@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lógica — Unidades I y II</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f4f8;--surface:#fff;--border:#c0d0e0;
+  --ink:#061828;--muted:#3a5a78;
+  --a1:#1a4fc4;--a2:#c41a1a;--a3:#1a9a5c;--a4:#b8860b;--a5:#7a1ac4;
+  --a1l:#e8eef9;--a2l:#fdeaea;--a3l:#e3f4e8;--a4l:#fff8e1;--a5l:#f0e8fb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;line-height:1.7;}
+
+.hero{background:var(--ink);color:#f0f6ff;padding:56px 48px 48px;position:relative;overflow:hidden;}
+.hero::after{content:'🧠';font-size:220px;position:absolute;right:20px;bottom:-30px;line-height:1;pointer-events:none;opacity:.06;}
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.unit-badge{background:var(--a1);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:4px 14px;border-radius:4px;}
+.subject-tag{font-size:12px;font-weight:500;color:rgba(240,246,255,0.45);letter-spacing:2px;text-transform:uppercase;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,8vw,5rem);line-height:.92;letter-spacing:1px;margin-bottom:16px;}
+.hero h1 span{color:#5cb8f8;}
+.hero-desc{max-width:560px;font-size:15px;color:rgba(240,246,255,0.6);margin-bottom:32px;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:10px;}
+.pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;}
+.pill-dot{width:8px;height:8px;border-radius:50%;}
+
+.nav-strip{background:var(--a1);display:flex;overflow-x:auto;position:sticky;top:0;z-index:10;}
+.nav-strip a{color:rgba(255,255,255,.75);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:12px 20px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.15);transition:all .2s;}
+.nav-strip a:hover{background:rgba(255,255,255,.12);color:#fff;}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 28px 100px;}
+
+.unit-divider{display:flex;align-items:center;gap:16px;margin:72px 0 10px;}
+.unit-divider .ud-badge{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:3px;background:var(--ink);color:#fff;padding:8px 20px;border-radius:100px;flex-shrink:0;}
+.unit-divider .ud-line{height:2px;background:var(--border);flex:1;}
+
+.sec-head{display:flex;align-items:flex-start;margin:40px 0 24px;border-left:5px solid var(--a1);padding-left:18px;}
+.sec-head.red{border-color:var(--a2);} .sec-head.green{border-color:var(--a3);} .sec-head.gold{border-color:var(--a4);} .sec-head.purple{border-color:var(--a5);}
+.sec-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--a1);margin-right:14px;flex-shrink:0;}
+.sec-head.red .sec-num{color:var(--a2);} .sec-head.green .sec-num{color:var(--a3);} .sec-head.gold .sec-num{color:var(--a4);} .sec-head.purple .sec-num{color:var(--a5);}
+.sec-info h2{font-family:'Bebas Neue',sans-serif;font-size:1.85rem;letter-spacing:.5px;line-height:1.1;}
+.sec-info p{font-size:13px;color:var(--muted);font-weight:500;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 26px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.card-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+.concept-box{border-radius:12px;padding:18px 22px;margin:12px 0;text-align:center;}
+.concept-box.blue{background:linear-gradient(135deg,#061828,#1a4fc4);}
+.concept-box.red{background:linear-gradient(135deg,#2a0a0a,#c41a1a);}
+.concept-box.green{background:linear-gradient(135deg,#0a2a18,#1a9a5c);}
+.concept-box.gold{background:linear-gradient(135deg,#2a1800,#b8860b);}
+.concept-box.purple{background:linear-gradient(135deg,#1a0a2a,#7a1ac4);}
+.concept-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;color:#fff;margin-bottom:6px;}
+.concept-def{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;}
+
+.tip{border-radius:10px;padding:13px 16px;font-size:13.5px;margin-top:14px;display:flex;gap:10px;align-items:flex-start;}
+.tip.blue{background:rgba(26,79,196,.08);border-left:3px solid var(--a1);}
+.tip.red{background:rgba(196,26,26,.08);border-left:3px solid var(--a2);}
+.tip.green{background:rgba(26,154,92,.08);border-left:3px solid var(--a3);}
+.tip.gold{background:rgba(184,134,11,.08);border-left:3px solid var(--a4);}
+.tip.purple{background:rgba(122,26,196,.08);border-left:3px solid var(--a5);}
+.tip-ico{font-size:18px;flex-shrink:0;margin-top:1px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px;}
+@media(max-width:600px){.two-col,.three-col,.char-grid{grid-template-columns:1fr;}}
+
+.mini-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.mini-card .mc-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.mini-card .mc-val{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.5px;}
+.mini-card .mc-body{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.55;}
+
+.char-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+.char-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;border-left:4px solid var(--a1);}
+.char-card.red{border-color:var(--a2);}.char-card.green{border-color:var(--a3);}.char-card.gold{border-color:var(--a4);}.char-card.purple{border-color:var(--a5);}
+.char-card .cc-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.5px;margin-bottom:6px;}
+.char-card .cc-title.blue{color:var(--a1);}.char-card .cc-title.red{color:var(--a2);}.char-card .cc-title.green{color:var(--a3);}.char-card .cc-title.gold{color:var(--a4);}.char-card .cc-title.purple{color:var(--a5);}
+.char-card .cc-body{font-size:13px;line-height:1.6;}
+.char-card .cc-ex{font-size:12px;margin-top:8px;padding:6px 10px;border-radius:6px;font-style:italic;}
+.char-card .cc-ex.blue{background:var(--a1l);color:var(--a1);}.char-card .cc-ex.red{background:var(--a2l);color:var(--a2);}
+.char-card .cc-ex.green{background:var(--a3l);color:var(--a3);}.char-card .cc-ex.gold{background:var(--a4l);color:var(--a4);}
+.char-card .cc-ex.purple{background:var(--a5l);color:var(--a5);}
+
+.stab{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+.stab th{text-align:left;padding:9px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid;background:rgba(0,0,0,.02);}
+.stab.blue th{color:var(--a1);border-color:var(--a1);}
+.stab.red th{color:var(--a2);border-color:var(--a2);}
+.stab.green th{color:var(--a3);border-color:var(--a3);}
+.stab.gold th{color:var(--a4);border-color:var(--a4);}
+.stab.purple th{color:var(--a5);border-color:var(--a5);}
+.stab td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.stab tr:last-child td{border-bottom:none;}
+.stab tr:nth-child(even) td{background:rgba(0,0,0,.015);}
+
+.solved{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.solved-head{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--border);}
+.solved-badge{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:1.5px;padding:3px 10px;border-radius:4px;color:#fff;flex-shrink:0;}
+.bg-blue{background:var(--a1);}.bg-red{background:var(--a2);}.bg-green{background:var(--a3);}.bg-gold{background:var(--a4);}.bg-purple{background:var(--a5);}
+.solved-title{font-weight:700;font-size:14px;}
+.solved-body{padding:18px 20px;}
+.paso-grid{display:flex;flex-direction:column;gap:8px;}
+.paso{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:11px 14px;}
+.paso-num{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;line-height:1;flex-shrink:0;width:28px;}
+.paso-body .p-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;}
+.paso-body .p-op{font-size:14px;font-weight:600;}
+.resultado-box{border-radius:10px;padding:12px 16px;margin-top:12px;display:flex;gap:10px;align-items:center;}
+.resultado-box.blue{background:rgba(26,79,196,.08);border:1px solid rgba(26,79,196,.2);}
+.resultado-box.red{background:rgba(196,26,26,.08);border:1px solid rgba(196,26,26,.2);}
+.resultado-box.green{background:rgba(26,154,92,.08);border:1px solid rgba(26,154,92,.2);}
+.resultado-box.gold{background:rgba(184,134,11,.08);border:1px solid rgba(184,134,11,.2);}
+.resultado-box.purple{background:rgba(122,26,196,.08);border:1px solid rgba(122,26,196,.2);}
+.res-ico{font-size:22px;flex-shrink:0;}
+.res-body .res-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.res-body .res-val{font-size:14px;font-weight:700;}
+
+.bubbles{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.bubble{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 16px;}
+.bubble .b-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.bubble .b-main{font-weight:600;font-size:14px;margin-bottom:3px;}
+.bubble .b-sub{font-size:12.5px;color:var(--muted);}
+
+.wb-section{background:var(--ink);color:#f0f6ff;border-radius:16px;padding:32px;margin-top:60px;}
+.wb-title{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:1px;margin-bottom:6px;}
+.wb-title span{color:#5cb8f8;}
+.wb-sub{color:rgba(240,246,255,.5);font-size:13.5px;margin-bottom:28px;}
+.wb-group{margin-bottom:28px;}
+.wb-group-title{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:2px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:12px;}
+.wb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.wb-word{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;}
+.wb-word .en{font-weight:700;font-size:13.5px;margin-bottom:2px;}
+.wb-word .es{font-size:12px;color:rgba(240,246,255,.55);}
+
+footer{text-align:center;padding:28px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--border);margin-top:20px;}
+
+/* ═══ QUIZ INTERACTIVO ═══ */
+.quiz-box{background:var(--surface);border:2px dashed var(--border);border-radius:14px;padding:20px 22px;margin:8px 0 32px;}
+.quiz-box.blue{border-color:var(--a1);}.quiz-box.red{border-color:var(--a2);}
+.quiz-box.green{border-color:var(--a3);}.quiz-box.gold{border-color:var(--a4);}
+.quiz-box.purple{border-color:var(--a5);}
+.quiz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.quiz-head .qz-ico{font-size:1.5rem;}
+.quiz-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.5px;}
+.quiz-head span.qz-sub{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+.quiz-score{font-size:12px;font-weight:700;margin-bottom:14px;color:var(--muted);}
+.qz-question{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.qz-question:last-child{margin-bottom:0;}
+.qz-qtext{font-weight:600;font-size:13.5px;margin-bottom:10px;display:flex;gap:8px;align-items:flex-start;}
+.qz-qtext .qz-num{font-family:'Bebas Neue',sans-serif;flex-shrink:0;font-size:1.05rem;line-height:1.3;}
+.qz-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle;}
+.qz-opts{display:flex;flex-direction:column;gap:6px;}
+.qz-tf-opts{display:flex;gap:8px;}
+.qz-opt{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-size:13px;cursor:pointer;text-align:left;transition:all .15s;font-family:inherit;color:var(--ink);}
+.qz-tf-opts .qz-opt{flex:1;text-align:center;font-weight:600;}
+.qz-opt:hover:not(.disabled){background:var(--a1l);border-color:var(--a1);}
+.qz-opt.correct{background:rgba(26,154,92,.18);border-color:var(--a3);font-weight:700;color:#0a4a2a;}
+.qz-opt.incorrect{background:rgba(196,26,26,.18);border-color:var(--a2);font-weight:700;color:#7a1414;}
+.qz-opt.disabled{cursor:default;}
+.qz-explain{font-size:12.5px;margin-top:9px;padding:9px 13px;border-radius:8px;background:rgba(0,0,0,.04);display:none;line-height:1.5;}
+.qz-explain.show{display:block;}
+.qz-explain b{color:var(--a3);}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="unit-badge">UNIDADES I Y II</div>
+    <div class="subject-tag">Lógica · 5to Trimestre</div>
+  </div>
+  <h1>LÓGICA<br><span>EL ARTE DE RAZONAR BIEN</span></h1>
+  <p class="hero-desc">Todos los días usamos la lógica sin darnos cuenta: cuando decidimos qué ropa llevar según el clima, o cuando detectamos que un argumento "no tiene sentido". En esta presentación aprenderás a reconocer, analizar y construir argumentos correctos, con ejemplos muy fáciles y cotidianos.</p>
+  <div class="hero-pills">
+    <div class="pill"><div class="pill-dot" style="background:#5cb8f8"></div>1.1 Definición y objeto de estudio</div>
+    <div class="pill"><div class="pill-dot" style="background:#ff8fa0"></div>1.2 Los argumentos</div>
+    <div class="pill"><div class="pill-dot" style="background:#86efac"></div>1.3 Enfoques lógicos</div>
+    <div class="pill"><div class="pill-dot" style="background:#fcd45c"></div>1.4 Inferencias y falacias</div>
+    <div class="pill"><div class="pill-dot" style="background:#c4b5fd"></div>2.1 Proposiciones</div>
+    <div class="pill"><div class="pill-dot" style="background:#5cb8f8"></div>2.2 Clasificación de proposiciones</div>
+    <div class="pill"><div class="pill-dot" style="background:#ff8fa0"></div>2.3 Conectivas lógicas</div>
+    <div class="pill"><div class="pill-dot" style="background:#86efac"></div>2.4 Simbolización</div>
+    <div class="pill"><div class="pill-dot" style="background:#fcd45c"></div>2.5 Tablas de verdad</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-strip">
+  <a href="#def-logica">1.1 Definición</a>
+  <a href="#argumentos">1.2 Argumentos</a>
+  <a href="#enfoques">1.3 Enfoques</a>
+  <a href="#inferencias">1.4 Inferencias/Falacias</a>
+  <a href="#proposiciones">2.1 Proposiciones</a>
+  <a href="#clasificacion">2.2 Clasificación</a>
+  <a href="#conectivas">2.3 Conectivas</a>
+  <a href="#simbolizacion">2.4 Simbolización</a>
+  <a href="#tablasverdad">2.5 Tablas de verdad</a>
+  <a href="#retos">Retos</a>
+  <a href="#glosario">Glosario</a>
+</div>
+
+<div class="wrap">
+
+<!-- ═══════════════════════════════════
+     UNIDAD I
+═══════════════════════════════════ -->
+<div class="unit-divider"><div class="ud-badge">UNIDAD I</div><div class="ud-line"></div></div>
+
+<!-- 1.1 DEFINICIÓN, CLASIFICACIÓN Y OBJETO DE ESTUDIO -->
+<div id="def-logica">
+  <div class="sec-head blue">
+    <div class="sec-num">1.1</div>
+    <div class="sec-info">
+      <h2>Definición, clasificación y objeto de estudio de la lógica</h2>
+      <p>Qué es la lógica y de qué se encarga exactamente</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">¿Qué es la lógica?</div>
+    <div class="concept-box blue">
+      <div class="concept-title">LÓGICA</div>
+      <div class="concept-def">Ciencia que estudia los métodos y principios para distinguir el razonamiento correcto del incorrecto. Viene del griego <em>logos</em> (razón, palabra).</div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">⚽</span>
+      <span><strong>Ejemplo fácil:</strong> la lógica es como un árbitro de futbol. No le importa qué equipo juega (el contenido), solo si se respetaron las reglas del juego (la forma del razonamiento).</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Clasificación de la lógica</div>
+    <div class="two-col">
+      <div class="mini-card"><div class="mc-label" style="color:var(--a1)">Lógica formal</div><div class="mc-val">La estructura</div><div class="mc-body">Estudia la forma de los argumentos, sin importar de qué tratan.</div></div>
+      <div class="mini-card"><div class="mc-label" style="color:var(--a1)">Lógica informal (material)</div><div class="mc-val">El contenido</div><div class="mc-body">Estudia el contenido y contexto real de los argumentos cotidianos.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Objeto de estudio</div>
+    <div class="concept-def">El objeto de estudio de la lógica es el <strong>razonamiento</strong>: cómo pasamos de unas ideas (premisas) a una conclusión, y si ese paso es correcto o no.</div>
+  </div>
+
+  <div class="quiz-box blue" id="box-def-logica">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Definición, clasificación y objeto de estudio de la lógica</span></div>
+    <div class="quiz-score" id="score-def-logica"></div>
+    <div class="qz-container" id="qz-def-logica"></div>
+  </div>
+</div>
+
+<!-- 1.2 DEFINICIÓN Y PROPÓSITO DE LOS ARGUMENTOS -->
+<div id="argumentos">
+  <div class="sec-head red">
+    <div class="sec-num">1.2</div>
+    <div class="sec-info">
+      <h2>Definición y propósito de los argumentos</h2>
+      <p>Las piezas con las que se construye todo razonamiento</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">¿Qué es un argumento?</div>
+    <div class="concept-box red">
+      <div class="concept-title">ARGUMENTO</div>
+      <div class="concept-def">Conjunto de proposiciones donde una de ellas (la <strong>conclusión</strong>) se pretende que se siga de las demás (las <strong>premisas</strong>).</div>
+    </div>
+    <div class="tip red">
+      <span class="tip-ico">🐕</span>
+      <span><strong>Ejemplo fácil:</strong> "Todos los perros son animales. Rex es un perro. <strong>Por lo tanto</strong>, Rex es un animal." Las dos primeras oraciones son las premisas; la última, después de "por lo tanto", es la conclusión.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Propósito de un argumento</div>
+    <div class="concept-def">Un argumento busca <strong>persuadir, justificar o demostrar</strong> algo mediante razones (premisas), no solo afirmarlo sin sustento.</div>
+    <div class="tip red">
+      <span class="tip-ico">🔍</span>
+      <span><strong>Pista:</strong> palabras como "por lo tanto", "entonces", "en consecuencia" o "luego" suelen anunciar la conclusión de un argumento.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box red" id="box-argumentos">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Definición y propósito de los argumentos</span></div>
+    <div class="quiz-score" id="score-argumentos"></div>
+    <div class="qz-container" id="qz-argumentos"></div>
+  </div>
+</div>
+
+<!-- 1.3 ENFOQUES LÓGICOS -->
+<div id="enfoques">
+  <div class="sec-head green">
+    <div class="sec-num">1.3</div>
+    <div class="sec-info">
+      <h2>Enfoques lógicos en el análisis de argumentos</h2>
+      <p>Dos caminos distintos para llegar a una conclusión</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Deductivo vs. Inductivo</div>
+    <div class="char-grid">
+      <div class="char-card green">
+        <div class="cc-title green">DEDUCTIVO</div>
+        <div class="cc-body">Va de lo general a lo particular. Si las premisas son verdaderas, la conclusión es <strong>necesariamente</strong> verdadera.</div>
+        <div class="cc-ex green">"Todos los hombres son mortales. Sócrates es hombre. Por lo tanto, Sócrates es mortal."</div>
+      </div>
+      <div class="char-card blue">
+        <div class="cc-title blue">INDUCTIVO</div>
+        <div class="cc-body">Va de lo particular a lo general. Ofrece <strong>probabilidad</strong>, no certeza absoluta.</div>
+        <div class="cc-ex blue">"El sol ha salido todos los días de mi vida. Por lo tanto, saldrá mañana."</div>
+      </div>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">🔬</span>
+      <span><strong>Ejemplo fácil:</strong> la ciencia suele usar el razonamiento inductivo al observar muchos casos repetidos (como experimentos), mientras que las matemáticas usan sobre todo el razonamiento deductivo.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box green" id="box-enfoques">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Enfoques lógicos en el análisis de argumentos</span></div>
+    <div class="quiz-score" id="score-enfoques"></div>
+    <div class="qz-container" id="qz-enfoques"></div>
+  </div>
+</div>
+
+<!-- 1.4 INFERENCIAS Y FALACIAS -->
+<div id="inferencias">
+  <div class="sec-head gold">
+    <div class="sec-num">1.4</div>
+    <div class="sec-info">
+      <h2>Inferencias y falacias</h2>
+      <p>Cómo sacar conclusiones correctamente — y cómo detectar errores</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Inferencia</div>
+    <div class="concept-box gold">
+      <div class="concept-title">INFERENCIA</div>
+      <div class="concept-def">Proceso mental de obtener una conclusión a partir de una o varias premisas.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Falacias comunes</div>
+    <div class="concept-def" style="margin-bottom:10px">Una <strong>falacia</strong> es un error de razonamiento que parece válido, pero no lo es.</div>
+    <table class="stab gold">
+      <tr><th>Falacia</th><th>En qué consiste</th><th>Ejemplo fácil</th></tr>
+      <tr><td>Ad hominem</td><td>Atacar a la persona en vez de su argumento.</td><td>"No le creas, si ni siquiera terminó la escuela."</td></tr>
+      <tr><td>Falsa causa</td><td>Pensar que porque A pasó antes de B, A causó B.</td><td>"Usé mis tenis de la suerte y gané, por eso siempre los uso."</td></tr>
+      <tr><td>Generalización apresurada</td><td>Concluir algo general con muy pocos casos.</td><td>"Conocí a dos personas de ese equipo y eran groseras, todos deben serlo."</td></tr>
+    </table>
+    <div class="tip gold">
+      <span class="tip-ico">🕵️</span>
+      <span><strong>¿Por qué importa?</strong> Detectar falacias te ayuda a no dejarte convencer por argumentos que suenan bien, pero que en realidad están mal construidos.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box gold" id="box-inferencias">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Inferencias y falacias</span></div>
+    <div class="quiz-score" id="score-inferencias"></div>
+    <div class="qz-container" id="qz-inferencias"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     UNIDAD II
+═══════════════════════════════════ -->
+<div class="unit-divider"><div class="ud-badge">UNIDAD II</div><div class="ud-line"></div></div>
+
+<!-- 2.1 PROPOSICIONES, ENUNCIADOS Y ORACIONES -->
+<div id="proposiciones">
+  <div class="sec-head purple">
+    <div class="sec-num">2.1</div>
+    <div class="sec-info">
+      <h2>Proposiciones, enunciados y oraciones</h2>
+      <p>No todo lo que decimos puede ser verdadero o falso</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Tres conceptos relacionados</div>
+    <table class="stab purple">
+      <tr><th>Concepto</th><th>Definición</th><th>Ejemplo</th></tr>
+      <tr><td>Oración</td><td>Unidad gramatical con sentido completo.</td><td>"¿Qué hora es?"</td></tr>
+      <tr><td>Enunciado</td><td>Oración usada en un contexto específico.</td><td>"Son las 3 de la tarde."</td></tr>
+      <tr><td>Proposición</td><td>Enunciado declarativo que PUEDE ser verdadero o falso (solo uno de los dos).</td><td>"La Tierra es redonda." (verdadera)</td></tr>
+    </table>
+    <div class="tip purple">
+      <span class="tip-ico">❓</span>
+      <span><strong>Ejemplo fácil:</strong> "¿Cómo te llamas?" y "¡Cierra la puerta!" son oraciones, pero NO son proposiciones, porque no tiene sentido decir si son verdaderas o falsas. En cambio, "El cielo es azul" sí es una proposición.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box purple" id="box-proposiciones">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Proposiciones, enunciados y oraciones</span></div>
+    <div class="quiz-score" id="score-proposiciones"></div>
+    <div class="qz-container" id="qz-proposiciones"></div>
+  </div>
+</div>
+
+<!-- 2.2 CLASIFICACIÓN DE PROPOSICIONES -->
+<div id="clasificacion">
+  <div class="sec-head blue">
+    <div class="sec-num">2.2</div>
+    <div class="sec-info">
+      <h2>Clasificación de proposiciones</h2>
+      <p>Simples contra compuestas</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Dos tipos de proposiciones</div>
+    <div class="two-col">
+      <div class="mini-card"><div class="mc-label" style="color:var(--a1)">Simple (atómica)</div><div class="mc-val">Una sola idea</div><div class="mc-body">No usa conectivas lógicas. Ejemplo: "Llueve."</div></div>
+      <div class="mini-card"><div class="mc-label" style="color:var(--a1)">Compuesta (molecular)</div><div class="mc-val">Dos o más ideas</div><div class="mc-body">Dos o más proposiciones simples unidas por conectivas. Ejemplo: "Llueve y hace frío."</div></div>
+    </div>
+  </div>
+
+  <div class="quiz-box blue" id="box-clasificacion">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Clasificación de proposiciones</span></div>
+    <div class="quiz-score" id="score-clasificacion"></div>
+    <div class="qz-container" id="qz-clasificacion"></div>
+  </div>
+</div>
+
+<!-- 2.3 CONECTIVAS LÓGICAS -->
+<div id="conectivas">
+  <div class="sec-head red">
+    <div class="sec-num">2.3</div>
+    <div class="sec-info">
+      <h2>Conectivas lógicas</h2>
+      <p>Las "piezas" que unen proposiciones simples</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Las 5 conectivas principales</div>
+    <table class="stab red">
+      <tr><th>Conectiva</th><th>Símbolo</th><th>Significa</th><th>Ejemplo</th></tr>
+      <tr><td>Negación</td><td>¬</td><td>No</td><td>¬p = "No llueve"</td></tr>
+      <tr><td>Conjunción</td><td>∧</td><td>Y</td><td>p ∧ q = "Llueve y hace frío"</td></tr>
+      <tr><td>Disyunción</td><td>∨</td><td>O</td><td>p ∨ q = "Estudio o trabajo"</td></tr>
+      <tr><td>Condicional</td><td>→</td><td>Si... entonces</td><td>p → q = "Si estudio, entonces apruebo"</td></tr>
+      <tr><td>Bicondicional</td><td>↔</td><td>Si y solo si</td><td>p ↔ q = "Apruebo si y solo si estudio"</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">🧩</span>
+      <span><strong>Ejemplo fácil:</strong> piensa en las conectivas como piezas de LEGO que unen ideas sencillas para formar ideas más complejas.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box red" id="box-conectivas">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Conectivas lógicas</span></div>
+    <div class="quiz-score" id="score-conectivas"></div>
+    <div class="qz-container" id="qz-conectivas"></div>
+  </div>
+</div>
+
+<!-- 2.4 SIMBOLIZACIÓN -->
+<div id="simbolizacion">
+  <div class="sec-head green">
+    <div class="sec-num">2.4</div>
+    <div class="sec-info">
+      <h2>Simbolización de proposiciones y argumentos</h2>
+      <p>Traducir el lenguaje cotidiano al lenguaje de la lógica</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">¿Cómo se simboliza?</div>
+    <div class="concept-def" style="margin-bottom:10px">Cada proposición simple se representa con una letra minúscula (p, q, r...) y se combinan usando los símbolos de las conectivas.</div>
+  </div>
+
+  <div class="solved">
+    <div class="solved-head">
+      <div class="solved-badge bg-green">EJEMPLO FÁCIL</div>
+      <div class="solved-title">✏️ Simbolizar "Si estudio, entonces apruebo"</div>
+    </div>
+    <div class="solved-body">
+      <div class="paso-grid">
+        <div class="paso"><div class="paso-num" style="color:var(--a3)">1</div><div class="paso-body"><div class="p-label" style="color:var(--a3)">Identificar las proposiciones simples</div><div class="p-op">p: "Estudio" · q: "Apruebo"</div></div></div>
+        <div class="paso"><div class="paso-num" style="color:var(--a3)">2</div><div class="paso-body"><div class="p-label" style="color:var(--a3)">Identificar la conectiva</div><div class="p-op">"Si... entonces" = condicional (→)</div></div></div>
+      </div>
+      <div class="resultado-box green"><div class="res-ico">✅</div><div class="res-body"><div class="res-label">Resultado</div><div class="res-val">p → q</div></div></div>
+    </div>
+  </div>
+
+  <div class="quiz-box green" id="box-simbolizacion">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Simbolización de proposiciones y argumentos</span></div>
+    <div class="quiz-score" id="score-simbolizacion"></div>
+    <div class="qz-container" id="qz-simbolizacion"></div>
+  </div>
+</div>
+
+<!-- 2.5 TABLAS DE VERDAD -->
+<div id="tablasverdad">
+  <div class="sec-head gold">
+    <div class="sec-num">2.5</div>
+    <div class="sec-info">
+      <h2>Valor de certeza funcional y tablas de verdad</h2>
+      <p>Cómo saber si una proposición compuesta es verdadera o falsa</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">¿Qué es una tabla de verdad?</div>
+    <div class="concept-box gold">
+      <div class="concept-title">TABLA DE VERDAD</div>
+      <div class="concept-def">Muestra TODOS los posibles valores de verdad (V/F) de una proposición compuesta, según los valores de sus proposiciones simples.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Reglas de cada conectiva</div>
+    <table class="stab gold">
+      <tr><th>Conectiva</th><th>Es verdadera cuando...</th></tr>
+      <tr><td>Conjunción (p ∧ q)</td><td>Ambas son verdaderas.</td></tr>
+      <tr><td>Disyunción (p ∨ q)</td><td>Al menos una es verdadera.</td></tr>
+      <tr><td>Negación (¬p)</td><td>Invierte el valor: V se vuelve F, y F se vuelve V.</td></tr>
+      <tr><td>Condicional (p → q)</td><td>Siempre, EXCEPTO cuando p es verdadera y q es falsa.</td></tr>
+      <tr><td>Bicondicional (p ↔ q)</td><td>Ambas tienen el mismo valor (las dos V o las dos F).</td></tr>
+    </table>
+    <div class="tip gold">
+      <span class="tip-ico">🎲</span>
+      <span><strong>Ejemplo fácil:</strong> con 2 proposiciones (p y q), hay 4 combinaciones posibles de verdadero/falso (VV, VF, FV, FF) — por eso la tabla de verdad de 2 variables siempre tiene 4 filas.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box gold" id="box-tablasverdad">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Valor de certeza funcional y tablas de verdad</span></div>
+    <div class="quiz-score" id="score-tablasverdad"></div>
+    <div class="qz-container" id="qz-tablasverdad"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     RETOS FINALES
+═══════════════════════════════════ -->
+<div id="retos">
+  <div class="sec-head blue">
+    <div class="sec-num">🏆</div>
+    <div class="sec-info">
+      <h2>Retos de repaso — Unidades I y II</h2>
+      <p>Pon a prueba todo lo aprendido sobre lógica</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="bubbles">
+      <div class="bubble blue"><div class="b-label">🔵 Reto 1 — Identifica el argumento</div><div class="b-main">Escribe un argumento sencillo de tu vida diaria con premisas y conclusión, y señala cuál es cuál.</div></div>
+      <div class="bubble green"><div class="b-label">🟢 Reto 2 — Deductivo o inductivo</div><div class="b-main">Escribe un ejemplo de razonamiento deductivo y otro de razonamiento inductivo.</div></div>
+      <div class="bubble gold"><div class="b-label">🟡 Reto 3 — Detecta la falacia</div><div class="b-main">Inventa un ejemplo de la falacia "ad hominem" y explica por qué es un error de razonamiento.</div></div>
+      <div class="bubble purple"><div class="b-label">🟣 Reto 4 — BOSS LEVEL: Simboliza y evalúa</div><div class="b-main">Toma la proposición "Si llueve, entonces no voy al parque" (p: llueve, q: voy al parque), simbolízala, y construye su tabla de verdad completa.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- WORD BANK / GLOSARIO -->
+<div id="glosario" class="wb-section">
+  <div class="wb-title">GLOSARIO DE <span>TÉRMINOS</span></div>
+  <p class="wb-sub">Lógica · Unidades I y II · Copia: término → definición → tu propio ejemplo</p>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#5cb8f8">🧠 UNIDAD I — RAZONAMIENTO Y ARGUMENTOS</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Lógica</div><div class="es">Ciencia que estudia los métodos para distinguir el razonamiento correcto del incorrecto.</div></div>
+      <div class="wb-word"><div class="en">Lógica formal</div><div class="es">Estudia la forma o estructura de los argumentos.</div></div>
+      <div class="wb-word"><div class="en">Lógica informal</div><div class="es">Estudia el contenido de los argumentos cotidianos.</div></div>
+      <div class="wb-word"><div class="en">Argumento</div><div class="es">Conjunto de premisas que buscan apoyar una conclusión.</div></div>
+      <div class="wb-word"><div class="en">Premisa</div><div class="es">Proposición de la cual se parte para apoyar una conclusión.</div></div>
+      <div class="wb-word"><div class="en">Conclusión</div><div class="es">Lo que se pretende que se siga de las premisas.</div></div>
+      <div class="wb-word"><div class="en">Razonamiento deductivo</div><div class="es">Va de lo general a lo particular; ofrece certeza.</div></div>
+      <div class="wb-word"><div class="en">Razonamiento inductivo</div><div class="es">Va de lo particular a lo general; ofrece probabilidad.</div></div>
+      <div class="wb-word"><div class="en">Inferencia</div><div class="es">Proceso de obtener una conclusión a partir de premisas.</div></div>
+      <div class="wb-word"><div class="en">Falacia</div><div class="es">Error de razonamiento que parece válido sin serlo.</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#ff8fa0">🔤 UNIDAD II — PROPOSICIONES Y CONECTIVAS</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Oración</div><div class="es">Unidad gramatical con sentido completo.</div></div>
+      <div class="wb-word"><div class="en">Enunciado</div><div class="es">Oración usada en un contexto específico.</div></div>
+      <div class="wb-word"><div class="en">Proposición</div><div class="es">Enunciado declarativo que puede ser verdadero o falso.</div></div>
+      <div class="wb-word"><div class="en">Proposición simple</div><div class="es">Una sola idea, sin conectivas (también llamada atómica).</div></div>
+      <div class="wb-word"><div class="en">Proposición compuesta</div><div class="es">Dos o más proposiciones unidas por conectivas (también llamada molecular).</div></div>
+      <div class="wb-word"><div class="en">Negación (¬)</div><div class="es">"No"; invierte el valor de verdad.</div></div>
+      <div class="wb-word"><div class="en">Conjunción (∧)</div><div class="es">"Y"; verdadera solo si ambas son verdaderas.</div></div>
+      <div class="wb-word"><div class="en">Disyunción (∨)</div><div class="es">"O"; verdadera si al menos una es verdadera.</div></div>
+      <div class="wb-word"><div class="en">Condicional (→)</div><div class="es">"Si... entonces"; falsa solo cuando p es V y q es F.</div></div>
+      <div class="wb-word"><div class="en">Bicondicional (↔)</div><div class="es">"Si y solo si"; verdadera cuando ambas tienen el mismo valor.</div></div>
+      <div class="wb-word"><div class="en">Simbolización</div><div class="es">Representar proposiciones con letras y símbolos lógicos.</div></div>
+      <div class="wb-word"><div class="en">Tabla de verdad</div><div class="es">Muestra todos los valores posibles de una proposición compuesta.</div></div>
+    </div>
+  </div>
+
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:16px 18px;font-size:13px;color:rgba(240,246,255,.65);margin-top:4px">
+    🎯 <strong style="color:#fff">Tarea — Unidades I y II de Lógica:</strong><br>
+    1. Escribe 3 argumentos de tu vida diaria y señala sus premisas y conclusión.<br>
+    2. Clasifica 5 oraciones como proposiciones o no proposiciones, explicando por qué.<br>
+    3. Simboliza 5 proposiciones compuestas usando p, q y las conectivas lógicas.<br>
+    4. Construye la tabla de verdad completa de p ∧ q y de p → q.
+  </div>
+</div>
+
+</div><!-- /wrap -->
+<footer>Lógica · Unidades I y II · 5to Trimestre</footer>
+
+<script>
+/* ═══ QUIZ ENGINE ═══ */
+function initQuiz(containerId, scoreId, colorClass, questions){
+  const container = document.getElementById(containerId);
+  const scoreEl = document.getElementById(scoreId);
+  let answered = 0, correct = 0;
+  const total = questions.length;
+  scoreEl.textContent = `Progreso: 0 / ${total} respondidas`;
+
+  questions.forEach((qz, i) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'qz-question';
+
+    const qText = document.createElement('div');
+    qText.className = 'qz-qtext';
+    const tag = qz.type === 'tf'
+      ? '<span class="qz-tag" style="background:var(--'+colorClass+')">V / F</span>'
+      : '<span class="qz-tag" style="background:var(--'+colorClass+')">OPCIÓN MÚLTIPLE</span>';
+    qText.innerHTML = `<span class="qz-num">${i+1}.</span><span>${qz.q} ${tag}</span>`;
+    qDiv.appendChild(qText);
+
+    const optsDiv = document.createElement('div');
+    optsDiv.className = qz.type === 'tf' ? 'qz-tf-opts' : 'qz-opts';
+
+    const explainDiv = document.createElement('div');
+    explainDiv.className = 'qz-explain';
+    explainDiv.innerHTML = qz.exp;
+
+    const opts = qz.type === 'tf' ? ['Verdadero', 'Falso'] : qz.options;
+    const correctIdx = qz.type === 'tf' ? (qz.correct ? 0 : 1) : qz.correct;
+
+    opts.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'qz-opt';
+      btn.textContent = qz.type === 'tf' ? opt : String.fromCharCode(97 + idx) + ') ' + opt;
+      btn.onclick = () => {
+        if (qDiv.dataset.done) return;
+        qDiv.dataset.done = '1';
+        answered++;
+        if (idx === correctIdx) correct++;
+        Array.from(optsDiv.children).forEach((b, bi) => {
+          b.classList.add('disabled');
+          if (bi === correctIdx) b.classList.add('correct');
+          else if (bi === idx) b.classList.add('incorrect');
+        });
+        explainDiv.classList.add('show');
+        scoreEl.textContent = `Progreso: ${answered} / ${total} respondidas · ✅ ${correct} correctas`;
+      };
+      optsDiv.appendChild(btn);
+    });
+
+    qDiv.appendChild(optsDiv);
+    qDiv.appendChild(explainDiv);
+    container.appendChild(qDiv);
+  });
+}
+
+/* ===== 1.1 DEFINICIÓN DE LA LÓGICA ===== */
+initQuiz('qz-def-logica','score-def-logica','a1',[
+{type:'mc', q:'¿Qué estudia la lógica?', options:['Los sentimientos','Los métodos y principios del razonamiento correcto','La historia','Las matemáticas únicamente'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'mc', q:'La palabra "lógica" proviene del griego:', options:['Physis','Logos','Pathos','Ethos'], correct:1, exp:'<b>Respuesta correcta: b) Logos.</b> Significa "razón" o "palabra".'},
+{type:'tf', q:'La lógica formal estudia la estructura o forma de los argumentos, sin importar el contenido.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'¿Cuál es el objeto de estudio de la lógica?', options:['Los números','El razonamiento / los argumentos','Las emociones','La historia'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'La lógica informal se enfoca únicamente en la forma del argumento, ignorando el contenido.', correct:false, exp:'<b>Falso.</b> La lógica informal se enfoca en el contenido y contexto.'},
+{type:'mc', q:'Un ejemplo fácil de lógica formal sería:', options:['Evaluar si "Todos los A son B, X es A, entonces X es B" es válido, sin importar qué sean A y B','Evaluar si un chiste es gracioso','Medir la temperatura','Aprender vocabulario'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'mc', q:'La lógica es considerada una ciencia:', options:['Natural','Formal','Social','Exacta no formal'], correct:1, exp:'<b>Respuesta correcta: b) Formal.</b>'},
+{type:'tf', q:'La lógica solo sirve para las matemáticas.', correct:false, exp:'<b>Falso.</b> Se aplica en la vida diaria, la ciencia, el derecho, la filosofía, etc.'}
+]);
+
+/* ===== 1.2 ARGUMENTOS ===== */
+initQuiz('qz-argumentos','score-argumentos','a2',[
+{type:'mc', q:'Un argumento está formado por:', options:['Solo una oración','Premisas y una conclusión','Solo preguntas','Solo opiniones'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'mc', q:'La premisa es:', options:['La oración de la cual se parte para apoyar una conclusión','El final del argumento','Una pregunta','Una emoción'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'La conclusión es la afirmación que se pretende que se siga de las premisas.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'¿Cuál es el propósito principal de un argumento?', options:['Confundir','Persuadir o justificar algo con razones','Hacer reír','Narrar una historia'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'mc', q:'En "Todos los perros son animales. Rex es un perro. Por lo tanto, Rex es un animal", la conclusión es:', options:['Todos los perros son animales','Rex es un perro','Rex es un animal','No hay conclusión'], correct:2, exp:'<b>Respuesta correcta: c.</b>'},
+{type:'tf', q:'Un argumento puede tener más de una premisa.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'Las palabras como "por lo tanto" o "entonces" suelen indicar:', options:['Una premisa','La conclusión','Una pregunta','Nada en particular'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'Toda oración es un argumento.', correct:false, exp:'<b>Falso.</b> Un argumento necesita al menos una premisa y una conclusión.'}
+]);
+
+/* ===== 1.3 ENFOQUES LÓGICOS ===== */
+initQuiz('qz-enfoques','score-enfoques','a3',[
+{type:'mc', q:'El enfoque deductivo va de:', options:['Lo particular a lo general','Lo general a lo particular','No tiene dirección','Solo usa ejemplos'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'mc', q:'El enfoque inductivo va de:', options:['Lo general a lo particular','Lo particular a lo general','No analiza nada','Es igual al deductivo'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'En un argumento deductivo válido, si las premisas son verdaderas, la conclusión es necesariamente verdadera.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'Un argumento inductivo ofrece:', options:['Certeza absoluta','Probabilidad o fuerza, no certeza absoluta','Ninguna conclusión','Solo preguntas'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'mc', q:'"El sol ha salido todos los días de mi vida, por lo tanto saldrá mañana" es un ejemplo de razonamiento:', options:['Deductivo','Inductivo','Ninguno','Ambos'], correct:1, exp:'<b>Respuesta correcta: b) Inductivo.</b>'},
+{type:'tf', q:'"Todos los hombres son mortales, Sócrates es hombre, por lo tanto Sócrates es mortal" es un ejemplo de razonamiento deductivo.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'¿Qué enfoque es más común en la investigación científica basada en observaciones repetidas?', options:['Deductivo','Inductivo','Ninguno','Ambos por igual siempre'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'Un argumento deductivo puede ser inválido.', correct:true, exp:'<b>Verdadero.</b> Si la forma del razonamiento es incorrecta, aunque sea deductivo, puede ser inválido.'}
+]);
+
+/* ===== 1.4 INFERENCIAS Y FALACIAS ===== */
+initQuiz('qz-inferencias','score-inferencias','a4',[
+{type:'mc', q:'Una inferencia es:', options:['El proceso de obtener una conclusión a partir de premisas','Una pregunta','Una falacia siempre','Una emoción'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'mc', q:'Una falacia es:', options:['Un argumento perfectamente válido','Un error de razonamiento que parece válido sin serlo','Una pregunta retórica','Una ley de la lógica'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'Atacar a la persona en vez de su argumento es la falacia "ad hominem".', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'Afirmar que algo es cierto solo porque ocurrió antes de otro evento, sin prueba de causalidad, es la falacia de:', options:['Ad hominem','Falsa causa','Generalización apresurada','Autoridad'], correct:1, exp:'<b>Respuesta correcta: b) Falsa causa.</b>'},
+{type:'mc', q:'Concluir algo general a partir de muy pocos casos es la falacia de:', options:['Falsa causa','Generalización apresurada','Ad hominem','Pendiente resbaladiza'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'Las falacias siempre son fáciles de detectar a simple vista.', correct:false, exp:'<b>Falso.</b> Muchas falacias parecen razonamientos válidos a primera vista.'},
+{type:'mc', q:'¿Por qué es importante identificar falacias?', options:['Para ganar discusiones sin importar la verdad','Para evaluar si un argumento es realmente válido y confiable','Para memorizar nombres en latín','No es importante'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'Una inferencia válida siempre parte de premisas verdaderas.', correct:false, exp:'<b>Falso.</b> La validez depende de la forma del razonamiento, no garantiza que las premisas sean verdaderas.'}
+]);
+
+/* ===== 2.1 PROPOSICIONES ===== */
+initQuiz('qz-proposiciones','score-proposiciones','a5',[
+{type:'mc', q:'Una proposición es:', options:['Cualquier oración','Un enunciado declarativo que puede ser verdadero o falso','Una pregunta','Una orden'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'mc', q:'¿Cuál de las siguientes es una proposición?', options:['¿Cómo te llamas?','¡Cierra la puerta!','El cielo es azul','Ojalá llueva'], correct:2, exp:'<b>Respuesta correcta: c.</b> Es la única que puede calificarse como verdadera o falsa.'},
+{type:'tf', q:'Las preguntas y órdenes pueden ser proposiciones.', correct:false, exp:'<b>Falso.</b> No tienen un valor de verdad.'},
+{type:'mc', q:'Una oración es:', options:['Una unidad gramatical con sentido completo','Solo una palabra','Solo un número','Una falacia'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'Toda proposición es una oración, pero no toda oración es una proposición.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'"La capital de México es Guadalajara" es una proposición:', options:['Verdadera','Falsa','Ni verdadera ni falsa','No es proposición'], correct:1, exp:'<b>Respuesta correcta: b) Falsa.</b> La capital de México es la Ciudad de México.'},
+{type:'mc', q:'Un enunciado es:', options:['Una oración usada en un contexto específico','Siempre una pregunta','Un número','Una falacia'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'"¡Qué bonito día!" es una proposición porque es una oración.', correct:false, exp:'<b>Falso.</b> Es una oración exclamativa, no se le puede asignar un valor de verdad.'}
+]);
+
+/* ===== 2.2 CLASIFICACIÓN DE PROPOSICIONES ===== */
+initQuiz('qz-clasificacion','score-clasificacion','a1',[
+{type:'mc', q:'Una proposición simple también se llama:', options:['Molecular','Atómica','Compuesta','Falsa'], correct:1, exp:'<b>Respuesta correcta: b) Atómica.</b>'},
+{type:'mc', q:'Una proposición compuesta:', options:['Tiene una sola idea','Está formada por dos o más proposiciones simples unidas por conectivas','Nunca es verdadera','No existe'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'"Llueve" es una proposición simple.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'"Llueve y hace frío" es una proposición:', options:['Simple','Compuesta','Ninguna de las anteriores','Una pregunta'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'Las proposiciones compuestas se forman usando conectivas lógicas.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'¿Cuál de las siguientes es una proposición simple?', options:['"Como y bebo"','"El perro ladra"','"Si llueve, entonces no salgo"','"Estudio o trabajo"'], correct:1, exp:'<b>Respuesta correcta: b.</b> No tiene ninguna conectiva.'},
+{type:'tf', q:'Una proposición molecular es lo mismo que una proposición compuesta.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'¿Qué se necesita para formar una proposición compuesta?', options:['Solo una proposición simple','Dos o más proposiciones unidas por una conectiva','Ninguna proposición','Una pregunta'], correct:1, exp:'<b>Respuesta correcta: b.</b>'}
+]);
+
+/* ===== 2.3 CONECTIVAS LÓGICAS ===== */
+initQuiz('qz-conectivas','score-conectivas','a2',[
+{type:'mc', q:'El símbolo ∧ representa:', options:['Negación','Conjunción (y)','Disyunción (o)','Condicional'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'mc', q:'El símbolo ∨ representa:', options:['Negación','Conjunción','Disyunción (o)','Bicondicional'], correct:2, exp:'<b>Respuesta correcta: c.</b>'},
+{type:'tf', q:'El símbolo ¬ representa la negación.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'El símbolo → representa:', options:['Conjunción','Disyunción','Condicional (si... entonces)','Negación'], correct:2, exp:'<b>Respuesta correcta: c.</b>'},
+{type:'mc', q:'El símbolo ↔ representa:', options:['Bicondicional (si y solo si)','Negación','Conjunción','Disyunción'], correct:0, exp:'<b>Respuesta correcta: a.</b>'},
+{type:'tf', q:'"Voy al cine y como palomitas" usa la conectiva de conjunción.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'"Si estudio, entonces apruebo" usa la conectiva:', options:['Conjunción','Disyunción','Condicional','Bicondicional'], correct:2, exp:'<b>Respuesta correcta: c.</b>'},
+{type:'tf', q:'Las conectivas lógicas sirven para unir proposiciones simples y formar proposiciones compuestas.', correct:true, exp:'<b>Verdadero.</b>'}
+]);
+
+/* ===== 2.4 SIMBOLIZACIÓN ===== */
+initQuiz('qz-simbolizacion','score-simbolizacion','a3',[
+{type:'mc', q:'Simbolizar una proposición significa:', options:['Traducirla a otro idioma','Representarla con letras y símbolos lógicos','Memorizarla','Borrarla'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'mc', q:'Si p: "Llueve" y q: "Hace frío", ¿cómo se simboliza "Llueve y hace frío"?', options:['p ∨ q','p ∧ q','p → q','¬p'], correct:1, exp:'<b>Respuesta correcta: b) p ∧ q.</b>'},
+{type:'tf', q:'Las letras minúsculas como p, q, r se usan para representar proposiciones simples.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'Si p: "Estudio" y q: "Apruebo", ¿cómo se simboliza "Si estudio, entonces apruebo"?', options:['p ∧ q','p ∨ q','p → q','p ↔ q'], correct:2, exp:'<b>Respuesta correcta: c) p → q.</b>'},
+{type:'mc', q:'¿Cómo se simboliza "No llueve" si p: "Llueve"?', options:['p','¬p','p ∧ p','p → p'], correct:1, exp:'<b>Respuesta correcta: b) ¬p.</b>'},
+{type:'tf', q:'Simbolizar argumentos ayuda a analizar su estructura sin importar el contenido.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'Si p: "Voy al cine" y q: "Voy al teatro", ¿cómo se simboliza "Voy al cine o voy al teatro"?', options:['p ∧ q','p ∨ q','p → q','¬p'], correct:1, exp:'<b>Respuesta correcta: b) p ∨ q.</b>'},
+{type:'tf', q:'Un argumento simbolizado pierde completamente su significado original.', correct:false, exp:'<b>Falso.</b> La simbolización conserva la estructura lógica del argumento.'}
+]);
+
+/* ===== 2.5 TABLAS DE VERDAD ===== */
+initQuiz('qz-tablasverdad','score-tablasverdad','a4',[
+{type:'mc', q:'Una tabla de verdad muestra:', options:['Solo las proposiciones falsas','Todos los posibles valores de verdad de una proposición compuesta','Solo las proposiciones simples','Nada relevante'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'mc', q:'La conjunción (p ∧ q) es verdadera cuando:', options:['Al menos una es verdadera','Ambas son verdaderas','Ambas son falsas','Nunca es verdadera'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'La disyunción (p ∨ q) es verdadera si al menos una de las proposiciones es verdadera.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'La negación (¬p) de una proposición verdadera es:', options:['Verdadera','Falsa','Ninguna de las anteriores','Ambas'], correct:1, exp:'<b>Respuesta correcta: b) Falsa.</b>'},
+{type:'mc', q:'El condicional (p → q) es falso únicamente cuando:', options:['p es falso y q es verdadero','p es verdadero y q es falso','Ambos son falsos','Ambos son verdaderos'], correct:1, exp:'<b>Respuesta correcta: b.</b>'},
+{type:'tf', q:'El bicondicional (p ↔ q) es verdadero cuando ambas proposiciones tienen el mismo valor de verdad.', correct:true, exp:'<b>Verdadero.</b>'},
+{type:'mc', q:'¿Cuántas filas tiene la tabla de verdad de una proposición con 2 variables (p y q)?', options:['2','4','8','16'], correct:1, exp:'<b>Respuesta correcta: b) 4.</b>'},
+{type:'tf', q:'Las tablas de verdad sirven para determinar si un argumento es válido.', correct:true, exp:'<b>Verdadero.</b>'}
+]);
+</script>
+</body>
+</html>

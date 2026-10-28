@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Educación para la Salud — Unidad I: Salud y Educación</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f4f8;--surface:#fff;--border:#c0d0e0;
+  --ink:#061828;--muted:#3a5a78;
+  --a1:#1a4fc4;--a2:#c41a1a;--a3:#1a9a5c;--a4:#b8860b;--a5:#7a1ac4;
+  --a1l:#e8eef9;--a2l:#fdeaea;--a3l:#e3f4e8;--a4l:#fff8e1;--a5l:#f0e8fb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;line-height:1.7;}
+
+.hero{background:var(--ink);color:#f0f6ff;padding:56px 48px 48px;position:relative;overflow:hidden;}
+.hero::after{content:'🩺';font-size:220px;position:absolute;right:20px;bottom:-30px;line-height:1;pointer-events:none;opacity:.06;}
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.unit-badge{background:var(--a1);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:4px 14px;border-radius:4px;}
+.subject-tag{font-size:12px;font-weight:500;color:rgba(240,246,255,0.45);letter-spacing:2px;text-transform:uppercase;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,8vw,5rem);line-height:.92;letter-spacing:1px;margin-bottom:16px;}
+.hero h1 span{color:#5cb8f8;}
+.hero-desc{max-width:560px;font-size:15px;color:rgba(240,246,255,0.6);margin-bottom:32px;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:10px;}
+.pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;}
+.pill-dot{width:8px;height:8px;border-radius:50%;}
+
+.nav-strip{background:var(--a1);display:flex;overflow-x:auto;position:sticky;top:0;z-index:10;}
+.nav-strip a{color:rgba(255,255,255,.75);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:12px 20px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.15);transition:all .2s;}
+.nav-strip a:hover{background:rgba(255,255,255,.12);color:#fff;}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 28px 100px;}
+
+.sec-head{display:flex;align-items:flex-start;margin:56px 0 24px;border-left:5px solid var(--a1);padding-left:18px;}
+.sec-head.red{border-color:var(--a2);} .sec-head.green{border-color:var(--a3);} .sec-head.gold{border-color:var(--a4);} .sec-head.purple{border-color:var(--a5);}
+.sec-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--a1);margin-right:14px;flex-shrink:0;}
+.sec-head.red .sec-num{color:var(--a2);} .sec-head.green .sec-num{color:var(--a3);} .sec-head.gold .sec-num{color:var(--a4);} .sec-head.purple .sec-num{color:var(--a5);}
+.sec-info h2{font-family:'Bebas Neue',sans-serif;font-size:1.85rem;letter-spacing:.5px;line-height:1.1;}
+.sec-info p{font-size:13px;color:var(--muted);font-weight:500;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 26px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.card-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+.concept-box{border-radius:12px;padding:18px 22px;margin:12px 0;text-align:center;}
+.concept-box.blue{background:linear-gradient(135deg,#061828,#1a4fc4);}
+.concept-box.red{background:linear-gradient(135deg,#2a0a0a,#c41a1a);}
+.concept-box.green{background:linear-gradient(135deg,#0a2a18,#1a9a5c);}
+.concept-box.gold{background:linear-gradient(135deg,#2a1800,#b8860b);}
+.concept-box.purple{background:linear-gradient(135deg,#1a0a2a,#7a1ac4);}
+.concept-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;color:#fff;margin-bottom:6px;}
+.concept-def{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;}
+
+.tip{border-radius:10px;padding:13px 16px;font-size:13.5px;margin-top:14px;display:flex;gap:10px;align-items:flex-start;}
+.tip.blue{background:rgba(26,79,196,.08);border-left:3px solid var(--a1);}
+.tip.red{background:rgba(196,26,26,.08);border-left:3px solid var(--a2);}
+.tip.green{background:rgba(26,154,92,.08);border-left:3px solid var(--a3);}
+.tip.gold{background:rgba(184,134,11,.08);border-left:3px solid var(--a4);}
+.tip.purple{background:rgba(122,26,196,.08);border-left:3px solid var(--a5);}
+.tip-ico{font-size:18px;flex-shrink:0;margin-top:1px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px;}
+@media(max-width:600px){.two-col,.three-col,.char-grid{grid-template-columns:1fr;}}
+
+.mini-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.mini-card .mc-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.mini-card .mc-val{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.5px;}
+.mini-card .mc-body{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.55;}
+
+.char-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+.char-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;border-left:4px solid var(--a1);}
+.char-card.red{border-color:var(--a2);}.char-card.green{border-color:var(--a3);}.char-card.gold{border-color:var(--a4);}.char-card.purple{border-color:var(--a5);}
+.char-card .cc-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.5px;margin-bottom:6px;}
+.char-card .cc-title.blue{color:var(--a1);}.char-card .cc-title.red{color:var(--a2);}.char-card .cc-title.green{color:var(--a3);}.char-card .cc-title.gold{color:var(--a4);}.char-card .cc-title.purple{color:var(--a5);}
+.char-card .cc-body{font-size:13px;line-height:1.6;}
+.char-card .cc-ex{font-size:12px;margin-top:8px;padding:6px 10px;border-radius:6px;font-style:italic;}
+.char-card .cc-ex.blue{background:var(--a1l);color:var(--a1);}.char-card .cc-ex.red{background:var(--a2l);color:var(--a2);}
+.char-card .cc-ex.green{background:var(--a3l);color:var(--a3);}.char-card .cc-ex.gold{background:var(--a4l);color:var(--a4);}
+.char-card .cc-ex.purple{background:var(--a5l);color:var(--a5);}
+
+.stab{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+.stab th{text-align:left;padding:9px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid;background:rgba(0,0,0,.02);}
+.stab.blue th{color:var(--a1);border-color:var(--a1);}
+.stab.red th{color:var(--a2);border-color:var(--a2);}
+.stab.green th{color:var(--a3);border-color:var(--a3);}
+.stab.gold th{color:var(--a4);border-color:var(--a4);}
+.stab.purple th{color:var(--a5);border-color:var(--a5);}
+.stab td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.stab tr:last-child td{border-bottom:none;}
+.stab tr:nth-child(even) td{background:rgba(0,0,0,.015);}
+
+.bubbles{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.bubble{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 16px;}
+.bubble .b-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.bubble .b-main{font-weight:600;font-size:14px;margin-bottom:3px;}
+.bubble .b-sub{font-size:12.5px;color:var(--muted);}
+
+.wb-section{background:var(--ink);color:#f0f6ff;border-radius:16px;padding:32px;margin-top:60px;}
+.wb-title{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:1px;margin-bottom:6px;}
+.wb-title span{color:#5cb8f8;}
+.wb-sub{color:rgba(240,246,255,.5);font-size:13.5px;margin-bottom:28px;}
+.wb-group{margin-bottom:28px;}
+.wb-group-title{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:2px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:12px;}
+.wb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.wb-word{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;}
+.wb-word .en{font-weight:700;font-size:13.5px;margin-bottom:2px;}
+.wb-word .es{font-size:12px;color:rgba(240,246,255,.55);}
+
+footer{text-align:center;padding:28px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--border);margin-top:20px;}
+
+/* ═══ ACTIVIDADES DEL LIBRO (práctica) ═══ */
+.activity-box{background:var(--surface);border:2px dashed var(--a5);border-radius:14px;padding:20px 22px;margin:8px 0 20px;}
+.activity-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.activity-head .ac-ico{font-size:1.4rem;}
+.activity-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.5px;color:var(--a5);}
+.activity-item{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;}
+.activity-item .ai-title{font-family:'Bebas Neue',sans-serif;color:var(--a5);font-size:1.05rem;letter-spacing:.5px;margin-bottom:4px;}
+.activity-item .ai-crit{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic;}
+
+/* ═══ QUIZ INTERACTIVO ═══ */
+.quiz-box{background:var(--surface);border:2px dashed var(--border);border-radius:14px;padding:20px 22px;margin:8px 0 32px;}
+.quiz-box.blue{border-color:var(--a1);}.quiz-box.red{border-color:var(--a2);}
+.quiz-box.green{border-color:var(--a3);}.quiz-box.gold{border-color:var(--a4);}
+.quiz-box.purple{border-color:var(--a5);}
+.quiz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.quiz-head .qz-ico{font-size:1.5rem;}
+.quiz-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.5px;}
+.quiz-head span.qz-sub{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+.quiz-score{font-size:12px;font-weight:700;margin-bottom:14px;color:var(--muted);}
+.qz-question{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.qz-question:last-child{margin-bottom:0;}
+.qz-qtext{font-weight:600;font-size:13.5px;margin-bottom:10px;display:flex;gap:8px;align-items:flex-start;}
+.qz-qtext .qz-num{font-family:'Bebas Neue',sans-serif;flex-shrink:0;font-size:1.05rem;line-height:1.3;}
+.qz-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle;}
+.qz-opts{display:flex;flex-direction:column;gap:6px;}
+.qz-tf-opts{display:flex;gap:8px;}
+.qz-opt{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-size:13px;cursor:pointer;text-align:left;transition:all .15s;font-family:inherit;color:var(--ink);}
+.qz-tf-opts .qz-opt{flex:1;text-align:center;font-weight:600;}
+.qz-opt:hover:not(.disabled){background:var(--a1l);border-color:var(--a1);}
+.qz-opt.correct{background:rgba(26,154,92,.18);border-color:var(--a3);font-weight:700;color:#0a4a2a;}
+.qz-opt.incorrect{background:rgba(196,26,26,.18);border-color:var(--a2);font-weight:700;color:#7a1414;}
+.qz-opt.disabled{cursor:default;}
+.qz-explain{font-size:12.5px;margin-top:9px;padding:9px 13px;border-radius:8px;background:rgba(0,0,0,.04);display:none;line-height:1.5;}
+.qz-explain.show{display:block;}
+.qz-explain b{color:var(--a3);}
+
+/* ═══ CRUCIGRAMA ═══ */
+.xw-wrap{overflow-x:auto;margin:14px 0;}
+.xw-table{border-collapse:collapse;margin:0 auto;}
+.xw-table td{width:34px;height:34px;padding:0;position:relative;}
+.xw-table td.cell{background:var(--surface);border:1.5px solid var(--ink);}
+.xw-table td.blank{background:transparent;border:none;}
+.xw-num{position:absolute;top:1px;left:3px;font-size:9px;font-weight:700;color:var(--a2);line-height:1;pointer-events:none;}
+.xw-in{width:100%;height:100%;border:none;background:transparent;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--ink);text-transform:uppercase;outline:none;padding-top:6px;}
+.xw-in:focus{background:var(--a1l);}
+.xw-in.ok{background:rgba(26,154,92,.22);color:#0a4a2a;}
+.xw-in.bad{background:rgba(196,26,26,.18);color:#7a1414;}
+.xw-clues{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+@media(max-width:600px){.xw-clues{grid-template-columns:1fr;}}
+.xw-clues h5{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1px;color:var(--a2);margin-bottom:6px;}
+.xw-clues li{font-size:13px;margin-bottom:5px;margin-left:18px;color:var(--ink);}
+.xw-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.xw-btn{background:var(--a1);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;}
+.xw-btn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--border);}
+.xw-msg{font-size:13px;font-weight:700;margin-top:10px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="unit-badge">UNIDAD I</div>
+    <div class="subject-tag">Educación para la Salud</div>
+  </div>
+  <h1>SALUD Y EDUCACIÓN<br><span>CUIDARSE, PREVENIR Y VIVIR MEJOR</span></h1>
+  <p class="hero-desc">¿Qué es estar sano? ¿Cómo aparece una enfermedad y cómo se previene? En esta unidad verás el concepto de salud, las ciencias que la estudian, la enfermedad y su historia natural, la tríada ecológica, los niveles de prevención, la cadena epidemiológica y los hábitos de higiene que protegen tu salud todos los días.</p>
+  <div class="hero-pills">
+    <div class="pill"><div class="pill-dot" style="background:#5cb8f8"></div>1.1 Concepto de salud</div>
+    <div class="pill"><div class="pill-dot" style="background:#86efac"></div>1.2 Ciencias de la salud</div>
+    <div class="pill"><div class="pill-dot" style="background:#fcd45c"></div>1.3 Enfermedad</div>
+    <div class="pill"><div class="pill-dot" style="background:#c4b5fd"></div>1.4 Tríada ecológica</div>
+    <div class="pill"><div class="pill-dot" style="background:#ff8fa0"></div>1.5 Niveles de prevención</div>
+    <div class="pill"><div class="pill-dot" style="background:#fcd45c"></div>1.6 Cadena epidemiológica</div>
+    <div class="pill"><div class="pill-dot" style="background:#c4b5fd"></div>1.7 Higiene</div>
+  </div>
+</div>
+
+<div class="nav-strip">
+  <a href="#concepto">1.1 Salud</a>
+  <a href="#dimensiones">Física, mental, social</a>
+  <a href="#ciencias">1.2 Ciencias</a>
+  <a href="#enfermedad">1.3 Enfermedad</a>
+  <a href="#triada">1.4 Tríada</a>
+  <a href="#historia">Historia natural</a>
+  <a href="#niveles">1.5 Prevención</a>
+  <a href="#ent">ENT y transmisibles</a>
+  <a href="#cadena">1.6 Cadena</a>
+  <a href="#higiene">1.7 Higiene</a>
+  <a href="#alim">Alimentos</a>
+  <a href="#final">📝 Act. finales</a>
+  <a href="#crucigrama">🧩 Crucigrama</a>
+  <a href="#retos">Retos</a>
+  <a href="#glosario">Glosario</a>
+</div>
+
+<div class="wrap">
+
+<div id="concepto">
+  <div class="sec-head blue">
+    <div class="sec-num">1.1</div>
+    <div class="sec-info">
+      <h2>Concepto de salud e importancia</h2>
+      <p>Qué entendemos por salud</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">¿Qué es la salud?</div>
+    <div class="concept-box blue">
+      <div class="concept-title">SALUD (OMS, 1946)</div>
+      <div class="concept-def">El estado de completo bienestar físico, mental y social, y no solo la ausencia de enfermedad. Es la base sobre la cual se asienta el proceso de desarrollo humano y la condición que permite a los hombres vivir plenamente en armonía con ellos.</div>
+    </div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">UN PROCESO</div><div class="cc-body">La salud y la enfermedad son el resultado de una interacción permanente del ser humano con el medio en que vive, tratando de adaptarse a este.</div></div>
+      <div class="char-card green"><div class="cc-title green">AIRE, AGUA, ALIMENTOS</div><div class="cc-body">Son indispensables para la vida, pero cuando se contaminan se convierten en factores de enfermedad.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">LAS DEFENSAS</div><div class="cc-body">El individuo se defiende de las condiciones cambiantes del medio por sus características heredadas y constitucionales y por los mecanismos de defensa de su organismo.</div></div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🌎</span>
+      <span><strong>Ejemplo fácil:</strong> si el agua que bebes está limpia, ayuda a tu salud; si está contaminada, causa enfermedad. El mismo elemento puede proteger o dañar según su calidad.</span>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">📝</span>
+      <span><strong>Nota de estudio:</strong> al analizar la definición de la OMS se observa que solo incluye al ser humano en sus dimensiones internas, sin un entorno o medio ambiente que lo sostenga. Por eso se concluye que la teoría de los biólogos (tríada ecológica) y la de la OMS son complementarias.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box blue" id="box-concepto">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Concepto de salud e importancia</span></div>
+    <div class="quiz-score" id="score-concepto"></div>
+    <div class="qz-container" id="qz-concepto"></div>
+  </div>
+</div>
+
+<div id="dimensiones">
+  <div class="sec-head red">
+    <div class="sec-num">1.1.1</div>
+    <div class="sec-info">
+      <h2>Salud física, salud mental y salud social</h2>
+      <p>Las tres dimensiones de la salud</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Salud física</div>
+    <div class="concept-box red">
+      <div class="concept-title">SALUD FÍSICA</div>
+      <div class="concept-def">La condición en la que se encuentra el cuerpo cuando funciona de la forma para la cual fue diseñado. Sus causas caen en cuatro categorías.</div>
+    </div>
+    <table class="stab red">
+      <tr><th>Categoría</th><th>Qué incluye</th></tr>
+      <tr><td>Estilo de vida</td><td>El elemento sobre el que tenemos mayor control: dieta, salud emocional, nivel de actividad física y comportamiento (por ejemplo, el uso del tabaco).</td></tr>
+      <tr><td>Biología humana</td><td>Nuestra genética y química pueden incluir anormalidades; no se controla la genética, pero sí la forma de tratar las enfermedades.</td></tr>
+      <tr><td>Medio ambiente</td><td>El tipo de aire que respiramos, el lugar en que vivimos y nuestro entorno.</td></tr>
+      <tr><td>Servicios de atención médica</td><td>Servicios que ayudan a prevenir, detectar o tratar las enfermedades.</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">🥗</span>
+      <span><strong>Ejemplo fácil:</strong> comer balanceado, hacer ejercicio y no fumar son decisiones de estilo de vida: es lo que más podemos cambiar para cuidar el cuerpo.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Salud mental y salud social</div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">SALUD MENTAL</div><div class="cc-body">Estado de bienestar en el que la persona realiza sus capacidades, es capaz de hacer frente al estrés normal de la vida, de trabajar de forma productiva y de contribuir a su comunidad. Es el fundamento del bienestar individual y del funcionamiento eficaz de la comunidad.</div></div>
+      <div class="char-card green"><div class="cc-title green">FACTORES DE LA SALUD MENTAL</div><div class="cc-body">Está determinada por múltiples factores sociales, psicológicos y biológicos. Las presiones socioeconómicas persistentes (pobreza, bajo nivel educativo) son un riesgo bien conocido.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">SALUD SOCIAL</div><div class="cc-body">Está determinada por las circunstancias en que las personas nacen, crecen, viven, trabajan y envejecen, incluido el sistema de salud; resultado de la distribución del dinero, el poder y los recursos (OMS, 2012).</div></div>
+    </div>
+    <div class="tip red">
+      <span class="tip-ico">⚖️</span>
+      <span>Los determinantes sociales de la salud explican la mayor parte de las inequidades sanitarias: diferencias injustas y evitables observadas en y entre los países.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box red" id="box-dimensiones">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Salud física, mental y social</span></div>
+    <div class="quiz-score" id="score-dimensiones"></div>
+    <div class="qz-container" id="qz-dimensiones"></div>
+  </div>
+</div>
+
+<div id="ciencias">
+  <div class="sec-head green">
+    <div class="sec-num">1.2</div>
+    <div class="sec-info">
+      <h2>Ciencias dedicadas a la salud</h2>
+      <p>Quiénes estudian la salud y cómo</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Las ciencias de la salud</div>
+    <div class="concept-box green">
+      <div class="concept-title">CIENCIAS DE LA SALUD</div>
+      <div class="concept-def">El conjunto de áreas cuyos conocimientos se enfocan a promover la salud, curar la enfermedad y prevenirla, tanto a nivel personal como de una comunidad. Se ayudan entre sí: Medicina, Psicología y Odontología forman parte de este conjunto.</div>
+    </div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">ÁREAS DEL ESQUEMA</div><div class="cc-body">Nutrición, Optometría, Bioquímica, Fisiología, Enfermería, Epidemiología, Biología, Bromatología, Microbiología y Química.</div></div>
+      <div class="char-card red"><div class="cc-title red">FÁCTICAS</div><div class="cc-body">Estudian los hechos reales y no las ideas.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">EXPERIMENTALES</div><div class="cc-body">Demuestran sus hipótesis o teorías mediante experimentación.</div></div>
+      <div class="char-card purple"><div class="cc-title purple">OBSERVACIONALES</div><div class="cc-body">A partir de la observación de hechos se formulan teorías refutadas o confirmadas.</div></div>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">🔬</span>
+      <span><strong>Ejemplos del libro:</strong> Robert Koch (1843-1910) descubrió las causas de la tuberculosis y fundamentó la microbiología. La Bioquímica mostró las rutas de los alimentos en el metabolismo (se transforman en energía) y la Bromatología investigó las calorías de los alimentos.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box green" id="box-ciencias">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Ciencias dedicadas a la salud</span></div>
+    <div class="quiz-score" id="score-ciencias"></div>
+    <div class="qz-container" id="qz-ciencias"></div>
+  </div>
+</div>
+
+<div id="enfermedad">
+  <div class="sec-head gold">
+    <div class="sec-num">1.3</div>
+    <div class="sec-info">
+      <h2>Enfermedad</h2>
+      <p>Síntomas, signos y definiciones</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">¿Qué es la enfermedad?</div>
+    <div class="concept-box gold">
+      <div class="concept-title">ENFERMEDAD</div>
+      <div class="concept-def">Cualquier desviación o interrupción de la estructura normal o función de cualquier parte, órgano o sistema (o combinación de ellos) del cuerpo que se manifiesta por un conjunto característico de síntomas y signos.</div>
+    </div>
+    <table class="stab gold">
+      <tr><th>Según el Diccionario Médico de Stedman (1995)</th><th>Enfermedad es…</th></tr>
+      <tr><td>1</td><td>Una interrupción, cese o trastorno de las funciones, sistemas u órganos del cuerpo.</td></tr>
+      <tr><td>2</td><td>Una entidad mórbida caracterizada por al menos dos de: agentes etiológicos reconocidos, grupo de signos y síntomas identificables o alteraciones anatómicas consistentes.</td></tr>
+      <tr><td>3</td><td>Literalmente, "dis-ease": lo opuesto de "ease" (calma, tranquilidad), cuando algo no está bien con una función corporal.</td></tr>
+    </table>
+    <div class="tip gold">
+      <span class="tip-ico">🌡️</span>
+      <span><strong>Ejemplo fácil:</strong> el dolor de cabeza es un <em>síntoma</em> (solo tú lo sientes); la fiebre medida con termómetro es un <em>signo</em> (se puede medir).</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Síntomas y signos</div>
+    <div class="char-grid">
+      <div class="char-card red"><div class="cc-title red">SÍNTOMA</div><div class="cc-body">Manifestación de la enfermedad que la persona refiere, pero que no podemos comprobar objetivamente; se puede fingir, modificar o cambiar. Es una molestia que solo podemos percibir: el ejemplo más claro es el dolor. Los más comunes: dolor, náuseas, vértigo.</div></div>
+      <div class="char-card blue"><div class="cc-title blue">SIGNOS</div><div class="cc-body">Entre los ejemplos clásicos están los signos vitales: presión, pulso, respiración y temperatura.</div></div>
+    </div>
+  </div>
+
+  <div class="quiz-box gold" id="box-enfermedad">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Enfermedad</span></div>
+    <div class="quiz-score" id="score-enfermedad"></div>
+    <div class="qz-container" id="qz-enfermedad"></div>
+  </div>
+</div>
+
+<div id="triada">
+  <div class="sec-head purple">
+    <div class="sec-num">1.4</div>
+    <div class="sec-info">
+      <h2>Tríada ecológica</h2>
+      <p>Huésped, ambiente y agente causal</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">La teoría</div>
+    <div class="concept-box purple">
+      <div class="concept-title">TRÍADA ECOLÓGICA</div>
+      <div class="concept-def">Antes de que la OMS basara su concepto de salud en lo físico, mental y social, los biólogos la definían solo en función del aspecto físico. Su teoría tiene tres elementos: el <b>huésped</b>, el <b>ambiente</b> y el <b>agente causal</b>. Considera la salud como un evento de la naturaleza, sin reconocer la influencia del hombre.</div>
+    </div>
+    <table class="stab purple">
+      <tr><th>Elemento</th><th>Definición</th></tr>
+      <tr><td>Huésped</td><td>Cualquier ser vivo que permite el alojamiento, subsistencia y desarrollo de un agente causal de enfermedad. Para mantener el equilibrio debe tener: estructura genética, raza, edad, sexo, integridad anatomo-funcional, nivel de inmunidad y estado nutricional.</td></tr>
+      <tr><td>Agente causal</td><td>Todo poder, principio o sustancia capaz de actuar en el organismo y ser nocivo.</td></tr>
+      <tr><td>Medio ambiente</td><td>La totalidad de los factores físicos, químicos, bióticos y socioculturales que rodean a un individuo o grupo: aire, agua, suelo, geografía, animales, flora, ingresos (trabajo), habitación, nivel de escolaridad, acceso a servicios de salud, promiscuidad y hacinamiento.</td></tr>
+    </table>
+    <div class="tip purple">
+      <span class="tip-ico">🔺</span>
+      <span><strong>Ejemplo fácil:</strong> una bacteria (agente) infecta a una persona con defensas bajas (huésped) que vive en un lugar sin agua limpia (ambiente): los tres elementos interactúan y aparece la enfermedad.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Tipos de agente causal</div>
+    <table class="stab purple">
+      <tr><th>Tipo</th><th>Ejemplos</th></tr>
+      <tr><td>Biológicos</td><td>Bacterias, virus, hongos y/o sus toxinas, protozoarios, anélidos</td></tr>
+      <tr><td>Físicos</td><td>Cambios de temperatura, presión de gases o líquidos, electricidad, radiaciones</td></tr>
+      <tr><td>Químicos</td><td>Fármacos, sustancias tóxicas</td></tr>
+      <tr><td>Mecánicos</td><td>Choque violento contra tejidos, abrasiones, laceraciones, desgarres, incisiones, proyectiles, fracturas, luxaciones</td></tr>
+      <tr><td>Nutricionales</td><td>Deficiencias de vitaminas y minerales, dietas inadecuadas</td></tr>
+      <tr><td>Psicológicos</td><td>Estrés, depresión</td></tr>
+      <tr><td>Sociales</td><td>Tabaquismo, alcoholismo, drogadicción, políticas de salud, economía de la salud</td></tr>
+    </table>
+  </div>
+
+  <div class="quiz-box purple" id="box-triada">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Tríada ecológica</span></div>
+    <div class="quiz-score" id="score-triada"></div>
+    <div class="qz-container" id="qz-triada"></div>
+  </div>
+</div>
+
+<div id="historia">
+  <div class="sec-head blue">
+    <div class="sec-num">1.4.1</div>
+    <div class="sec-info">
+      <h2>Historia natural de la enfermedad</h2>
+      <p>Los periodos de la enfermedad</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Periodos (Leavell y Clarck, 1965)</div>
+    <table class="stab blue">
+      <tr><th>Periodo</th><th>Qué ocurre</th></tr>
+      <tr><td>Prepatogénico</td><td>Interacción entre factores endógenos y exógenos que permite que la enfermedad se reproduzca y desarrolle. (Antes de la enfermedad: interacción agente-huésped-ambiente.)</td></tr>
+      <tr><td>Patogénico subclínico</td><td>Lesiones anatómicas o funcionales sin expresiones clínicas claras; se puede detectar por exámenes o tamizaje. Manifestaciones generales y confusas que dificultan el diagnóstico exacto.</td></tr>
+      <tr><td>Clínico</td><td>La enfermedad se manifiesta por signos y síntomas que facilitan su diagnóstico y manejo.</td></tr>
+      <tr><td>De resolución</td><td>Evoluciona hacia la curación con o sin secuelas, la muerte o la cronicidad.</td></tr>
+    </table>
+    <div class="tip blue">
+      <span class="tip-ico">📈</span>
+      <span><strong>Ejemplo fácil:</strong> como una escalera: primero no pasa nada visible (prepatogénico), luego hay cambios internos sin síntomas (subclínico), después aparecen los síntomas (clínico) y al final se cura, queda secuela o se vuelve crónica (resolución).</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Relación con la prevención</div>
+    <table class="stab blue">
+      <tr><th>Momento</th><th>Acciones y nivel de prevención</th></tr>
+      <tr><td>Periodo prepatogénico</td><td>Fomento de la salud y protección específica → prevención primaria</td></tr>
+      <tr><td>Periodo patogénico</td><td>Diagnóstico precoz y tratamiento inmediato; limitación del daño → prevención secundaria</td></tr>
+      <tr><td>Después del daño</td><td>Rehabilitación → prevención terciaria</td></tr>
+    </table>
+  </div>
+
+  <div class="quiz-box blue" id="box-historia">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Historia natural de la enfermedad</span></div>
+    <div class="quiz-score" id="score-historia"></div>
+    <div class="qz-container" id="qz-historia"></div>
+  </div>
+</div>
+
+<div id="niveles">
+  <div class="sec-head red">
+    <div class="sec-num">1.5</div>
+    <div class="sec-info">
+      <h2>Niveles de prevención</h2>
+      <p>Primario, secundario y terciario</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Los tres niveles</div>
+    <table class="stab red">
+      <tr><th>Nivel</th><th>En qué consiste</th></tr>
+      <tr><td>Primario (Nivel I: población sana → mantenimiento)</td><td>Conjunto de acciones destinadas a impedir la aparición o disminuir la probabilidad de ocurrencia de la enfermedad. Se actúa en el periodo prepatogénico modificando factores de riesgo (dieta, ejercicio, cinturón de seguridad) o previniendo la acción del agente (inmunizaciones, potabilización del agua). Dos clases: promoción de la salud (acciones sobre el individuo) y protección de la salud (acciones sobre el medio ambiente).</td></tr>
+      <tr><td>Secundario (Nivel II: población enferma → curación)</td><td>Fundamentalmente pruebas de tamizaje o screening. Permiten la detección precoz y el diagnóstico y tratamiento precoz en la fase presintomática y sintomática aguda.</td></tr>
+      <tr><td>Terciario (Nivel III: población incapacitada → rehabilitación)</td><td>Intenta modificar favorablemente la evolución de una enfermedad en su fase sintomática crónica o de sus secuelas, mejorando la calidad de vida y retardando la muerte del paciente.</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">🛡️</span>
+      <span><strong>Ejemplo fácil:</strong> vacunarse (primaria); hacerse un estudio de detección de diabetes (secundaria); ir a terapia física después de un infarto (terciaria).</span>
+    </div>
+  </div>
+
+  <div class="quiz-box red" id="box-niveles">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Niveles de prevención</span></div>
+    <div class="quiz-score" id="score-niveles"></div>
+    <div class="qz-container" id="qz-niveles"></div>
+  </div>
+</div>
+
+<div id="ent">
+  <div class="sec-head green">
+    <div class="sec-num">1.5.1</div>
+    <div class="sec-info">
+      <h2>Enfermedades no transmisibles y transmisibles</h2>
+      <p>Crónicas e infecciosas</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Enfermedades no transmisibles (ENT)</div>
+    <div class="concept-box green">
+      <div class="concept-title">ENT</div>
+      <div class="concept-def">Afecciones de larga duración con una progresión generalmente lenta; son un grupo heterogéneo de padecimientos: enfermedades cardiovasculares y vascular cerebral, cáncer, respiratorias crónicas (neumopatía obstructiva, asma), diabetes, entre otras. Contribuyen a la mortalidad como consecuencia de un proceso iniciado décadas antes, en la niñez y la adolescencia.</div>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">🧠</span>
+      <span><strong>Adolescencia:</strong> tiene una base biológica (la pubertad) y un componente psicosocial con comportamientos de riesgo; la maduración cerebral no se completa hasta los 25 años. La diabetes, la hipertensión y el síndrome metabólico se asocian a alcohol, tabaquismo, sedentarismo y hábitos alimentarios no saludables, y la vulnerabilidad puede modificarse con acciones sobre los estilos de vida.</span>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">📊</span>
+      <span><strong>Informe de la OMS (enero 2017):</strong> principales causas de mortalidad en el mundo: cardiopatía isquémica, accidente cerebrovascular, EPOC, infecciones respiratorias, cánceres de pulmón, tráquea y bronquios, diabetes mellitus, Alzheimer y otras demencias, enfermedades diarreicas, tuberculosis y accidentes de tránsito.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Enfermedades transmisibles y sus medidas</div>
+    <div class="concept-box green">
+      <div class="concept-title">TRANSMISIBLES</div>
+      <div class="concept-def">Causadas por agentes infecciosos específicos o por sus productos tóxicos en un huésped susceptible; se conocen como contagiosas o infecciosas (Malcolm Anderson, 1991). Las producen microorganismos como hongos, protozoos, bacterias y virus.</div>
+    </div>
+    <table class="stab green">
+      <tr><th>Medidas sobre…</th><th>Acciones</th></tr>
+      <tr><td>Fuente de infección y reservorio</td><td>Animal: diagnóstico, tratamiento, aislamiento, sacrificio y decomiso, desinfección y desratización. Telúrico: control del medio ambiente y desinfección. Hombre: diagnóstico, tratamiento precoz y aislamiento.</td></tr>
+      <tr><td>Mecanismo de transmisión</td><td>Contacto directo: educación sanitaria (mascarillas, preservativos). Indirecto: higiene de manos, barreras, desinfección y esterilización, control de aguas y alimentos. Vectores: desinsectación, desratización, control de residuos.</td></tr>
+      <tr><td>Población susceptible</td><td>Profilaxis activa: vacunas. Profilaxis pasiva: antimicrobianos (quimioprofilaxis) y/o inmunoglobulinas.</td></tr>
+    </table>
+    <div class="tip green">
+      <span class="tip-ico">🐄</span>
+      <span><strong>Sabías que…</strong> el origen de las vacunas viene de la vaca. En el siglo XVIII el Dr. Edward Jenner observó que las mujeres que ordeñaban vacas se contagiaban de la viruela vacuna pero se volvían inmunes a la viruela humana; por eso se llama "vacuna".</span>
+    </div>
+  </div>
+
+  <div class="quiz-box green" id="box-ent">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Enfermedades no transmisibles y transmisibles</span></div>
+    <div class="quiz-score" id="score-ent"></div>
+    <div class="qz-container" id="qz-ent"></div>
+  </div>
+</div>
+
+<div id="cadena">
+  <div class="sec-head gold">
+    <div class="sec-num">1.6</div>
+    <div class="sec-info">
+      <h2>Cadena epidemiológica</h2>
+      <p>Cómo se transmite una infección</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Los tres elementos</div>
+    <div class="concept-box gold">
+      <div class="concept-title">CADENA EPIDEMIOLÓGICA</div>
+      <div class="concept-def">La transmisión de la infección requiere la presencia de tres elementos: una <b>fuente infecciosa</b>, un <b>huésped susceptible</b> y una <b>vía de transmisión</b> de microorganismos.</div>
+    </div>
+    <div class="char-grid">
+      <div class="char-card red"><div class="cc-title red">FUENTE</div><div class="cc-body">Pacientes, personal sanitario y reservorios animales o telúricos. También acompañantes con enfermedad aguda, en incubación, colonizados sin síntomas o portadores crónicos; la flora endógena y los objetos contaminados.</div></div>
+      <div class="char-card blue"><div class="cc-title blue">HUÉSPED</div><div class="cc-body">La susceptibilidad varía: hay inmunes, portadores asintomáticos y quienes desarrollan la enfermedad. Edad, enfermedad de base, tratamientos antimicrobianos o inmunosupresores y catéteres de larga duración son factores de riesgo.</div></div>
+      <div class="char-card green"><div class="cc-title green">TRANSMISIÓN</div><div class="cc-body">Cinco vías principales: contacto, gotitas, aire, vehículos comunes y vectores.</div></div>
+    </div>
+    <div class="tip gold">
+      <span class="tip-ico">⛓️</span>
+      <span><strong>Ejemplo fácil:</strong> es como una cadena: si rompes un eslabón (por ejemplo, lavándote las manos o vacunándote), la infección ya no se transmite.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Vías de transmisión</div>
+    <table class="stab gold">
+      <tr><th>Vía</th><th>Cómo se transmite</th></tr>
+      <tr><td>Contacto</td><td>La más importante y frecuente en infecciones nosocomiales (hospitalarias). Directo: contacto cuerpo a cuerpo y transferencia física de microorganismos (movilizar o bañar a un paciente). Indirecto: a través de un objeto contaminado (instrumentos, manos o guantes contaminados).</td></tr>
+      <tr><td>Gotitas</td><td>Generadas por tos, estornudo o habla (y ciertos procedimientos). Partículas mayores de 5 µm que viajan a corta distancia y se depositan en mucosas; no quedan suspendidas en el aire. Requiere contacto cercano; a menos de 1 metro se usan precauciones adicionales.</td></tr>
+      <tr><td>Aire</td><td>Núcleos de gotitas evaporadas o partículas de polvo menores de 5 µm que quedan suspendidas por largos periodos y pueden llegar lejos. Requiere control especial del aire y de la ventilación.</td></tr>
+    </table>
+  </div>
+
+  <div class="quiz-box gold" id="box-cadena">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Cadena epidemiológica</span></div>
+    <div class="quiz-score" id="score-cadena"></div>
+    <div class="qz-container" id="qz-cadena"></div>
+  </div>
+</div>
+
+<div id="higiene">
+  <div class="sec-head purple">
+    <div class="sec-num">1.7</div>
+    <div class="sec-info">
+      <h2>Higiene</h2>
+      <p>Hábitos que protegen la salud</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Concepto y objetivos</div>
+    <div class="concept-box purple">
+      <div class="concept-title">HIGIENE</div>
+      <div class="concept-def">La higiene personal está constituida por el conjunto de cuidados que necesita nuestro cuerpo para aumentar su vitalidad y mantenerse en un estado saludable. Es el concepto básico de aseo, limpieza y cuidado de nuestro cuerpo. <b>Hábito:</b> toda conducta que se repite en el tiempo en forma regular y de modo sistemático.</div>
+    </div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">OBJETIVOS</div><div class="cc-body">Mejorar la salud y el bienestar del individuo y la comunidad, prevenir la aparición y desarrollo de enfermedades, facilitar las relaciones interpersonales y contribuir a una imagen positiva de sí mismos.</div></div>
+      <div class="char-card green"><div class="cc-title green">VIDA SALUDABLE</div><div class="cc-body">Alimentación equilibrada, hábitos higiénicos adecuados, disfrutar del tiempo libre, prevenir accidentes, ejercitar la mente, realizar deporte o actividad física y tener una mejor calidad de vida.</div></div>
+    </div>
+    <div class="tip purple">
+      <span class="tip-ico">🖐️</span>
+      <span><strong>Sabías que…</strong> las manos húmedas esparcen 1,000 gérmenes más que las manos secas.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Higiene personal y de la vivienda</div>
+    <table class="stab purple">
+      <tr><th>Tema</th><th>Recomendaciones</th></tr>
+      <tr><td>Lavado de manos</td><td>Mojar las manos; frotar con jabón palmas, parte superior, muñecas y entre los dedos; cepillar las uñas; enjuagar completamente; secar con papel o toalla limpia y seca; cerrar la llave con el mismo papel o toalla.</td></tr>
+      <tr><td>Ducha o baño diario</td><td>Limpieza de cara, manos, cabello, genitales y pies: controla olores del sudor y evita gérmenes y bacterias.</td></tr>
+      <tr><td>Ojos y oídos</td><td>Ojos: no tocarlos con manos sucias (su limpieza es con las lágrimas); buena iluminación. Oídos: evitar que entre agua y no introducir objetos.</td></tr>
+      <tr><td>Dientes y nariz</td><td>Cepillado adecuado y periódico de dientes y lengua. La nariz filtra el aire; los mocos deben retirarse varias veces al día.</td></tr>
+      <tr><td>Ropa y calzado</td><td>Lavar la ropa y el calzado; exponer la ropa al sol; lavar la ropa de cama periódicamente (ácaros, alergias).</td></tr>
+      <tr><td>Vivienda</td><td>Limpieza de la cocina, limpieza diaria (ventilar, abrir puertas y ventanas; mover los muebles una o dos veces al año) y limpieza del baño.</td></tr>
+    </table>
+  </div>
+
+  <div class="quiz-box purple" id="box-higiene">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Higiene</span></div>
+    <div class="quiz-score" id="score-higiene"></div>
+    <div class="qz-container" id="qz-higiene"></div>
+  </div>
+</div>
+
+<div id="alim">
+  <div class="sec-head blue">
+    <div class="sec-num">1.7.1</div>
+    <div class="sec-info">
+      <h2>Higiene de alimentos y hábitos de higiene</h2>
+      <p>Las 10 reglas de oro de la OMS</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Reglas de oro para la higiene y seguridad de los alimentos (OMS)</div>
+    <table class="stab blue">
+      <tr><th>#</th><th>Regla</th></tr>
+      <tr><td>1</td><td>Elegir alimentos procesados higiénicamente; los que se comen crudos deben lavarse cuidadosamente.</td></tr>
+      <tr><td>2</td><td>Cocinar bien los alimentos a temperatura adecuada, en particular los crudos (carnes, pollos, pescados, huevos).</td></tr>
+      <tr><td>3</td><td>Consumir inmediatamente los alimentos cocidos: a temperatura ambiente los microbios comienzan a reproducirse.</td></tr>
+      <tr><td>4</td><td>Guardar cuidadosamente los alimentos cocidos en condiciones de calor o frío según el tipo.</td></tr>
+      <tr><td>5</td><td>Recalentar bien los alimentos cocidos: es la mejor medida de protección.</td></tr>
+      <tr><td>6</td><td>Evitar el contacto entre alimentos crudos y cocidos (contaminación cruzada).</td></tr>
+      <tr><td>7</td><td>Lavarse las manos antes y durante la preparación, después de ir al baño y antes de comer.</td></tr>
+      <tr><td>8</td><td>Mantener limpias las superficies de la cocina y los utensilios.</td></tr>
+      <tr><td>9</td><td>Mantener los alimentos fuera del alcance de insectos, roedores y otros animales.</td></tr>
+      <tr><td>10</td><td>Utilizar agua segura para beber, lavar y preparar los alimentos.</td></tr>
+    </table>
+    <div class="tip blue">
+      <span class="tip-ico">🍽️</span>
+      <span><strong>Ejemplo fácil:</strong> usar una tabla y cuchillo distintos para la carne cruda y la ensalada evita la contaminación cruzada.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Cómo adquirir hábitos de higiene</div>
+    <div class="char-grid">
+      <div class="char-card red"><div class="cc-title red">REGULARIDAD EN EL TIEMPO</div><div class="cc-body">La práctica diaria da las pautas de higiene y genera hábitos que contribuyen al bienestar físico y psíquico.</div></div>
+      <div class="char-card green"><div class="cc-title green">AMBIENTE APROPIADO</div><div class="cc-body">Debe existir un entorno propicio en el hogar y en la escuela; los elementos de higiene (agua, lavabos, jabón, papel, toallas) deben estar al alcance.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">CADA MOMENTO DEBE SER GRATO</div><div class="cc-body">Propiciar actividades que permitan el aprendizaje y la aplicación de hábitos de higiene.</div></div>
+      <div class="char-card purple"><div class="cc-title purple">SER CREATIVO E INNOVADOR</div><div class="cc-body">Si un método no da resultado, ser paciente y creativo, innovar con tácticas motivadoras.</div></div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">👨‍👩‍👧</span>
+      <span>Los padres, la familia y los docentes deben dar siempre el ejemplo. La infancia es la mejor etapa para aprender comportamientos higiénicos y aplicarlos toda la vida.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box blue" id="box-alim">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Higiene de alimentos y hábitos</span></div>
+    <div class="quiz-score" id="score-alim"></div>
+    <div class="qz-container" id="qz-alim"></div>
+  </div>
+</div>
+
+<div id="final">
+  <div class="sec-head purple">
+    <div class="sec-num">📝</div>
+    <div class="sec-info">
+      <h2>Actividades finales de Unidad</h2>
+      <p>Relaciona los conceptos con la respuesta correcta</p>
+    </div>
+  </div>
+  <div class="quiz-box red" id="box-final">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Relaciona conceptos y respuestas</span></div>
+    <div class="quiz-score" id="score-final"></div>
+    <div class="qz-container" id="qz-final"></div>
+  </div>
+</div>
+
+<div id="practica">
+  <div class="sec-head green">
+    <div class="sec-num">✏️</div>
+    <div class="sec-info">
+      <h2>Practica tú — Actividades del libro</h2>
+      <p>Actividades de investigación y trabajo en equipo</p>
+    </div>
+  </div>
+
+  <div class="activity-box">
+    <div class="activity-head"><span class="ac-ico">1️⃣</span><h4>Actividad 1</h4></div>
+    <div class="activity-item">
+      <div class="ai-title">Mi definición de salud</div>
+      Investiga en otras fuentes (libros, revistas, sitios web) el concepto de salud y formula tu propia definición. Con tus compañeros de clase, discute los términos de cada uno para llegar a una conclusión y una definición grupal.
+      <div class="ai-crit">Trabajo individual y en equipo.</div>
+    </div>
+  </div>
+
+  <div class="activity-box">
+    <div class="activity-head"><span class="ac-ico">2️⃣</span><h4>Actividad 2</h4></div>
+    <div class="activity-item">
+      <div class="ai-title">Lluvia de ideas</div>
+      Realiza lluvia de ideas con tus compañeros de clases sobre cada una de las ciencias de la salud y la contribución a la sociedad.
+      <div class="ai-crit">Trabajo en equipo.</div>
+    </div>
+  </div>
+
+  <div class="activity-box">
+    <div class="activity-head"><span class="ac-ico">4️⃣</span><h4>Actividad 4</h4></div>
+    <div class="activity-item">
+      <div class="ai-title">Problemas de salud por mala higiene</div>
+      Investiga en otra fuente cuáles son los principales problemas de salud por una mala higiene.
+      <div class="ai-crit">Trabajo individual de investigación.</div>
+    </div>
+  </div>
+
+</div>
+
+<div id="crucigrama">
+  <div class="sec-head purple">
+    <div class="sec-num">🧩</div>
+    <div class="sec-info">
+      <h2>Crucigrama de la Unidad I</h2>
+      <p>Las palabras se cruzan entre sí: escribe una letra por casilla (sin acentos)</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="xw-wrap"><table class="xw-table">
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">1</span><input class="xw-in" maxlength="1" data-a="S" data-r="0" data-c="6" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">2</span><input class="xw-in" maxlength="1" data-a="T" data-r="0" data-c="11" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="0" data-c="12" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="0" data-c="13" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="0" data-c="14" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="Z" data-r="0" data-c="15" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="0" data-c="16" autocomplete="off"></td><td class="cell"><span class="xw-num">3</span><input class="xw-in" maxlength="1" data-a="J" data-r="0" data-c="17" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="0" data-c="18" autocomplete="off"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="1" data-c="6" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="1" data-c="17" autocomplete="off"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">4</span><input class="xw-in" maxlength="1" data-a="V" data-r="2" data-c="2" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="2" data-c="3" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="2" data-c="4" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="2" data-c="5" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="2" data-c="6" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="2" data-c="7" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">5</span><input class="xw-in" maxlength="1" data-a="G" data-r="2" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="2" data-c="17" autocomplete="off"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="3" data-c="6" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="3" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="3" data-c="17" autocomplete="off"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">6</span><input class="xw-in" maxlength="1" data-a="K" data-r="4" data-c="5" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="4" data-c="6" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="4" data-c="7" autocomplete="off"></td><td class="cell"><span class="xw-num">7</span><input class="xw-in" maxlength="1" data-a="H" data-r="4" data-c="8" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="4" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="4" data-c="17" autocomplete="off"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">8</span><input class="xw-in" maxlength="1" data-a="F" data-r="5" data-c="3" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="5" data-c="6" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="5" data-c="8" autocomplete="off"></td><td class="blank"></td><td class="cell"><span class="xw-num">9</span><input class="xw-in" maxlength="1" data-a="T" data-r="5" data-c="10" autocomplete="off"></td><td class="blank"></td><td class="cell"><span class="xw-num">10</span><input class="xw-in" maxlength="1" data-a="P" data-r="5" data-c="12" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="5" data-c="13" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="5" data-c="14" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="5" data-c="15" autocomplete="off"></td><td class="cell"><span class="xw-num">11</span><input class="xw-in" maxlength="1" data-a="A" data-r="5" data-c="16" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="5" data-c="17" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="5" data-c="18" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="5" data-c="19" autocomplete="off"></td></tr>
+<tr><td class="cell"><span class="xw-num">12</span><input class="xw-in" maxlength="1" data-a="S" data-r="6" data-c="0" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="6" data-c="1" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="L" data-r="6" data-c="2" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="6" data-c="3" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="6" data-c="4" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="6" data-c="6" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="G" data-r="6" data-c="8" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="6" data-c="10" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="6" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="6" data-c="16" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="7" data-c="3" autocomplete="off"></td><td class="blank"></td><td class="cell"><span class="xw-num">13</span><input class="xw-in" maxlength="1" data-a="V" data-r="7" data-c="5" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="7" data-c="8" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="7" data-c="10" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="7" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="B" data-r="7" data-c="16" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">14</span><input class="xw-in" maxlength="1" data-a="E" data-r="8" data-c="2" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="8" data-c="3" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="F" data-r="8" data-c="4" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="8" data-c="5" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="8" data-c="6" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="8" data-c="7" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="8" data-c="8" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="8" data-c="9" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="8" data-c="10" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="8" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="S" data-r="8" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="8" data-c="16" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="9" data-c="3" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="9" data-c="5" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="9" data-c="8" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="9" data-c="10" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">15</span><input class="xw-in" maxlength="1" data-a="H" data-r="9" data-c="13" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="9" data-c="16" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="cell"><span class="xw-num">16</span><input class="xw-in" maxlength="1" data-a="A" data-r="10" data-c="1" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="G" data-r="10" data-c="2" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="10" data-c="3" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="10" data-c="4" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="10" data-c="5" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="10" data-c="6" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="10" data-c="8" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="10" data-c="10" autocomplete="off"></td><td class="blank"></td><td class="cell"><span class="xw-num">17</span><input class="xw-in" maxlength="1" data-a="C" data-r="10" data-c="12" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="10" data-c="13" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="10" data-c="14" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="10" data-c="15" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="10" data-c="16" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="10" data-c="17" autocomplete="off"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="11" data-c="5" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="B" data-r="11" data-c="13" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="11" data-c="16" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">18</span><input class="xw-in" maxlength="1" data-a="M" data-r="12" data-c="2" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="12" data-c="3" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="12" data-c="4" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="12" data-c="5" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="12" data-c="6" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="B" data-r="12" data-c="7" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="12" data-c="8" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="12" data-c="9" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="L" data-r="12" data-c="10" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="12" data-c="11" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="G" data-r="12" data-c="12" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="12" data-c="13" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="12" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="12" data-c="16" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="13" data-c="5" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="13" data-c="13" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">19</span><input class="xw-in" maxlength="1" data-a="H" data-r="14" data-c="2" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="14" data-c="3" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="14" data-c="4" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="S" data-r="14" data-c="5" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="P" data-r="14" data-c="6" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="14" data-c="7" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="14" data-c="8" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="14" data-c="13" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+</table></div>
+    <div class="xw-btns"><button class="xw-btn" onclick="xwCheck()">✅ Comprobar</button><button class="xw-btn alt" onclick="xwReveal()">👀 Mostrar respuestas</button><button class="xw-btn alt" onclick="xwClear()">🧹 Borrar</button></div>
+    <div class="xw-msg" id="xw-msg"></div>
+    <div class="xw-clues"><div><h5>HORIZONTALES →</h5><ol style="list-style:none;margin-left:-18px"><li><b>2.</b> Prueba de screening para la detección precoz <i>(8 letras)</i></li><li><b>4.</b> Su nombre viene de "vaca"; se administra en la profilaxis activa <i>(6 letras)</i></li><li><b>6.</b> Robert, descubrió las causas de la tuberculosis <i>(4 letras)</i></li><li><b>10.</b> Nivel de prevención que impide la aparición de la enfermedad <i>(8 letras)</i></li><li><b>12.</b> Estado de completo bienestar físico, mental y social (según la OMS) <i>(5 letras)</i></li><li><b>14.</b> Desviación o interrupción de la estructura o función normal del cuerpo <i>(10 letras)</i></li><li><b>16.</b> Causal: todo poder, principio o sustancia capaz de ser nocivo <i>(6 letras)</i></li><li><b>17.</b> Epidemiológica: fuente, huésped susceptible y vía de transmisión <i>(6 letras)</i></li><li><b>18.</b> Ciencia que fundó Koch con sus hallazgos <i>(13 letras)</i></li><li><b>19.</b> Ser vivo que aloja a un agente causal de enfermedad <i>(7 letras)</i></li></ol></div><div><h5>VERTICALES ↓</h5><ol style="list-style:none;margin-left:-18px"><li><b>1.</b> Molestia que solo la persona percibe, como el dolor <i>(7 letras)</i></li><li><b>3.</b> Médico que descubrió cómo funcionan las vacunas (siglo XVIII) <i>(6 letras)</i></li><li><b>5.</b> Vía de transmisión por partículas mayores de 5 micras <i>(7 letras)</i></li><li><b>7.</b> Cuidados para mantener el cuerpo saludable <i>(7 letras)</i></li><li><b>8.</b> Elemento de la cadena: pacientes, personal sanitario o reservorios <i>(6 letras)</i></li><li><b>9.</b> Ecológica: huésped, ambiente y agente causal <i>(6 letras)</i></li><li><b>11.</b> Totalidad de factores físicos, químicos, bióticos y socioculturales <i>(8 letras)</i></li><li><b>13.</b> Se controlan con desinsectación y desratización <i>(8 letras)</i></li><li><b>15.</b> Conducta que se repite en forma regular y sistemática <i>(6 letras)</i></li></ol></div></div>
+  </div>
+</div>
+
+<div id="retos">
+  <div class="sec-head red">
+    <div class="sec-num">🏆</div>
+    <div class="sec-info">
+      <h2>Retos de repaso — Unidad I</h2>
+      <p>Pon a prueba todo lo aprendido sobre salud y enfermedad</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="bubbles">
+      <div class="bubble blue"><div class="b-label">🔵 Reto 1 — Las tres salud</div><div class="b-main">Da un ejemplo de tu vida para salud física, salud mental y salud social.</div></div>
+      <div class="bubble green"><div class="b-label">🟢 Reto 2 — Síntoma o signo</div><div class="b-main">Clasifica: dolor de estómago, temperatura de 38.5 °C, náuseas, pulso de 90 por minuto, vértigo, presión arterial.</div></div>
+      <div class="bubble gold"><div class="b-label">🟡 Reto 3 — Nivel de prevención</div><div class="b-main">Clasifica como primaria, secundaria o terciaria: vacuna del sarampión, prueba de Papanicolaou, terapia de rehabilitación, potabilizar el agua, tamizaje de diabetes.</div></div>
+      <div class="bubble purple"><div class="b-label">🟣 Reto 4 — BOSS LEVEL: rompe la cadena</div><div class="b-main">Elige una enfermedad infecciosa y explica su cadena epidemiológica (fuente, vía de transmisión, huésped) y dónde la romperías.</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="glosario" class="wb-section">
+  <div class="wb-title">GLOSARIO DE <span>TÉRMINOS</span></div>
+  <p class="wb-sub">Educación para la Salud · Unidad I · Copia: término → definición → tu propio ejemplo</p>
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#5cb8f8">🩺 SALUD Y ENFERMEDAD</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Salud</div><div class="es">Estado de completo bienestar físico, mental y social (OMS).</div></div>
+      <div class="wb-word"><div class="en">Salud física</div><div class="es">El cuerpo funciona de la forma para la que fue diseñado.</div></div>
+      <div class="wb-word"><div class="en">Salud mental</div><div class="es">Bienestar en el que la persona realiza sus capacidades y enfrenta el estrés normal.</div></div>
+      <div class="wb-word"><div class="en">Salud social</div><div class="es">Determinada por las circunstancias en que se nace, crece, vive, trabaja y envejece.</div></div>
+      <div class="wb-word"><div class="en">Enfermedad</div><div class="es">Desviación o interrupción de la estructura o función normal del cuerpo.</div></div>
+      <div class="wb-word"><div class="en">Síntoma</div><div class="es">Molestia que solo la persona percibe (dolor).</div></div>
+      <div class="wb-word"><div class="en">Signo</div><div class="es">Dato que se puede observar o medir (signos vitales).</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#fcd45c">🔺 TRÍADA Y PREVENCIÓN</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Tríada ecológica</div><div class="es">Huésped, ambiente y agente causal.</div></div>
+      <div class="wb-word"><div class="en">Huésped</div><div class="es">Ser vivo que aloja un agente causal.</div></div>
+      <div class="wb-word"><div class="en">Agente causal</div><div class="es">Poder, principio o sustancia capaz de ser nocivo.</div></div>
+      <div class="wb-word"><div class="en">Periodo prepatogénico</div><div class="es">Interacción de factores antes de la enfermedad.</div></div>
+      <div class="wb-word"><div class="en">Tamizaje</div><div class="es">Prueba de screening para detección precoz.</div></div>
+      <div class="wb-word"><div class="en">Prevención primaria</div><div class="es">Impedir la aparición de la enfermedad.</div></div>
+      <div class="wb-word"><div class="en">Prevención secundaria</div><div class="es">Diagnóstico y tratamiento precoz.</div></div>
+      <div class="wb-word"><div class="en">Prevención terciaria</div><div class="es">Rehabilitación y mejor calidad de vida.</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#86efac">🦠 INFECCIONES E HIGIENE</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">ENT</div><div class="es">Enfermedades no transmisibles o crónicas.</div></div>
+      <div class="wb-word"><div class="en">Enfermedad transmisible</div><div class="es">Causada por agentes infecciosos y transmitida a un huésped susceptible.</div></div>
+      <div class="wb-word"><div class="en">Cadena epidemiológica</div><div class="es">Fuente, huésped susceptible y vía de transmisión.</div></div>
+      <div class="wb-word"><div class="en">Profilaxis activa</div><div class="es">Administración de vacunas.</div></div>
+      <div class="wb-word"><div class="en">Higiene</div><div class="es">Cuidados para mantener el cuerpo saludable.</div></div>
+      <div class="wb-word"><div class="en">Hábito</div><div class="es">Conducta repetida regular y sistemáticamente.</div></div>
+      <div class="wb-word"><div class="en">Contaminación cruzada</div><div class="es">Contacto entre alimentos crudos y cocidos.</div></div>
+    </div>
+  </div>
+
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:16px 18px;font-size:13px;color:rgba(240,246,255,.65);margin-top:4px">
+    🎯 <strong style="color:#fff">Tarea — Unidad I de Educación para la Salud:</strong><br>
+    1. Escribe con tus palabras qué es salud y explica sus tres dimensiones con un ejemplo cada una.<br>
+    2. Dibuja la tríada ecológica con un ejemplo de cada elemento.<br>
+    3. Haz un cuadro de los tres niveles de prevención con dos ejemplos de cada uno.<br>
+    4. Elabora un cartel con los pasos para lavarse las manos y las reglas de oro de la OMS para los alimentos.
+  </div>
+</div>
+
+</div><!-- /wrap -->
+<footer>Educación para la Salud · Unidad I — Salud y Educación</footer>
+
+<script>
+/* ═══ QUIZ ENGINE ═══ */
+function initQuiz(containerId, scoreId, colorClass, questions){
+  const container = document.getElementById(containerId);
+  const scoreEl = document.getElementById(scoreId);
+  let answered = 0, correct = 0;
+  const total = questions.length;
+  scoreEl.textContent = `Progreso: 0 / ${total} respondidas`;
+
+  questions.forEach((qz, i) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'qz-question';
+
+    const qText = document.createElement('div');
+    qText.className = 'qz-qtext';
+    const tag = qz.type === 'tf'
+      ? '<span class="qz-tag" style="background:var(--'+colorClass+')">V / F</span>'
+      : '<span class="qz-tag" style="background:var(--'+colorClass+')">OPCIÓN MÚLTIPLE</span>';
+    qText.innerHTML = `<span class="qz-num">${i+1}.</span><span>${qz.q} ${tag}</span>`;
+    qDiv.appendChild(qText);
+
+    const optsDiv = document.createElement('div');
+    optsDiv.className = qz.type === 'tf' ? 'qz-tf-opts' : 'qz-opts';
+
+    const explainDiv = document.createElement('div');
+    explainDiv.className = 'qz-explain';
+    explainDiv.innerHTML = qz.exp;
+
+    const opts = qz.type === 'tf' ? ['Verdadero', 'Falso'] : qz.options;
+    const correctIdx = qz.type === 'tf' ? (qz.correct ? 0 : 1) : qz.correct;
+
+    opts.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'qz-opt';
+      btn.textContent = qz.type === 'tf' ? opt : String.fromCharCode(97 + idx) + ') ' + opt;
+      btn.onclick = () => {
+        if (qDiv.dataset.done) return;
+        qDiv.dataset.done = '1';
+        answered++;
+        if (idx === correctIdx) correct++;
+        Array.from(optsDiv.children).forEach((b, bi) => {
+          b.classList.add('disabled');
+          if (bi === correctIdx) b.classList.add('correct');
+          else if (bi === idx) b.classList.add('incorrect');
+        });
+        explainDiv.classList.add('show');
+        scoreEl.textContent = `Progreso: ${answered} / ${total} respondidas · ✅ ${correct} correctas`;
+      };
+      optsDiv.appendChild(btn);
+    });
+
+    qDiv.appendChild(optsDiv);
+    qDiv.appendChild(explainDiv);
+    container.appendChild(qDiv);
+  });
+}
+
+
+/* ===== 1.1 ===== */
+initQuiz('qz-concepto','score-concepto','a1',[{"type": "mc", "q": "La salud y la enfermedad son el resultado de:", "options": ["Solo la herencia genética", "Únicamente la edad", "Solo el azar", "Un proceso de interacción permanente del ser humano con el medio en que vive, tratando de adaptarse a este"], "correct": 3, "exp": "<b>Respuesta correcta: d) Un proceso de interacción permanente del ser humano con el medio en que vive, tratando de adaptarse a este.</b> Por eso el ambiente es tan importante para la salud."}, {"type": "mc", "q": "En 1946 la OMS planteó que la salud es:", "options": ["El estado de completo bienestar físico, mental y social, y no solo la ausencia de enfermedad", "Tener dinero suficiente", "No sentir dolor", "La ausencia de enfermedad"], "correct": 0, "exp": "<b>Respuesta correcta: a) El estado de completo bienestar físico, mental y social, y no solo la ausencia de enfermedad.</b> OMS = Organización Mundial de la Salud."}, {"type": "tf", "q": "El aire, el agua y los alimentos son indispensables para la vida, pero cuando se contaminan se convierten en factores de enfermedad.", "correct": true, "exp": "<b>Verdadero.</b> Muchos elementos del ambiente son necesarios para la vida y la salud."}, {"type": "mc", "q": "El individuo se defiende de las condiciones cambiantes del medio por:", "options": ["Sus características heredadas y constitucionales y los mecanismos de defensa de su organismo", "Su profesión", "Su estatura", "El clima únicamente"], "correct": 0, "exp": "<b>Respuesta correcta: a) Sus características heredadas y constitucionales y los mecanismos de defensa de su organismo.</b> Fuente: Hernan & San Martin, 1981."}, {"type": "mc", "q": "Los aspectos señalados sobre la salud se caracterizan por:", "options": ["Solo salud física", "Salud pública y privada", "Salud física, salud mental y salud social", "Salud animal y vegetal"], "correct": 2, "exp": "<b>Respuesta correcta: c) Salud física, salud mental y salud social.</b> Son las tres dimensiones de la definición de la OMS."}, {"type": "tf", "q": "Según la definición de la OMS, estar sano significa únicamente no tener enfermedades.", "correct": false, "exp": "<b>Falso.</b> Incluye bienestar físico, mental y social."}, {"type": "mc", "q": "Una crítica a la definición de la OMS es que:", "options": ["No menciona el bienestar", "Solo incluye al ser humano en sus dimensiones internas, sin un entorno o medio ambiente que lo sostenga", "Es demasiado larga", "Habla solo del ambiente"], "correct": 1, "exp": "<b>Respuesta correcta: b) Solo incluye al ser humano en sus dimensiones internas, sin un entorno o medio ambiente que lo sostenga.</b> Por eso se concluye que las teorías de los biólogos y de la OMS son complementarias."}, {"type": "mc", "q": "Las siglas OMS significan:", "options": ["Oficina Mundial de Sanidad", "Organización Mundial de la Salud", "Organización Mundial de Seguros", "Organización Médica Social"], "correct": 1, "exp": "<b>Respuesta correcta: b) Organización Mundial de la Salud.</b> Su emblema aparece en el libro."}]);
+
+/* ===== 1.1.1 ===== */
+initQuiz('qz-dimensiones','score-dimensiones','a2',[{"type": "mc", "q": "La salud física es:", "options": ["La condición en la que se encuentra el cuerpo cuando funciona de la forma para la cual fue diseñado", "La ausencia de estrés", "Tener mucha fuerza", "No tener dinero"], "correct": 0, "exp": "<b>Respuesta correcta: a) La condición en la que se encuentra el cuerpo cuando funciona de la forma para la cual fue diseñado.</b> Sus causas caen en cuatro categorías."}, {"type": "mc", "q": "Las causas que afectan la salud física caen en cuatro categorías:", "options": ["Aire, agua, suelo y sol", "Edad, sexo, raza y país", "Dinero, trabajo, escuela y familia", "Estilo de vida, biología humana, medio ambiente y servicios de atención médica"], "correct": 3, "exp": "<b>Respuesta correcta: d) Estilo de vida, biología humana, medio ambiente y servicios de atención médica.</b> No siempre podemos controlar todo, pero sí tomar medidas para prevenir daños."}, {"type": "mc", "q": "El elemento de la salud física sobre el cual tenemos mayor control es el:", "options": ["Medio ambiente", "Clima", "Estilo de vida", "Biología humana"], "correct": 2, "exp": "<b>Respuesta correcta: c) Estilo de vida.</b> Incluye dieta, salud emocional, nivel de actividad física y comportamiento (por ejemplo, el uso del tabaco)."}, {"type": "mc", "q": "\"Nuestra genética y nuestra química pueden incluir anormalidades\" se refiere a:", "options": ["Estilo de vida", "Medio ambiente", "Servicios de atención médica", "Biología humana"], "correct": 3, "exp": "<b>Respuesta correcta: d) Biología humana.</b> Aunque no podemos controlar la genética, sí la forma de tratar nuestras enfermedades."}, {"type": "mc", "q": "La salud mental es:", "options": ["La inteligencia únicamente", "Un estado de bienestar en el que la persona realiza sus capacidades, enfrenta el estrés normal de la vida, trabaja productivamente y contribuye a su comunidad", "La memoria", "La ausencia de problemas"], "correct": 1, "exp": "<b>Respuesta correcta: b) Un estado de bienestar en el que la persona realiza sus capacidades, enfrenta el estrés normal de la vida, trabaja productivamente y contribuye a su comunidad.</b> Es el fundamento del bienestar individual y del funcionamiento eficaz de la comunidad."}, {"type": "mc", "q": "Un riesgo bien conocido para la salud mental es:", "options": ["Las presiones socioeconómicas persistentes (pobreza, bajo nivel educativo)", "Comer fruta", "Dormir temprano", "Tener muchos amigos"], "correct": 0, "exp": "<b>Respuesta correcta: a) Las presiones socioeconómicas persistentes (pobreza, bajo nivel educativo).</b> La salud mental está determinada por múltiples factores sociales, psicológicos y biológicos."}, {"type": "mc", "q": "La salud social está determinada por:", "options": ["El tamaño de la ciudad", "Las circunstancias en que las personas nacen, crecen, viven, trabajan y envejecen, incluido el sistema de salud", "La cantidad de hijos", "El color de la piel"], "correct": 1, "exp": "<b>Respuesta correcta: b) Las circunstancias en que las personas nacen, crecen, viven, trabajan y envejecen, incluido el sistema de salud.</b> Son el resultado de la distribución del dinero, el poder y los recursos (OMS, 2012)."}, {"type": "tf", "q": "Las inequidades sanitarias son diferencias injustas y evitables entre y dentro de los países en la situación de salud.", "correct": true, "exp": "<b>Verdadero.</b> Los determinantes sociales de la salud las explican en gran parte."}]);
+
+/* ===== 1.2 ===== */
+initQuiz('qz-ciencias','score-ciencias','a3',[{"type": "mc", "q": "Las ciencias de la salud agrupan áreas cuyos conocimientos se enfocan a:", "options": ["Promover la salud, curar la enfermedad y prevenirla", "Construir edificios", "Estudiar el espacio", "Vender medicinas"], "correct": 0, "exp": "<b>Respuesta correcta: a) Promover la salud, curar la enfermedad y prevenirla.</b> Tanto a nivel personal como de una comunidad."}, {"type": "mc", "q": "¿Cuál es una ciencia de la salud?", "options": ["Geología", "Astronomía", "Arquitectura", "Psicología"], "correct": 3, "exp": "<b>Respuesta correcta: d) Psicología.</b> También Medicina y Odontología, entre otras."}, {"type": "mc", "q": "Las ciencias fácticas estudian:", "options": ["Los números únicamente", "Lo imaginario", "Los hechos reales y no las ideas", "Solo las ideas"], "correct": 2, "exp": "<b>Respuesta correcta: c) Los hechos reales y no las ideas.</b> Fácticas viene de \"hechos\"."}, {"type": "mc", "q": "Las ciencias experimentales:", "options": ["Solo observan", "No usan hipótesis", "Solo usan libros", "Demuestran sus hipótesis o teorías mediante la experimentación"], "correct": 3, "exp": "<b>Respuesta correcta: d) Demuestran sus hipótesis o teorías mediante la experimentación.</b> Ejemplo: probar un tratamiento en el laboratorio."}, {"type": "mc", "q": "Las ciencias observacionales:", "options": ["Solo piensan", "No observan nada", "Solo experimentan", "A partir de la observación de hechos formulan teorías que pueden ser refutadas o confirmadas"], "correct": 3, "exp": "<b>Respuesta correcta: d) A partir de la observación de hechos formulan teorías que pueden ser refutadas o confirmadas.</b> Ejemplo: la epidemiología."}, {"type": "mc", "q": "Robert Koch (1843-1910) descubrió las causas de:", "options": ["La diabetes", "La varicela", "La tuberculosis, y sentó las bases de la microbiología", "La anemia"], "correct": 2, "exp": "<b>Respuesta correcta: c) La tuberculosis, y sentó las bases de la microbiología.</b> Antes, el desconocimiento de las bacterias frenaba el avance de las ciencias de la salud."}, {"type": "mc", "q": "La Bromatología investigó y mostró:", "options": ["Los virus", "Los rayos X", "El contenido de calorías que contienen los alimentos", "Los huesos del cuerpo"], "correct": 2, "exp": "<b>Respuesta correcta: c) El contenido de calorías que contienen los alimentos.</b> Trabaja junto con la Bioquímica."}, {"type": "mc", "q": "La Bioquímica dio a conocer:", "options": ["Las rutas que toman los alimentos en el proceso metabólico, transformándose en energía", "El clima", "La forma de las células", "Cómo se construyen hospitales"], "correct": 0, "exp": "<b>Respuesta correcta: a) Las rutas que toman los alimentos en el proceso metabólico, transformándose en energía.</b> Ayuda a entender el metabolismo."}]);
+
+/* ===== 1.3 ===== */
+initQuiz('qz-enfermedad','score-enfermedad','a4',[{"type": "mc", "q": "Se denomina enfermedad a:", "options": ["Solo las infecciones", "Un mal día", "Cualquier desviación o interrupción de la estructura o función normal de un órgano, parte o sistema del cuerpo, que se manifiesta por síntomas y signos", "Solo el dolor de cabeza"], "correct": 2, "exp": "<b>Respuesta correcta: c) Cualquier desviación o interrupción de la estructura o función normal de un órgano, parte o sistema del cuerpo, que se manifiesta por síntomas y signos.</b> Definición del libro."}, {"type": "mc", "q": "Literalmente, en inglés \"dis-ease\" es:", "options": ["Una vitamina", "Lo opuesto de \"ease\" (calma, tranquilidad): cuando algo no está bien con una función corporal", "Una infección", "Un medicamento"], "correct": 1, "exp": "<b>Respuesta correcta: b) Lo opuesto de \"ease\" (calma, tranquilidad): cuando algo no está bien con una función corporal.</b> Según el diccionario Stedman (1995)."}, {"type": "mc", "q": "Según Stedman, una entidad mórbida se caracteriza habitualmente por al menos:", "options": ["Dos de estos criterios: agentes etiológicos, signos y síntomas identificables, o alteraciones anatómicas consistentes", "Fiebre", "Un solo dolor", "Un mal olor"], "correct": 0, "exp": "<b>Respuesta correcta: a) Dos de estos criterios: agentes etiológicos, signos y síntomas identificables, o alteraciones anatómicas consistentes.</b> Es una de las tres definiciones de enfermedad."}, {"type": "mc", "q": "Un síntoma es:", "options": ["Una manifestación que la persona refiere pero que no se puede comprobar objetivamente", "Un dato que siempre se mide con aparatos", "Un resultado de laboratorio", "Una vacuna"], "correct": 0, "exp": "<b>Respuesta correcta: a) Una manifestación que la persona refiere pero que no se puede comprobar objetivamente.</b> Un signo, en cambio, se puede observar o medir."}, {"type": "mc", "q": "El ejemplo más claro de síntoma es:", "options": ["El pulso", "La temperatura", "La presión arterial", "El dolor"], "correct": 3, "exp": "<b>Respuesta correcta: d) El dolor.</b> También náuseas y vértigo."}, {"type": "mc", "q": "Los signos vitales son:", "options": ["Presión, pulso, respiración y temperatura", "Peso y talla", "Dolor, náuseas y vértigo", "Hambre y sueño"], "correct": 0, "exp": "<b>Respuesta correcta: a) Presión, pulso, respiración y temperatura.</b> Son ejemplos clásicos de signos."}, {"type": "tf", "q": "Un síntoma se puede fingir, modificar o cambiar, porque solo lo percibe la persona.", "correct": true, "exp": "<b>Verdadero.</b> Por eso se dice que el síntoma es una molestia que solo podemos percibir."}, {"type": "mc", "q": "Los síntomas más comunes en la población general son:", "options": ["Presión, pulso y temperatura", "Hambre y sed", "Dolor, náuseas y vértigo", "Peso y estatura"], "correct": 2, "exp": "<b>Respuesta correcta: c) Dolor, náuseas y vértigo.</b> Son referidos por el paciente."}]);
+
+/* ===== 1.4 ===== */
+initQuiz('qz-triada','score-triada','a5',[{"type": "mc", "q": "Los tres elementos de la tríada ecológica son:", "options": ["Aire, agua y suelo", "Huésped, ambiente y agente causal", "Médico, paciente y hospital", "Dolor, fiebre y tos"], "correct": 1, "exp": "<b>Respuesta correcta: b) Huésped, ambiente y agente causal.</b> Por eso se llama \"tríada\"."}, {"type": "mc", "q": "Antes de la OMS, los biólogos definían la salud solo en función del aspecto:", "options": ["Económico", "Social", "Físico", "Mental"], "correct": 2, "exp": "<b>Respuesta correcta: c) Físico.</b> La OMS la consideró incompleta porque faltaban lo mental y lo social."}, {"type": "mc", "q": "Un huésped es:", "options": ["Un virus", "Un hospital", "Cualquier ser vivo que permite el alojamiento, subsistencia y desarrollo de un agente causal de enfermedad", "Un medicamento"], "correct": 2, "exp": "<b>Respuesta correcta: c) Cualquier ser vivo que permite el alojamiento, subsistencia y desarrollo de un agente causal de enfermedad.</b> Debe mantener un equilibrio (genética, raza, edad, sexo, integridad anatomo-funcional, inmunidad y estado nutricional)."}, {"type": "mc", "q": "El agente causal es:", "options": ["Un tipo de médico", "Todo poder, principio o sustancia capaz de actuar en el organismo y ser nocivo", "Solo una bacteria", "Solo un virus"], "correct": 1, "exp": "<b>Respuesta correcta: b) Todo poder, principio o sustancia capaz de actuar en el organismo y ser nocivo.</b> Puede ser biológico, físico, químico, mecánico, nutricional, psicológico o social."}, {"type": "mc", "q": "El medio ambiente es:", "options": ["La totalidad de los factores físicos, químicos, bióticos y socioculturales que rodean a un individuo o grupo", "Solo la ciudad", "Solo el clima", "Solo el campo"], "correct": 0, "exp": "<b>Respuesta correcta: a) La totalidad de los factores físicos, químicos, bióticos y socioculturales que rodean a un individuo o grupo.</b> Incluye aire, agua, suelo, ingresos, habitación, escolaridad y acceso a servicios de salud."}, {"type": "mc", "q": "Bacterias, virus, hongos y protozoarios son agentes causales:", "options": ["Físicos", "Psicológicos", "Biológicos", "Químicos"], "correct": 2, "exp": "<b>Respuesta correcta: c) Biológicos.</b> También los anélidos."}, {"type": "mc", "q": "El estrés y la depresión son agentes causales:", "options": ["Psicológicos", "Mecánicos", "Físicos", "Biológicos"], "correct": 0, "exp": "<b>Respuesta correcta: a) Psicológicos.</b> Afectan a la salud mental."}, {"type": "mc", "q": "El tabaquismo, el alcoholismo y la drogadicción son agentes causales:", "options": ["Sociales", "Biológicos", "Físicos", "Mecánicos"], "correct": 0, "exp": "<b>Respuesta correcta: a) Sociales.</b> También las políticas de salud y la economía de la salud."}]);
+
+/* ===== 1.4.1 ===== */
+initQuiz('qz-historia','score-historia','a1',[{"type": "mc", "q": "¿Quiénes establecieron en 1965 el esquema de la historia natural de la enfermedad?", "options": ["Leavell y Clarck", "Hernan y San Martin", "Koch y Jenner", "Stedman y Anderson"], "correct": 0, "exp": "<b>Respuesta correcta: a) Leavell y Clarck.</b> Dividieron la enfermedad en periodos."}, {"type": "mc", "q": "El periodo prepatogénico es la:", "options": ["Curación", "Muerte", "Interacción entre factores endógenos y exógenos que permite que se reproduzca y desarrolle la enfermedad", "Fase en que hay signos y síntomas claros"], "correct": 2, "exp": "<b>Respuesta correcta: c) Interacción entre factores endógenos y exógenos que permite que se reproduzca y desarrolle la enfermedad.</b> Ocurre antes de la enfermedad."}, {"type": "mc", "q": "El periodo patogénico subclínico se caracteriza por:", "options": ["Signos y síntomas muy claros", "Curación", "Salud completa", "Lesiones anatómicas o funcionales sin expresiones clínicas claras, detectables por exámenes o tamizaje"], "correct": 3, "exp": "<b>Respuesta correcta: d) Lesiones anatómicas o funcionales sin expresiones clínicas claras, detectables por exámenes o tamizaje.</b> Las manifestaciones son generales y confusas."}, {"type": "mc", "q": "En el periodo clínico:", "options": ["La enfermedad se manifiesta por signos y síntomas que facilitan su diagnóstico y manejo", "Solo hay prevención", "Todo vuelve a la normalidad", "No hay ningún síntoma"], "correct": 0, "exp": "<b>Respuesta correcta: a) La enfermedad se manifiesta por signos y síntomas que facilitan su diagnóstico y manejo.</b> Es cuando se cruza el \"horizonte clínico\"."}, {"type": "mc", "q": "En el periodo de resolución, la enfermedad evoluciona hacia:", "options": ["El periodo prepatogénico", "La prevención", "Solo la curación", "La curación con o sin secuelas, la muerte o la cronicidad"], "correct": 3, "exp": "<b>Respuesta correcta: d) La curación con o sin secuelas, la muerte o la cronicidad.</b> Puede quedar estado crónico."}, {"type": "mc", "q": "\"Fomento de la salud\" y \"protección específica\" corresponden a la prevención:", "options": ["Cuaternaria", "Primaria", "Secundaria", "Terciaria"], "correct": 1, "exp": "<b>Respuesta correcta: b) Primaria.</b> Actúan antes de la enfermedad."}, {"type": "mc", "q": "\"Diagnóstico precoz y tratamiento inmediato\" y \"limitación del daño\" corresponden a la prevención:", "options": ["Ninguna", "Primaria", "Terciaria", "Secundaria"], "correct": 3, "exp": "<b>Respuesta correcta: d) Secundaria.</b> Actúan durante el periodo patogénico."}, {"type": "mc", "q": "La \"rehabilitación\" corresponde a la prevención:", "options": ["Terciaria", "Secundaria", "Primaria", "Preventiva básica"], "correct": 0, "exp": "<b>Respuesta correcta: a) Terciaria.</b> Busca recuperar al máximo después del daño."}]);
+
+/* ===== 1.5 ===== */
+initQuiz('qz-niveles','score-niveles','a2',[{"type": "mc", "q": "La prevención primaria es el conjunto de acciones destinadas a:", "options": ["Impedir la aparición o disminuir la probabilidad de ocurrencia de la enfermedad", "Hacer cirugías", "Curar infecciones avanzadas", "Rehabilitar a los pacientes"], "correct": 0, "exp": "<b>Respuesta correcta: a) Impedir la aparición o disminuir la probabilidad de ocurrencia de la enfermedad.</b> Es la que actúa antes de que aparezca la enfermedad."}, {"type": "mc", "q": "La prevención primaria actúa durante el periodo:", "options": ["Clínico", "Crónico", "De resolución", "Prepatogénico"], "correct": 3, "exp": "<b>Respuesta correcta: d) Prepatogénico.</b> Modificando factores de riesgo o previniendo la acción del agente."}, {"type": "mc", "q": "La protección de la salud consiste en acciones sobre:", "options": ["Los hospitales", "El individuo únicamente", "Las medicinas", "El medio ambiente"], "correct": 3, "exp": "<b>Respuesta correcta: d) El medio ambiente.</b> La promoción de la salud son acciones sobre el individuo."}, {"type": "mc", "q": "¿Cuál es un ejemplo de prevención primaria?", "options": ["Terapia física para recuperar movilidad", "Cuidados de un paciente con secuelas", "Vacunar a la población (inmunizaciones) o potabilizar el agua", "Cirugía de un tumor"], "correct": 2, "exp": "<b>Respuesta correcta: c) Vacunar a la población (inmunizaciones) o potabilizar el agua.</b> También cambios en la dieta, ejercicio y cinturón de seguridad."}, {"type": "mc", "q": "La prevención secundaria incluye fundamentalmente:", "options": ["Rehabilitación", "Pruebas de tamizaje o screening para la detección precoz", "Vacunas", "Higiene del hogar"], "correct": 1, "exp": "<b>Respuesta correcta: b) Pruebas de tamizaje o screening para la detección precoz.</b> Busca diagnóstico y tratamiento precoz."}, {"type": "mc", "q": "La prevención terciaria intenta:", "options": ["Dar vacunas", "Evitar que aparezca la enfermedad", "Modificar favorablemente la evolución de una enfermedad en su fase sintomática crónica o sus secuelas, mejorando la calidad de vida y retardando la muerte", "Detectar enfermedades sin síntomas"], "correct": 2, "exp": "<b>Respuesta correcta: c) Modificar favorablemente la evolución de una enfermedad en su fase sintomática crónica o sus secuelas, mejorando la calidad de vida y retardando la muerte.</b> Incluye la rehabilitación."}, {"type": "mc", "q": "En la pirámide de niveles de prevención, el Nivel II corresponde a la población:", "options": ["Enferma (curación)", "Incapacitada (rehabilitación)", "Joven", "Sana (mantenimiento)"], "correct": 0, "exp": "<b>Respuesta correcta: a) Enferma (curación).</b> El Nivel I es la población sana; el Nivel III, la incapacitada."}, {"type": "mc", "q": "En la pirámide, el Nivel III corresponde a la población:", "options": ["Vacunada", "Enferma (curación)", "Incapacitada (rehabilitación)", "Sana (mantenimiento)"], "correct": 2, "exp": "<b>Respuesta correcta: c) Incapacitada (rehabilitación).</b> Es el nivel con mayor daño."}]);
+
+/* ===== 1.5.1 ===== */
+initQuiz('qz-ent','score-ent','a3',[{"type": "mc", "q": "Las enfermedades no transmisibles (ENT) son:", "options": ["Infecciones contagiosas", "Afecciones de larga duración con una progresión generalmente lenta", "Enfermedades que se curan en un día", "Accidentes"], "correct": 1, "exp": "<b>Respuesta correcta: b) Afecciones de larga duración con una progresión generalmente lenta.</b> También se llaman crónicas."}, {"type": "mc", "q": "¿Cuál es un ejemplo de enfermedad no transmisible?", "options": ["Diarrea infecciosa", "Diabetes", "Tuberculosis", "Gripe"], "correct": 1, "exp": "<b>Respuesta correcta: b) Diabetes.</b> También enfermedades cardiovasculares, cáncer y enfermedades respiratorias crónicas."}, {"type": "mc", "q": "Las ENT contribuyen a la mortalidad como consecuencia de un proceso iniciado:", "options": ["Al nacer", "Décadas antes, en la niñez y la adolescencia", "El mismo día", "En la vejez únicamente"], "correct": 1, "exp": "<b>Respuesta correcta: b) Décadas antes, en la niñez y la adolescencia.</b> Se asocian a alcohol, tabaquismo, sedentarismo y hábitos alimentarios no saludables."}, {"type": "mc", "q": "La profilaxis activa consiste en administrar:", "options": ["Vitaminas", "Antimicrobianos o inmunoglobulinas", "Vacunas", "Analgésicos"], "correct": 2, "exp": "<b>Respuesta correcta: c) Vacunas.</b> La pasiva usa antimicrobianos (quimioprofilaxis) o inmunoglobulinas."}, {"type": "tf", "q": "La maduración cerebral no se completa hasta llegar a los 25 años de edad.", "correct": true, "exp": "<b>Verdadero.</b> Por eso la adolescencia es una etapa clave para formar hábitos saludables."}, {"type": "mc", "q": "Las enfermedades transmisibles son aquellas causadas por:", "options": ["La genética", "Solo el estrés", "La mala alimentación", "Agentes infecciosos específicos o por sus productos tóxicos en un huésped susceptible"], "correct": 3, "exp": "<b>Respuesta correcta: d) Agentes infecciosos específicos o por sus productos tóxicos en un huésped susceptible.</b> Se conocen como contagiosas o infecciosas (Malcolm Anderson, 1991)."}, {"type": "mc", "q": "El mecanismo de las vacunas fue descubierto en el siglo XVIII por:", "options": ["Louis Pasteur", "Robert Koch", "Alexander Fleming", "Edward Jenner"], "correct": 3, "exp": "<b>Respuesta correcta: d) Edward Jenner.</b> Observó que las mujeres que ordeñaban vacas se volvían inmunes a la viruela humana."}, {"type": "mc", "q": "En el informe de la OMS (2017), la principal causa de mortalidad en el mundo fue:", "options": ["Las enfermedades diarreicas", "La cardiopatía isquémica", "La tuberculosis", "Los accidentes de tránsito"], "correct": 1, "exp": "<b>Respuesta correcta: b) La cardiopatía isquémica.</b> Después, el accidente cerebrovascular."}]);
+
+/* ===== 1.6 ===== */
+initQuiz('qz-cadena','score-cadena','a4',[{"type": "mc", "q": "Los tres elementos de la cadena epidemiológica son:", "options": ["Aire, agua y suelo", "Una fuente infecciosa, un huésped susceptible y una vía de transmisión de microorganismos", "Médico, enfermero y paciente", "Dolor, fiebre y tos"], "correct": 1, "exp": "<b>Respuesta correcta: b) Una fuente infecciosa, un huésped susceptible y una vía de transmisión de microorganismos.</b> Los tres deben estar presentes para que haya transmisión."}, {"type": "mc", "q": "La fuente de microorganismos infecciosos puede ser:", "options": ["Solo el aire", "Solo el agua", "Pacientes, personal sanitario y reservorios animales o telúricos", "Solo las plantas"], "correct": 2, "exp": "<b>Respuesta correcta: c) Pacientes, personal sanitario y reservorios animales o telúricos.</b> También objetos del entorno contaminados."}, {"type": "mc", "q": "Una persona colonizada por un agente infeccioso que no presenta síntomas es:", "options": ["Un vector", "Un reservorio inanimado", "Un portador (asintomático)", "Una persona inmune a todo"], "correct": 2, "exp": "<b>Respuesta correcta: c) Un portador (asintomático).</b> Los portadores crónicos también pueden ser fuente."}, {"type": "mc", "q": "Factores que aumentan la susceptibilidad del huésped:", "options": ["Dormir bien", "Edad, enfermedad de base, tratamientos antimicrobianos o inmunosupresores y catéteres de larga duración", "Hacer ejercicio", "Comer fruta"], "correct": 1, "exp": "<b>Respuesta correcta: b) Edad, enfermedad de base, tratamientos antimicrobianos o inmunosupresores y catéteres de larga duración.</b> Algunas personas pueden ser inmunes o portadoras asintomáticas."}, {"type": "mc", "q": "Las cinco vías principales de transmisión son:", "options": ["Solo contacto", "Solo aire y agua", "Contacto, gotitas, aire, vehículos comunes y vectores", "Sangre y orina únicamente"], "correct": 2, "exp": "<b>Respuesta correcta: c) Contacto, gotitas, aire, vehículos comunes y vectores.</b> Cada una requiere distintas medidas de control."}, {"type": "mc", "q": "La vía de transmisión más importante y frecuente de infecciones nosocomiales (hospitalarias) es:", "options": ["La transmisión por contacto", "La transmisión por vectores", "Ninguna", "La transmisión por aire"], "correct": 0, "exp": "<b>Respuesta correcta: a) La transmisión por contacto.</b> Puede ser directa o indirecta."}, {"type": "mc", "q": "La transmisión por gotitas ocurre cuando:", "options": ["Se transmiten por insectos", "Se comparten alimentos", "Se expulsan al toser, estornudar o hablar partículas mayores de 5 µm que viajan a corta distancia", "Quedan suspendidas en el aire por horas"], "correct": 2, "exp": "<b>Respuesta correcta: c) Se expulsan al toser, estornudar o hablar partículas mayores de 5 µm que viajan a corta distancia.</b> Requiere contacto cercano (menos de 1 metro: precauciones adicionales)."}, {"type": "mc", "q": "La transmisión por aire se produce por núcleos de gotitas o polvo con partículas menores de 5 µm que:", "options": ["Quedan suspendidas en el aire por largos periodos y pueden recorrer distancias", "Necesitan un vector", "Solo se transmiten por contacto", "Caen de inmediato"], "correct": 0, "exp": "<b>Respuesta correcta: a) Quedan suspendidas en el aire por largos periodos y pueden recorrer distancias.</b> Para prevenirla hace falta un control especial del aire y de la ventilación."}]);
+
+/* ===== 1.7 ===== */
+initQuiz('qz-higiene','score-higiene','a5',[{"type": "mc", "q": "La higiene personal es:", "options": ["El conjunto de cuidados que necesita nuestro cuerpo para aumentar su vitalidad y mantenerse en un estado saludable", "Vestir a la moda", "Dormir mucho", "Usar perfume"], "correct": 0, "exp": "<b>Respuesta correcta: a) El conjunto de cuidados que necesita nuestro cuerpo para aumentar su vitalidad y mantenerse en un estado saludable.</b> Es el concepto básico de aseo, limpieza y cuidado del cuerpo."}, {"type": "mc", "q": "Un hábito es:", "options": ["Toda conducta que se repite en el tiempo en forma regular y de modo sistemático", "Un medicamento", "Una enfermedad", "Una conducta que ocurre una vez"], "correct": 0, "exp": "<b>Respuesta correcta: a) Toda conducta que se repite en el tiempo en forma regular y de modo sistemático.</b> Los hábitos de higiene se forman con práctica constante."}, {"type": "mc", "q": "Uno de los objetivos del aprendizaje de hábitos de higiene es:", "options": ["Cambiar de ropa más seguido por moda", "Prevenir la aparición y desarrollo de enfermedades", "Evitar convivir con otros", "Ahorrar tiempo"], "correct": 1, "exp": "<b>Respuesta correcta: b) Prevenir la aparición y desarrollo de enfermedades.</b> También mejorar la salud, facilitar relaciones interpersonales y una imagen positiva de sí mismos."}, {"type": "mc", "q": "Al lavarse las manos, después de cepillar las uñas se debe:", "options": ["Cerrar la llave con la mano", "Secar con la ropa", "No enjuagar", "Enjuagar completamente con abundante agua hasta retirar todo el jabón"], "correct": 3, "exp": "<b>Respuesta correcta: d) Enjuagar completamente con abundante agua hasta retirar todo el jabón.</b> Luego secar con papel o toalla limpia y cerrar la llave con el mismo papel o toalla."}, {"type": "mc", "q": "Los ojos no deben tocarse con manos sucias; su mecanismo propio de limpieza son:", "options": ["El jabón", "Los pañuelos", "Las lágrimas", "Las gotas siempre"], "correct": 2, "exp": "<b>Respuesta correcta: c) Las lágrimas.</b> Conviene mantener buena iluminación para evitar esfuerzo de la vista."}, {"type": "mc", "q": "La ropa de cama debe lavarse con cierta periodicidad porque:", "options": ["Pesa más", "Se pone fea", "Allí se reproducen ácaros que causan problemas en la piel y alergias", "Cambia de color"], "correct": 2, "exp": "<b>Respuesta correcta: c) Allí se reproducen ácaros que causan problemas en la piel y alergias.</b> La ropa también conviene exponerla al sol."}, {"type": "mc", "q": "La rutina de higiene en la vivienda incluye principalmente:", "options": ["Solo el jardín", "Solo la sala", "Limpieza de la cocina, limpieza diaria y limpieza del baño", "Solo barrer"], "correct": 2, "exp": "<b>Respuesta correcta: c) Limpieza de la cocina, limpieza diaria y limpieza del baño.</b> Ventilar todos los días y mover los muebles una o dos veces al año."}, {"type": "tf", "q": "Las manos húmedas esparcen 1,000 gérmenes más que las manos secas.", "correct": true, "exp": "<b>Verdadero.</b> Dato de \"Sabías que…\": por eso hay que secarlas bien."}]);
+
+/* ===== 1.7.1 ===== */
+initQuiz('qz-alim','score-alim','a1',[{"type": "mc", "q": "Según las reglas de oro de la OMS, los alimentos cocidos deben consumirse inmediatamente porque:", "options": ["A temperatura ambiente los microbios comienzan a reproducirse", "Pierden sabor", "Cambian de color", "Se enfrían"], "correct": 0, "exp": "<b>Respuesta correcta: a) A temperatura ambiente los microbios comienzan a reproducirse.</b> Es la regla 3."}, {"type": "mc", "q": "La contaminación cruzada ocurre cuando:", "options": ["Se lavan frutas", "Se cocina de más", "Un alimento cocido se contamina por contacto con uno crudo", "Se usa agua segura"], "correct": 2, "exp": "<b>Respuesta correcta: c) Un alimento cocido se contamina por contacto con uno crudo.</b> Hay que evitar el contacto entre alimentos crudos y cocidos."}, {"type": "mc", "q": "La mejor medida de protección contra los microbios que pudieron crecer durante el almacenamiento es:", "options": ["Recalentar bien los alimentos cocidos", "Taparlos con tela", "Dejarlos a temperatura ambiente", "Enfriarlos más"], "correct": 0, "exp": "<b>Respuesta correcta: a) Recalentar bien los alimentos cocidos.</b> Regla 5 de la OMS."}, {"type": "mc", "q": "Hay que lavarse las manos:", "options": ["Antes y durante la preparación de alimentos, después de ir al baño y antes de comer", "Una vez al día", "Solo después de comer", "Solo cuando están visiblemente sucias"], "correct": 0, "exp": "<b>Respuesta correcta: a) Antes y durante la preparación de alimentos, después de ir al baño y antes de comer.</b> Regla 7."}, {"type": "mc", "q": "La regla 10 de la OMS indica:", "options": ["Beber agua fría", "Hervir solo la carne", "Usar agua del río", "Utilizar agua segura tanto para beber como para lavar y preparar los alimentos"], "correct": 3, "exp": "<b>Respuesta correcta: d) Utilizar agua segura tanto para beber como para lavar y preparar los alimentos.</b> Es clave para evitar infecciones."}, {"type": "mc", "q": "Para adquirir hábitos de higiene, la \"regularidad en el tiempo\" significa que:", "options": ["Solo se hace en vacaciones", "Se hace cuando uno quiere", "La práctica diaria da las pautas de higiene y genera hábitos que contribuyen al bienestar físico y psíquico", "Se hace una vez al año"], "correct": 2, "exp": "<b>Respuesta correcta: c) La práctica diaria da las pautas de higiene y genera hábitos que contribuyen al bienestar físico y psíquico.</b> Junto con un ambiente apropiado, momentos gratos y creatividad."}, {"type": "mc", "q": "La mejor etapa para que los niños aprendan comportamientos higiénicos es:", "options": ["La juventud tardía", "La vejez", "La infancia", "La adultez"], "correct": 2, "exp": "<b>Respuesta correcta: c) La infancia.</b> Los padres, la familia y los docentes deben dar el ejemplo."}, {"type": "mc", "q": "\"Ser creativo e innovador\" al formar hábitos significa que:", "options": ["Repetir lo mismo sin cambiar", "Rendirse", "Si un método no da resultado, se debe ser paciente y creativo, innovando con tácticas motivadoras", "Castigar"], "correct": 2, "exp": "<b>Respuesta correcta: c) Si un método no da resultado, se debe ser paciente y creativo, innovando con tácticas motivadoras.</b> El objetivo es lograr salud integral en el niño/a y adolescente."}]);
+
+/* ===== Actividades finales ===== */
+initQuiz('qz-final','score-final','a2',[{"type": "mc", "q": "Incluye nuestra dieta, salud emocional, nivel de actividad física y nuestro comportamiento.", "options": ["Estilo de vida", "Salud social", "Medio ambiente", "Biología humana"], "correct": 0, "exp": "<b>Respuesta correcta: a) Estilo de vida.</b> Es el elemento de la salud física sobre el que tenemos mayor control."}, {"type": "mc", "q": "Son el resultado de la distribución del dinero, el poder y los recursos a nivel mundial, nacional y local.", "options": ["OMS", "Salud social", "Salud mental", "Salud física"], "correct": 1, "exp": "<b>Respuesta correcta: b) Salud social.</b> "}, {"type": "mc", "q": "La genética y nuestra química pueden incluir anormalidades.", "options": ["Biología humana", "Medio ambiente", "Estilo de vida", "Servicios de atención médica"], "correct": 0, "exp": "<b>Respuesta correcta: a) Biología humana.</b> "}, {"type": "mc", "q": "Son los servicios que se ofrecen para que ayuden a prevenir, detectar o tratar las enfermedades.", "options": ["Medio ambiente", "Estilo de vida", "Salud mental", "Servicios de atención médica"], "correct": 3, "exp": "<b>Respuesta correcta: d) Servicios de atención médica.</b> "}, {"type": "mc", "q": "Condición en la que se encuentra el cuerpo, cuando el cuerpo funciona de la forma para la cual fue diseñado.", "options": ["Salud social", "Salud física", "Salud mental", "OMS"], "correct": 1, "exp": "<b>Respuesta correcta: b) Salud física.</b> "}, {"type": "mc", "q": "Es el elemento de la salud física sobre el cual tenemos mayor control.", "options": ["Servicios de atención médica", "Medio ambiente", "Estilo de vida", "Biología humana"], "correct": 2, "exp": "<b>Respuesta correcta: c) Estilo de vida.</b> "}, {"type": "mc", "q": "Causas que afectan a la salud física caen dentro de cuatro categorías.", "options": ["Salud física", "OMS", "Salud social", "Salud mental"], "correct": 0, "exp": "<b>Respuesta correcta: a) Salud física.</b> "}, {"type": "mc", "q": "Incluye el tipo de aire que respiramos, el lugar en el que vivimos y nuestro entorno.", "options": ["Salud social", "Medio ambiente", "Biología humana", "Estilo de vida"], "correct": 1, "exp": "<b>Respuesta correcta: b) Medio ambiente.</b> "}, {"type": "mc", "q": "Fundamento del bienestar individual y del funcionamiento eficaz de la comunidad.", "options": ["Salud mental", "Salud física", "Salud social", "OMS"], "correct": 0, "exp": "<b>Respuesta correcta: a) Salud mental.</b> "}, {"type": "mc", "q": "Determinada por múltiples factores sociales, psicológicos y biológicos.", "options": ["Salud física", "Salud mental", "Medio ambiente", "Salud social"], "correct": 1, "exp": "<b>Respuesta correcta: b) Salud mental.</b> "}]);
+
+/* ═══ CRUCIGRAMA ═══ */
+const xwIns=()=>Array.from(document.querySelectorAll('.xw-in'));
+xwIns().forEach(inp=>{
+  inp.addEventListener('input',()=>{inp.value=inp.value.toUpperCase().replace(/[^A-ZÑ]/g,'');inp.classList.remove('ok','bad');
+    if(inp.value){const r=+inp.dataset.r,c=+inp.dataset.c;const n=document.querySelector(`.xw-in[data-r="${r}"][data-c="${c+1}"]`)||document.querySelector(`.xw-in[data-r="${r+1}"][data-c="${c}"]`);if(n)n.focus();}});
+});
+function xwCheck(){let ok=0,tot=0,empty=0;xwIns().forEach(i=>{tot++;i.classList.remove('ok','bad');if(!i.value){empty++;return;}if(i.value===i.dataset.a){ok++;i.classList.add('ok');}else i.classList.add('bad');});
+ document.getElementById('xw-msg').textContent=ok===tot?'🎉 ¡Crucigrama completo y correcto!':`✅ ${ok} correctas · ❌ ${tot-ok-empty} incorrectas · ⬜ ${empty} vacías`;}
+function xwReveal(){xwIns().forEach(i=>{i.value=i.dataset.a;i.classList.remove('bad');i.classList.add('ok');});document.getElementById('xw-msg').textContent='Respuestas mostradas. ¡Inténtalo tú primero la próxima vez!';}
+function xwClear(){xwIns().forEach(i=>{i.value='';i.classList.remove('ok','bad');});document.getElementById('xw-msg').textContent='';}
+</script>
+</body>
+</html>

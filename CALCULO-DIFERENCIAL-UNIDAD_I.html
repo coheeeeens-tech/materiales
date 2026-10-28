@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cálculo Diferencial — Unidad I</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f4f8;--surface:#fff;--border:#c0d0e0;
+  --ink:#061828;--muted:#3a5a78;
+  --a1:#1a4fc4;--a2:#c41a1a;--a3:#1a9a5c;--a4:#b8860b;--a5:#7a1ac4;
+  --a1l:#e8eef9;--a2l:#fdeaea;--a3l:#e3f4e8;--a4l:#fff8e1;--a5l:#f0e8fb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;line-height:1.7;}
+
+.hero{background:var(--ink);color:#f0f6ff;padding:56px 48px 48px;position:relative;overflow:hidden;}
+.hero::after{content:'📈';font-size:220px;position:absolute;right:20px;bottom:-30px;line-height:1;pointer-events:none;opacity:.06;}
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.unit-badge{background:var(--a1);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:4px 14px;border-radius:4px;}
+.subject-tag{font-size:12px;font-weight:500;color:rgba(240,246,255,0.45);letter-spacing:2px;text-transform:uppercase;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,8vw,5rem);line-height:.92;letter-spacing:1px;margin-bottom:16px;}
+.hero h1 span{color:#5cb8f8;}
+.hero-desc{max-width:560px;font-size:15px;color:rgba(240,246,255,0.6);margin-bottom:32px;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:10px;}
+.pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;}
+.pill-dot{width:8px;height:8px;border-radius:50%;}
+
+.nav-strip{background:var(--a1);display:flex;overflow-x:auto;position:sticky;top:0;z-index:10;}
+.nav-strip a{color:rgba(255,255,255,.75);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:12px 20px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.15);transition:all .2s;}
+.nav-strip a:hover{background:rgba(255,255,255,.12);color:#fff;}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 28px 100px;}
+
+.sec-head{display:flex;align-items:flex-start;margin:56px 0 24px;border-left:5px solid var(--a1);padding-left:18px;}
+.sec-head.red{border-color:var(--a2);} .sec-head.green{border-color:var(--a3);} .sec-head.gold{border-color:var(--a4);} .sec-head.purple{border-color:var(--a5);}
+.sec-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--a1);margin-right:14px;flex-shrink:0;}
+.sec-head.red .sec-num{color:var(--a2);} .sec-head.green .sec-num{color:var(--a3);} .sec-head.gold .sec-num{color:var(--a4);} .sec-head.purple .sec-num{color:var(--a5);}
+.sec-info h2{font-family:'Bebas Neue',sans-serif;font-size:1.85rem;letter-spacing:.5px;line-height:1.1;}
+.sec-info p{font-size:13px;color:var(--muted);font-weight:500;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 26px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.card-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+.concept-box{border-radius:12px;padding:18px 22px;margin:12px 0;text-align:center;}
+.concept-box.blue{background:linear-gradient(135deg,#061828,#1a4fc4);}
+.concept-box.red{background:linear-gradient(135deg,#2a0a0a,#c41a1a);}
+.concept-box.green{background:linear-gradient(135deg,#0a2a18,#1a9a5c);}
+.concept-box.gold{background:linear-gradient(135deg,#2a1800,#b8860b);}
+.concept-box.purple{background:linear-gradient(135deg,#1a0a2a,#7a1ac4);}
+.concept-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;color:#fff;margin-bottom:6px;}
+.concept-def{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;}
+
+.tip{border-radius:10px;padding:13px 16px;font-size:13.5px;margin-top:14px;display:flex;gap:10px;align-items:flex-start;}
+.tip.blue{background:rgba(26,79,196,.08);border-left:3px solid var(--a1);}
+.tip.red{background:rgba(196,26,26,.08);border-left:3px solid var(--a2);}
+.tip.green{background:rgba(26,154,92,.08);border-left:3px solid var(--a3);}
+.tip.gold{background:rgba(184,134,11,.08);border-left:3px solid var(--a4);}
+.tip.purple{background:rgba(122,26,196,.08);border-left:3px solid var(--a5);}
+.tip-ico{font-size:18px;flex-shrink:0;margin-top:1px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px;}
+@media(max-width:600px){.two-col,.three-col,.char-grid{grid-template-columns:1fr;}}
+
+.mini-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.mini-card .mc-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.mini-card .mc-val{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.5px;}
+.mini-card .mc-body{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.55;}
+
+.char-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+.char-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;border-left:4px solid var(--a1);}
+.char-card.red{border-color:var(--a2);}.char-card.green{border-color:var(--a3);}.char-card.gold{border-color:var(--a4);}.char-card.purple{border-color:var(--a5);}
+.char-card .cc-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.5px;margin-bottom:6px;}
+.char-card .cc-title.blue{color:var(--a1);}.char-card .cc-title.red{color:var(--a2);}.char-card .cc-title.green{color:var(--a3);}.char-card .cc-title.gold{color:var(--a4);}.char-card .cc-title.purple{color:var(--a5);}
+.char-card .cc-body{font-size:13px;line-height:1.6;}
+.char-card .cc-ex{font-size:12px;margin-top:8px;padding:6px 10px;border-radius:6px;font-style:italic;}
+.char-card .cc-ex.blue{background:var(--a1l);color:var(--a1);}.char-card .cc-ex.red{background:var(--a2l);color:var(--a2);}
+.char-card .cc-ex.green{background:var(--a3l);color:var(--a3);}.char-card .cc-ex.gold{background:var(--a4l);color:var(--a4);}
+.char-card .cc-ex.purple{background:var(--a5l);color:var(--a5);}
+
+.stab{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+.stab th{text-align:left;padding:9px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid;background:rgba(0,0,0,.02);}
+.stab.blue th{color:var(--a1);border-color:var(--a1);}
+.stab.red th{color:var(--a2);border-color:var(--a2);}
+.stab.green th{color:var(--a3);border-color:var(--a3);}
+.stab.gold th{color:var(--a4);border-color:var(--a4);}
+.stab.purple th{color:var(--a5);border-color:var(--a5);}
+.stab td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.stab tr:last-child td{border-bottom:none;}
+.stab tr:nth-child(even) td{background:rgba(0,0,0,.015);}
+
+.bubbles{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.bubble{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 16px;}
+.bubble .b-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.bubble .b-main{font-weight:600;font-size:14px;margin-bottom:3px;}
+.bubble .b-sub{font-size:12.5px;color:var(--muted);}
+
+.wb-section{background:var(--ink);color:#f0f6ff;border-radius:16px;padding:32px;margin-top:60px;}
+.wb-title{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:1px;margin-bottom:6px;}
+.wb-title span{color:#5cb8f8;}
+.wb-sub{color:rgba(240,246,255,.5);font-size:13.5px;margin-bottom:28px;}
+.wb-group{margin-bottom:28px;}
+.wb-group-title{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:2px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:12px;}
+.wb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.wb-word{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;}
+.wb-word .en{font-weight:700;font-size:13.5px;margin-bottom:2px;}
+.wb-word .es{font-size:12px;color:rgba(240,246,255,.55);}
+
+footer{text-align:center;padding:28px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--border);margin-top:20px;}
+
+/* ═══ ACTIVIDADES DEL LIBRO (práctica) ═══ */
+.activity-box{background:var(--surface);border:2px dashed var(--a5);border-radius:14px;padding:20px 22px;margin:8px 0 20px;}
+.activity-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.activity-head .ac-ico{font-size:1.4rem;}
+.activity-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.5px;color:var(--a5);}
+.activity-item{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;}
+.activity-item .ai-title{font-family:'Bebas Neue',sans-serif;color:var(--a5);font-size:1.05rem;letter-spacing:.5px;margin-bottom:4px;}
+.activity-item .ai-crit{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic;}
+
+/* ═══ QUIZ INTERACTIVO ═══ */
+.quiz-box{background:var(--surface);border:2px dashed var(--border);border-radius:14px;padding:20px 22px;margin:8px 0 32px;}
+.quiz-box.blue{border-color:var(--a1);}.quiz-box.red{border-color:var(--a2);}
+.quiz-box.green{border-color:var(--a3);}.quiz-box.gold{border-color:var(--a4);}
+.quiz-box.purple{border-color:var(--a5);}
+.quiz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.quiz-head .qz-ico{font-size:1.5rem;}
+.quiz-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.5px;}
+.quiz-head span.qz-sub{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+.quiz-score{font-size:12px;font-weight:700;margin-bottom:14px;color:var(--muted);}
+.qz-question{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.qz-question:last-child{margin-bottom:0;}
+.qz-qtext{font-weight:600;font-size:13.5px;margin-bottom:10px;display:flex;gap:8px;align-items:flex-start;}
+.qz-qtext .qz-num{font-family:'Bebas Neue',sans-serif;flex-shrink:0;font-size:1.05rem;line-height:1.3;}
+.qz-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle;}
+.qz-opts{display:flex;flex-direction:column;gap:6px;}
+.qz-tf-opts{display:flex;gap:8px;}
+.qz-opt{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-size:13px;cursor:pointer;text-align:left;transition:all .15s;font-family:inherit;color:var(--ink);}
+.qz-tf-opts .qz-opt{flex:1;text-align:center;font-weight:600;}
+.qz-opt:hover:not(.disabled){background:var(--a1l);border-color:var(--a1);}
+.qz-opt.correct{background:rgba(26,154,92,.18);border-color:var(--a3);font-weight:700;color:#0a4a2a;}
+.qz-opt.incorrect{background:rgba(196,26,26,.18);border-color:var(--a2);font-weight:700;color:#7a1414;}
+.qz-opt.disabled{cursor:default;}
+.qz-explain{font-size:12.5px;margin-top:9px;padding:9px 13px;border-radius:8px;background:rgba(0,0,0,.04);display:none;line-height:1.5;}
+.qz-explain.show{display:block;}
+.qz-explain b{color:var(--a3);}
+
+/* ═══ CRUCIGRAMA ═══ */
+.xw-wrap{overflow-x:auto;margin:14px 0;}
+.xw-table{border-collapse:collapse;margin:0 auto;}
+.xw-table td{width:34px;height:34px;padding:0;position:relative;}
+.xw-table td.cell{background:var(--surface);border:1.5px solid var(--ink);}
+.xw-table td.blank{background:transparent;border:none;}
+.xw-num{position:absolute;top:1px;left:3px;font-size:9px;font-weight:700;color:var(--a2);line-height:1;pointer-events:none;}
+.xw-in{width:100%;height:100%;border:none;background:transparent;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--ink);text-transform:uppercase;outline:none;padding-top:6px;}
+.xw-in:focus{background:var(--a1l);}
+.xw-in.ok{background:rgba(26,154,92,.22);color:#0a4a2a;}
+.xw-in.bad{background:rgba(196,26,26,.18);color:#7a1414;}
+.xw-clues{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+@media(max-width:600px){.xw-clues{grid-template-columns:1fr;}}
+.xw-clues h5{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1px;color:var(--a2);margin-bottom:6px;}
+.xw-clues li{font-size:13px;margin-bottom:5px;margin-left:18px;color:var(--ink);}
+.xw-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.xw-btn{background:var(--a1);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;}
+.xw-btn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--border);}
+.xw-msg{font-size:13px;font-weight:700;margin-top:10px;color:var(--muted);}
+
+/* ═══ EJERCICIOS CON ESPACIOS EN BLANCO ═══ */
+.ex-box{background:var(--surface);border:2px solid var(--a1);border-radius:14px;padding:18px 20px;margin:18px 0;}
+.ex-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+.ex-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:1px;color:var(--ink);}
+.ex-tag{background:var(--a1);color:#fff;font-size:11px;font-weight:700;border-radius:20px;padding:3px 10px;letter-spacing:.5px;}
+.ex-prob{font-size:15px;font-weight:700;color:var(--ink);background:var(--a1l);border-radius:10px;padding:10px 14px;margin-bottom:12px;}
+.ex-intro{font-size:13px;color:var(--ink);margin-bottom:12px;line-height:1.55;}
+.ex-step{border-left:4px solid var(--a1);padding:8px 0 8px 14px;margin:12px 0;}
+.ex-n{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:1px;color:var(--a2);}
+.ex-why{font-size:13px;color:var(--muted);margin:2px 0 8px;line-height:1.5;}
+.ex-calc{font-size:16px;color:var(--ink);line-height:2.1;font-weight:600;}
+.ex-hint{font-size:12px;color:var(--muted);margin-top:4px;}
+.fb{border:none;border-bottom:2.5px dashed var(--a1);background:var(--a1l);color:var(--ink);font-family:inherit;font-size:15px;font-weight:700;text-align:center;padding:2px 6px;border-radius:6px 6px 0 0;outline:none;min-width:44px;}
+.fb:focus{background:#fff6c9;border-bottom-style:solid;}
+select.fb{padding:2px 4px;}
+.fb.ok{border-bottom:2.5px solid #1a9a5c;background:rgba(26,154,92,.20);color:#0a4a2a;}
+.fb.bad{border-bottom:2.5px solid #c41a1a;background:rgba(196,26,26,.16);color:#7a1414;}
+.ex-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.ex-btn{background:var(--a1);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;}
+.ex-btn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--border);}
+.ex-msg{font-size:13px;font-weight:700;margin-top:10px;color:var(--muted);}
+.ex-table{border-collapse:collapse;margin:8px 0;font-size:14px;}
+.ex-table th,.ex-table td{border:1.5px solid var(--ink);padding:6px 10px;text-align:center;color:var(--ink);}
+.ex-table th{background:var(--a1l);font-weight:700;}
+.rule-box{background:var(--a1l);border:1.5px dashed var(--a1);border-radius:10px;padding:10px 14px;margin:10px 0;font-size:14px;color:var(--ink);line-height:1.7;}
+.rule-box b{color:var(--a2);}
+.svg-wrap{text-align:center;margin:10px 0;}
+.svg-wrap svg{max-width:100%;height:auto;}
+.svg-cap{font-size:12px;color:var(--muted);margin-top:4px;}
+details.ans{margin-top:8px;font-size:13px;}
+details.ans summary{cursor:pointer;font-weight:700;}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="unit-badge">UNIDAD I</div>
+    <div class="subject-tag">Cálculo Diferencial</div>
+  </div>
+  <h1>CÁLCULO DIFERENCIAL<br><span>EL CAMBIO, PASO A PASO</span></h1>
+  <p class="hero-desc">¿Qué tan rápido cambia algo? ¿Cuándo sube y cuándo baja? ¿Dónde está su punto más alto o más bajo? Esta unidad responde con la derivada: verás su historia y usos, cómo derivar, cómo hallar máximos y mínimos, cuándo una función crece o decrece y cómo se curva su gráfica. Cada ejemplo viene desglosado paso a paso, con espacios en blanco para completar.</p>
+  <div class="hero-pills">
+    <div class="pill"><div class="pill-dot" style="background:#5cb8f8"></div>1.1 Campo de estudio</div>
+    <div class="pill"><div class="pill-dot" style="background:#ff8fa0"></div>1.2 Campos de aplicación</div>
+    <div class="pill"><div class="pill-dot" style="background:#86efac"></div>Reglas de derivación</div>
+    <div class="pill"><div class="pill-dot" style="background:#fcd45c"></div>1.3 Máximos y mínimos</div>
+    <div class="pill"><div class="pill-dot" style="background:#c4b5fd"></div>1.4 Crecimiento y decrecimiento</div>
+    <div class="pill"><div class="pill-dot" style="background:#ff8fa0"></div>1.5 Primera derivada</div>
+    <div class="pill"><div class="pill-dot" style="background:#86efac"></div>1.6 Concavidad</div>
+  </div>
+</div>
+
+<div class="nav-strip">
+  <a href="#campo">1.1 Campo</a>
+  <a href="#campos">1.2 Aplicaciones</a>
+  <a href="#reglas">Reglas</a>
+  <a href="#maxmin">1.3 Máx. y mín.</a>
+  <a href="#crece">1.4 Crece / decrece</a>
+  <a href="#criticos">Puntos críticos</a>
+  <a href="#primera">1.5 Primera derivada</a>
+  <a href="#concav">1.6 Concavidad</a>
+  <a href="#inflex">Inflexión</a>
+  <a href="#final">📝 Act. finales</a>
+  <a href="#turno">🎯 Tu turno</a>
+  <a href="#retos">Retos</a>
+  <a href="#glosario">Glosario</a>
+</div>
+
+<div class="wrap">
+
+<div id="campo">
+  <div class="sec-head blue">
+    <div class="sec-num">1.1</div>
+    <div class="sec-info">
+      <h2>Campo de estudio del cálculo diferencial</h2>
+      <p>Qué es el cálculo y por qué existe</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">¿Qué es el cálculo?</div>
+    <div class="concept-box blue">
+      <div class="concept-title">CÁLCULO</div>
+      <div class="concept-def">La rama de las matemáticas que se ocupa del estudio de los incrementos en las variables, pendientes de curvas, valores máximos y mínimos de funciones y de la determinación de longitudes, áreas y volúmenes. Se usa mucho en ciencias e ingeniería, siempre que haya cantidades que varían de forma continua.</div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🚗</span>
+      <span><strong>Ejemplo fácil:</strong> cuando manejas, tu velocímetro cambia: 0, 20, 60, 80 km/h… Esa velocidad "que cambia de forma continua" es justo lo que el cálculo sabe describir.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Un poco de historia</div>
+    <table class="stab blue">
+      <tr><th>Quién / cuándo</th><th>Aportación</th></tr>
+      <tr><td>Demócrito</td><td>Calculó el volumen de pirámides y conos considerándolos formados por infinitas secciones de grosor infinitesimal (infinitamente pequeño).</td></tr>
+      <tr><td>Eudoxo y Arquímedes</td><td>Usaron el "método de agotamiento": encontraron el área de un círculo con polígonos inscritos. Mientras más lados, más se parece al círculo.</td></tr>
+      <tr><td>Zenón de Elea</td><td>Sus paradojas y la dificultad de trabajar con números irracionales impidieron formular una teoría sistemática del cálculo.</td></tr>
+      <tr><td>Siglo XVII</td><td>Cavalieri y Torricelli amplían el uso de los infinitesimales; Descartes y Fermat usan el álgebra para encontrar áreas y tangentes; Fermat y Barrow intuían que ambos cálculos se relacionaban.</td></tr>
+      <tr><td>Newton (≈1660) y Leibniz (≈1670)</td><td>Demostraron que son procesos inversos: el Teorema fundamental del cálculo. Se adoptó la notación de Leibniz, aunque Newton lo descubrió antes (a partir de su teoría de la gravedad).</td></tr>
+    </table>
+    <div class="tip blue">
+      <span class="tip-ico">⭕</span>
+      <span><strong>Ejemplo fácil (polígonos):</strong> un triángulo dentro de un círculo se parece poco; un cuadrado, más; un hexágono, más aún… Con muchísimos lados, el polígono "es" el círculo. A eso se le llama <em>límite</em>: área = lím Aₙ cuando n → ∞.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Cálculo diferencial y la derivada</div>
+    <div class="concept-box blue">
+      <div class="concept-title">CÁLCULO DIFERENCIAL</div>
+      <div class="concept-def">Parte importante del análisis matemático que estudia el cambio de las variables dependientes cuando cambian las variables independientes. Su principal objeto de estudio es la <b>derivada</b>, y se apoya siempre en el concepto de <b>límite</b>.</div>
+    </div>
+    <div class="rule-box"><b>Derivada de y = f(x)</b> (definición): <br>f′(x) = lím<sub>h→0</sub> [ f(x + h) − f(x) ] / h<br><em>(h es el pequeño cambio de x; en el libro se escribe Δx.)</em></div>
+    <div class="tip blue">
+      <span class="tip-ico">📝</span>
+      <span><strong>Nota de estudio:</strong> en tu libro la fórmula aparece con Δx → ∞, pero lo correcto es que Δx tiende a <strong>0</strong> (cambio infinitesimal). Para que exista la derivada debe existir ese límite; si no existe, la función no es derivable en ese punto.</span>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🎢</span>
+      <span><strong>Ejemplo fácil:</strong> la derivada es la "pendiente de la subida" en un punto exacto de una montaña rusa: positiva si sube, negativa si baja y cero en la cima.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Practica: derivar x² con la definición</div>
+    <div class="ex-box">
+      <div class="ex-head"><span>✏️</span><h4>Ejercicio guiado 1 · La derivada de x²</h4><span class="ex-tag">TÚ COMPLETAS</span></div>
+      <div class="ex-prob">Encuentra la derivada de f(x) = x² usando la definición.</div>
+      <div class="ex-intro">Para escribir más fácil usaremos <b>h</b> en lugar de Δx. Escribe potencias así: <b>h^2</b> (h al cuadrado) y multiplicaciones sin signo: <b>2xh</b>.</div>
+  <div class="ex-step"><div class="ex-n">Paso 1 · Sustituye x por (x + h)</div><div class="ex-why">Donde veas x escribe (x + h). Queda (x + h)² y lo desarrollamos con la fórmula (a + b)² = a² + 2ab + b².</div><div class="ex-calc">f(x + h) = x² + <input class="fb" data-ans="2xh" size="5" autocomplete="off" spellcheck="false"> + <input class="fb" data-ans="h^2|h2|hh" size="5" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 Con a = x y b = h: 2ab = 2·x·h</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 2 · Resta f(x)</div><div class="ex-why">Al restar el valor original (x²) desaparece x² y queda solo lo que cambió (el incremento).</div><div class="ex-calc">f(x + h) − f(x) = <input class="fb" data-ans="2xh+h^2" data-sum="1" size="9" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 Ojo: x² − x² = 0</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 3 · Divide entre h</div><div class="ex-why">Dividimos entre el cambio de x para saber "cuánto cambia y por cada unidad de x". Cada término se divide entre h.</div><div class="ex-calc">(2xh + h²) / h = <input class="fb" data-ans="2x" size="4" autocomplete="off" spellcheck="false"> + <input class="fb" data-ans="h" size="4" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 2xh ÷ h = 2x  y  h² ÷ h = h</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 4 · Haz que h → 0</div><div class="ex-why">Ahora imagina que h se hace tan pequeño que casi es 0. El término h desaparece y solo queda lo demás.</div><div class="ex-calc">f′(x) = lím (2x + h) = <input class="fb" data-ans="2x" size="4" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 Si h = 0, entonces 2x + 0 = 2x</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 5 · Úsala</div><div class="ex-why">Con la derivada ya sabemos la pendiente de la curva en cualquier punto. Sustituye x = 3.</div><div class="ex-calc">f′(3) = 2 · 3 = <input class="fb" data-ans="6" size="4" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 La curva y = x² en x = 3 sube con pendiente 6</div></div>
+      <div class="ex-btns"><button class="ex-btn" onclick="exCheck(this)">✅ Comprobar</button><button class="ex-btn alt" onclick="exReveal(this)">👀 Ver respuestas</button><button class="ex-btn alt" onclick="exClear(this)">🧹 Borrar</button></div>
+      <div class="ex-msg"></div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">✅</span>
+      <span><strong>Conclusión:</strong> la derivada de x² es 2x. En x = 3, la curva sube con pendiente 6.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box blue" id="box-campo">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Campo de estudio del cálculo diferencial</span></div>
+    <div class="quiz-score" id="score-campo"></div>
+    <div class="qz-container" id="qz-campo"></div>
+  </div>
+</div>
+
+<div id="campos">
+  <div class="sec-head red">
+    <div class="sec-num">1.2</div>
+    <div class="sec-info">
+      <h2>Principales campos de estudio del cálculo diferencial</h2>
+      <p>Dónde se usa en la vida real</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">¿Para qué sirve?</div>
+    <table class="stab red">
+      <tr><th>Campo</th><th>Para qué se usa</th></tr>
+      <tr><td>Estadística</td><td>Para el cálculo de probabilidades hay funciones de distribución y de densidad. Para obtener la función de densidad se deriva la distribución. Sirve para seguros de vida, daños, tasas de interés: cualquier riesgo que se comporte de forma continua en el tiempo.</td></tr>
+      <tr><td>Administración</td><td>Maximizar y minimizar. Ej.: si una empresa empaca productos x, se descubre que puede empacar la misma cantidad con cajas más pequeñas y ahorrar.</td></tr>
+      <tr><td>Ciencias exactas</td><td>Velocidad de una partícula en un momento (distancia entre tiempo) y pendiente de la recta tangente a una gráfica en un punto (diferencia de ordenadas entre diferencia de abscisas).</td></tr>
+      <tr><td>Ingeniería</td><td>Modelos de ecuaciones diferenciales: crecimiento poblacional, crecimiento de empresas, comportamiento de partes mecánicas de un automóvil y muchas aplicaciones de física.</td></tr>
+      <tr><td>Informática</td><td>Fabricación de chips (obleas de microprocesadores), miniaturización de componentes, administración de circuitos integrados, compresión y digitalización de imágenes, sonido y video, e inteligencia artificial.</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">📱</span>
+      <span><strong>Ejemplo fácil:</strong> cuando tu celular comprime una foto para enviarla por WhatsApp o cuando una app sugiere la ruta más corta, hay cálculo diferencial detrás (optimizar = maximizar o minimizar).</span>
+    </div>
+  </div>
+
+  <div class="quiz-box red" id="box-campos">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Principales campos de estudio</span></div>
+    <div class="quiz-score" id="score-campos"></div>
+    <div class="qz-container" id="qz-campos"></div>
+  </div>
+</div>
+
+<div id="reglas">
+  <div class="sec-head green">
+    <div class="sec-num">1.2.1</div>
+    <div class="sec-info">
+      <h2>Reglas para la derivación y Ejemplo 1</h2>
+      <p>Cómo derivar paso a paso</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Reglas básicas</div>
+    <div class="concept-box green">
+      <div class="concept-title">LOS 4 PASOS DE LA DERIVACIÓN</div>
+      <div class="concept-def">1) Se sustituye x por x + Δx y se calcula el nuevo valor y + Δy. <br>2) Se resta el valor original y se obtiene Δy (incremento de la función). <br>3) Se divide Δy entre Δx (incremento de la variable independiente). <br>4) Se calcula el límite del cociente cuando Δx tiende a 0: el resultado es la derivada.</div>
+    </div>
+    <div class="rule-box"><b>Regla de la potencia:</b> si y = xⁿ, entonces y′ = n · xⁿ⁻¹ <br><em>(el exponente "baja" a multiplicar y se le resta 1 al exponente)</em><br><b>Constante:</b> la derivada de un número solo (como 1 o 7) es 0.<br><b>Suma:</b> se deriva cada término por separado: (y₁ + y₂ + … )′ = y₁′ + y₂′ + …</div>
+    <table class="stab green">
+      <tr><th>Función</th><th>Derivada</th></tr>
+      <tr><td>x³</td><td>3x²  (el 3 baja; 3 − 1 = 2)</td></tr>
+      <tr><td>x²</td><td>2x  (2 baja; 2 − 1 = 1, y x¹ = x)</td></tr>
+      <tr><td>x</td><td>1  (x = x¹ → 1·x⁰ = 1)</td></tr>
+      <tr><td>7</td><td>0  (constante)</td></tr>
+      <tr><td>5x²</td><td>10x  (5 · 2 = 10)</td></tr>
+    </table>
+    <div class="tip green">
+      <span class="tip-ico">🧮</span>
+      <span><strong>Ejemplo fácil:</strong> piensa en "bajar el exponente" como si fuera un ascensor: el número de arriba baja y se multiplica; el piso nuevo es uno menos.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Ejemplo 1 del libro: y = x³ + x² + x + 1</div>
+    <div class="ex-box">
+      <div class="ex-head"><span>✏️</span><h4>Ejercicio guiado 2 · Deriva término por término</h4><span class="ex-tag">TÚ COMPLETAS</span></div>
+      <div class="ex-prob">Deriva y(x) = x³ + x² + x + 1</div>
+      <div class="ex-intro">Recuerda: el operador derivada se distribuye en la suma. Escribe potencias con ^ (por ejemplo x^2).</div>
+  <div class="ex-step"><div class="ex-n">Paso 1 · Deriva x³</div><div class="ex-why">Baja el 3 y réstale 1 al exponente: 3 − 1 = 2.</div><div class="ex-calc">d/dx (x³) = <input class="fb" data-ans="3x^2|3x2" size="6" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 n·xⁿ⁻¹ con n = 3</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 2 · Deriva x²</div><div class="ex-why">Baja el 2; el exponente queda 2 − 1 = 1.</div><div class="ex-calc">d/dx (x²) = <input class="fb" data-ans="2x|2x^1" size="4" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 x¹ se escribe solo x</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 3 · Deriva x</div><div class="ex-why">x es x¹. Baja el 1 y el exponente queda 0; x⁰ = 1.</div><div class="ex-calc">d/dx (x) = <input class="fb" data-ans="1" size="4" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 1 · x⁰ = 1 · 1 = 1</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 4 · Deriva 1</div><div class="ex-why">Una constante no cambia nunca.</div><div class="ex-calc">d/dx (1) = <input class="fb" data-ans="0" size="4" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 Constante → 0</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 5 · Junta todo</div><div class="ex-why">Suma los resultados de los pasos 1 a 4.</div><div class="ex-calc">y′ = <input class="fb" data-ans="3x^2+2x+1" data-sum="1" size="11" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 3x² + 2x + 1 + 0</div></div>
+      <div class="ex-btns"><button class="ex-btn" onclick="exCheck(this)">✅ Comprobar</button><button class="ex-btn alt" onclick="exReveal(this)">👀 Ver respuestas</button><button class="ex-btn alt" onclick="exClear(this)">🧹 Borrar</button></div>
+      <div class="ex-msg"></div>
+    </div>
+    <div class="ex-box">
+      <div class="ex-head"><span>✏️</span><h4>Ejercicio guiado 3 · Con coeficientes</h4><span class="ex-tag">TÚ COMPLETAS</span></div>
+      <div class="ex-prob">Deriva f(x) = 5x⁴ − 3x² + 7x − 2</div>
+      <div class="ex-intro">Ahora los términos llevan número delante: se multiplica ese número por el exponente.</div>
+  <div class="ex-step"><div class="ex-n">Paso 1 · Deriva 5x⁴</div><div class="ex-why">Multiplica 5 · 4 y baja el exponente a 3.</div><div class="ex-calc">d/dx (5x⁴) = <input class="fb" data-ans="20x^3|20x3" size="7" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 5 · 4 = 20</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 2 · Deriva −3x²</div><div class="ex-why">Multiplica −3 · 2 = −6 y el exponente queda 1.</div><div class="ex-calc">d/dx (−3x²) = <input class="fb" data-ans="-6x" size="5" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 −3 · 2 = −6</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 3 · Deriva 7x</div><div class="ex-why">7x = 7x¹ → 7·1·x⁰ = 7.</div><div class="ex-calc">d/dx (7x) = <input class="fb" data-ans="7" size="4" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 Un número por x deja solo el número</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 4 · Deriva −2</div><div class="ex-why">Es una constante.</div><div class="ex-calc">d/dx (−2) = <input class="fb" data-ans="0" size="4" autocomplete="off" spellcheck="false"></div></div>
+  <div class="ex-step"><div class="ex-n">Paso 5 · Junta todo</div><div class="ex-why">Suma los resultados.</div><div class="ex-calc">f′(x) = <input class="fb" data-ans="20x^3-6x+7" data-sum="1" size="12" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 20x³ − 6x + 7</div></div>
+      <div class="ex-btns"><button class="ex-btn" onclick="exCheck(this)">✅ Comprobar</button><button class="ex-btn alt" onclick="exReveal(this)">👀 Ver respuestas</button><button class="ex-btn alt" onclick="exClear(this)">🧹 Borrar</button></div>
+      <div class="ex-msg"></div>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">✅</span>
+      <span><strong>Conclusión:</strong> derivar un polinomio es derivar cada término con la regla de la potencia. Ejemplo 1 completo: la derivada de x³ + x² + x + 1 es 3x² + 2x + 1.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box green" id="box-reglas">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Reglas para la derivación</span></div>
+    <div class="quiz-score" id="score-reglas"></div>
+    <div class="qz-container" id="qz-reglas"></div>
+  </div>
+</div>
+
+<div id="maxmin">
+  <div class="sec-head gold">
+    <div class="sec-num">1.3</div>
+    <div class="sec-info">
+      <h2>Modelos matemáticos: un acercamiento a máximos y mínimos</h2>
+      <p>Los puntos más altos y más bajos de una función</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Extremos de una función</div>
+    <div class="concept-box gold">
+      <div class="concept-title">EXTREMOS</div>
+      <div class="concept-def">En matemáticas, física y otras ciencias se usa la derivada para resolver problemas donde hay que encontrar los valores <b>máximos</b> y <b>mínimos</b> de las funciones. A esos valores se les llama <b>extremos</b> de la función f.</div>
+    </div>
+    <table class="stab gold">
+      <tr><th>Tipo</th><th>Definición</th></tr>
+      <tr><td>Máximo absoluto</td><td>f(c) es el máximo absoluto de f en un intervalo cerrado si f(x) ≤ f(c) para todo x del intervalo (nadie supera a f(c)).</td></tr>
+      <tr><td>Mínimo absoluto</td><td>f(c) es el mínimo absoluto si f(x) ≥ f(c) para todo x del intervalo (nadie es menor que f(c)).</td></tr>
+      <tr><td>Máximo relativo</td><td>f alcanza un máximo relativo en c de un intervalo abierto (a, b) si f(x) ≤ f(c) para los x cercanos a c: es "la cima de su vecindario".</td></tr>
+      <tr><td>Mínimo relativo</td><td>f alcanza un mínimo relativo en c si f(x) ≥ f(c) para los x cercanos a c: es "el fondo de su vecindario".</td></tr>
+    </table>
+<div class="svg-wrap"><svg viewBox="0 0 320 150" width="420" role="img" aria-label="Curva con máximo y mínimo relativos"><line x1="10" y1="130" x2="310" y2="130" style="stroke:var(--muted)" stroke-width="1.5"/><path d="M20 120 C 60 120, 70 25, 110 28 C 150 31, 160 118, 200 118 C 240 118, 250 40, 300 20" fill="none" style="stroke:var(--a1)" stroke-width="3"/><circle cx="105" cy="28" r="5" style="fill:#c41a1a"/><circle cx="200" cy="118" r="5" style="fill:#1a9a5c"/><text x="105" y="16" text-anchor="middle" font-size="12" font-weight="700" style="fill:var(--ink)">máximo relativo</text><text x="200" y="146" text-anchor="middle" font-size="12" font-weight="700" style="fill:var(--ink)">mínimo relativo</text><text x="58" y="75" font-size="11" style="fill:var(--muted)">sube</text><text x="145" y="75" font-size="11" style="fill:var(--muted)">baja</text><text x="255" y="95" font-size="11" style="fill:var(--muted)">sube</text></svg><div class="svg-cap">En el máximo la curva deja de subir y empieza a bajar; en el mínimo deja de bajar y empieza a subir.</div></div>
+    <div class="tip gold">
+      <span class="tip-ico">🏔️</span>
+      <span><strong>Ejemplo fácil:</strong> en una cordillera, la cima más alta de todas es el <em>máximo absoluto</em>; cada cima de un cerro cercano es un <em>máximo relativo</em>. Con los valles pasa igual (mínimos). Una función puede alcanzar un máximo o mínimo más de una vez.</span>
+    </div>
+    <div class="tip gold">
+      <span class="tip-ico">📌</span>
+      <span><strong>Ejemplo del libro:</strong> en el intervalo cerrado [−3, 8] la función tiene un mínimo absoluto en (−3, −3) y un máximo absoluto en (7, 4). Algunos extremos se dan en esquinas de la gráfica o en los extremos del intervalo.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Practica: máximo y mínimo absolutos</div>
+    <div class="ex-box">
+      <div class="ex-head"><span>✏️</span><h4>Ejercicio guiado 4 · f(x) = x² en el intervalo [−2, 3]</h4><span class="ex-tag">TÚ COMPLETAS</span></div>
+      <div class="ex-prob">Encuentra el máximo y el mínimo absolutos de f(x) = x² en [−2, 3].</div>
+      <div class="ex-intro">Estrategia fácil: evalúa la función en varios puntos del intervalo y compara los resultados.</div>
+  <div class="ex-step"><div class="ex-n">Paso 1 · Evalúa en el extremo izquierdo</div><div class="ex-why">Sustituye x = −2. (−2)² = (−2)(−2).</div><div class="ex-calc">f(−2) = (−2)² = <input class="fb" data-ans="4" size="4" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 Negativo por negativo es positivo</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 2 · Evalúa en x = 0</div><div class="ex-why">Sustituye x = 0.</div><div class="ex-calc">f(0) = 0² = <input class="fb" data-ans="0" size="4" autocomplete="off" spellcheck="false"></div></div>
+  <div class="ex-step"><div class="ex-n">Paso 3 · Evalúa en el extremo derecho</div><div class="ex-why">Sustituye x = 3.</div><div class="ex-calc">f(3) = 3² = <input class="fb" data-ans="9" size="4" autocomplete="off" spellcheck="false"></div></div>
+  <div class="ex-step"><div class="ex-n">Paso 4 · Compara</div><div class="ex-why">El mayor de los valores es el máximo absoluto; el menor es el mínimo absoluto.</div><div class="ex-calc">Máximo absoluto = <input class="fb" data-ans="9" size="4" autocomplete="off" spellcheck="false"> (en x = <input class="fb" data-ans="3" size="4" autocomplete="off" spellcheck="false">) &nbsp;·&nbsp; Mínimo absoluto = <input class="fb" data-ans="0" size="4" autocomplete="off" spellcheck="false"> (en x = <input class="fb" data-ans="0" size="4" autocomplete="off" spellcheck="false">)</div><div class="ex-hint">💡 El menor valor de x² es 0</div></div>
+      <div class="ex-btns"><button class="ex-btn" onclick="exCheck(this)">✅ Comprobar</button><button class="ex-btn alt" onclick="exReveal(this)">👀 Ver respuestas</button><button class="ex-btn alt" onclick="exClear(this)">🧹 Borrar</button></div>
+      <div class="ex-msg"></div>
+    </div>
+    <div class="tip gold">
+      <span class="tip-ico">✅</span>
+      <span><strong>Conclusión:</strong> el mayor valor de la función en el intervalo es 9 y el menor es 0.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box gold" id="box-maxmin">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Máximos y mínimos</span></div>
+    <div class="quiz-score" id="score-maxmin"></div>
+    <div class="qz-container" id="qz-maxmin"></div>
+  </div>
+</div>
+
+<div id="crece">
+  <div class="sec-head purple">
+    <div class="sec-num">1.4</div>
+    <div class="sec-info">
+      <h2>Crecimiento y decrecimiento</h2>
+      <p>Cuándo una función sube y cuándo baja</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Función creciente y decreciente</div>
+    <table class="stab purple">
+      <tr><th>Caso</th><th>Qué pasa</th></tr>
+      <tr><td>Creciente en un intervalo I</td><td>La variación media Δy/Δx = [f(x₂) − f(x₁)] / (x₂ − x₁) es mayor que 0. Si f es derivable y f′ es positiva, f es creciente.</td></tr>
+      <tr><td>Decreciente en un intervalo I</td><td>La variación media Δy/Δx es menor que 0. Si f es derivable y f′ es negativa, f es decreciente.</td></tr>
+    </table>
+    <div class="rule-box"><b>Criterio de la derivada:</b><br>Si f′(x) &gt; 0 para todo x en I → f es <b>creciente</b> en I.<br>Si f′(x) &lt; 0 para todo x en I → f es <b>decreciente</b> en I.<br>Si f′(x) = 0 para todo x en I → f es <b>constante</b> en I.</div>
+    <div class="tip purple">
+      <span class="tip-ico">⛰️</span>
+      <span><strong>Ejemplo fácil:</strong> caminas de izquierda a derecha por una gráfica. Si vas subiendo, la derivada es positiva; si vas bajando, es negativa; si vas en plano, es cero.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Cómo se hace: método de los 4 pasos</div>
+    <div class="concept-box purple">
+      <div class="concept-title">MÉTODO</div>
+      <div class="concept-def">1) Calcula f′(x). 2) Iguala f′(x) = 0 y resuelve: esos son los números críticos. 3) Con ellos forma los intervalos y elige un valor de prueba en cada uno. 4) Sustituye cada valor de prueba en f′(x): si da positivo, f crece; si da negativo, f decrece.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Ejemplo del libro: f(x) = 3x² − 2x + 1</div>
+    <div class="ex-box">
+      <div class="ex-head"><span>✏️</span><h4>Ejercicio guiado 5 · ¿Dónde crece y dónde decrece?</h4><span class="ex-tag">TÚ COMPLETAS</span></div>
+      <div class="ex-prob">Halla los intervalos donde f(x) = 3x² − 2x + 1 es creciente y decreciente.</div>
+      <div class="ex-intro">Resuelve cada paso; usaremos fracciones escritas con diagonal, por ejemplo 1/3.</div>
+  <div class="ex-step"><div class="ex-n">Paso 1 · Deriva</div><div class="ex-why">3x² → 6x; −2x → −2; 1 → 0.</div><div class="ex-calc">f′(x) = <input class="fb" data-ans="6x-2" data-sum="1" size="6" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 Regla de la potencia</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 2 · Iguala a cero</div><div class="ex-why">Para saber dónde cambia el comportamiento. Suma 2 y luego divide entre 6.</div><div class="ex-calc">6x − 2 = 0 → 6x = <input class="fb" data-ans="2" size="4" autocomplete="off" spellcheck="false"> → x = <input class="fb" data-ans="1/3|2/6" size="5" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 2 ÷ 6 = 1/3</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 3 · Forma los intervalos</div><div class="ex-why">El número 1/3 divide la recta en dos: (−∞, 1/3) y (1/3, ∞). Elegimos valores de prueba x = 0 y x = 1.</div><div class="ex-calc">Valores de prueba: x₁ = 0 (en el primer intervalo) y x₂ = 1 (en el segundo).</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 4 · Evalúa en x = 0</div><div class="ex-why">Sustituye en f′(x) = 6x − 2.</div><div class="ex-calc">f′(0) = 6(0) − 2 = <input class="fb" data-ans="-2" size="4" autocomplete="off" spellcheck="false"> → signo <select class="fb" data-ans="negativo"><option value="—">—</option><option value="positivo">positivo</option><option value="negativo">negativo</option></select> → la función es <select class="fb" data-ans="decreciente"><option value="—">—</option><option value="creciente">creciente</option><option value="decreciente">decreciente</option></select></div><div class="ex-hint">💡 Negativo = baja</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 5 · Evalúa en x = 1</div><div class="ex-why">Sustituye en f′(x) = 6x − 2.</div><div class="ex-calc">f′(1) = 6(1) − 2 = <input class="fb" data-ans="4" size="4" autocomplete="off" spellcheck="false"> → signo <select class="fb" data-ans="positivo"><option value="—">—</option><option value="positivo">positivo</option><option value="negativo">negativo</option></select> → la función es <select class="fb" data-ans="creciente"><option value="—">—</option><option value="creciente">creciente</option><option value="decreciente">decreciente</option></select></div><div class="ex-hint">💡 Positivo = sube</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 6 · Conclusión</div><div class="ex-why">Une los resultados.</div><div class="ex-calc">f es decreciente en (−∞, <input class="fb" data-ans="1/3" size="5" autocomplete="off" spellcheck="false">) y creciente en (<input class="fb" data-ans="1/3" size="5" autocomplete="off" spellcheck="false">, ∞). En x = 1/3 hay un <select class="fb" data-ans="mínimo"><option value="—">—</option><option value="máximo">máximo</option><option value="mínimo">mínimo</option></select>.</div><div class="ex-hint">💡 De bajar a subir = valle</div></div>
+      <div class="ex-btns"><button class="ex-btn" onclick="exCheck(this)">✅ Comprobar</button><button class="ex-btn alt" onclick="exReveal(this)">👀 Ver respuestas</button><button class="ex-btn alt" onclick="exClear(this)">🧹 Borrar</button></div>
+      <div class="ex-msg"></div>
+    </div>
+    <div class="tip purple">
+      <span class="tip-ico">✅</span>
+      <span><strong>Conclusión:</strong> la parábola 3x² − 2x + 1 baja hasta x = 1/3 y después sube.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box purple" id="box-crece">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Crecimiento y decrecimiento</span></div>
+    <div class="quiz-score" id="score-crece"></div>
+    <div class="qz-container" id="qz-crece"></div>
+  </div>
+</div>
+
+<div id="criticos">
+  <div class="sec-head blue">
+    <div class="sec-num">1.4.1</div>
+    <div class="sec-info">
+      <h2>Intervalos y puntos críticos</h2>
+      <p>Dónde cambia el comportamiento de la función</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Punto crítico y número crítico</div>
+    <div class="concept-box blue">
+      <div class="concept-title">DEFINICIONES</div>
+      <div class="concept-def"><b>Punto crítico:</b> (c, f(c)) es un punto crítico de f si f′(c) = 0 y en ese punto la función cambia su comportamiento (de subir a bajar o de bajar a subir). <br><b>Número crítico:</b> c es un número crítico de f si f′(c) no existe.</div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🔎</span>
+      <span><strong>Ejemplo fácil:</strong> los puntos críticos son como los "cambios de dirección" en un camino: donde la subida termina y empieza la bajada, o al revés.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Ejemplo del libro: f(x) = x³ + 3x²</div>
+    <div class="ex-box">
+      <div class="ex-head"><span>✏️</span><h4>Ejercicio guiado 6 · Tabla de crecimiento</h4><span class="ex-tag">TÚ COMPLETAS</span></div>
+      <div class="ex-prob">Halla los intervalos de crecimiento y decrecimiento de f(x) = x³ + 3x².</div>
+      <div class="ex-intro">Al final llenarás la tabla igual que en el libro.</div>
+  <div class="ex-step"><div class="ex-n">Paso 1 · Deriva</div><div class="ex-why">x³ → 3x²; 3x² → 6x.</div><div class="ex-calc">f′(x) = <input class="fb" data-ans="3x^2+6x" data-sum="1" size="9" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 Regla de la potencia</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 2 · Factoriza</div><div class="ex-why">Saca factor común 3x de ambos términos: 3x² + 6x = 3x(x + 2).</div><div class="ex-calc">f′(x) = 3x( x + <input class="fb" data-ans="2" size="4" autocomplete="off" spellcheck="false"> )</div><div class="ex-hint">💡 3x · x = 3x² y 3x · 2 = 6x</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 3 · Iguala a cero</div><div class="ex-why">Un producto es cero si algún factor es cero: 3x = 0 o x + 2 = 0.</div><div class="ex-calc">x₁ = <input class="fb" data-ans="0" size="4" autocomplete="off" spellcheck="false">   y   x₂ = <input class="fb" data-ans="-2" size="4" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 Despeja cada factor</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 4 · Intervalos</div><div class="ex-why">Los números críticos −2 y 0 forman tres intervalos: (−∞, −2), (−2, 0) y (0, ∞). Valores de prueba: −3, −1 y 1.</div><div class="ex-calc"></div></div>
+  <div class="ex-step"><div class="ex-n">Paso 5 · Tabla</div><div class="ex-why">Sustituye cada valor de prueba en f′(x) = 3x² + 6x y decide.</div><div class="ex-calc"><table class="ex-table"><tr><th>Intervalo</th><th>(−∞, −2)</th><th>(−2, 0)</th><th>(0, ∞)</th></tr>
+   <tr><th>Valor de prueba</th><td>−3</td><td>−1</td><td>1</td></tr>
+   <tr><th>f′(valor)</th><td><input class="fb" data-ans="9" size="4" autocomplete="off" spellcheck="false"></td><td><input class="fb" data-ans="-3" size="4" autocomplete="off" spellcheck="false"></td><td><input class="fb" data-ans="9" size="4" autocomplete="off" spellcheck="false"></td></tr>
+   <tr><th>Conclusión</th><td><select class="fb" data-ans="creciente"><option value="—">—</option><option value="creciente">creciente</option><option value="decreciente">decreciente</option></select></td><td><select class="fb" data-ans="decreciente"><option value="—">—</option><option value="creciente">creciente</option><option value="decreciente">decreciente</option></select></td><td><select class="fb" data-ans="creciente"><option value="—">—</option><option value="creciente">creciente</option><option value="decreciente">decreciente</option></select></td></tr></table></div><div class="ex-hint">💡 f′(−3) = 3(9) + 6(−3) = 27 − 18 · f′(−1) = 3 − 6 · f′(1) = 3 + 6</div></div>
+      <div class="ex-btns"><button class="ex-btn" onclick="exCheck(this)">✅ Comprobar</button><button class="ex-btn alt" onclick="exReveal(this)">👀 Ver respuestas</button><button class="ex-btn alt" onclick="exClear(this)">🧹 Borrar</button></div>
+      <div class="ex-msg"></div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">✅</span>
+      <span><strong>Conclusión:</strong> f(x) = x³ + 3x² es creciente en (−∞, −2) y (0, ∞), y decreciente en (−2, 0).</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Ejemplo: f(x) = 1/x² (¿tiene puntos críticos?)</div>
+    <table class="stab blue">
+      <tr><th>Paso</th><th>Qué se hace</th></tr>
+      <tr><td>1</td><td>Se deriva: f′(x) = (x²·0 − 1·2x)/x⁴ = −2/x³.</td></tr>
+      <tr><td>2</td><td>La derivada no existe en x = 0 (se dividiría entre 0), así que x = 0 es un <b>número crítico</b>.</td></tr>
+      <tr><td>3</td><td>Pero f(0) = 1/0² es indefinida: la función ni siquiera existe ahí.</td></tr>
+      <tr><td>4</td><td>Conclusión: la función <b>no tiene puntos críticos</b>.</td></tr>
+    </table>
+    <div class="tip blue">
+      <span class="tip-ico">💡</span>
+      <span><strong>Ejemplo fácil:</strong> si un camino se corta por un precipicio en x = 0, no hay "punto" donde pararse; por eso no hay punto crítico.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box blue" id="box-criticos">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Intervalos y puntos críticos</span></div>
+    <div class="quiz-score" id="score-criticos"></div>
+    <div class="qz-container" id="qz-criticos"></div>
+  </div>
+</div>
+
+<div id="primera">
+  <div class="sec-head red">
+    <div class="sec-num">1.5</div>
+    <div class="sec-info">
+      <h2>Criterios para la primera derivada</h2>
+      <p>Cómo saber si es máximo o mínimo</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">El criterio</div>
+    <div class="concept-box red">
+      <div class="concept-title">CRITERIO DE LA PRIMERA DERIVADA</div>
+      <div class="concept-def">Sea c un número crítico de una función f continua en un intervalo (a, b) que contiene a c. <br>• Si f′(x) &gt; 0 para a &lt; x &lt; c y f′(x) &lt; 0 para c &lt; x &lt; b (f crece y luego decrece), entonces f tiene un <b>máximo relativo</b> en c. <br>• Si f′(x) &lt; 0 para a &lt; x &lt; c y f′(x) &gt; 0 para c &lt; x &lt; b (f decrece y luego crece), entonces f tiene un <b>mínimo relativo</b> en c.</div>
+    </div>
+    <table class="stab red">
+      <tr><th>Antes de c → Después de c</th><th>Resultado en c</th></tr>
+      <tr><td>f′ positiva (sube) → f′ negativa (baja)</td><td>Máximo relativo  ⌃</td></tr>
+      <tr><td>f′ negativa (baja) → f′ positiva (sube)</td><td>Mínimo relativo  ⌄</td></tr>
+      <tr><td>El signo no cambia</td><td>No hay máximo ni mínimo</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">⛰️</span>
+      <span><strong>Ejemplo fácil:</strong> si subes una loma y después bajas, estuviste en la cima (máximo). Si bajas a un valle y luego subes, estuviste en el fondo (mínimo).</span>
+    </div>
+    <div class="tip red">
+      <span class="tip-ico">📝</span>
+      <span>El criterio también funciona cuando la derivada no existe en c (por ejemplo, en una "punta" de la gráfica).</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Ejemplo del libro (a): f(x) = x³ − 6x² + 9x − 3</div>
+    <div class="ex-box">
+      <div class="ex-head"><span>✏️</span><h4>Ejercicio guiado 7 · Extremos relativos</h4><span class="ex-tag">TÚ COMPLETAS</span></div>
+      <div class="ex-prob">Aplica el criterio de la primera derivada a f(x) = x³ − 6x² + 9x − 3.</div>
+      <div class="ex-intro">Sigue el método: derivar, igualar a cero, tabla de signos y evaluar en la función.</div>
+  <div class="ex-step"><div class="ex-n">Paso 1 · Deriva</div><div class="ex-why">x³ → 3x²; −6x² → −12x; 9x → 9; −3 → 0.</div><div class="ex-calc">f′(x) = <input class="fb" data-ans="3x^2-12x+9" data-sum="1" size="12" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 Regla de la potencia</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 2 · Factoriza</div><div class="ex-why">Saca factor común 3 y factoriza el trinomio: 3(x² − 4x + 3) = 3(x − 3)(x − 1).</div><div class="ex-calc">f′(x) = 3(x − 3)(x − <input class="fb" data-ans="1" size="4" autocomplete="off" spellcheck="false">)</div><div class="ex-hint">💡 Busca dos números que multiplicados den 3 y sumados −4: −3 y −1</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 3 · Números críticos</div><div class="ex-why">Iguala cada factor a cero.</div><div class="ex-calc">x₁ = <input class="fb" data-ans="1" size="4" autocomplete="off" spellcheck="false">   y   x₂ = <input class="fb" data-ans="3" size="4" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 x − 1 = 0 y x − 3 = 0</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 4 · Tabla de signos</div><div class="ex-why">Intervalos: (−∞, 1), (1, 3) y (3, ∞). Valores de prueba: 0, 2 y 4.</div><div class="ex-calc"><table class="ex-table"><tr><th>Intervalo</th><th>(−∞, 1)</th><th>(1, 3)</th><th>(3, ∞)</th></tr>
+   <tr><th>Valor de prueba</th><td>0</td><td>2</td><td>4</td></tr>
+   <tr><th>f′(valor)</th><td><input class="fb" data-ans="9" size="4" autocomplete="off" spellcheck="false"></td><td><input class="fb" data-ans="-3" size="4" autocomplete="off" spellcheck="false"></td><td><input class="fb" data-ans="9" size="4" autocomplete="off" spellcheck="false"></td></tr>
+   <tr><th>Conclusión</th><td><select class="fb" data-ans="creciente"><option value="—">—</option><option value="creciente">creciente</option><option value="decreciente">decreciente</option></select></td><td><select class="fb" data-ans="decreciente"><option value="—">—</option><option value="creciente">creciente</option><option value="decreciente">decreciente</option></select></td><td><select class="fb" data-ans="creciente"><option value="—">—</option><option value="creciente">creciente</option><option value="decreciente">decreciente</option></select></td></tr></table></div><div class="ex-hint">💡 f′(0) = 9 · f′(2) = 3(4) − 24 + 9 · f′(4) = 48 − 48 + 9</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 5 · En x = 1</div><div class="ex-why">Antes sube, después baja → es un máximo. Evalúa f(1) = 1 − 6 + 9 − 3.</div><div class="ex-calc">En x = 1 hay un <select class="fb" data-ans="máximo"><option value="—">—</option><option value="máximo">máximo</option><option value="mínimo">mínimo</option></select> relativo. f(1) = <input class="fb" data-ans="1" size="4" autocomplete="off" spellcheck="false"> → punto (1, <input class="fb" data-ans="1" size="4" autocomplete="off" spellcheck="false">)</div><div class="ex-hint">💡 1 − 6 + 9 − 3 = 1</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 6 · En x = 3</div><div class="ex-why">Antes baja, después sube → mínimo. Evalúa f(3) = 27 − 54 + 27 − 3.</div><div class="ex-calc">En x = 3 hay un <select class="fb" data-ans="mínimo"><option value="—">—</option><option value="máximo">máximo</option><option value="mínimo">mínimo</option></select> relativo. f(3) = <input class="fb" data-ans="-3" size="4" autocomplete="off" spellcheck="false"> → punto (3, <input class="fb" data-ans="-3" size="4" autocomplete="off" spellcheck="false">)</div><div class="ex-hint">💡 27 − 54 + 27 − 3 = −3</div></div>
+      <div class="ex-btns"><button class="ex-btn" onclick="exCheck(this)">✅ Comprobar</button><button class="ex-btn alt" onclick="exReveal(this)">👀 Ver respuestas</button><button class="ex-btn alt" onclick="exClear(this)">🧹 Borrar</button></div>
+      <div class="ex-msg"></div>
+    </div>
+    <div class="tip red">
+      <span class="tip-ico">✅</span>
+      <span><strong>Conclusión:</strong> (1, 1) es un máximo relativo y (3, −3) es un mínimo relativo.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Ejemplo del libro (b): f(x) = x^(5/3) + 5x^(2/3) (versión avanzada)</div>
+    <table class="stab red">
+      <tr><th>Paso</th><th>Desarrollo</th></tr>
+      <tr><td>Derivar</td><td>f′(x) = (5/3)x^(2/3) + (10/3)x^(−1/3) = (5/3)x^(−1/3)(x + 2).</td></tr>
+      <tr><td>Números críticos</td><td>f′(x) = 0 cuando x = −2. Además f′ no existe en x = 0 (x^(−1/3) = 1/∛x), así que x = 0 también es número crítico.</td></tr>
+      <tr><td>Tabla</td><td>En (−∞, −2) con prueba −8: f′ = 5 &gt; 0 (crece). En (−2, 0) con prueba −1: f′ = −5/3 &lt; 0 (decrece). En (0, ∞) con prueba 1: f′ = 5 &gt; 0 (crece).</td></tr>
+      <tr><td>Extremos</td><td>En x = −2 hay máximo relativo: f(−2) = 3·∛4, punto (−2, 3∛4). En x = 0 hay mínimo relativo: f(0) = 0, punto (0, 0).</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">💡</span>
+      <span>Este ejemplo usa exponentes fraccionarios. Si apenas estás empezando, domina primero el ejemplo (a): los pasos son los mismos.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box red" id="box-primera">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Criterios para la primera derivada</span></div>
+    <div class="quiz-score" id="score-primera"></div>
+    <div class="qz-container" id="qz-primera"></div>
+  </div>
+</div>
+
+<div id="concav">
+  <div class="sec-head green">
+    <div class="sec-num">1.6</div>
+    <div class="sec-info">
+      <h2>Concavidad</h2>
+      <p>La forma de la curva</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">¿Qué es la concavidad?</div>
+    <div class="concept-box green">
+      <div class="concept-title">CONCAVIDAD</div>
+      <div class="concept-def">Para trazar la gráfica de una función de forma más acertada hace falta la mayor información posible. La <b>segunda derivada</b> f″ indica hacia dónde se curva la gráfica. Si f es derivable en un intervalo abierto (a, b) que contiene a c: <br>• Si f″(c) &gt; 0 → concavidad <b>hacia arriba</b>. <br>• Si f″(c) &lt; 0 → concavidad <b>hacia abajo</b>.</div>
+    </div>
+<div class="svg-wrap"><svg viewBox="0 0 340 150" width="440" role="img" aria-label="Concavidad hacia arriba y hacia abajo"><path d="M20 20 Q 80 150 140 20" fill="none" style="stroke:var(--a1)" stroke-width="3"/><text x="80" y="140" text-anchor="middle" font-size="12" font-weight="700" style="fill:var(--ink)">Cóncava hacia arriba (f″ &gt; 0)</text><path d="M190 120 Q 250 -10 310 120" fill="none" style="stroke:var(--a2)" stroke-width="3"/><text x="250" y="145" text-anchor="middle" font-size="12" font-weight="700" style="fill:var(--ink)">Cóncava hacia abajo (f″ &lt; 0)</text></svg><div class="svg-cap">Arriba: como una sonrisa (copa que guarda agua). Abajo: como una cara triste (copa volteada).</div></div>
+    <div class="tip green">
+      <span class="tip-ico">🥣</span>
+      <span><strong>Ejemplo fácil:</strong> un tazón o copa con la boca hacia arriba (cóncava hacia arriba) guarda agua; si lo volteas (cóncava hacia abajo), el agua se cae.</span>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">📝</span>
+      <span><strong>Nota de estudio:</strong> en tu libro el concepto aparece escrito con f′, pero la concavidad se determina con la <strong>segunda derivada</strong> f″: la derivada de la derivada.</span>
+    </div>
+    <div class="rule-box"><b>Dicho con tangentes:</b> si en cada punto del intervalo la gráfica está por encima de la recta tangente, es cóncava hacia arriba; si está por debajo, es cóncava hacia abajo.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Las gráficas del libro (f, g, h, j)</div>
+    <table class="stab green">
+      <tr><th>Función</th><th>Concavidad y por qué</th></tr>
+      <tr><td>f(x)</td><td>Cóncava hacia arriba: las pendientes de las tangentes son positivas y cada vez mayores.</td></tr>
+      <tr><td>g(x)</td><td>Cóncava hacia arriba: las pendientes son negativas pero cada vez menos negativas.</td></tr>
+      <tr><td>h(x)</td><td>Cóncava hacia abajo: las pendientes son positivas y cada vez menores.</td></tr>
+      <tr><td>j(x)</td><td>Cóncava hacia abajo: las pendientes son negativas y cada vez más negativas.</td></tr>
+    </table>
+    <div class="tip green">
+      <span class="tip-ico">🧠</span>
+      <span><strong>Truco:</strong> si la pendiente va <em>aumentando</em> → cóncava hacia arriba; si va <em>disminuyendo</em> → cóncava hacia abajo.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box green" id="box-concav">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Concavidad</span></div>
+    <div class="quiz-score" id="score-concav"></div>
+    <div class="qz-container" id="qz-concav"></div>
+  </div>
+</div>
+
+<div id="inflex">
+  <div class="sec-head gold">
+    <div class="sec-num">1.6.1</div>
+    <div class="sec-info">
+      <h2>Puntos de inflexión</h2>
+      <p>Donde la curva cambia de forma</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">¿Qué es un punto de inflexión?</div>
+    <div class="concept-box gold">
+      <div class="concept-title">PUNTO DE INFLEXIÓN</div>
+      <div class="concept-def">Un punto P(c, f(c)) sobre la gráfica de f es de inflexión si f″(x) &gt; 0 para a &lt; x &lt; c y f″(x) &lt; 0 para c &lt; x &lt; b, o al revés (f″ cambia de signo). Un punto c de una curva es de inflexión si <b>f″(c) = 0</b> y se produce un cambio de concavidad. La tangente en ese punto atraviesa la curva.</div>
+    </div>
+    <div class="tip gold">
+      <span class="tip-ico">🛣️</span>
+      <span><strong>Ejemplo fácil:</strong> en una carretera con curvas, el punto exacto donde pasas de dar la vuelta hacia la izquierda a dar la vuelta hacia la derecha es un punto de inflexión.</span>
+    </div>
+    <div class="tip gold">
+      <span class="tip-ico">📌</span>
+      <span><strong>Ejemplos del libro:</strong> f(x) tiene un punto de inflexión en (3, 3); g(x) tiene puntos de inflexión en (3, 5) y (7, 7/2). El punto (6, 1) no es de inflexión porque la función no cambia de concavidad ahí.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Practica 1: f(x) = x³ − 3x² − 9x + 10 (ejemplo 1 del libro)</div>
+    <div class="ex-box">
+      <div class="ex-head"><span>✏️</span><h4>Ejercicio guiado 8 · Punto de inflexión</h4><span class="ex-tag">TÚ COMPLETAS</span></div>
+      <div class="ex-prob">Halla el punto de inflexión de f(x) = x³ − 3x² − 9x + 10.</div>
+      <div class="ex-intro">Receta: derivar dos veces, igualar f″ a cero, evaluar en f.</div>
+  <div class="ex-step"><div class="ex-n">Paso 1 · Primera derivada</div><div class="ex-why">x³ → 3x²; −3x² → −6x; −9x → −9; 10 → 0.</div><div class="ex-calc">f′(x) = <input class="fb" data-ans="3x^2-6x-9" data-sum="1" size="11" autocomplete="off" spellcheck="false"></div></div>
+  <div class="ex-step"><div class="ex-n">Paso 2 · Segunda derivada</div><div class="ex-why">Deriva f′(x): 3x² → 6x; −6x → −6; −9 → 0.</div><div class="ex-calc">f″(x) = <input class="fb" data-ans="6x-6" data-sum="1" size="6" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 Se deriva la derivada</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 3 · Iguala f″ a cero</div><div class="ex-why">Suma 6 y divide entre 6.</div><div class="ex-calc">6x − 6 = 0 → x = <input class="fb" data-ans="1" size="4" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 6x = 6</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 4 · Evalúa en f</div><div class="ex-why">Sustituye x = 1 en la función ORIGINAL: 1 − 3 − 9 + 10.</div><div class="ex-calc">f(1) = <input class="fb" data-ans="-1" size="4" autocomplete="off" spellcheck="false"> → punto de inflexión ( <input class="fb" data-ans="1" size="4" autocomplete="off" spellcheck="false"> , <input class="fb" data-ans="-1" size="4" autocomplete="off" spellcheck="false"> )</div><div class="ex-hint">💡 1 − 3 = −2; −2 − 9 = −11; −11 + 10 = −1</div></div>
+      <div class="ex-btns"><button class="ex-btn" onclick="exCheck(this)">✅ Comprobar</button><button class="ex-btn alt" onclick="exReveal(this)">👀 Ver respuestas</button><button class="ex-btn alt" onclick="exClear(this)">🧹 Borrar</button></div>
+      <div class="ex-msg"></div>
+    </div>
+    <div class="tip gold">
+      <span class="tip-ico">✅</span>
+      <span><strong>Conclusión:</strong> la función tiene un punto de inflexión en (1, −1).</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Practica 2: f(x) = ¼x⁴ − (3/2)x² (ejemplo 2 del libro)</div>
+    <div class="ex-box">
+      <div class="ex-head"><span>✏️</span><h4>Ejercicio guiado 9 · Intervalos de concavidad</h4><span class="ex-tag">TÚ COMPLETAS</span></div>
+      <div class="ex-prob">Determina los intervalos de concavidad de f(x) = ¼x⁴ − (3/2)x².</div>
+      <div class="ex-intro">Aquí hay dos puntos de inflexión. Termina con la tabla de concavidad.</div>
+  <div class="ex-step"><div class="ex-n">Paso 1 · Primera derivada</div><div class="ex-why">¼x⁴ → ¼·4 x³ = x³; (3/2)x² → (3/2)·2 x = 3x.</div><div class="ex-calc">f′(x) = <input class="fb" data-ans="x^3-3x" data-sum="1" size="8" autocomplete="off" spellcheck="false"></div></div>
+  <div class="ex-step"><div class="ex-n">Paso 2 · Segunda derivada</div><div class="ex-why">x³ → 3x²; 3x → 3.</div><div class="ex-calc">f″(x) = <input class="fb" data-ans="3x^2-3" data-sum="1" size="8" autocomplete="off" spellcheck="false"></div></div>
+  <div class="ex-step"><div class="ex-n">Paso 3 · Iguala a cero</div><div class="ex-why">3x² − 3 = 3(x² − 1) = 3(x + 1)(x − 1) = 0.</div><div class="ex-calc">x₁ = <input class="fb" data-ans="-1" size="4" autocomplete="off" spellcheck="false">   y   x₂ = <input class="fb" data-ans="1" size="4" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 Dos números cuyo cuadrado es 1</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 4 · Tabla de concavidad</div><div class="ex-why">Intervalos: (−∞, −1), (−1, 1) y (1, ∞). Valores de prueba: −2, 0 y 2. Sustituye en f″(x) = 3x² − 3.</div><div class="ex-calc"><table class="ex-table"><tr><th>Intervalo</th><th>(−∞, −1)</th><th>(−1, 1)</th><th>(1, ∞)</th></tr>
+   <tr><th>Valor de prueba</th><td>−2</td><td>0</td><td>2</td></tr>
+   <tr><th>f″(valor)</th><td><input class="fb" data-ans="9" size="4" autocomplete="off" spellcheck="false"></td><td><input class="fb" data-ans="-3" size="4" autocomplete="off" spellcheck="false"></td><td><input class="fb" data-ans="9" size="4" autocomplete="off" spellcheck="false"></td></tr>
+   <tr><th>Concavidad</th><td><select class="fb" data-ans="arriba"><option value="—">—</option><option value="arriba">arriba</option><option value="abajo">abajo</option></select></td><td><select class="fb" data-ans="abajo"><option value="—">—</option><option value="arriba">arriba</option><option value="abajo">abajo</option></select></td><td><select class="fb" data-ans="arriba"><option value="—">—</option><option value="arriba">arriba</option><option value="abajo">abajo</option></select></td></tr></table></div><div class="ex-hint">💡 f″(−2) = 3(4) − 3 · f″(0) = 0 − 3 · f″(2) = 12 − 3</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 5 · Puntos de inflexión</div><div class="ex-why">Evalúa f(1) = ¼ − 3/2 = −5/4. Por simetría f(−1) también es −5/4.</div><div class="ex-calc">f(1) = <input class="fb" data-ans="-5/4" size="6" autocomplete="off" spellcheck="false"> → puntos de inflexión (−1, <input class="fb" data-ans="-5/4" size="6" autocomplete="off" spellcheck="false">) y (1, <input class="fb" data-ans="-5/4" size="6" autocomplete="off" spellcheck="false">)</div><div class="ex-hint">💡 ¼ − 6/4 = −5/4</div></div>
+      <div class="ex-btns"><button class="ex-btn" onclick="exCheck(this)">✅ Comprobar</button><button class="ex-btn alt" onclick="exReveal(this)">👀 Ver respuestas</button><button class="ex-btn alt" onclick="exClear(this)">🧹 Borrar</button></div>
+      <div class="ex-msg"></div>
+    </div>
+    <div class="tip gold">
+      <span class="tip-ico">✅</span>
+      <span><strong>Conclusión:</strong> la gráfica es cóncava hacia arriba en (−∞, −1) y (1, ∞), cóncava hacia abajo en (−1, 1), y tiene puntos de inflexión en (−1, −5/4) y (1, −5/4).</span>
+    </div>
+  </div>
+
+  <div class="quiz-box gold" id="box-inflex">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Puntos de inflexión</span></div>
+    <div class="quiz-score" id="score-inflex"></div>
+    <div class="qz-container" id="qz-inflex"></div>
+  </div>
+</div>
+
+<!-- ACTIVIDADES FINALES -->
+<div id="final">
+  <div class="sec-head purple">
+    <div class="sec-num">📝</div>
+    <div class="sec-info">
+      <h2>Actividades finales de Unidad</h2>
+      <p>Instrucción: elige la respuesta que consideres correcta</p>
+    </div>
+  </div>
+  <div class="quiz-box purple" id="box-final">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Actividades finales de la Unidad I</span></div>
+    <div class="quiz-score" id="score-final"></div>
+    <div class="qz-container" id="qz-final"></div>
+  </div>
+</div>
+
+<!-- TU TURNO -->
+<div id="turno">
+  <div class="sec-head red">
+    <div class="sec-num">🎯</div>
+    <div class="sec-info">
+      <h2>Tu turno</h2>
+      <p>Ejercicios rápidos sin ayuda: rellena los espacios en blanco</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ex-box">
+      <div class="ex-head"><span>✏️</span><h4>Ejercicios de práctica libre</h4><span class="ex-tag">TÚ COMPLETAS</span></div>
+      <div class="ex-prob">Completa cada espacio. Escribe potencias con ^ (por ejemplo, x^2).</div>
+      <div class="ex-intro">Ya conoces el método. ¡Ahora tú! Si te atoras, usa "Ver respuestas".</div>
+  <div class="ex-step"><div class="ex-n">Paso 1 · Deriva</div><div class="ex-why">Usa la regla de la potencia en cada término.</div><div class="ex-calc">f(x) = 4x³ − 2x² + x − 9 → f′(x) = <input class="fb" data-ans="12x^2-4x+1" data-sum="1" size="12" autocomplete="off" spellcheck="false"></div><div class="ex-hint">💡 4·3 = 12, −2·2 = −4</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 2 · Deriva</div><div class="ex-why"></div><div class="ex-calc">g(x) = x⁵ + 3x → g′(x) = <input class="fb" data-ans="5x^4+3" data-sum="1" size="8" autocomplete="off" spellcheck="false"></div></div>
+  <div class="ex-step"><div class="ex-n">Paso 3 · Número crítico</div><div class="ex-why">Si f′(x) = 2x − 6, iguala a cero.</div><div class="ex-calc">2x − 6 = 0 → x = <input class="fb" data-ans="3" size="4" autocomplete="off" spellcheck="false"></div></div>
+  <div class="ex-step"><div class="ex-n">Paso 4 · Posible punto de inflexión</div><div class="ex-why">Si f″(x) = 6x − 12, iguala a cero.</div><div class="ex-calc">6x − 12 = 0 → x = <input class="fb" data-ans="2" size="4" autocomplete="off" spellcheck="false"></div></div>
+  <div class="ex-step"><div class="ex-n">Paso 5 · ¿Sube o baja?</div><div class="ex-why">Si f′(−1) = −5, la derivada es negativa.</div><div class="ex-calc">La función es <select class="fb" data-ans="decreciente"><option value="—">—</option><option value="creciente">creciente</option><option value="decreciente">decreciente</option><option value="constante">constante</option></select> en ese punto.</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 6 · ¿Máximo o mínimo?</div><div class="ex-why">Si f′ pasa de positiva a negativa en x = c:</div><div class="ex-calc">En c hay un <select class="fb" data-ans="máximo"><option value="—">—</option><option value="máximo">máximo</option><option value="mínimo">mínimo</option></select> relativo.</div></div>
+  <div class="ex-step"><div class="ex-n">Paso 7 · ¿Cóncava?</div><div class="ex-why">Si f″(c) = −8 &lt; 0:</div><div class="ex-calc">La gráfica es cóncava hacia <select class="fb" data-ans="abajo"><option value="—">—</option><option value="arriba">arriba</option><option value="abajo">abajo</option></select>.</div></div>
+      <div class="ex-btns"><button class="ex-btn" onclick="exCheck(this)">✅ Comprobar</button><button class="ex-btn alt" onclick="exReveal(this)">👀 Ver respuestas</button><button class="ex-btn alt" onclick="exClear(this)">🧹 Borrar</button></div>
+      <div class="ex-msg"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RETOS -->
+<div id="retos">
+  <div class="sec-head purple">
+    <div class="sec-num">🏆</div>
+    <div class="sec-info">
+      <h2>Retos de repaso — Unidad I</h2>
+      <p>Pon a prueba todo lo aprendido de cálculo diferencial</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="bubbles">
+      <div class="bubble blue"><div class="b-label">🔵 Reto 1 — Deriva</div><div class="b-main">Deriva f(x) = 6x⁴ − x³ + 2x − 5.<details class="ans"><summary>Ver respuesta</summary>f′(x) = 24x³ − 3x² + 2</details></div></div>
+      <div class="bubble green"><div class="b-label">🟢 Reto 2 — Crece o decrece</div><div class="b-main">Halla dónde crece y decrece g(x) = x² − 6x + 5 y su extremo relativo.<details class="ans"><summary>Ver respuesta</summary>g′(x) = 2x − 6 = 0 → x = 3. Decrece en (−∞, 3), crece en (3, ∞). Mínimo relativo: g(3) = 9 − 18 + 5 = −4 → (3, −4).</details></div></div>
+      <div class="bubble gold"><div class="b-label">🟡 Reto 3 — Concavidad</div><div class="b-main">Halla el punto de inflexión de h(x) = x³ y los intervalos de concavidad.<details class="ans"><summary>Ver respuesta</summary>h″(x) = 6x = 0 → x = 0. Punto de inflexión (0, 0). Cóncava hacia abajo en (−∞, 0) y hacia arriba en (0, ∞).</details></div></div>
+      <div class="bubble purple"><div class="b-label">🟣 Reto 4 — BOSS LEVEL</div><div class="b-main">Para f(x) = x³ − 12x halla: números críticos, máximo y mínimo relativos, punto de inflexión.<details class="ans"><summary>Ver respuesta</summary>f′(x) = 3x² − 12 = 3(x − 2)(x + 2) → x = −2 y x = 2. f(−2) = −8 + 24 = 16 → máximo relativo (−2, 16). f(2) = 8 − 24 = −16 → mínimo relativo (2, −16). f″(x) = 6x = 0 → x = 0 → inflexión (0, 0).</details></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div id="glosario" class="wb-section">
+  <div class="wb-title">GLOSARIO DE <span>TÉRMINOS</span></div>
+  <p class="wb-sub">Cálculo Diferencial · Unidad I · Copia: término → definición → tu propio ejemplo</p>
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#5cb8f8">📐 BASES DEL CÁLCULO</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Cálculo</div><div class="es">Estudio de incrementos, pendientes, máximos y mínimos, longitudes, áreas y volúmenes.</div></div>
+      <div class="wb-word"><div class="en">Cálculo diferencial</div><div class="es">Estudia el cambio de las variables dependientes al cambiar las independientes.</div></div>
+      <div class="wb-word"><div class="en">Derivada</div><div class="es">Medida de la tasa en que una función cambia conforme su argumento se modifica.</div></div>
+      <div class="wb-word"><div class="en">Límite</div><div class="es">Valor al que se aproxima una expresión cuando la variable tiende a un valor.</div></div>
+      <div class="wb-word"><div class="en">Infinitesimal</div><div class="es">Cantidad infinitamente pequeña.</div></div>
+      <div class="wb-word"><div class="en">Teorema fundamental del cálculo</div><div class="es">Los cálculos de áreas y de tangentes son procesos inversos (Newton y Leibniz).</div></div>
+      <div class="wb-word"><div class="en">Incremento (Δy)</div><div class="es">Diferencia entre el nuevo valor y el valor original de la función.</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#fcd45c">📈 EXTREMOS Y CRECIMIENTO</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Extremos</div><div class="es">Valores máximos y mínimos de una función.</div></div>
+      <div class="wb-word"><div class="en">Máximo / mínimo absoluto</div><div class="es">El mayor / menor valor de f en todo el intervalo.</div></div>
+      <div class="wb-word"><div class="en">Máximo / mínimo relativo</div><div class="es">El mayor / menor valor en la vecindad de un punto.</div></div>
+      <div class="wb-word"><div class="en">Función creciente</div><div class="es">f′(x) > 0: la gráfica sube.</div></div>
+      <div class="wb-word"><div class="en">Función decreciente</div><div class="es">f′(x) < 0: la gráfica baja.</div></div>
+      <div class="wb-word"><div class="en">Número crítico</div><div class="es">Valor c donde f′(c) = 0 o f′(c) no existe.</div></div>
+      <div class="wb-word"><div class="en">Punto crítico</div><div class="es">(c, f(c)) donde f′(c) = 0 y la función cambia su comportamiento.</div></div>
+      <div class="wb-word"><div class="en">Criterio de la 1ª derivada</div><div class="es">Con el cambio de signo de f′ se decide si hay máximo o mínimo relativo.</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#86efac">🌀 CONCAVIDAD</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Segunda derivada f″</div><div class="es">La derivada de la derivada.</div></div>
+      <div class="wb-word"><div class="en">Cóncava hacia arriba</div><div class="es">f″ > 0; la gráfica queda arriba de sus tangentes.</div></div>
+      <div class="wb-word"><div class="en">Cóncava hacia abajo</div><div class="es">f″ < 0; la gráfica queda debajo de sus tangentes.</div></div>
+      <div class="wb-word"><div class="en">Punto de inflexión</div><div class="es">Punto donde la curva cambia de concavidad (f″ = 0).</div></div>
+    </div>
+  </div>
+
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:16px 18px;font-size:13px;color:rgba(240,246,255,.65);margin-top:4px">
+    🎯 <strong style="color:#fff">Tarea — Unidad I de Cálculo Diferencial:</strong><br>
+    1. Deriva: f(x) = 7x³ − 4x² + 5x − 8 y g(x) = x⁴ + 2x.<br>
+    2. Para f(x) = x² − 8x + 12: encuentra el número crítico, los intervalos donde crece y decrece, y el extremo relativo.<br>
+    3. Para f(x) = x³ − 3x² + 2: halla extremos relativos, punto de inflexión y concavidad.<br>
+    4. Explica con tus palabras la diferencia entre máximo absoluto y máximo relativo, con un dibujo.
+  </div>
+</div>
+
+</div><!-- /wrap -->
+<footer>Cálculo Diferencial · Unidad I</footer>
+
+<script>
+/* ═══ QUIZ ENGINE ═══ */
+function initQuiz(containerId, scoreId, colorClass, questions){
+  const container = document.getElementById(containerId);
+  const scoreEl = document.getElementById(scoreId);
+  let answered = 0, correct = 0;
+  const total = questions.length;
+  scoreEl.textContent = `Progreso: 0 / ${total} respondidas`;
+
+  questions.forEach((qz, i) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'qz-question';
+
+    const qText = document.createElement('div');
+    qText.className = 'qz-qtext';
+    const tag = qz.type === 'tf'
+      ? '<span class="qz-tag" style="background:var(--'+colorClass+')">V / F</span>'
+      : '<span class="qz-tag" style="background:var(--'+colorClass+')">OPCIÓN MÚLTIPLE</span>';
+    qText.innerHTML = `<span class="qz-num">${i+1}.</span><span>${qz.q} ${tag}</span>`;
+    qDiv.appendChild(qText);
+
+    const optsDiv = document.createElement('div');
+    optsDiv.className = qz.type === 'tf' ? 'qz-tf-opts' : 'qz-opts';
+
+    const explainDiv = document.createElement('div');
+    explainDiv.className = 'qz-explain';
+    explainDiv.innerHTML = qz.exp;
+
+    const opts = qz.type === 'tf' ? ['Verdadero', 'Falso'] : qz.options;
+    const correctIdx = qz.type === 'tf' ? (qz.correct ? 0 : 1) : qz.correct;
+
+    opts.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'qz-opt';
+      btn.textContent = qz.type === 'tf' ? opt : String.fromCharCode(97 + idx) + ') ' + opt;
+      btn.onclick = () => {
+        if (qDiv.dataset.done) return;
+        qDiv.dataset.done = '1';
+        answered++;
+        if (idx === correctIdx) correct++;
+        Array.from(optsDiv.children).forEach((b, bi) => {
+          b.classList.add('disabled');
+          if (bi === correctIdx) b.classList.add('correct');
+          else if (bi === idx) b.classList.add('incorrect');
+        });
+        explainDiv.classList.add('show');
+        scoreEl.textContent = `Progreso: ${answered} / ${total} respondidas · ✅ ${correct} correctas`;
+      };
+      optsDiv.appendChild(btn);
+    });
+
+    qDiv.appendChild(optsDiv);
+    qDiv.appendChild(explainDiv);
+    container.appendChild(qDiv);
+  });
+}
+
+
+/* ===== 1.1 ===== */
+initQuiz('qz-campo','score-campo','a1',[{"type": "mc", "q": "El Cálculo es la rama de las matemáticas que se ocupa del estudio de:", "options": ["Los números primos", "Los incrementos en las variables, pendientes de curvas, máximos y mínimos, longitudes, áreas y volúmenes", "Solo las figuras geométricas", "Las operaciones con fracciones"], "correct": 1, "exp": "<b>Respuesta correcta: b) Los incrementos en las variables, pendientes de curvas, máximos y mínimos, longitudes, áreas y volúmenes.</b> Se usa mucho en ciencias e ingeniería siempre que haya cantidades que varían de forma continua."}, {"type": "mc", "q": "¿Quién calculó el volumen de pirámides y conos considerándolos formados por infinitas secciones de grosor infinitesimal?", "options": ["Demócrito", "Leibniz", "Cavalieri", "Newton"], "correct": 0, "exp": "<b>Respuesta correcta: a) Demócrito.</b> Un infinitesimal es algo infinitamente pequeño."}, {"type": "mc", "q": "Eudoxo y Arquímedes usaron el \"método de agotamiento\" para encontrar el área de:", "options": ["Una parábola únicamente", "Un círculo, usando polígonos inscritos", "Un triángulo", "Una pirámide"], "correct": 1, "exp": "<b>Respuesta correcta: b) Un círculo, usando polígonos inscritos.</b> Mientras más lados tiene el polígono inscrito, más se parece al círculo."}, {"type": "tf", "q": "Si A_n es el área del polígono regular inscrito de n lados, cuando n aumenta A_n se aproxima cada vez más al área del círculo.", "correct": true, "exp": "<b>Verdadero.</b> Por eso se escribe: área = límite de A_n cuando n tiende a infinito."}, {"type": "mc", "q": "¿Quiénes demostraron que el cálculo de áreas y el de tangentes son procesos inversos (Teorema fundamental del cálculo)?", "options": ["Descartes y Fermat", "Newton (hacia 1660) y Leibniz (hacia 1670)", "Cavalieri y Torricelli", "Demócrito y Arquímedes"], "correct": 1, "exp": "<b>Respuesta correcta: b) Newton (hacia 1660) y Leibniz (hacia 1670).</b> Al final se adoptó la notación de Leibniz."}, {"type": "mc", "q": "El principal objeto de estudio del cálculo diferencial es:", "options": ["La integral", "La incógnita", "La derivada", "El triángulo"], "correct": 2, "exp": "<b>Respuesta correcta: c) La derivada.</b> Estudia cómo cambia la variable dependiente cuando cambia la independiente."}, {"type": "mc", "q": "El cálculo diferencial se apoya constantemente en el concepto básico de:", "options": ["Perímetro", "Cociente", "Límite", "Ángulo"], "correct": 2, "exp": "<b>Respuesta correcta: c) Límite.</b> El paso al límite es lo que lo diferencia claramente del álgebra."}, {"type": "mc", "q": "Dada y = f(x), la derivada mide:", "options": ["El área bajo la curva", "El perímetro de la figura", "El promedio de todos los valores", "La variación de y cuando hay una pequeña variación de x"], "correct": 3, "exp": "<b>Respuesta correcta: d) La variación de y cuando hay una pequeña variación de x.</b> Es la tasa a la que cambia la función."}]);
+
+/* ===== 1.2 ===== */
+initQuiz('qz-campos','score-campos','a2',[{"type": "mc", "q": "En Estadística, para obtener las funciones de densidad se debe:", "options": ["Multiplicar por cero", "Sumar todos los datos", "Graficar sin calcular", "Obtener la derivada de la función de distribución"], "correct": 3, "exp": "<b>Respuesta correcta: d) Obtener la derivada de la función de distribución.</b> Sirven para calcular seguros de vida, daños, tasas de interés y riesgos continuos en el tiempo."}, {"type": "mc", "q": "En Administración, el cálculo diferencial sirve principalmente para:", "options": ["Medir la temperatura", "Escribir contratos", "Maximizar y minimizar (por ejemplo, usar cajas más pequeñas para empacar la misma cantidad)", "Dibujar mapas"], "correct": 2, "exp": "<b>Respuesta correcta: c) Maximizar y minimizar (por ejemplo, usar cajas más pequeñas para empacar la misma cantidad).</b> Reducir costos es un problema de mínimos."}, {"type": "mc", "q": "En Ciencias exactas, la velocidad de una partícula en un momento determinado y la pendiente de la recta tangente se estudian con:", "options": ["La suma de fracciones", "El teorema de Pitágoras", "La regla de tres", "El límite del cociente de incrementos (la derivada)"], "correct": 3, "exp": "<b>Respuesta correcta: d) El límite del cociente de incrementos (la derivada).</b> Velocidad = razón entre distancia recorrida y tiempo empleado."}, {"type": "mc", "q": "En Ingeniería se pueden crear modelos de ecuaciones diferenciales para:", "options": ["Sumar fracciones", "Escribir poemas", "Crecimiento poblacional y comportamiento de partes mecánicas de un automóvil", "Contar monedas"], "correct": 2, "exp": "<b>Respuesta correcta: c) Crecimiento poblacional y comportamiento de partes mecánicas de un automóvil.</b> También para crecimiento de empresas y muchas aplicaciones de física."}, {"type": "mc", "q": "¿Cuál es una aplicación del cálculo diferencial en Informática?", "options": ["Cultivar maíz", "Pintar murales", "Fabricar calendarios", "La fabricación de chips y la miniaturización de componentes internos"], "correct": 3, "exp": "<b>Respuesta correcta: d) La fabricación de chips y la miniaturización de componentes internos.</b> También administración de circuitos integrados, compresión de imágenes, sonido y video, e inteligencia artificial."}, {"type": "tf", "q": "La pendiente es la razón entre la diferencia de ordenadas y la diferencia de abscisas de dos puntos en el plano cartesiano.", "correct": true, "exp": "<b>Verdadero.</b> Es decir, (y₂ − y₁) / (x₂ − x₁)."}, {"type": "mc", "q": "Las funciones de densidad son útiles para calcular:", "options": ["Solo áreas de triángulos", "Solo raíces cuadradas", "Solo ángulos", "Seguros de vida, daños y tasas de interés"], "correct": 3, "exp": "<b>Respuesta correcta: d) Seguros de vida, daños y tasas de interés.</b> Cualquier riesgo que se comporte de forma continua en el tiempo."}, {"type": "mc", "q": "🔁 Repaso 1.1: ¿Quiénes usaron el método de agotamiento con polígonos inscritos?", "options": ["Fermat y Barrow", "Newton y Leibniz", "Eudoxo y Arquímedes", "Cavalieri y Torricelli"], "correct": 2, "exp": "<b>Respuesta correcta: c) Eudoxo y Arquímedes.</b> Fue un antecedente del concepto de límite."}]);
+
+/* ===== 1.2.1 ===== */
+initQuiz('qz-reglas','score-reglas','a3',[{"type": "mc", "q": "Para derivar con la regla de los 4 pasos, el primer paso es:", "options": ["Elevar al cuadrado", "Sumar todas las x", "Dividir entre cero", "Sustituir x por x + Δx y calcular el nuevo valor de la función, y + Δy"], "correct": 3, "exp": "<b>Respuesta correcta: d) Sustituir x por x + Δx y calcular el nuevo valor de la función, y + Δy.</b> Después se resta el valor original para obtener Δy."}, {"type": "mc", "q": "El incremento de la función (Δy) se obtiene:", "options": ["Multiplicándolos", "Restando al nuevo valor de la función su valor original", "Sumando los dos valores", "Dividiéndolos"], "correct": 1, "exp": "<b>Respuesta correcta: b) Restando al nuevo valor de la función su valor original.</b> Δy = f(x + Δx) − f(x)."}, {"type": "mc", "q": "Después se divide Δy entre Δx y se calcula el límite del cociente cuando Δx tiende a:", "options": ["0", "1", "∞", "10"], "correct": 0, "exp": "<b>Respuesta correcta: a) 0.</b> El límite así hallado es la derivada buscada."}, {"type": "mc", "q": "Con la regla de la potencia, la derivada de x³ es:", "options": ["2x³", "x²", "3x³", "3x²"], "correct": 3, "exp": "<b>Respuesta correcta: d) 3x².</b> El exponente baja a multiplicar y se le resta 1 al exponente."}, {"type": "mc", "q": "La derivada de una constante (por ejemplo, 1 o 7) es:", "options": ["0", "1", "x", "La misma constante"], "correct": 0, "exp": "<b>Respuesta correcta: a) 0.</b> Una constante no cambia, por lo tanto su rapidez de cambio es cero."}, {"type": "mc", "q": "La derivada de y = x³ + x² + x + 1 es:", "options": ["3x² + 2x + 2", "x² + x + 1", "3x² + 2x + 1", "3x³ + 2x² + x"], "correct": 2, "exp": "<b>Respuesta correcta: c) 3x² + 2x + 1.</b> Se deriva cada término por separado (el operador se distribuye) y la derivada de 1 es 0."}, {"type": "mc", "q": "La derivada de 5x² es:", "options": ["10x²", "5x", "25x", "10x"], "correct": 3, "exp": "<b>Respuesta correcta: d) 10x.</b> Se multiplica 5 · 2 = 10 y el exponente baja a 1."}, {"type": "mc", "q": "🔁 Repaso 1.2: ¿Qué campo usa el cálculo para fabricar y miniaturizar chips?", "options": ["Agricultura", "Administración", "Informática", "Estadística"], "correct": 2, "exp": "<b>Respuesta correcta: c) Informática.</b> La derivada permite optimizar y modelar el comportamiento de los circuitos."}]);
+
+/* ===== 1.3 ===== */
+initQuiz('qz-maxmin','score-maxmin','a4',[{"type": "mc", "q": "Los valores máximos y mínimos de una función f se llaman:", "options": ["Internos de la función", "Extremos de la función", "Raíces de la función", "Dominios de la función"], "correct": 1, "exp": "<b>Respuesta correcta: b) Extremos de la función.</b> Se usan para resolver problemas en matemáticas, física y otras ciencias."}, {"type": "mc", "q": "f(c) es el valor máximo absoluto de f en un intervalo cerrado si:", "options": ["f(x) = 0", "f(x) ≤ f(c) para todo x en dicho intervalo", "f(c) = 0", "f(x) ≥ f(c) para todo x"], "correct": 1, "exp": "<b>Respuesta correcta: b) f(x) ≤ f(c) para todo x en dicho intervalo.</b> Ningún otro valor del intervalo supera a f(c)."}, {"type": "mc", "q": "f(c) es el valor mínimo absoluto de f en un intervalo cerrado si:", "options": ["f(x) ≤ f(c) para todo x", "f(c) > 100", "f(x) ≥ f(c) para todo x en dicho intervalo", "f(x) < 0"], "correct": 2, "exp": "<b>Respuesta correcta: c) f(x) ≥ f(c) para todo x en dicho intervalo.</b> Ningún otro valor del intervalo es menor que f(c)."}, {"type": "tf", "q": "Una función puede alcanzar un valor máximo o un valor mínimo en un intervalo más de una vez.", "correct": true, "exp": "<b>Verdadero.</b> Por ejemplo, una onda senoidal repite sus máximos y mínimos."}, {"type": "mc", "q": "Una función f alcanza un máximo relativo en c de un intervalo abierto (a, b) si:", "options": ["f(x) ≥ f(c) para los x cercanos a c", "c = a", "f(c) = 0", "f(x) ≤ f(c) para los x cercanos a c"], "correct": 3, "exp": "<b>Respuesta correcta: d) f(x) ≤ f(c) para los x cercanos a c.</b> Es el valor más alto solo en la vecindad de c, no en toda la función."}, {"type": "mc", "q": "En el ejemplo del libro, en el intervalo cerrado [−3, 8] la función tiene su máximo absoluto en el punto:", "options": ["(8, 0)", "(−3, −3)", "(0, 0)", "(7, 4)"], "correct": 3, "exp": "<b>Respuesta correcta: d) (7, 4).</b> Y su mínimo absoluto en (−3, −3)."}, {"type": "mc", "q": "Para f(x) = x² en el intervalo [−2, 3], el máximo absoluto vale:", "options": ["9 (en x = 3)", "4", "0", "3"], "correct": 0, "exp": "<b>Respuesta correcta: a) 9 (en x = 3).</b> f(−2) = 4, f(0) = 0 y f(3) = 9; el mayor es 9."}, {"type": "mc", "q": "🔁 Repaso 1.2: ¿Qué campo usa los máximos y mínimos para reducir el tamaño de cajas de empaque?", "options": ["Biología", "Administración", "Estadística", "Informática"], "correct": 1, "exp": "<b>Respuesta correcta: b) Administración.</b> Optimizar es encontrar el mejor valor posible: el máximo o el mínimo."}]);
+
+/* ===== 1.4 ===== */
+initQuiz('qz-crece','score-crece','a5',[{"type": "mc", "q": "Si f es creciente en un intervalo I, la variación media Δy/Δx entre dos puntos es:", "options": ["Mayor que 0", "Siempre 1", "Menor que 0", "Igual a 0"], "correct": 0, "exp": "<b>Respuesta correcta: a) Mayor que 0.</b> Al aumentar x, aumenta f(x)."}, {"type": "mc", "q": "Si f es decreciente en I, la variación media Δy/Δx es:", "options": ["Siempre 1", "Mayor que 0", "Menor que 0", "Igual a 0"], "correct": 2, "exp": "<b>Respuesta correcta: c) Menor que 0.</b> Al aumentar x, disminuye f(x)."}, {"type": "mc", "q": "Si f′(x) > 0 para todo x en I, entonces f es:", "options": ["Decreciente en I", "No existe", "Creciente en I", "Constante en I"], "correct": 2, "exp": "<b>Respuesta correcta: c) Creciente en I.</b> Derivada positiva = pendiente positiva = la gráfica sube."}, {"type": "mc", "q": "Si f′(x) < 0 para todo x en I, entonces f es:", "options": ["Creciente en I", "Constante en I", "Decreciente en I", "Infinita"], "correct": 2, "exp": "<b>Respuesta correcta: c) Decreciente en I.</b> Derivada negativa = pendiente negativa = la gráfica baja."}, {"type": "mc", "q": "Si f′(x) = 0 para todo x en I, entonces f es:", "options": ["Cóncava", "Creciente", "Constante en I", "Decreciente"], "correct": 2, "exp": "<b>Respuesta correcta: c) Constante en I.</b> No sube ni baja: es una recta horizontal."}, {"type": "mc", "q": "La derivada de f(x) = 3x² − 2x + 1 es:", "options": ["f′(x) = 3x − 2", "f′(x) = 6x² − 2", "f′(x) = 6x + 1", "f′(x) = 6x − 2"], "correct": 3, "exp": "<b>Respuesta correcta: d) f′(x) = 6x − 2.</b> 3x² → 6x, −2x → −2 y la constante 1 → 0."}, {"type": "mc", "q": "Al resolver 6x − 2 = 0 se obtiene:", "options": ["x = 2", "x = 1/3", "x = −1/3", "x = 3"], "correct": 1, "exp": "<b>Respuesta correcta: b) x = 1/3.</b> 6x = 2, luego x = 2/6 = 1/3."}, {"type": "mc", "q": "Para f(x) = 3x² − 2x + 1 se tiene f′(0) = −2 < 0, por lo tanto en (−∞, 1/3) la función es:", "options": ["Decreciente", "No definida", "Constante", "Creciente"], "correct": 0, "exp": "<b>Respuesta correcta: a) Decreciente.</b> En (1/3, ∞), con f′(1) = 4 > 0, es creciente."}]);
+
+/* ===== 1.4.1 ===== */
+initQuiz('qz-criticos','score-criticos','a1',[{"type": "mc", "q": "La derivada de f(x) = x³ + 3x² es:", "options": ["f′(x) = 3x³ + 6x", "f′(x) = 3x² + 3x", "f′(x) = x² + 3x", "f′(x) = 3x² + 6x"], "correct": 3, "exp": "<b>Respuesta correcta: d) f′(x) = 3x² + 6x.</b> x³ → 3x² y 3x² → 6x."}, {"type": "mc", "q": "Al factorizar 3x² + 6x = 3x(x + 2) = 0 se obtiene:", "options": ["x = 0 solamente", "x = 0 y x = −2", "x = 2 solamente", "x = 3 y x = 6"], "correct": 1, "exp": "<b>Respuesta correcta: b) x = 0 y x = −2.</b> Un producto es cero cuando alguno de sus factores es cero."}, {"type": "mc", "q": "Los intervalos que se analizan para x³ + 3x² son:", "options": ["(−∞, 0) y (0, ∞)", "(−2, 2)", "(0, 3)", "(−∞, −2), (−2, 0) y (0, ∞)"], "correct": 3, "exp": "<b>Respuesta correcta: d) (−∞, −2), (−2, 0) y (0, ∞).</b> Los números críticos dividen la recta en intervalos."}, {"type": "mc", "q": "Si f′(−1) = 3(−1)² + 6(−1) = −3, la función en (−2, 0) es:", "options": ["Creciente", "Decreciente", "Cóncava hacia arriba", "Constante"], "correct": 1, "exp": "<b>Respuesta correcta: b) Decreciente.</b> Es negativa, así que la gráfica baja en ese intervalo."}, {"type": "mc", "q": "Se dice que (c, f(c)) es un punto crítico de f si:", "options": ["c = 1", "f(c) = 0", "f′(c) > 0 siempre", "f′(c) = 0 y la función cambia su comportamiento en ese punto"], "correct": 3, "exp": "<b>Respuesta correcta: d) f′(c) = 0 y la función cambia su comportamiento en ese punto.</b> Cambia de creciente a decreciente o al revés."}, {"type": "mc", "q": "Si f′(c) no existe, se dice que c es:", "options": ["Una raíz de f", "Un número crítico de f", "Una constante", "Un punto de inflexión"], "correct": 1, "exp": "<b>Respuesta correcta: b) Un número crítico de f.</b> Hay que revisar si f(c) está definida."}, {"type": "mc", "q": "La derivada de f(x) = 1/x² es:", "options": ["f′(x) = −2/x³", "f′(x) = 2/x³", "f′(x) = −1/x", "f′(x) = 1/x"], "correct": 0, "exp": "<b>Respuesta correcta: a) f′(x) = −2/x³.</b> Se obtiene con la regla del cociente: (x²·0 − 1·2x)/x⁴ = −2/x³."}, {"type": "mc", "q": "f(x) = 1/x² no tiene puntos críticos porque:", "options": ["Es una recta", "Siempre es constante", "x = 0 es número crítico, pero f(0) no está definida", "Su derivada es cero en todos los puntos"], "correct": 2, "exp": "<b>Respuesta correcta: c) x = 0 es número crítico, pero f(0) no está definida.</b> No se puede dividir entre 0²: f(0) es indefinida."}]);
+
+/* ===== 1.5 ===== */
+initQuiz('qz-primera','score-primera','a2',[{"type": "mc", "q": "El criterio de la primera derivada sirve para:", "options": ["Sumar fracciones", "Calcular áreas", "Localizar los extremos relativos una vez conocidos los intervalos de crecimiento y decrecimiento", "Resolver ecuaciones lineales"], "correct": 2, "exp": "<b>Respuesta correcta: c) Localizar los extremos relativos una vez conocidos los intervalos de crecimiento y decrecimiento.</b> Se aplica en los números críticos."}, {"type": "mc", "q": "Si f′(x) > 0 antes de c y f′(x) < 0 después de c, entonces en c hay:", "options": ["Un máximo relativo", "Un mínimo relativo", "Un punto de inflexión", "Nada"], "correct": 0, "exp": "<b>Respuesta correcta: a) Un máximo relativo.</b> Pasa de subir a bajar: es como la cima de una montaña."}, {"type": "mc", "q": "Si f′(x) < 0 antes de c y f′(x) > 0 después de c, entonces en c hay:", "options": ["Un mínimo relativo", "Un máximo relativo", "Nada", "Una asíntota"], "correct": 0, "exp": "<b>Respuesta correcta: a) Un mínimo relativo.</b> Pasa de bajar a subir: es como el fondo de un valle."}, {"type": "mc", "q": "La derivada de f(x) = x³ − 6x² + 9x − 3 es:", "options": ["f′(x) = x² − 6x + 9", "f′(x) = 3x² − 12x + 9", "f′(x) = 3x² − 6x + 9", "f′(x) = 3x³ − 12x"], "correct": 1, "exp": "<b>Respuesta correcta: b) f′(x) = 3x² − 12x + 9.</b> x³ → 3x², −6x² → −12x, 9x → 9 y −3 → 0."}, {"type": "mc", "q": "Al factorizar 3x² − 12x + 9 = 3(x − 1)(x − 3) = 0 los números críticos son:", "options": ["x = −1 y x = −3", "x = 1 y x = 3", "x = 3 y x = 9", "x = 0 y x = 1"], "correct": 1, "exp": "<b>Respuesta correcta: b) x = 1 y x = 3.</b> Cada factor igualado a cero da un número crítico."}, {"type": "mc", "q": "Con valor de prueba x = 0, f′(0) = 9 > 0, por lo tanto en (−∞, 1) la función es:", "options": ["Constante", "Decreciente", "Indefinida", "Creciente"], "correct": 3, "exp": "<b>Respuesta correcta: d) Creciente.</b> Con x = 2: f′(2) = −3 < 0 (decreciente); con x = 4: f′(4) = 9 > 0 (creciente)."}, {"type": "mc", "q": "Para f(x) = x³ − 6x² + 9x − 3, el máximo relativo se encuentra en:", "options": ["(3, −3)", "(1, 1)", "(0, −3)", "(2, −1)"], "correct": 1, "exp": "<b>Respuesta correcta: b) (1, 1).</b> f(1) = 1 − 6 + 9 − 3 = 1. Pasa de creciente a decreciente en x = 1."}, {"type": "mc", "q": "Para la misma función, el mínimo relativo se encuentra en:", "options": ["(3, −3)", "(1, 1)", "(4, 1)", "(0, 0)"], "correct": 0, "exp": "<b>Respuesta correcta: a) (3, −3).</b> f(3) = 27 − 54 + 27 − 3 = −3. Pasa de decreciente a creciente en x = 3."}]);
+
+/* ===== 1.6 ===== */
+initQuiz('qz-concav','score-concav','a3',[{"type": "mc", "q": "Si f es derivable en (a, b) y f″(c) > 0 (segunda derivada), la gráfica tiene concavidad:", "options": ["Hacia la izquierda", "Hacia abajo", "Hacia arriba (como una sonrisa)", "Ninguna"], "correct": 2, "exp": "<b>Respuesta correcta: c) Hacia arriba (como una sonrisa).</b> La pendiente de las tangentes va aumentando."}, {"type": "mc", "q": "Si f″(c) < 0, la gráfica tiene concavidad:", "options": ["Hacia abajo (como una cara triste)", "Vertical", "Ninguna", "Hacia arriba"], "correct": 0, "exp": "<b>Respuesta correcta: a) Hacia abajo (como una cara triste).</b> La pendiente de las tangentes va disminuyendo."}, {"type": "tf", "q": "Si en cada punto de un intervalo la gráfica está por encima de la recta tangente, la curva es cóncava hacia arriba.", "correct": true, "exp": "<b>Verdadero.</b> Si está por debajo de la tangente, es cóncava hacia abajo."}, {"type": "mc", "q": "En las gráficas del libro, f(x) es cóncava hacia arriba porque las pendientes de sus tangentes son:", "options": ["Negativas y cada vez más negativas", "Cero", "Positivas y cada vez mayores", "Positivas y cada vez menores"], "correct": 2, "exp": "<b>Respuesta correcta: c) Positivas y cada vez mayores.</b> g(x) también lo es: sus pendientes son negativas pero cada vez menos negativas."}, {"type": "mc", "q": "h(x) es cóncava hacia abajo porque las pendientes de sus tangentes son:", "options": ["Positivas y cada vez mayores", "Positivas y cada vez menores", "Negativas y cada vez menos negativas", "Siempre iguales"], "correct": 1, "exp": "<b>Respuesta correcta: b) Positivas y cada vez menores.</b> j(x) también: sus pendientes son negativas y cada vez más negativas."}, {"type": "mc", "q": "Un punto de inflexión es aquel donde:", "options": ["La derivada no existe siempre", "Se produce un cambio de concavidad", "La función es máxima", "La función vale cero"], "correct": 1, "exp": "<b>Respuesta correcta: b) Se produce un cambio de concavidad.</b> La tangente en ese punto atraviesa la curva."}, {"type": "mc", "q": "Un punto c de una curva es de inflexión si:", "options": ["f′(c) = 1", "f(c) = 0", "f″(c) = 0 (y la concavidad cambia)", "f″(c) = 5"], "correct": 2, "exp": "<b>Respuesta correcta: c) f″(c) = 0 (y la concavidad cambia).</b> Se iguala a cero la segunda derivada."}, {"type": "mc", "q": "🔁 Repaso 1.4: Si f′(x) > 0 en un intervalo, la función es:", "options": ["Constante", "Cóncava hacia abajo", "Decreciente", "Creciente"], "correct": 3, "exp": "<b>Respuesta correcta: d) Creciente.</b> No confundas: la primera derivada indica si sube o baja; la segunda, cómo se curva."}]);
+
+/* ===== 1.6.1 ===== */
+initQuiz('qz-inflex','score-inflex','a4',[{"type": "mc", "q": "La derivada de f(x) = x³ − 3x² − 9x + 10 es:", "options": ["f′(x) = 3x³ − 6x", "f′(x) = 3x² − 6x + 10", "f′(x) = x² − 3x − 9", "f′(x) = 3x² − 6x − 9"], "correct": 3, "exp": "<b>Respuesta correcta: d) f′(x) = 3x² − 6x − 9.</b> x³ → 3x², −3x² → −6x, −9x → −9 y 10 → 0."}, {"type": "mc", "q": "Su segunda derivada es:", "options": ["f″(x) = 6x + 9", "f″(x) = 6x²", "f″(x) = 3x − 6", "f″(x) = 6x − 6"], "correct": 3, "exp": "<b>Respuesta correcta: d) f″(x) = 6x − 6.</b> Se deriva otra vez: 3x² → 6x y −6x → −6."}, {"type": "mc", "q": "Al igualar 6x − 6 = 0 se obtiene:", "options": ["x = 0", "x = 6", "x = −1", "x = 1"], "correct": 3, "exp": "<b>Respuesta correcta: d) x = 1.</b> 6x = 6, luego x = 1."}, {"type": "mc", "q": "Como f(1) = 1 − 3 − 9 + 10 = −1, el punto de inflexión es:", "options": ["(−1, 1)", "(1, −1)", "(0, 10)", "(1, 1)"], "correct": 1, "exp": "<b>Respuesta correcta: b) (1, −1).</b> Siempre se evalúa en la función original, f(x)."}, {"type": "mc", "q": "Para f(x) = ¼x⁴ − (3/2)x², la segunda derivada es:", "options": ["f″(x) = 3x² − 3", "f″(x) = x² − 3", "f″(x) = 3x² + 3", "f″(x) = x³ − 3x"], "correct": 0, "exp": "<b>Respuesta correcta: a) f″(x) = 3x² − 3.</b> f′(x) = x³ − 3x y f″(x) = 3x² − 3."}, {"type": "mc", "q": "Al resolver 3x² − 3 = 0 se obtiene:", "options": ["x = 1 solamente", "x = −1 y x = 1", "x = 3", "x = 0"], "correct": 1, "exp": "<b>Respuesta correcta: b) x = −1 y x = 1.</b> 3(x + 1)(x − 1) = 0."}, {"type": "mc", "q": "En (−1, 1), con valor de prueba x = 0: f″(0) = −3, entonces la función es:", "options": ["Creciente", "Cóncava hacia abajo", "Constante", "Cóncava hacia arriba"], "correct": 1, "exp": "<b>Respuesta correcta: b) Cóncava hacia abajo.</b> En (−∞, −1) y (1, ∞) es cóncava hacia arriba (f″ = 9 > 0)."}, {"type": "tf", "q": "El punto (6, 1) del ejemplo del libro no es punto de inflexión porque la función no cambia de concavidad en dicho punto.", "correct": true, "exp": "<b>Verdadero.</b> Para ser de inflexión no basta con un \"pico\": debe cambiar la concavidad."}]);
+
+/* ===== Actividades finales ===== */
+initQuiz('qz-final','score-final','a5',[{"type": "mc", "q": "Rama de las matemáticas que se ocupa del estudio de los incrementos en las variables.", "options": ["Cálculo", "Álgebra", "Geometría", "Trigonometría"], "correct": 0, "exp": "<b>Respuesta correcta: a) Cálculo.</b> "}, {"type": "mc", "q": "¿Quién calculó el volumen de pirámides y conos?", "options": ["Demócrito", "Aristóteles", "Newton", "Arquímedes"], "correct": 0, "exp": "<b>Respuesta correcta: a) Demócrito.</b> "}, {"type": "mc", "q": "Newton y Leibniz afirmaron que los cálculos infinitesimales son inversos; a esto se le conoce como:", "options": ["Teorema de Pitágoras", "Método de Newton", "Teorema fundamental del cálculo", "Método científico"], "correct": 2, "exp": "<b>Respuesta correcta: c) Teorema fundamental del cálculo.</b> "}, {"type": "mc", "q": "El principal objeto de estudio en el cálculo diferencial es:", "options": ["El cálculo", "La derivada", "La integral", "La incógnita"], "correct": 1, "exp": "<b>Respuesta correcta: b) La derivada.</b> "}, {"type": "mc", "q": "Campo de estudio que utiliza cálculo diferencial para el cálculo de probabilidades:", "options": ["Administración", "Estadística", "Ciencias exactas", "Ingeniería"], "correct": 1, "exp": "<b>Respuesta correcta: b) Estadística.</b> "}, {"type": "mc", "q": "Campo de estudio que utiliza cálculo diferencial en temas como la velocidad:", "options": ["Ciencias exactas", "Ingeniería", "Informática"], "correct": 0, "exp": "<b>Respuesta correcta: a) Ciencias exactas.</b> "}, {"type": "mc", "q": "Campo de estudio que utiliza cálculo diferencial para la fabricación de chips:", "options": ["Ingeniería", "Administración", "Informática", "Ciencias exactas"], "correct": 2, "exp": "<b>Respuesta correcta: c) Informática.</b> "}, {"type": "mc", "q": "El cálculo diferencial se apoya constantemente en el concepto básico del:", "options": ["Límite", "Álgebra", "Ángulo", "Cociente"], "correct": 0, "exp": "<b>Respuesta correcta: a) Límite.</b> "}, {"type": "mc", "q": "Los valores máximos y mínimos de una función f se llaman:", "options": ["Función f", "Internos de la función f", "Mínimos de la función", "Extremos de la función f"], "correct": 3, "exp": "<b>Respuesta correcta: d) Extremos de la función f.</b> "}, {"type": "mc", "q": "Si f(c) es el valor mínimo absoluto de f en el intervalo, entonces ______ para todo x en dicho intervalo.", "options": ["f(x) ≤ f(c)", "f(x) ≅ f(c)", "f(x) ≥ f(c)", "f(x) ≠ f(c)"], "correct": 2, "exp": "<b>Respuesta correcta: c) f(x) ≥ f(c).</b> "}]);
+
+/* ═══ EJERCICIOS CON ESPACIOS EN BLANCO ═══ */
+function exNorm(s){return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,'').replace(/[−–—]/g,'-').replace(/[·*×]/g,'').replace(/²/g,'^2').replace(/³/g,'^3').replace(/⁴/g,'^4').replace(/⁵/g,'^5');}
+function exTerms(s){return exNorm(s).replace(/-/g,'+-').split('+').filter(Boolean).sort().join('+');}
+function exOk(el){const v=el.value;if(!v||v==='—')return null;const alts=el.dataset.ans.split('|');
+  return alts.some(a=>el.dataset.sum?exTerms(a)===exTerms(v):exNorm(a)===exNorm(v));}
+function exCheck(btn){const box=btn.closest('.ex-box');let ok=0,tot=0,empty=0;
+  box.querySelectorAll('.fb').forEach(el=>{tot++;el.classList.remove('ok','bad');const r=exOk(el);if(r===null){empty++;return;}if(r){ok++;el.classList.add('ok');}else el.classList.add('bad');});
+  const m=box.querySelector('.ex-msg');
+  m.textContent=ok===tot?'🎉 ¡Todo correcto! Excelente trabajo.':`✅ ${ok} correctas · ❌ ${tot-ok-empty} por corregir · ⬜ ${empty} vacías`;}
+function exReveal(btn){const box=btn.closest('.ex-box');box.querySelectorAll('.fb').forEach(el=>{el.value=el.dataset.ans.split('|')[0];el.classList.remove('bad');el.classList.add('ok');});box.querySelector('.ex-msg').textContent='Respuestas mostradas. ¡Intenta tú primero la próxima vez!';}
+function exClear(btn){const box=btn.closest('.ex-box');box.querySelectorAll('.fb').forEach(el=>{el.value=el.tagName==='SELECT'?'—':'';el.classList.remove('ok','bad');});box.querySelector('.ex-msg').textContent='';}
+document.querySelectorAll('input.fb').forEach(i=>i.addEventListener('input',()=>i.classList.remove('ok','bad')));
+</script>
+</body>
+</html>
