@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antropología — Unidad II: Cultura</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f4f8;--surface:#fff;--border:#c0d0e0;
+  --ink:#061828;--muted:#3a5a78;
+  --a1:#1a4fc4;--a2:#c41a1a;--a3:#1a9a5c;--a4:#b8860b;--a5:#7a1ac4;
+  --a1l:#e8eef9;--a2l:#fdeaea;--a3l:#e3f4e8;--a4l:#fff8e1;--a5l:#f0e8fb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;line-height:1.7;}
+
+.hero{background:var(--ink);color:#f0f6ff;padding:56px 48px 48px;position:relative;overflow:hidden;}
+.hero::after{content:'🌎';font-size:220px;position:absolute;right:20px;bottom:-30px;line-height:1;pointer-events:none;opacity:.06;}
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.unit-badge{background:var(--a1);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:4px 14px;border-radius:4px;}
+.subject-tag{font-size:12px;font-weight:500;color:rgba(240,246,255,0.45);letter-spacing:2px;text-transform:uppercase;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,8vw,5rem);line-height:.92;letter-spacing:1px;margin-bottom:16px;}
+.hero h1 span{color:#5cb8f8;}
+.hero-desc{max-width:560px;font-size:15px;color:rgba(240,246,255,0.6);margin-bottom:32px;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:10px;}
+.pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;}
+.pill-dot{width:8px;height:8px;border-radius:50%;}
+
+.nav-strip{background:var(--a1);display:flex;overflow-x:auto;position:sticky;top:0;z-index:10;}
+.nav-strip a{color:rgba(255,255,255,.75);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:12px 20px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.15);transition:all .2s;}
+.nav-strip a:hover{background:rgba(255,255,255,.12);color:#fff;}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 28px 100px;}
+
+.sec-head{display:flex;align-items:flex-start;margin:56px 0 24px;border-left:5px solid var(--a1);padding-left:18px;}
+.sec-head.red{border-color:var(--a2);} .sec-head.green{border-color:var(--a3);} .sec-head.gold{border-color:var(--a4);} .sec-head.purple{border-color:var(--a5);}
+.sec-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--a1);margin-right:14px;flex-shrink:0;}
+.sec-head.red .sec-num{color:var(--a2);} .sec-head.green .sec-num{color:var(--a3);} .sec-head.gold .sec-num{color:var(--a4);} .sec-head.purple .sec-num{color:var(--a5);}
+.sec-info h2{font-family:'Bebas Neue',sans-serif;font-size:1.85rem;letter-spacing:.5px;line-height:1.1;}
+.sec-info p{font-size:13px;color:var(--muted);font-weight:500;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 26px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.card-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+.concept-box{border-radius:12px;padding:18px 22px;margin:12px 0;text-align:center;}
+.concept-box.blue{background:linear-gradient(135deg,#061828,#1a4fc4);}
+.concept-box.red{background:linear-gradient(135deg,#2a0a0a,#c41a1a);}
+.concept-box.green{background:linear-gradient(135deg,#0a2a18,#1a9a5c);}
+.concept-box.gold{background:linear-gradient(135deg,#2a1800,#b8860b);}
+.concept-box.purple{background:linear-gradient(135deg,#1a0a2a,#7a1ac4);}
+.concept-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;color:#fff;margin-bottom:6px;}
+.concept-def{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;}
+
+.tip{border-radius:10px;padding:13px 16px;font-size:13.5px;margin-top:14px;display:flex;gap:10px;align-items:flex-start;}
+.tip.blue{background:rgba(26,79,196,.08);border-left:3px solid var(--a1);}
+.tip.red{background:rgba(196,26,26,.08);border-left:3px solid var(--a2);}
+.tip.green{background:rgba(26,154,92,.08);border-left:3px solid var(--a3);}
+.tip.gold{background:rgba(184,134,11,.08);border-left:3px solid var(--a4);}
+.tip.purple{background:rgba(122,26,196,.08);border-left:3px solid var(--a5);}
+.tip-ico{font-size:18px;flex-shrink:0;margin-top:1px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px;}
+@media(max-width:600px){.two-col,.three-col,.char-grid{grid-template-columns:1fr;}}
+
+.mini-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.mini-card .mc-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.mini-card .mc-val{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.5px;}
+.mini-card .mc-body{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.55;}
+
+.char-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+.char-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;border-left:4px solid var(--a1);}
+.char-card.red{border-color:var(--a2);}.char-card.green{border-color:var(--a3);}.char-card.gold{border-color:var(--a4);}.char-card.purple{border-color:var(--a5);}
+.char-card .cc-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.5px;margin-bottom:6px;}
+.char-card .cc-title.blue{color:var(--a1);}.char-card .cc-title.red{color:var(--a2);}.char-card .cc-title.green{color:var(--a3);}.char-card .cc-title.gold{color:var(--a4);}.char-card .cc-title.purple{color:var(--a5);}
+.char-card .cc-body{font-size:13px;line-height:1.6;}
+.char-card .cc-ex{font-size:12px;margin-top:8px;padding:6px 10px;border-radius:6px;font-style:italic;}
+.char-card .cc-ex.blue{background:var(--a1l);color:var(--a1);}.char-card .cc-ex.red{background:var(--a2l);color:var(--a2);}
+.char-card .cc-ex.green{background:var(--a3l);color:var(--a3);}.char-card .cc-ex.gold{background:var(--a4l);color:var(--a4);}
+.char-card .cc-ex.purple{background:var(--a5l);color:var(--a5);}
+
+.stab{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+.stab th{text-align:left;padding:9px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid;background:rgba(0,0,0,.02);}
+.stab.blue th{color:var(--a1);border-color:var(--a1);}
+.stab.red th{color:var(--a2);border-color:var(--a2);}
+.stab.green th{color:var(--a3);border-color:var(--a3);}
+.stab.gold th{color:var(--a4);border-color:var(--a4);}
+.stab.purple th{color:var(--a5);border-color:var(--a5);}
+.stab td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.stab tr:last-child td{border-bottom:none;}
+.stab tr:nth-child(even) td{background:rgba(0,0,0,.015);}
+
+.bubbles{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.bubble{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 16px;}
+.bubble .b-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.bubble .b-main{font-weight:600;font-size:14px;margin-bottom:3px;}
+.bubble .b-sub{font-size:12.5px;color:var(--muted);}
+
+.wb-section{background:var(--ink);color:#f0f6ff;border-radius:16px;padding:32px;margin-top:60px;}
+.wb-title{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:1px;margin-bottom:6px;}
+.wb-title span{color:#5cb8f8;}
+.wb-sub{color:rgba(240,246,255,.5);font-size:13.5px;margin-bottom:28px;}
+.wb-group{margin-bottom:28px;}
+.wb-group-title{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:2px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:12px;}
+.wb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.wb-word{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;}
+.wb-word .en{font-weight:700;font-size:13.5px;margin-bottom:2px;}
+.wb-word .es{font-size:12px;color:rgba(240,246,255,.55);}
+
+footer{text-align:center;padding:28px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--border);margin-top:20px;}
+
+/* ═══ ACTIVIDADES DEL LIBRO (práctica) ═══ */
+.activity-box{background:var(--surface);border:2px dashed var(--a5);border-radius:14px;padding:20px 22px;margin:8px 0 20px;}
+.activity-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.activity-head .ac-ico{font-size:1.4rem;}
+.activity-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.5px;color:var(--a5);}
+.activity-item{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;}
+.activity-item .ai-title{font-family:'Bebas Neue',sans-serif;color:var(--a5);font-size:1.05rem;letter-spacing:.5px;margin-bottom:4px;}
+.activity-item .ai-crit{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic;}
+
+/* ═══ QUIZ INTERACTIVO ═══ */
+.quiz-box{background:var(--surface);border:2px dashed var(--border);border-radius:14px;padding:20px 22px;margin:8px 0 32px;}
+.quiz-box.blue{border-color:var(--a1);}.quiz-box.red{border-color:var(--a2);}
+.quiz-box.green{border-color:var(--a3);}.quiz-box.gold{border-color:var(--a4);}
+.quiz-box.purple{border-color:var(--a5);}
+.quiz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.quiz-head .qz-ico{font-size:1.5rem;}
+.quiz-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.5px;}
+.quiz-head span.qz-sub{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+.quiz-score{font-size:12px;font-weight:700;margin-bottom:14px;color:var(--muted);}
+.qz-question{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.qz-question:last-child{margin-bottom:0;}
+.qz-qtext{font-weight:600;font-size:13.5px;margin-bottom:10px;display:flex;gap:8px;align-items:flex-start;}
+.qz-qtext .qz-num{font-family:'Bebas Neue',sans-serif;flex-shrink:0;font-size:1.05rem;line-height:1.3;}
+.qz-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle;}
+.qz-opts{display:flex;flex-direction:column;gap:6px;}
+.qz-tf-opts{display:flex;gap:8px;}
+.qz-opt{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-size:13px;cursor:pointer;text-align:left;transition:all .15s;font-family:inherit;color:var(--ink);}
+.qz-tf-opts .qz-opt{flex:1;text-align:center;font-weight:600;}
+.qz-opt:hover:not(.disabled){background:var(--a1l);border-color:var(--a1);}
+.qz-opt.correct{background:rgba(26,154,92,.18);border-color:var(--a3);font-weight:700;color:#0a4a2a;}
+.qz-opt.incorrect{background:rgba(196,26,26,.18);border-color:var(--a2);font-weight:700;color:#7a1414;}
+.qz-opt.disabled{cursor:default;}
+.qz-explain{font-size:12.5px;margin-top:9px;padding:9px 13px;border-radius:8px;background:rgba(0,0,0,.04);display:none;line-height:1.5;}
+.qz-explain.show{display:block;}
+.qz-explain b{color:var(--a3);}
+
+/* ═══ CRUCIGRAMA ═══ */
+.xw-wrap{overflow-x:auto;margin:14px 0;}
+.xw-table{border-collapse:collapse;margin:0 auto;}
+.xw-table td{width:34px;height:34px;padding:0;position:relative;}
+.xw-table td.cell{background:var(--surface);border:1.5px solid var(--ink);}
+.xw-table td.blank{background:transparent;border:none;}
+.xw-num{position:absolute;top:1px;left:3px;font-size:9px;font-weight:700;color:var(--a2);line-height:1;pointer-events:none;}
+.xw-in{width:100%;height:100%;border:none;background:transparent;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--ink);text-transform:uppercase;outline:none;padding-top:6px;}
+.xw-in:focus{background:var(--a1l);}
+.xw-in.ok{background:rgba(26,154,92,.22);color:#0a4a2a;}
+.xw-in.bad{background:rgba(196,26,26,.18);color:#7a1414;}
+.xw-clues{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+@media(max-width:600px){.xw-clues{grid-template-columns:1fr;}}
+.xw-clues h5{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1px;color:var(--a2);margin-bottom:6px;}
+.xw-clues li{font-size:13px;margin-bottom:5px;margin-left:18px;color:var(--ink);}
+.xw-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.xw-btn{background:var(--a1);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;}
+.xw-btn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--border);}
+.xw-msg{font-size:13px;font-weight:700;margin-top:10px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="unit-badge">UNIDAD II</div>
+    <div class="subject-tag">Antropología · Cultura</div>
+  </div>
+  <h1>CULTURA Y SOCIEDAD<br><span>LO QUE NOS HACE HUMANOS</span></h1>
+  <p class="hero-desc">¿Por qué hablas como hablas, comes lo que comes y celebras lo que celebras? Todo eso es cultura, y solo existe porque vivimos en sociedad. En esta unidad verás qué es la cultura, cómo cambia, qué teorías la han explicado, quiénes son los pueblos indígenas de América y México, y cómo los humanos pasaron de las hordas a las ciudades.</p>
+  <div class="hero-pills">
+    <div class="pill"><div class="pill-dot" style="background:#5cb8f8"></div>2.1 Cultura</div>
+    <div class="pill"><div class="pill-dot" style="background:#ff8fa0"></div>2.2 Dinámica y enfoques culturales</div>
+    <div class="pill"><div class="pill-dot" style="background:#86efac"></div>Teorías de la cultura</div>
+    <div class="pill"><div class="pill-dot" style="background:#fcd45c"></div>Grupos indígenas de América</div>
+    <div class="pill"><div class="pill-dot" style="background:#c4b5fd"></div>Áreas y grupos de México</div>
+    <div class="pill"><div class="pill-dot" style="background:#5cb8f8"></div>2.3 Sociedad</div>
+    <div class="pill"><div class="pill-dot" style="background:#ff8fa0"></div>2.4 Formas de agrupamiento</div>
+  </div>
+</div>
+
+<div class="nav-strip">
+  <a href="#cultura">2.1 Cultura</a>
+  <a href="#dinamica">2.2 Dinámica</a>
+  <a href="#teorias">Teorías</a>
+  <a href="#america">Indígenas de América</a>
+  <a href="#mexico">México</a>
+  <a href="#sociedad">2.3 Sociedad</a>
+  <a href="#agrupamiento">2.4 Agrupamiento</a>
+  <a href="#crucigrama">🧩 Crucigrama</a>
+  <a href="#retos">Retos</a>
+  <a href="#glosario">Glosario</a>
+</div>
+
+<div class="wrap">
+
+<div id="cultura">
+  <div class="sec-head blue">
+    <div class="sec-num">2.1</div>
+    <div class="sec-info">
+      <h2>Cultura</h2>
+      <p>Todo lo que el ser humano crea, aprende y transmite</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">¿Qué es la cultura?</div>
+    <div class="concept-box blue">
+      <div class="concept-title">CULTURA</div>
+      <div class="concept-def">"La parte del ambiente hecha por el hombre." La vida del hombre transcurre en dos escenarios: el natural (el hábitat) y el social. La cultura es lo que reúne todo esto y le da al hombre el medio de adaptarse a las complejidades del mundo en que nació.</div>
+    </div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">DEFINICIÓN DE TYLOR</div><div class="cc-body">"El conjunto complejo que incluye conocimiento, creencias, arte, moral, ley, costumbre y otras capacidades y hábitos adquiridos por el hombre como miembro de la sociedad." Sinónimos usados: tradición y civilización.</div></div>
+      <div class="char-card red"><div class="cc-title red">TODAS COINCIDEN EN QUE...</div><div class="cc-body">La cultura es aprendida, permite adaptarse al ambiente natural, es variable y se manifiesta en instituciones, normas de pensamiento y objetos materiales.</div></div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🎒</span>
+      <span><strong>Ejemplo fácil:</strong> el idioma que hablas, la comida de tu casa, la música que escuchas y las fiestas que celebras son cultura: nadie nació sabiéndolas, las aprendiste de tu sociedad.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Cultura científica vs. "ser culto"</div>
+    <div class="two-col">
+      <div class="mini-card"><div class="mc-label" style="color:var(--a1)">Idea popular</div><div class="mc-val">Refinamiento</div><div class="mc-body">Una persona "culta" sabe manejar ciertos aspectos de la civilización que dan prestigio.</div></div>
+      <div class="mini-card"><div class="mc-label" style="color:var(--a1)">Idea científica</div><div class="mc-val">Todos tenemos cultura</div><div class="mc-body">El hacendado, el albañil, el ingeniero y el profesional participan de una cultura. La cultura es a la vez estable y cambiante.</div></div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🧠</span>
+      <span><strong>Ejemplo fácil:</strong> un campesino que sabe leer el clima por el cielo y un ingeniero que calcula puentes dominan fragmentos distintos de la cultura; ninguno es "más" culto en el sentido antropológico.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Cultura material y no material</div>
+    <div class="two-col">
+      <div class="mini-card"><div class="mc-label" style="color:var(--a1)">Cultura material</div><div class="mc-val">Se toca</div><div class="mc-body">Obra tangible apreciada con los sentidos: se mide, se pesa, se ve, se toca. Ej.: una silla, un lapicero, el vidrio, una casa, un barco.</div></div>
+      <div class="mini-card"><div class="mc-label" style="color:var(--a1)">Cultura no material</div><div class="mc-val">Se piensa</div><div class="mc-body">No ocupa un lugar en el espacio; se entiende mediante un proceso mental. Ej.: la moral, la justicia, los idiomas. A veces se materializa (imágenes u objetos de culto).</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Piezas para analizar la cultura</div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">ELEMENTO O RASGO</div><div class="cc-body">Parte mínima de la cultura con significado preciso; si se divide, pierde su sentido. Ej.: una silla, una vivienda, el concepto de Dios.</div></div>
+      <div class="char-card red"><div class="cc-title red">COMPLEJO CULTURAL</div><div class="cc-body">Conjunto de elementos interrelacionados que dan un significado más completo. Ej.: el mobiliario de una oficina, el hogar, la religión.</div></div>
+      <div class="char-card green"><div class="cc-title green">PAUTA CULTURAL</div><div class="cc-body">Comportamiento que observan los seres humanos por la cultura y las reglas de la sociedad. Ej.: usar cubiertos, ponerse de pie al escuchar el himno nacional.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">ZONA, REGIÓN Y ÁREA</div><div class="cc-body">Porciones de la superficie terrestre donde la población se comporta culturalmente de forma más o menos uniforme. La zona es la más pequeña, la región más amplia y el área la mayor.</div></div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🧩</span>
+      <span>La cultura es un todo indivisible e interrelacionado; solo por abstracción se separa en estas partes.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Concepto de etnia</div>
+    <div class="concept-box blue">
+      <div class="concept-title">ETNIA O GRUPO ÉTNICO</div>
+      <div class="concept-def">Grupo de personas que comparten el mismo origen, pasado histórico, lengua, costumbres, tradiciones y visión del mundo, con apariencia física y expresiones culturales iguales o muy semejantes.</div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🌎</span>
+      <span><strong>Ejemplo fácil:</strong> los totonacos, otomíes o tarahumaras son grupos étnicos de México.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box blue" id="box-cultura">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Cultura</span></div>
+    <div class="quiz-score" id="score-cultura"></div>
+    <div class="qz-container" id="qz-cultura"></div>
+  </div>
+</div>
+
+<div id="dinamica">
+  <div class="sec-head red">
+    <div class="sec-num">2.2</div>
+    <div class="sec-info">
+      <h2>Dinámica y enfoques culturales</h2>
+      <p>La cultura nunca se queda quieta</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Dinámica y relatividad cultural</div>
+    <div class="concept-box red">
+      <div class="concept-title">DINÁMICA CULTURAL</div>
+      <div class="concept-def">El proceso por el cual la cultura está siempre cambiando: a veces rápido y violento, a veces tan lento que parece que la cultura está quieta.</div>
+    </div>
+    <table class="stab red">
+      <tr><th>Ejemplo</th><th>Qué pasó</th></tr>
+      <tr><td>El maxtlatl</td><td>Antes del siglo XVI era la prenda masculina en México (un taparrabo). Los españoles lo sustituyeron por el calzón de manta.</td></tr>
+      <tr><td>El pantalón</td><td>Se estableció en casi todo el mundo hace más de dos siglos; cambió en adornos, texturas y diseños, pero conserva lo básico.</td></tr>
+      <tr><td>El uso del pantalón</td><td>En el mundo occidental dejó de ser solo masculino y se difundió entre las mujeres.</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">👖</span>
+      <span><strong>Relatividad cultural:</strong> la cultura se expresa distinto según el tiempo y el lugar; lo que hoy se acepta sin dudar, tiempo atrás se pudo rechazar tajantemente (y no significa que mañana se acepte sin cambios).</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Características de las culturas</div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">GENERAL Y PARTICULAR</div><div class="cc-body">Aparece donde hay seres humanos (es universal), pero cada pueblo la expresa a su manera. Ej.: todos tienen lenguaje, pero los alemanes hablan alemán y los franceses francés.</div></div>
+      <div class="char-card red"><div class="cc-title red">DINÁMICA Y ESTÁTICA</div><div class="cc-body">Se mueve en el tiempo y el espacio, pero también permanece quieta. Ej.: el español del siglo XVI no es el de hoy, ni el de México es idéntico al de Argentina o Venezuela.</div></div>
+      <div class="char-card green"><div class="cc-title green">TOTALIZADORA</div><div class="cc-body">La sociedad nos obliga a comportarnos como la cultura dispone, pero el hombre solo conoce una parte mínima de ella.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">PRODUCTO SOCIAL</div><div class="cc-body">El individuo aislado no necesita crear cultura. El ser humano nace desvalido y necesita a otro adulto para sobrevivir: nunca ha existido en completo aislamiento.</div></div>
+    </div>
+    <div class="tip red">
+      <span class="tip-ico">🗣️</span>
+      <span><strong>Ejemplo fácil:</strong> las palabras que tus abuelos usaban de jóvenes y que hoy ya casi nadie dice muestran que el idioma (cultura) cambia con el tiempo.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Tipos de aislamiento (visión sociológica)</div>
+    <table class="stab red">
+      <tr><th>Tipo</th><th>En qué consiste</th></tr>
+      <tr><td>Geográfico</td><td>Se daba hasta hace un siglo; con la comunicación ya no hay sociedades aisladas por océanos, montañas o desiertos.</td></tr>
+      <tr><td>Estructural</td><td>Del individuo, por un disfuncionamiento orgánico: sordomudez, ceguera, enfermedades mentales, antiguamente la lepra.</td></tr>
+      <tr><td>Psicológico</td><td>Del individuo, por concepciones mentales que excluyen a las personas de la vida en comunidad (ej.: prejuicios raciales, religiosos, políticos o económicos).</td></tr>
+      <tr><td>Cultural</td><td>El individuo tiene manifestaciones culturales distintas a las de su sociedad. Ej.: un hablante solo de español en una sociedad que habla ruso o japonés, o un musulmán invitado a comer cerdo.</td></tr>
+    </table>
+  </div>
+
+  <div class="quiz-box red" id="box-dinamica">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Dinámica y enfoques culturales</span></div>
+    <div class="quiz-score" id="score-dinamica"></div>
+    <div class="qz-container" id="qz-dinamica"></div>
+  </div>
+</div>
+
+<div id="teorias">
+  <div class="sec-head green">
+    <div class="sec-num">2.2.1</div>
+    <div class="sec-info">
+      <h2>Historia de las teorías de la cultura</h2>
+      <p>De la Ilustración al análisis marxista</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Ilustración y evolucionismo</div>
+    <table class="stab green">
+      <tr><th>Teoría</th><th>Idea principal</th></tr>
+      <tr><td>Ilustración (s. XVIII)</td><td>Cuando Europa explora y se expande, crece el interés por explicar la diversidad cultural. Tema común: el progreso. Smith, Ferguson, Turgot y Diderot: las culturas difieren por distintos niveles de conocimiento y logros racionales.</td></tr>
+      <tr><td>Evolucionismo (s. XIX)</td><td>Las culturas pasan por etapas de desarrollo hasta parecerse a los estilos de vida euroamericanos. Comte: teológico → metafísico → positivo. Morgan (Ancient Society): salvajismo, barbarie y civilización.</td></tr>
+    </table>
+    <div class="tip green">
+      <span class="tip-ico">🪜</span>
+      <span><strong>Ejemplo fácil:</strong> es como subir una escalera: según los evolucionistas, todas las culturas subían los mismos escalones, solo que a distinta velocidad.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Enfoques del siglo XX</div>
+    <table class="stab green">
+      <tr><th>Teoría</th><th>Idea principal</th></tr>
+      <tr><td>Difusionismo</td><td>Reacción al evolucionismo a comienzos del siglo XX. En tu libro se explica con la idea de que la fuente de diferencias culturales está en la experiencia de la primera infancia (higiene, lactancia, educación) que forma la personalidad básica o el carácter nacional.</td></tr>
+      <tr><td>Funcionalismo (Gran Bretaña)</td><td>Describir las funciones recurrentes de costumbres e instituciones antes de explicar orígenes. Malinowski: entender la función de una institución es entender todo lo que se puede comprender de su origen. Exige trabajo de campo de dos o más años.</td></tr>
+      <tr><td>Estructuralismo (Francia)</td><td>Claude Lévi-Strauss: estudia las uniformidades psicológicas bajo la diferencia aparente; surgen de la estructura del cerebro y del pensamiento inconsciente. La mente tiende a dicotomizar (oposiciones binarias) y luego las media con un tercer concepto.</td></tr>
+      <tr><td>Análisis marxista</td><td>Karl Marx vio las culturas pasar por: comunismo primitivo, esclavismo, feudalismo, capitalismo y comunismo; la historia es la lucha de clases por el control de los medios de producción. Engels escribió "El origen de la familia, la propiedad privada y el Estado" sobre la Ancient Society de Morgan.</td></tr>
+    </table>
+    <div class="tip green">
+      <span class="tip-ico">📝</span>
+      <span><strong>Nota de estudio:</strong> en otras fuentes, el difusionismo se explica como la idea de que los rasgos culturales se propagan de un pueblo a otro. Para tu examen, apégate a lo que dice tu libro y a lo que explique tu maestro.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box green" id="box-teorias">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Historia de las teorías de la cultura</span></div>
+    <div class="quiz-score" id="score-teorias"></div>
+    <div class="qz-container" id="qz-teorias"></div>
+  </div>
+</div>
+
+<div id="america">
+  <div class="sec-head gold">
+    <div class="sec-num">2.2.2</div>
+    <div class="sec-info">
+      <h2>Grupos indígenas de América</h2>
+      <p>Pueblos del Ártico a la Patagonia</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Grupos y áreas</div>
+    <table class="stab gold">
+      <tr><th>Grupo / área</th><th>Rasgos principales</th></tr>
+      <tr><td>Esquimales (Inuit)</td><td>Área circumpolar ártica. Nómadas dedicados a la caza de focas, morsas, renos y ballenas. Iglús en invierno; casas de madera en verano.</td></tr>
+      <tr><td>Indios Pieles Rojas</td><td>Praderas: sioux, dakotas, iroqueses, crows, blackfeet, cheyennes, omahas, kiowas. Nómadas recolectores y cazadores (osos, bisontes). Con los europeos (s. XVI): caballo, armas de fuego y sedentarización.</td></tr>
+      <tr><td>Kwakiutl</td><td>Noroeste. Prácticamente sedentarios, a orillas del océano; caza y pesca. Canoas de cedro, casas plurifamiliares de madera y poste ceremonial tallado y coloreado.</td></tr>
+      <tr><td>Circuncaribe</td><td>Antillas mayores: tainos y arahuacos (Bahamas y Cuba), ciguayos (Puerto Rico y Haití) y caníbales o caribes. Vida seminómada en pequeñas embarcaciones.</td></tr>
+      <tr><td>Altiplano Andino</td><td>Colombia, Ecuador, Perú y parte de Bolivia. Mayormente sedentarios y cultivadores. Chibchas (Colombia); quechuas del Perú y cañarí (Ecuador), que trabajaron los metales, sobre todo el oro.</td></tr>
+      <tr><td>Área Andina</td><td>Sirionóes (Bolivia) y araucanos (Chile); de ellos, los mapuches destacaron por su independencia.</td></tr>
+      <tr><td>Amazonia</td><td>Grupos recolectores; la caza y la pesca son su única fuente de subsistencia: boros, cayapos, botokudo y otros.</td></tr>
+      <tr><td>Las Pampas</td><td>Incluye el Chaco (Paraguay y norte de Argentina): tupí y su rama guaraní, arawak y charrúas; absorbidos por la población mestiza de los gauchos.</td></tr>
+      <tr><td>Patagonia o Tierra del Fuego</td><td>Extremo sur (Chile y Argentina): ona, tehuelches y yahgan. Nómadas de civilización muy primitiva, sin organización tribal.</td></tr>
+    </table>
+    <div class="tip gold">
+      <span class="tip-ico">🧭</span>
+      <span><strong>Ejemplo fácil:</strong> el ambiente decide el estilo de vida: en el hielo del Ártico se cazan focas y se viven en iglús; en las praderas se cazan bisontes; a orillas del océano se pesca con canoas.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box gold" id="box-america">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Grupos indígenas de América</span></div>
+    <div class="quiz-score" id="score-america"></div>
+    <div class="qz-container" id="qz-america"></div>
+  </div>
+</div>
+
+<div id="mexico">
+  <div class="sec-head purple">
+    <div class="sec-num">2.2.3</div>
+    <div class="sec-info">
+      <h2>Áreas culturales y grupos indígenas de México</h2>
+      <p>Dónde viven y cómo son los pueblos originarios</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Áreas culturales de México</div>
+    <div class="concept-box purple">
+      <div class="concept-title">ARIDOAMÉRICA Y MESOAMÉRICA</div>
+      <div class="concept-def">México comprende porciones de ambas áreas. Las sociedades indígenas se mezclan y ocupan muchas veces los mismos lugares, por lo que es difícil circunscribirlas; los grupos mencionados son los más importantes, pero no los únicos.</div>
+    </div>
+    <table class="stab purple">
+      <tr><th>Área</th><th>Estados y grupos indígenas</th></tr>
+      <tr><td>Noroeste</td><td>Baja California Norte y Sur, Sonora, Sinaloa y Nayarit. Kiliwa, mayo, yaquis, seris, huicholes, coras y tepehuan.</td></tr>
+      <tr><td>Norte Central</td><td>Chihuahua, Coahuila, Nuevo León, Zacatecas y Durango. Tarahumara y kikapue.</td></tr>
+      <tr><td>Noreste</td><td>Tamaulipas, Nuevo León y San Luis Potosí. Huastecos.</td></tr>
+      <tr><td>Centro</td><td>Aguascalientes, Querétaro, Hidalgo, Guanajuato, México y Puebla. Náhuatl y otomí.</td></tr>
+      <tr><td>Occidente</td><td>Jalisco, Michoacán, Colima, Morelos y Guerrero. Purépecha y náhuatl.</td></tr>
+      <tr><td>Golfo</td><td>Tamaulipas, Veracruz y Tabasco. Totonacos y huastecos.</td></tr>
+      <tr><td>Sureste</td><td>Oaxaca, Chiapas, Quintana Roo y Yucatán. Mixteco, zapoteco, popoluca, tzeltal, tzotzil y mayas.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Grupos indígenas de México</div>
+    <div class="char-grid">
+      <div class="char-card purple"><div class="cc-title purple">MEXICA</div><div class="cc-body">Hablan náhuatl y viven principalmente en el centro de México. Sobresalió el azteca, que se enfrentó a los españoles en la conquista; su organización asombró a los europeos.</div></div>
+      <div class="char-card blue"><div class="cc-title blue">PURÉPECHAS</div><div class="cc-body">Michoacán y occidente. Hablan tarasco; de los pocos pueblos no sometidos por los aztecas. Destacan en madera, instrumentos musicales, herrería, alfarería, sombreros, sarapes y metalurgia.</div></div>
+      <div class="char-card red"><div class="cc-title red">MAYOS Y YAQUIS</div><div class="cc-body">Mayos: valles costeros entre los ríos Mayo y Fuerte (Sonora y Sinaloa); hablan mayo, son católicos con ideas como la reencarnación y el totemismo. Yaquis: montes Bacatete, Sonora; larga resistencia armada de cuatro siglos; cada pueblo se rige por cinco individuos (cuatro administradores y un chicotero).</div></div>
+      <div class="char-card green"><div class="cc-title green">TARAHUMARAS</div><div class="cc-body">Sierra Madre Occidental (Chihuahua, Durango y Sonora). Se mantienen independientes por su carácter cerrado; el matrimonio es monógamo. Deidades: Onoruame y Eyeruame (sol y luna).</div></div>
+      <div class="char-card gold"><div class="cc-title gold">MAYAS</div><div class="cc-body">Yucatán, Guatemala, Belice y Honduras; herederos de la civilización maya-quiché (Chichén Itzá, Uxmal, Palenque, Tulum, Tikal, Copán). Vida familiar en torno a la agricultura; baile de la jarana; mujeres con huipil bordado.</div></div>
+      <div class="char-card purple"><div class="cc-title purple">MIXTECOS-ZAPOTECOS</div><div class="cc-body">Oaxaca. Centros ceremoniales: Mitla y Monte Albán. Mantienen el mixteco y el zapoteco. Las tehuanas de Juchitán pertenecen a la etnia zapoteca (istmo de Tehuantepec).</div></div>
+      <div class="char-card blue"><div class="cc-title blue">HUASTECOS</div><div class="cc-body">Región de La Huasteca, cerca del río Pánuco; origen maya-guatemalteco hace más de 4000 años. Conservan la bolsa de henequén y el tocado de hilos; danza del águila o del poder del sol.</div></div>
+      <div class="char-card red"><div class="cc-title red">TOTONACOS</div><div class="cc-body">Veracruz, municipio de Papantla. Danzas del volador y los guaguas. Domina la familia extensa; sistema de creencias acumulativo (mesoamericano y cristianismo popular ibérico).</div></div>
+      <div class="char-card green"><div class="cc-title green">CHINANTECOS</div><div class="cc-body">Región de la Chinantla (noroeste de Oaxaca); en náhuatl "lugar cercado". Huipiles bordados; familia extensa; pueblo cantor. Los frailes dominicos usaron la música para convertirlos.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">MAZATECOS</div><div class="cc-body">Norte de Oaxaca. Familia nuclear o extensa; en la boda reciben regalos rituales; guardan el cordón umbilical del recién nacido. Economía: maíz, frijol y calabaza.</div></div>
+      <div class="char-card purple"><div class="cc-title purple">TZELTALES</div><div class="cc-body">Centro de Chiapas, cerca de San Cristóbal de las Casas. Calendario chaykin de origen maya (18 meses de veinte días); familia patrilineal; catolicismo sincrético y cruz como símbolo.</div></div>
+      <div class="char-card blue"><div class="cc-title blue">TZOTZILES</div><div class="cc-body">Entre San Cristóbal y Comitán: "gente del murciélago". Municipios: San Juan Chamula y Zinacantán. Línea de parentesco patrilineal; religión que relaciona a Jesús con el sol y a la virgen María con la luna.</div></div>
+    </div>
+    <div class="tip purple">
+      <span class="tip-ico">🎉</span>
+      <span><strong>Ejemplo fácil:</strong> la danza del volador en Papantla y los huipiles bordados de la Chinantla son cultura no material y material al mismo tiempo: la tradición (idea) y la ropa y los instrumentos (objetos).</span>
+    </div>
+  </div>
+
+  <div class="quiz-box purple" id="box-mexico">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Áreas culturales y grupos indígenas de México</span></div>
+    <div class="quiz-score" id="score-mexico"></div>
+    <div class="qz-container" id="qz-mexico"></div>
+  </div>
+</div>
+
+<div id="sociedad">
+  <div class="sec-head blue">
+    <div class="sec-num">2.3</div>
+    <div class="sec-info">
+      <h2>Concepto de sociedad</h2>
+      <p>Sin sociedad no hay cultura</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">¿Qué es una sociedad?</div>
+    <div class="concept-box blue">
+      <div class="concept-title">SOCIEDAD</div>
+      <div class="concept-def">Conjunto de personas que, viviendo en un lugar determinado, se organizan de una manera definida para conseguir metas comunes que permitan el desenvolvimiento del grupo y su mejoramiento, alcanzando objetivos tanto materiales como intelectuales.</div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🏫</span>
+      <span><strong>Ejemplo fácil:</strong> tu escuela es una pequeña sociedad: personas en un mismo lugar, con reglas y metas comunes (aprender, convivir, graduarse).</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Sociedad y cultura</div>
+    <div class="two-col">
+      <div class="mini-card"><div class="mc-label" style="color:var(--a1)">Sociedad</div><div class="mc-val">Las personas organizadas</div><div class="mc-body">Es la única que crea cultura (aunque los hombres prehistóricos también dejaron muestras). "Organización social": el carácter básico de la vida del grupo, con las instituciones que dan pautas de conducta.</div></div>
+      <div class="mini-card"><div class="mc-label" style="color:var(--a1)">Cultura</div><div class="mc-val">Lo que crean y aprenden</div><div class="mc-body">El hombre es la única criatura que ha logrado cultura: sus modos de responder a la vida son acumulativos y más variados que los de cualquier otra especie.</div></div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🤝</span>
+      <span>Para entenderlas mejor, sociedad y cultura se consideran por separado y en sus relaciones recíprocas. Así como la cultura es una dosificación del comportamiento individual, la sociedad es una dosificación a base de la sucesión de seres humanos que componen un grupo.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">¿Por qué estudiar la sociedad?</div>
+    <div class="concept-def" style="color:var(--ink)">Es esencial comprender que el hombre vive en comunidad y eso afecta su conducta. Se toman en cuenta no solo las instituciones sociales que hacen posible el funcionamiento de las sociedades, sino también los impulsos que llevan al hombre a establecer organizaciones y la manera en que el individuo se integra en la sociedad en que nació.</div>
+  </div>
+
+  <div class="quiz-box blue" id="box-sociedad">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Concepto de sociedad</span></div>
+    <div class="quiz-score" id="score-sociedad"></div>
+    <div class="qz-container" id="qz-sociedad"></div>
+  </div>
+</div>
+
+<div id="agrupamiento">
+  <div class="sec-head red">
+    <div class="sec-num">2.4</div>
+    <div class="sec-info">
+      <h2>Formas de agrupamiento humano</h2>
+      <p>De la horda a la ciudad-estado</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">¿Qué es un agrupamiento?</div>
+    <div class="concept-box red">
+      <div class="concept-title">AGRUPAMIENTO</div>
+      <div class="concept-def">Pluralidad de individuos en contacto unos con otros, que tienen en cuenta la existencia de los demás y tienen conciencia de cierto elemento común de importancia.</div>
+    </div>
+    <div class="two-col">
+      <div class="mini-card"><div class="mc-label" style="color:var(--a2)">Primera manifestación</div><div class="mc-val">El sedentarismo</div><div class="mc-body">Al vivir a merced de la naturaleza, se organizaron en pequeños grupos y se asentaron en un lugar, repartiendo deberes (cultivo y caza).</div></div>
+      <div class="mini-card"><div class="mc-label" style="color:var(--a2)">Primera institución social</div><div class="mc-val">La familia</div><div class="mc-body">Marcó la pauta para la primera estructura social. Después surgen las formas pre-estatales: horda, clan, tribu y ciudad-estado.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Formas pre-estatales</div>
+    <table class="stab red">
+      <tr><th>Forma</th><th>Características</th></tr>
+      <tr><td>Horda</td><td>Primera forma de organización: pequeños grupos que se unían momentáneamente para recolectar frutos o cazar, sin establecerse en ningún lugar. Algunos investigadores la comparan con la organización de ciertos primates.</td></tr>
+      <tr><td>Clan</td><td>Su origen puede ser histórico (un antiguo jefe de linaje o militar) o legendario. Suele crear las leyes sobre propiedad, herencia (patrilineal o matrilineal), matrimonio y justicia.</td></tr>
+      <tr><td>Tribu</td><td>Conjunto de personas, generalmente de varias familias, en un poblado o aldea de territorio definido, dirigidas por mayores (jefes o patriarcas). Surgen en el Neolítico; de su asociación nacen las ciudades y las civilizaciones. El término aparece en la antigua Roma.</td></tr>
+      <tr><td>Ciudad-Estado</td><td>En la antigua Grecia la población no pasaba de trescientos mil habitantes y tenía tres clases: esclavos (una tercera parte en Atenas, sin derechos políticos), extranjeros residentes (sin naturalización ni vida política) y ciudadanos (con derecho a la vida política, por nacimiento).</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">🏙️</span>
+      <span><strong>Ejemplo fácil (secuencia):</strong> unas pocas familias que viajan juntas (horda) → un gran grupo con jefe y leyes comunes (clan) → varias familias en una aldea (tribu) → muchas tribus bajo un solo mando en una ciudad (Estado).</span>
+    </div>
+  </div>
+
+  <div class="quiz-box red" id="box-agrupamiento">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Formas de agrupamiento humano</span></div>
+    <div class="quiz-score" id="score-agrupamiento"></div>
+    <div class="qz-container" id="qz-agrupamiento"></div>
+  </div>
+</div>
+
+<!-- CRUCIGRAMA -->
+<div id="crucigrama">
+  <div class="sec-head purple">
+    <div class="sec-num">🧩</div>
+    <div class="sec-info">
+      <h2>Crucigrama de la Unidad II</h2>
+      <p>Las palabras se cruzan entre sí: escribe una letra por casilla (sin acentos)</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="xw-wrap"><table class="xw-table">
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">1</span><input class="xw-in" maxlength="1" data-a="C" data-r="0" data-c="6" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">2</span><input class="xw-in" maxlength="1" data-a="S" data-r="0" data-c="9" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">3</span><input class="xw-in" maxlength="1" data-a="T" data-r="0" data-c="12" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">4</span><input class="xw-in" maxlength="1" data-a="C" data-r="1" data-c="2" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="1" data-c="3" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="1" data-c="4" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="P" data-r="1" data-c="5" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="L" data-r="1" data-c="6" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="1" data-c="7" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="J" data-r="1" data-c="8" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="1" data-c="9" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="Y" data-r="1" data-c="12" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">5</span><input class="xw-in" maxlength="1" data-a="F" data-r="1" data-c="15" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="cell"><span class="xw-num">6</span><input class="xw-in" maxlength="1" data-a="C" data-r="2" data-c="1" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="2" data-c="6" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="2" data-c="9" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="L" data-r="2" data-c="12" autocomplete="off"></td><td class="blank"></td><td class="cell"><span class="xw-num">7</span><input class="xw-in" maxlength="1" data-a="Y" data-r="2" data-c="14" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="2" data-c="15" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="Q" data-r="2" data-c="16" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="2" data-c="17" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="2" data-c="18" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="S" data-r="2" data-c="19" autocomplete="off"></td></tr>
+<tr><td class="cell"><span class="xw-num">8</span><input class="xw-in" maxlength="1" data-a="F" data-r="3" data-c="0" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="3" data-c="1" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="3" data-c="2" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="3" data-c="3" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="3" data-c="4" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="3" data-c="5" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="3" data-c="6" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="3" data-c="7" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="L" data-r="3" data-c="8" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="3" data-c="9" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="S" data-r="3" data-c="10" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="3" data-c="11" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="3" data-c="12" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="3" data-c="15" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="L" data-r="4" data-c="1" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="4" data-c="9" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="4" data-c="12" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="4" data-c="15" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="cell"><span class="xw-num">9</span><input class="xw-in" maxlength="1" data-a="T" data-r="5" data-c="1" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="5" data-c="2" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="5" data-c="3" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="B" data-r="5" data-c="4" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="5" data-c="5" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="5" data-c="9" autocomplete="off"></td><td class="blank"></td><td class="cell"><span class="xw-num">10</span><input class="xw-in" maxlength="1" data-a="E" data-r="5" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="cell"><span class="xw-num">11</span><input class="xw-in" maxlength="1" data-a="M" data-r="5" data-c="13" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="L" data-r="5" data-c="15" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">12</span><input class="xw-in" maxlength="1" data-a="M" data-r="5" data-c="19" autocomplete="off"></td></tr>
+<tr><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="6" data-c="1" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">13</span><input class="xw-in" maxlength="1" data-a="A" data-r="6" data-c="9" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="6" data-c="10" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="S" data-r="6" data-c="11" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="L" data-r="6" data-c="12" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="6" data-c="13" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="6" data-c="14" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="6" data-c="15" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="6" data-c="16" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="6" data-c="17" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="6" data-c="18" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="6" data-c="19" autocomplete="off"></td></tr>
+<tr><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="7" data-c="1" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="7" data-c="9" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="7" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="Y" data-r="7" data-c="13" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="7" data-c="15" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="7" data-c="19" autocomplete="off"></td></tr>
+<tr><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="8" data-c="1" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="L" data-r="8" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="8" data-c="13" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="G" data-r="8" data-c="19" autocomplete="off"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">14</span><input class="xw-in" maxlength="1" data-a="E" data-r="9" data-c="7" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="9" data-c="8" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="9" data-c="9" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="9" data-c="10" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="9" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="S" data-r="9" data-c="13" autocomplete="off"></td><td class="blank"></td><td class="cell"><span class="xw-num">15</span><input class="xw-in" maxlength="1" data-a="P" data-r="9" data-c="15" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="9" data-c="16" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="9" data-c="17" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="9" data-c="18" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="9" data-c="19" autocomplete="off"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="V" data-r="10" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="10" data-c="19" autocomplete="off"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">16</span><input class="xw-in" maxlength="1" data-a="H" data-r="11" data-c="10" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="11" data-c="11" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="11" data-c="12" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="11" data-c="13" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="11" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="S" data-r="12" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+</table></div>
+    <div class="xw-btns"><button class="xw-btn" onclick="xwCheck()">✅ Comprobar</button><button class="xw-btn alt" onclick="xwReveal()">👀 Mostrar respuestas</button><button class="xw-btn alt" onclick="xwClear()">🧹 Borrar</button></div>
+    <div class="xw-msg" id="xw-msg"></div>
+    <div class="xw-clues"><div><h5>HORIZONTALES →</h5><ol style="list-style:none;margin-left:-18px"><li><b>4.</b> Conjunto de elementos culturales interrelacionados <i>(8 letras)</i></li><li><b>7.</b> Pueblo de Sonora, en los montes Bacatete, con un largo conflicto armado <i>(6 letras)</i></li><li><b>8.</b> Enfoque británico: describir las funciones de costumbres e instituciones <i>(13 letras)</i></li><li><b>9.</b> Familias que habitan una aldea dirigidas por patriarcas; surge en el Neolítico <i>(5 letras)</i></li><li><b>13.</b> Puede ser geográfico, estructural, psicológico o cultural <i>(11 letras)</i></li><li><b>14.</b> Grupo que comparte origen, lengua y costumbres <i>(5 letras)</i></li><li><b>15.</b> Comportamiento que observan los seres humanos a causa de la cultura (cultural) <i>(5 letras)</i></li><li><b>16.</b> Primera forma de organización humana, sin lugar fijo <i>(5 letras)</i></li></ol></div><div><h5>VERTICALES ↓</h5><ol style="list-style:none;margin-left:-18px"><li><b>1.</b> Agrupación cuyo origen puede ser histórico o legendario y que crea las leyes <i>(4 letras)</i></li><li><b>2.</b> Conjunto de personas que se organizan para lograr metas comunes <i>(8 letras)</i></li><li><b>3.</b> Autor de una de las primeras definiciones de cultura <i>(5 letras)</i></li><li><b>5.</b> Primera institución social <i>(7 letras)</i></li><li><b>6.</b> La parte del ambiente hecha por el hombre <i>(7 letras)</i></li><li><b>10.</b> Clase más baja en la ciudad-estado griega <i>(8 letras)</i></li><li><b>11.</b> Herederos de Chichén Itzá y Uxmal <i>(5 letras)</i></li><li><b>12.</b> Antropólogo de "Ancient Society": salvajismo, barbarie y civilización <i>(6 letras)</i></li></ol></div></div>
+  </div>
+</div>
+
+<!-- RETOS FINALES -->
+<div id="retos">
+  <div class="sec-head red">
+    <div class="sec-num">🏆</div>
+    <div class="sec-info">
+      <h2>Retos de repaso — Unidad II</h2>
+      <p>Pon a prueba todo lo aprendido sobre cultura y sociedad</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="bubbles">
+      <div class="bubble blue"><div class="b-label">🔵 Reto 1 — Material o no material</div><div class="b-main">Clasifica como cultura material o no material: tu celular, el español, una casa, la justicia, un lapicero, la moral.</div></div>
+      <div class="bubble green"><div class="b-label">🟢 Reto 2 — Elemento, complejo o pauta</div><div class="b-main">Di si es un elemento, un complejo o una pauta cultural: una silla, el mobiliario de una oficina, ponerse de pie al escuchar el himno nacional.</div></div>
+      <div class="bubble gold"><div class="b-label">🟡 Reto 3 — ¿Qué teoría es?</div><div class="b-main">Une cada idea con su teoría: etapas de salvajismo, barbarie y civilización · oposiciones binarias · describir las funciones de las instituciones · lucha de clases.</div></div>
+      <div class="bubble purple"><div class="b-label">🟣 Reto 4 — BOSS LEVEL: De la horda al Estado</div><div class="b-main">Explica con tus palabras cómo se pasó de las hordas a las tribus y a la ciudad-estado, y por qué la sociedad es la única que crea cultura.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div id="glosario" class="wb-section">
+  <div class="wb-title">GLOSARIO DE <span>TÉRMINOS</span></div>
+  <p class="wb-sub">Antropología · Unidad II · Copia: término → definición → tu propio ejemplo</p>
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#5cb8f8">🌎 CULTURA</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Cultura</div><div class="es">La parte del ambiente hecha por el hombre.</div></div>
+      <div class="wb-word"><div class="en">Cultura material</div><div class="es">Obra tangible que se aprecia con los sentidos.</div></div>
+      <div class="wb-word"><div class="en">Cultura no material</div><div class="es">Lo que se entiende mediante un proceso mental: moral, justicia, idiomas.</div></div>
+      <div class="wb-word"><div class="en">Elemento o rasgo cultural</div><div class="es">Parte mínima de la cultura con significado preciso.</div></div>
+      <div class="wb-word"><div class="en">Complejo cultural</div><div class="es">Conjunto de elementos interrelacionados.</div></div>
+      <div class="wb-word"><div class="en">Pauta cultural</div><div class="es">Comportamiento que se observa a causa de la cultura.</div></div>
+      <div class="wb-word"><div class="en">Zona, región y área</div><div class="es">Porciones geográficas con cultura uniforme, de menor a mayor.</div></div>
+      <div class="wb-word"><div class="en">Etnia</div><div class="es">Grupo con mismo origen, lengua, costumbres y visión del mundo.</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#fcd45c">🔄 DINÁMICA Y TEORÍAS</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Dinámica cultural</div><div class="es">Proceso por el que la cultura está siempre cambiando.</div></div>
+      <div class="wb-word"><div class="en">Relatividad cultural</div><div class="es">La cultura se expresa distinto según el tiempo y el lugar.</div></div>
+      <div class="wb-word"><div class="en">Aislamiento</div><div class="es">Geográfico, estructural, psicológico o cultural.</div></div>
+      <div class="wb-word"><div class="en">Evolucionismo</div><div class="es">Las culturas pasan por etapas de desarrollo (Morgan).</div></div>
+      <div class="wb-word"><div class="en">Difusionismo</div><div class="es">Reacción al evolucionismo a comienzos del siglo XX.</div></div>
+      <div class="wb-word"><div class="en">Funcionalismo</div><div class="es">Describir las funciones de costumbres e instituciones (Malinowski).</div></div>
+      <div class="wb-word"><div class="en">Estructuralismo</div><div class="es">Uniformidades psicológicas y oposiciones binarias (Lévi-Strauss).</div></div>
+      <div class="wb-word"><div class="en">Análisis marxista</div><div class="es">La historia como lucha de clases (Marx y Engels).</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#86efac">👥 SOCIEDAD Y AGRUPAMIENTO</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Sociedad</div><div class="es">Personas organizadas en un lugar para lograr metas comunes.</div></div>
+      <div class="wb-word"><div class="en">Organización social</div><div class="es">Carácter básico de la vida del grupo, con sus instituciones.</div></div>
+      <div class="wb-word"><div class="en">Agrupamiento</div><div class="es">Pluralidad de individuos conscientes de un elemento común.</div></div>
+      <div class="wb-word"><div class="en">Horda</div><div class="es">Primera forma de organización humana, sin lugar fijo.</div></div>
+      <div class="wb-word"><div class="en">Clan</div><div class="es">Agrupación de origen histórico o legendario que crea las leyes.</div></div>
+      <div class="wb-word"><div class="en">Tribu</div><div class="es">Varias familias en una aldea, dirigidas por patriarcas.</div></div>
+      <div class="wb-word"><div class="en">Ciudad-Estado</div><div class="es">Ciudad con tres clases: esclavos, extranjeros residentes y ciudadanos.</div></div>
+    </div>
+  </div>
+
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:16px 18px;font-size:13px;color:rgba(240,246,255,.65);margin-top:4px">
+    🎯 <strong style="color:#fff">Tarea — Unidad II de Antropología:</strong><br>
+    1. Explica con tus palabras qué es la cultura y da un ejemplo de cultura material y uno de no material.<br>
+    2. Haz un cuadro comparativo de las teorías de la cultura: evolucionismo, difusionismo, funcionalismo, estructuralismo y análisis marxista.<br>
+    3. Elige 3 grupos indígenas de México y describe su ubicación, su lengua y una tradición de cada uno.<br>
+    4. Dibuja un esquema de las formas de agrupamiento humano: horda, clan, tribu y ciudad-estado.
+  </div>
+</div>
+
+</div><!-- /wrap -->
+<footer>Antropología · Unidad II — Cultura</footer>
+
+<script>
+/* ═══ QUIZ ENGINE ═══ */
+function initQuiz(containerId, scoreId, colorClass, questions){
+  const container = document.getElementById(containerId);
+  const scoreEl = document.getElementById(scoreId);
+  let answered = 0, correct = 0;
+  const total = questions.length;
+  scoreEl.textContent = `Progreso: 0 / ${total} respondidas`;
+
+  questions.forEach((qz, i) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'qz-question';
+
+    const qText = document.createElement('div');
+    qText.className = 'qz-qtext';
+    const tag = qz.type === 'tf'
+      ? '<span class="qz-tag" style="background:var(--'+colorClass+')">V / F</span>'
+      : '<span class="qz-tag" style="background:var(--'+colorClass+')">OPCIÓN MÚLTIPLE</span>';
+    qText.innerHTML = `<span class="qz-num">${i+1}.</span><span>${qz.q} ${tag}</span>`;
+    qDiv.appendChild(qText);
+
+    const optsDiv = document.createElement('div');
+    optsDiv.className = qz.type === 'tf' ? 'qz-tf-opts' : 'qz-opts';
+
+    const explainDiv = document.createElement('div');
+    explainDiv.className = 'qz-explain';
+    explainDiv.innerHTML = qz.exp;
+
+    const opts = qz.type === 'tf' ? ['Verdadero', 'Falso'] : qz.options;
+    const correctIdx = qz.type === 'tf' ? (qz.correct ? 0 : 1) : qz.correct;
+
+    opts.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'qz-opt';
+      btn.textContent = qz.type === 'tf' ? opt : String.fromCharCode(97 + idx) + ') ' + opt;
+      btn.onclick = () => {
+        if (qDiv.dataset.done) return;
+        qDiv.dataset.done = '1';
+        answered++;
+        if (idx === correctIdx) correct++;
+        Array.from(optsDiv.children).forEach((b, bi) => {
+          b.classList.add('disabled');
+          if (bi === correctIdx) b.classList.add('correct');
+          else if (bi === idx) b.classList.add('incorrect');
+        });
+        explainDiv.classList.add('show');
+        scoreEl.textContent = `Progreso: ${answered} / ${total} respondidas · ✅ ${correct} correctas`;
+      };
+      optsDiv.appendChild(btn);
+    });
+
+    qDiv.appendChild(optsDiv);
+    qDiv.appendChild(explainDiv);
+    container.appendChild(qDiv);
+  });
+}
+
+
+/* ===== 2.1 CULTURA ===== */
+initQuiz('qz-cultura','score-cultura','a1',[{"type": "mc", "q": "¿Cuál es una definición breve y útil de cultura?", "options": ["Lo que heredamos en los genes", "El conjunto de plantas y animales de una región", "La parte del ambiente hecha por el hombre", "Solo el arte y la música"], "correct": 2, "exp": "<b>Respuesta correcta: c) La parte del ambiente hecha por el hombre.</b> Incluye todo lo que el ser humano crea y aprende, a diferencia del ambiente natural."}, {"type": "tf", "q": "E. B. Tylor definió la cultura como el conjunto complejo que incluye conocimiento, creencias, arte, moral, ley, costumbre y otros hábitos adquiridos por el hombre como miembro de la sociedad.", "correct": true, "exp": "<b>Verdadero.</b> Es una de las primeras definiciones aprobadas de cultura."}, {"type": "tf", "q": "Para el científico, una persona \"culta\" en el sentido popular es la única que tiene cultura.", "correct": false, "exp": "<b>Falso.</b> Para la ciencia, todos participamos de una cultura: el hacendado, el albañil, el ingeniero y el profesional. Lo \"culto\" popular se parece más a \"refinamiento\"."}, {"type": "mc", "q": "La cultura material es aquella que:", "options": ["No ocupa lugar en el espacio", "Solo existe en la mente", "Se limita a la religión", "Es tangible y se aprecia con los sentidos (se mide, se pesa, se ve, se toca)"], "correct": 3, "exp": "<b>Respuesta correcta: d) Es tangible y se aprecia con los sentidos (se mide, se pesa, se ve, se toca).</b> Ejemplos: una silla, un lapicero, el vidrio, una casa, un barco."}, {"type": "mc", "q": "¿Cuál de estos es un ejemplo de cultura NO material?", "options": ["Una silla", "El idioma", "Una casa", "Un lapicero"], "correct": 1, "exp": "<b>Respuesta correcta: b) El idioma.</b> La cultura no material se entiende gracias a un proceso mental: la moral, la justicia, los idiomas."}, {"type": "mc", "q": "Una silla, una vivienda o el concepto de Dios son ejemplos de:", "options": ["Etnia", "Zona cultural", "Elemento o rasgo cultural", "Complejo cultural"], "correct": 2, "exp": "<b>Respuesta correcta: c) Elemento o rasgo cultural.</b> El elemento o rasgo es la parte mínima de la cultura con un significado preciso; si lo divides, pierde su sentido."}, {"type": "tf", "q": "Zona, región y área culturales se diferencian por grado: la zona es la más pequeña, la región es más amplia y el área es la mayor de todas.", "correct": true, "exp": "<b>Verdadero.</b> Tienen una connotación geográfica: porciones de la superficie con población que se comporta culturalmente de manera más o menos uniforme."}, {"type": "mc", "q": "Un grupo de personas que comparten el mismo origen, pasado histórico, lengua, costumbres, tradiciones y visión del mundo forman:", "options": ["Un complejo cultural", "Una etnia o grupo étnico", "Una pauta cultural", "Una horda"], "correct": 1, "exp": "<b>Respuesta correcta: b) Una etnia o grupo étnico.</b> Los totonacos, otomíes o tarahumaras son ejemplos de grupos étnicos."}]);
+
+/* ===== 2.2 DINÁMICA Y ENFOQUES ===== */
+initQuiz('qz-dinamica','score-dinamica','a2',[{"type": "mc", "q": "¿Qué se entiende por dinámica cultural?", "options": ["El proceso por el cual la cultura está siempre cambiando", "El estudio de los fósiles", "La división de una sociedad en clases", "La cultura que nunca cambia"], "correct": 0, "exp": "<b>Respuesta correcta: a) El proceso por el cual la cultura está siempre cambiando.</b> A veces el cambio es rápido y violento y otras veces tan lento que parece que la cultura está quieta."}, {"type": "mc", "q": "Antes del siglo XVI, ¿qué prenda masculina se usaba en México según el texto?", "options": ["El calzón de manta", "La guayabera", "El maxtlatl (un simple taparrabo)", "El pantalón"], "correct": 2, "exp": "<b>Respuesta correcta: c) El maxtlatl (un simple taparrabo).</b> Con los españoles fue sustituido por el calzón de manta; solo los indígenas marginados conservaron más tiempo el maxtlatl."}, {"type": "tf", "q": "Según la relatividad cultural, algo que hoy se acepta sin problema pudo haber sido rechazado de forma tajante tiempo atrás.", "correct": true, "exp": "<b>Verdadero.</b> La cultura se expresa distinto según el tiempo y el lugar, a veces de manera contradictoria."}, {"type": "mc", "q": "Se dice que la cultura es \"general y particular\" porque:", "options": ["Solo existe en un país", "Todos los pueblos hablan el mismo idioma", "Nunca cambia", "En todas partes hay un lenguaje, pero cada pueblo tiene su idioma específico"], "correct": 3, "exp": "<b>Respuesta correcta: d) En todas partes hay un lenguaje, pero cada pueblo tiene su idioma específico.</b> Es universal (aparece donde hay seres humanos) pero cada pueblo la expresa de forma singular."}, {"type": "mc", "q": "Cuando decimos que la cultura es \"totalizadora\", significa que:", "options": ["La cultura solo afecta a los adultos", "La sociedad nos obliga a comportarnos como la cultura dispone y nadie llega a conocer toda la cultura", "La cultura no obliga a nada", "Una persona puede dominar toda la cultura"], "correct": 1, "exp": "<b>Respuesta correcta: b) La sociedad nos obliga a comportarnos como la cultura dispone y nadie llega a conocer toda la cultura.</b> El hombre solo conoce una parte mínima de ella, aunque sea experto en algunas facetas."}, {"type": "tf", "q": "Hoy en día todavía se dan sociedades aisladas por océanos, montañas o desiertos como hace más de un siglo.", "correct": false, "exp": "<b>Falso.</b> El aislamiento geográfico se daba hasta hace un siglo; con el avance de la comunicación ya no se dan sociedades aisladas por barreras geográficas."}, {"type": "mc", "q": "Quien, por prejuicios raciales o religiosos, se segrega de la convivencia con otras personas vive un aislamiento:", "options": ["Psicológico", "Estructural", "Geográfico", "Cultural"], "correct": 0, "exp": "<b>Respuesta correcta: a) Psicológico.</b> El aislamiento psicológico se da en el individuo y es motivado por ciertas concepciones mentales."}, {"type": "mc", "q": "🔁 Repaso Unidad I: ¿Qué rama de la antropología describe las costumbres y tradiciones de un grupo humano específico?", "options": ["La primatología", "La etnografía", "La paleontología", "La prehistoria"], "correct": 1, "exp": "<b>Respuesta correcta: b) La etnografía.</b> Por eso la etnografía es clave para estudiar la dinámica cultural de un pueblo."}]);
+
+/* ===== 2.2.1 TEORÍAS ===== */
+initQuiz('qz-teorias','score-teorias','a3',[{"type": "mc", "q": "🔁 Repaso Unidad I: Auguste Comte (el del positivismo) postuló que el pensamiento va del teológico al metafísico y al:", "options": ["Positivo (científico)", "Mágico", "Artístico", "Mítico"], "correct": 0, "exp": "<b>Respuesta correcta: a) Positivo (científico).</b> Esta idea de progreso intelectual fue clave en el evolucionismo del siglo XIX."}, {"type": "mc", "q": "¿Cuál era el tema común de las teorías de la cultura de la Ilustración?", "options": ["La idea de decadencia", "La idea de que todas son iguales", "La idea de progreso", "La idea de que las culturas no cambian"], "correct": 2, "exp": "<b>Respuesta correcta: c) La idea de progreso.</b> Adam Smith, Adam Ferguson, Turgot y Diderot sostenían que las culturas diferían por distintos niveles de conocimiento y logros racionales, no por diferencias innatas."}, {"type": "tf", "q": "Lewis Henry Morgan dividió la evolución de la cultura en tres etapas: salvajismo, barbarie y civilización.", "correct": true, "exp": "<b>Verdadero.</b> Morgan lo planteó en su libro Ancient Society, con más detalle y mejor evidencia etnográfica que otros."}, {"type": "tf", "q": "La Ancient Society de Morgan sirvió de base a Engels para escribir \"El origen de la familia, la propiedad privada y el Estado\".", "correct": true, "exp": "<b>Verdadero.</b> Esa obra fue piedra angular de la antropología marxista hasta mediados del siglo XX."}, {"type": "mc", "q": "El Difusionismo surgió a comienzos del siglo XX como una reacción al:", "options": ["Marxismo", "Estructuralismo", "Funcionalismo", "Evolucionismo del siglo XIX"], "correct": 3, "exp": "<b>Respuesta correcta: d) Evolucionismo del siglo XIX.</b> Según el texto de tu libro, sus partidarios daban más peso a la experiencia de la primera infancia que a la inventiva de la mente humana."}, {"type": "mc", "q": "Para los funcionalistas (como Bronislaw Malinowski), la tarea principal de la antropología cultural es:", "options": ["Ordenar las culturas en etapas", "Estudiar solo los fósiles", "Descubrir los orígenes de cada elemento cultural", "Describir las funciones recurrentes de las costumbres e instituciones antes de explicar sus orígenes"], "correct": 3, "exp": "<b>Respuesta correcta: d) Describir las funciones recurrentes de las costumbres e instituciones antes de explicar sus orígenes.</b> Insistían en el trabajo de campo: sumergirse dos o más años en la lengua y vida de otra cultura."}, {"type": "mc", "q": "Según Claude Lévi-Strauss (estructuralismo), la característica estructural más importante de la mente humana es:", "options": ["La imitación", "La memoria", "La tendencia a dicotomizar, a pensar en oposiciones binarias", "El miedo al cambio"], "correct": 2, "exp": "<b>Respuesta correcta: c) La tendencia a dicotomizar, a pensar en oposiciones binarias.</b> Después intenta mediar esa oposición con un tercer concepto, que sirve de base para otra oposición."}, {"type": "mc", "q": "¿Cuál de estas NO es una etapa cultural que vio Karl Marx?", "options": ["Comunismo primitivo", "Feudalismo", "Salvajismo", "Capitalismo"], "correct": 2, "exp": "<b>Respuesta correcta: c) Salvajismo.</b> Salvajismo, barbarie y civilización son las etapas de Morgan. Marx vio: comunismo primitivo, esclavista, feudalismo, capitalismo y comunismo."}]);
+
+/* ===== 2.2.2 AMÉRICA ===== */
+initQuiz('qz-america','score-america','a4',[{"type": "mc", "q": "¿Cómo se llaman a sí mismos los grupos conocidos como esquimales?", "options": ["Caribes", "Mapuches", "Sioux", "Inuit (hombres)"], "correct": 3, "exp": "<b>Respuesta correcta: d) Inuit (hombres).</b> Son nómadas del área circumpolar ártica dedicados a la caza de focas, morsas y ballenas; en invierno construyen iglús."}, {"type": "mc", "q": "¿Qué provocó un proceso evolutivo muy importante en los Indios Pieles Rojas tras la llegada de los europeos?", "options": ["La agricultura intensiva", "El descubrimiento del oro", "La construcción de iglús", "La domesticación del caballo y el uso de armas de fuego"], "correct": 3, "exp": "<b>Respuesta correcta: d) La domesticación del caballo y el uso de armas de fuego.</b> También fueron obligados a sedentarizarse. Habitaron las praderas: sioux, dakotas, iroqueses, crows, blackfeet, cheyennes, etc."}, {"type": "mc", "q": "El grupo del Noroeste de América que coloca frente a sus casas un poste ceremonial tallado y coloreado es el:", "options": ["Chibcha", "Kwakiutl", "Yahgan", "Mapuche"], "correct": 1, "exp": "<b>Respuesta correcta: b) Kwakiutl.</b> Son prácticamente sedentarios, se dedican a la caza y a la pesca, y viven en casas grandes de madera plurifamiliares."}, {"type": "mc", "q": "🔁 Repaso 2.1: Un grupo con el mismo origen, lengua y costumbres, como los inuit, se denomina:", "options": ["Horda", "Complejo cultural", "Pauta cultural", "Etnia o grupo étnico"], "correct": 3, "exp": "<b>Respuesta correcta: d) Etnia o grupo étnico.</b> La etnia se define por el origen, pasado histórico, lengua, costumbres y visión del mundo compartidos."}, {"type": "mc", "q": "En el Altiplano Andino, Colombia se representa principalmente por los:", "options": ["Sioux", "Tupí", "Chibchas", "Araucanos"], "correct": 2, "exp": "<b>Respuesta correcta: c) Chibchas.</b> Los chibchas alcanzaron altos grados de civilización. Ecuador fue conquistado por los quechuas del Perú."}, {"type": "mc", "q": "El grupo mapuche, que destacó por su sentido de independencia, pertenece a los:", "options": ["Inuit del Ártico", "Sirionóes de Bolivia", "Araucanos de Chile (Área Andina)", "Tupí del Chaco"], "correct": 2, "exp": "<b>Respuesta correcta: c) Araucanos de Chile (Área Andina).</b> Fueron de los últimos indígenas en someterse a los conquistadores europeos."}, {"type": "tf", "q": "En la Amazonia, la mayor parte de los grupos son recolectores y la caza y la pesca son su única fuente de subsistencia.", "correct": true, "exp": "<b>Verdadero.</b> Son representativos los boros, los cayapos y los botokudo, entre otros."}, {"type": "mc", "q": "¿Qué grupos habitaron la Patagonia o Tierra del Fuego?", "options": ["Los ona, los tehuelches y los yahgan", "Los tainos y arahuacos", "Los boros y los cayapos", "Los tupí y los guaraníes"], "correct": 0, "exp": "<b>Respuesta correcta: a) Los ona, los tehuelches y los yahgan.</b> Eran grupos nómadas de una civilización muy primitiva; los primeros prácticamente se extinguieron desde 1880."}]);
+
+/* ===== 2.2.3 MÉXICO ===== */
+initQuiz('qz-mexico','score-mexico','a5',[{"type": "mc", "q": "🔁 Repaso Unidad I: ¿Qué recurso del antropólogo registra día a día lo que observa de la sociedad que estudia?", "options": ["El diario de campo", "La encuesta", "El cuestionario", "La ficha"], "correct": 0, "exp": "<b>Respuesta correcta: a) El diario de campo.</b> Es la herramienta principal para reconstruir el hecho social que se estudia, también entre los grupos indígenas."}, {"type": "mc", "q": "México comprende porciones de dos grandes áreas culturales:", "options": ["Patagonia y Pampas", "Aridoamérica y Mesoamérica", "Circumpolar y Circuncaribe", "Amazonia y Andes"], "correct": 1, "exp": "<b>Respuesta correcta: b) Aridoamérica y Mesoamérica.</b> Los expertos no se han puesto de acuerdo sobre el ámbito territorial, y las sociedades indígenas se mezclan y ocupan muchas veces los mismos lugares."}, {"type": "mc", "q": "Los yaquis, mayos y seris se ubican en el área cultural:", "options": ["Noroeste", "Centro", "Golfo", "Sureste"], "correct": 0, "exp": "<b>Respuesta correcta: a) Noroeste.</b> El Noroeste ocupa Baja California Norte y Sur, Sonora, Sinaloa y Nayarit."}, {"type": "mc", "q": "Los totonacos, que destacan por la danza del volador, se asientan fundamentalmente en el municipio de Papantla, en el área del:", "options": ["Occidente", "Norte Central", "Golfo", "Noroeste"], "correct": 2, "exp": "<b>Respuesta correcta: c) Golfo.</b> El Golfo ocupa Tamaulipas, Veracruz y Tabasco; sus grupos son totonacos y huastecos."}, {"type": "mc", "q": "Los herederos de la antigua civilización maya-quiché, con ciudades como Chichén Itzá y Uxmal, son los:", "options": ["Tarahumaras", "Mazatecos", "Mayas", "Yaquis"], "correct": 2, "exp": "<b>Respuesta correcta: c) Mayas.</b> Se localizan en la península de Yucatán, Guatemala, Belice y Honduras."}, {"type": "tf", "q": "Los purépechas fueron de los pocos pueblos que no fueron sometidos por los aztecas.", "correct": true, "exp": "<b>Verdadero.</b> Hablan tarasco y destacan por la calidad y variedad de sus trabajos: madera, instrumentos musicales, herrería, alfarería y metalurgia."}, {"type": "mc", "q": "Los tarahumaras identifican a su deidad creadora Onoruame y a su consorte Eyeruame con:", "options": ["La tierra y el fuego", "El trueno y la lluvia", "El mar y el viento", "El sol y la luna"], "correct": 3, "exp": "<b>Respuesta correcta: d) El sol y la luna.</b> Habitan la sierra madre Occidental, principalmente en Chihuahua."}, {"type": "mc", "q": "Los principales centros ceremoniales de los mixtecos-zapotecos, en Oaxaca, son:", "options": ["Palenque y Bonampak", "Mitla y Monte Albán", "Tulum y Tikal", "Chichén Itzá y Uxmal"], "correct": 1, "exp": "<b>Respuesta correcta: b) Mitla y Monte Albán.</b> Las famosas tehuanas de Juchitán pertenecen a la etnia zapoteca."}]);
+
+/* ===== 2.3 SOCIEDAD ===== */
+initQuiz('qz-sociedad','score-sociedad','a1',[{"type": "mc", "q": "Se entiende por sociedad a:", "options": ["Un conjunto de personas que, viviendo en un lugar determinado, se organizan de manera definida para conseguir metas comunes", "Una sola persona aislada", "Un grupo de animales que viven juntos", "Solo un grupo de amigos"], "correct": 0, "exp": "<b>Respuesta correcta: a) Un conjunto de personas que, viviendo en un lugar determinado, se organizan de manera definida para conseguir metas comunes.</b> Sus metas pueden ser materiales e intelectuales."}, {"type": "tf", "q": "Según el consenso generalizado, la sociedad es la única que crea cultura.", "correct": true, "exp": "<b>Verdadero.</b> Aunque los hombres prehistóricos también dejaron muestras de cultura."}, {"type": "mc", "q": "El hombre es la única criatura que ha logrado cultura; sus modos de responder a las exigencias de la vida son:", "options": ["Exclusivamente instintivos", "Acumulativos y mucho más variados que los de cualquier otra especie", "Siempre los mismos", "Iguales a los de los animales"], "correct": 1, "exp": "<b>Respuesta correcta: b) Acumulativos y mucho más variados que los de cualquier otra especie.</b> Al afirmar que el hombre es un animal social compartimos ese aspecto con otros seres biológicos, pero la cultura nos distingue."}, {"type": "mc", "q": "\"Organización social\" es la expresión técnica antropológica para:", "options": ["El carácter básico de la vida del grupo, que abarca las instituciones que dan pautas a los demás géneros de conducta", "El clima de una región", "Un partido político", "Un tipo de empresa"], "correct": 0, "exp": "<b>Respuesta correcta: a) El carácter básico de la vida del grupo, que abarca las instituciones que dan pautas a los demás géneros de conducta.</b> Es a la vez social e individual."}, {"type": "tf", "q": "Sociedad y cultura son exactamente lo mismo, por lo que nunca deben considerarse por separado.", "correct": false, "exp": "<b>Falso.</b> Para facilitar la comprensión deben considerarse separadamente y en sus recíprocas relaciones."}, {"type": "mc", "q": "Así como la cultura es una dosificación del comportamiento individual, toda sociedad humana es una dosificación a base de:", "options": ["Los objetos materiales", "La sucesión de seres humanos que componen un grupo", "Los animales domésticos", "Las fronteras"], "correct": 1, "exp": "<b>Respuesta correcta: b) La sucesión de seres humanos que componen un grupo.</b> El concepto de sociedad tiene las mismas reservas que el de cultura."}, {"type": "mc", "q": "¿Por qué es importante estudiar la sociedad?", "options": ["Porque no tiene relación con la cultura", "Porque ya no cambia", "Porque solo importa a los biólogos", "Porque el hecho de que el hombre viva en comunidad afecta su conducta"], "correct": 3, "exp": "<b>Respuesta correcta: d) Porque el hecho de que el hombre viva en comunidad afecta su conducta.</b> Hay que tomar en cuenta las instituciones sociales y los impulsos que llevan al hombre a establecer organizaciones."}, {"type": "mc", "q": "🔁 Repaso Unidad I: ¿Qué ciencias comparten el interés por las relaciones, la organización y el comportamiento social?", "options": ["La física y la geografía", "La antropología y la sociología", "La antropología y la química", "La arqueología y la paleontología"], "correct": 1, "exp": "<b>Respuesta correcta: b) La antropología y la sociología.</b> Tradicionalmente la sociología estudiaba sociedades industrializadas y la antropología las no industriales."}]);
+
+/* ===== 2.4 AGRUPAMIENTO ===== */
+initQuiz('qz-agrupamiento','score-agrupamiento','a2',[{"type": "mc", "q": "Se denomina agrupamiento a:", "options": ["Un edificio", "La pluralidad de individuos en contacto que tienen conciencia de la existencia de unos y otros y de algún elemento común de importancia", "Un solo individuo", "Un animal en la naturaleza"], "correct": 1, "exp": "<b>Respuesta correcta: b) La pluralidad de individuos en contacto que tienen conciencia de la existencia de unos y otros y de algún elemento común de importancia.</b> Es la base de las formas de organización humana."}, {"type": "mc", "q": "La primera manifestación de agrupación humana fue:", "options": ["La escritura", "El sedentarismo", "El comercio", "La ciudad-estado"], "correct": 1, "exp": "<b>Respuesta correcta: b) El sedentarismo.</b> Al vivir a merced de la naturaleza, se organizaron en pequeños grupos y se asentaron en un lugar."}, {"type": "mc", "q": "La primera institución social que formó el hombre primitivo fue:", "options": ["La escuela", "La familia", "La tribu", "El Estado"], "correct": 1, "exp": "<b>Respuesta correcta: b) La familia.</b> Su evolución es importante por ser la primera unión con otros seres biológicamente necesarios."}, {"type": "mc", "q": "Los primeros hombres y mujeres que se unían momentáneamente para satisfacer necesidades básicas, sin establecerse en ningún lugar, formaron:", "options": ["Clanes", "Tribus", "Hordas", "Ciudades-estado"], "correct": 2, "exp": "<b>Respuesta correcta: c) Hordas.</b> La horda es la primera forma de organización de la sociedad humana; algunos investigadores la comparan con la organización de ciertos primates."}, {"type": "mc", "q": "El origen de un clan puede ser:", "options": ["Desconocido por completo", "Solo económico", "Histórico o legendario", "Solo militar"], "correct": 2, "exp": "<b>Respuesta correcta: c) Histórico o legendario.</b> El clan suele ser quien crea las leyes sobre propiedad, herencia, matrimonio y administración de la justicia."}, {"type": "tf", "q": "Las tribus surgen en el Neolítico tras la asociación de varias familias, y son dirigidas por personas mayores (jefes o patriarcas).", "correct": true, "exp": "<b>Verdadero.</b> Tras la asociación de las primeras tribus se originan las ciudades y surgen las civilizaciones."}, {"type": "mc", "q": "¿Cuáles eran las tres clases sociales de la ciudad-estado de la antigua Grecia?", "options": ["Hordas, clanes y tribus", "Esclavos, extranjeros residentes y ciudadanos", "Sacerdotes, soldados y comerciantes", "Reyes, nobles y campesinos"], "correct": 1, "exp": "<b>Respuesta correcta: b) Esclavos, extranjeros residentes y ciudadanos.</b> En Atenas, una tercera parte de los habitantes eran esclavos. Los extranjeros residentes tampoco podían participar en la vida política."}, {"type": "mc", "q": "🔁 Repaso 2.3: Según el consenso, la única que crea cultura es:", "options": ["La naturaleza", "Los animales", "La sociedad", "Un solo individuo aislado"], "correct": 2, "exp": "<b>Respuesta correcta: c) La sociedad.</b> Por eso estudiar los agrupamientos humanos ayuda a entender cómo nace la cultura."}]);
+
+/* ═══ CRUCIGRAMA ═══ */
+const xwIns=()=>Array.from(document.querySelectorAll('.xw-in'));
+xwIns().forEach(inp=>{
+  inp.addEventListener('input',()=>{inp.value=inp.value.toUpperCase().replace(/[^A-ZÑ]/g,'');inp.classList.remove('ok','bad');
+    if(inp.value){const r=+inp.dataset.r,c=+inp.dataset.c;const n=document.querySelector(`.xw-in[data-r="${r}"][data-c="${c+1}"]`)||document.querySelector(`.xw-in[data-r="${r+1}"][data-c="${c}"]`);if(n)n.focus();}});
+});
+function xwCheck(){let ok=0,tot=0,empty=0;xwIns().forEach(i=>{tot++;i.classList.remove('ok','bad');if(!i.value){empty++;return;}if(i.value===i.dataset.a){ok++;i.classList.add('ok');}else i.classList.add('bad');});
+ document.getElementById('xw-msg').textContent=ok===tot?'🎉 ¡Crucigrama completo y correcto!':`✅ ${ok} correctas · ❌ ${tot-ok-empty} incorrectas · ⬜ ${empty} vacías`;}
+function xwReveal(){xwIns().forEach(i=>{i.value=i.dataset.a;i.classList.remove('bad');i.classList.add('ok');});document.getElementById('xw-msg').textContent='Respuestas mostradas. ¡Inténtalo tú primero la próxima vez!';}
+function xwClear(){xwIns().forEach(i=>{i.value='';i.classList.remove('ok','bad');});document.getElementById('xw-msg').textContent='';}
+</script>
+</body>
+</html>
