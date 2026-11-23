@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lógica — Unidad III: Tablas de verdad</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f4f8;--surface:#fff;--border:#c0d0e0;
+  --ink:#061828;--muted:#3a5a78;
+  --a1:#1a4fc4;--a2:#c41a1a;--a3:#1a9a5c;--a4:#b8860b;--a5:#7a1ac4;
+  --a1l:#e8eef9;--a2l:#fdeaea;--a3l:#e3f4e8;--a4l:#fff8e1;--a5l:#f0e8fb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;line-height:1.7;}
+
+.hero{background:var(--ink);color:#f0f6ff;padding:56px 48px 48px;position:relative;overflow:hidden;}
+.hero::after{content:'⊢';font-size:220px;position:absolute;right:20px;bottom:-30px;line-height:1;pointer-events:none;opacity:.06;}
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.unit-badge{background:var(--a1);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:4px 14px;border-radius:4px;}
+.subject-tag{font-size:12px;font-weight:500;color:rgba(240,246,255,0.45);letter-spacing:2px;text-transform:uppercase;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,8vw,5rem);line-height:.92;letter-spacing:1px;margin-bottom:16px;}
+.hero h1 span{color:#5cb8f8;}
+.hero-desc{max-width:560px;font-size:15px;color:rgba(240,246,255,0.6);margin-bottom:32px;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:10px;}
+.pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;}
+.pill-dot{width:8px;height:8px;border-radius:50%;}
+
+.nav-strip{background:var(--a1);display:flex;overflow-x:auto;position:sticky;top:0;z-index:10;}
+.nav-strip a{color:rgba(255,255,255,.75);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:12px 20px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.15);transition:all .2s;}
+.nav-strip a:hover{background:rgba(255,255,255,.12);color:#fff;}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 28px 100px;}
+
+.sec-head{display:flex;align-items:flex-start;margin:56px 0 24px;border-left:5px solid var(--a1);padding-left:18px;}
+.sec-head.red{border-color:var(--a2);} .sec-head.green{border-color:var(--a3);} .sec-head.gold{border-color:var(--a4);} .sec-head.purple{border-color:var(--a5);}
+.sec-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--a1);margin-right:14px;flex-shrink:0;}
+.sec-head.red .sec-num{color:var(--a2);} .sec-head.green .sec-num{color:var(--a3);} .sec-head.gold .sec-num{color:var(--a4);} .sec-head.purple .sec-num{color:var(--a5);}
+.sec-info h2{font-family:'Bebas Neue',sans-serif;font-size:1.85rem;letter-spacing:.5px;line-height:1.1;}
+.sec-info p{font-size:13px;color:var(--muted);font-weight:500;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 26px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.card-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+.concept-box{border-radius:12px;padding:18px 22px;margin:12px 0;text-align:center;}
+.concept-box.blue{background:linear-gradient(135deg,#061828,#1a4fc4);}
+.concept-box.red{background:linear-gradient(135deg,#2a0a0a,#c41a1a);}
+.concept-box.green{background:linear-gradient(135deg,#0a2a18,#1a9a5c);}
+.concept-box.gold{background:linear-gradient(135deg,#2a1800,#b8860b);}
+.concept-box.purple{background:linear-gradient(135deg,#1a0a2a,#7a1ac4);}
+.concept-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;color:#fff;margin-bottom:6px;}
+.concept-def{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;}
+
+.tip{border-radius:10px;padding:13px 16px;font-size:13.5px;margin-top:14px;display:flex;gap:10px;align-items:flex-start;}
+.tip.blue{background:rgba(26,79,196,.08);border-left:3px solid var(--a1);}
+.tip.red{background:rgba(196,26,26,.08);border-left:3px solid var(--a2);}
+.tip.green{background:rgba(26,154,92,.08);border-left:3px solid var(--a3);}
+.tip.gold{background:rgba(184,134,11,.08);border-left:3px solid var(--a4);}
+.tip.purple{background:rgba(122,26,196,.08);border-left:3px solid var(--a5);}
+.tip-ico{font-size:18px;flex-shrink:0;margin-top:1px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px;}
+@media(max-width:600px){.two-col,.three-col,.char-grid{grid-template-columns:1fr;}}
+
+.mini-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.mini-card .mc-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.mini-card .mc-val{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.5px;}
+.mini-card .mc-body{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.55;}
+
+.char-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+.char-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;border-left:4px solid var(--a1);}
+.char-card.red{border-color:var(--a2);}.char-card.green{border-color:var(--a3);}.char-card.gold{border-color:var(--a4);}.char-card.purple{border-color:var(--a5);}
+.char-card .cc-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.5px;margin-bottom:6px;}
+.char-card .cc-title.blue{color:var(--a1);}.char-card .cc-title.red{color:var(--a2);}.char-card .cc-title.green{color:var(--a3);}.char-card .cc-title.gold{color:var(--a4);}.char-card .cc-title.purple{color:var(--a5);}
+.char-card .cc-body{font-size:13px;line-height:1.6;}
+.char-card .cc-ex{font-size:12px;margin-top:8px;padding:6px 10px;border-radius:6px;font-style:italic;}
+.char-card .cc-ex.blue{background:var(--a1l);color:var(--a1);}.char-card .cc-ex.red{background:var(--a2l);color:var(--a2);}
+.char-card .cc-ex.green{background:var(--a3l);color:var(--a3);}.char-card .cc-ex.gold{background:var(--a4l);color:var(--a4);}
+.char-card .cc-ex.purple{background:var(--a5l);color:var(--a5);}
+
+.stab{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+.stab th{text-align:left;padding:9px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid;background:rgba(0,0,0,.02);}
+.stab.blue th{color:var(--a1);border-color:var(--a1);}
+.stab.red th{color:var(--a2);border-color:var(--a2);}
+.stab.green th{color:var(--a3);border-color:var(--a3);}
+.stab.gold th{color:var(--a4);border-color:var(--a4);}
+.stab.purple th{color:var(--a5);border-color:var(--a5);}
+.stab td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.stab tr:last-child td{border-bottom:none;}
+.stab tr:nth-child(even) td{background:rgba(0,0,0,.015);}
+
+.bubbles{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.bubble{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 16px;}
+.bubble .b-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.bubble .b-main{font-weight:600;font-size:14px;margin-bottom:3px;}
+.bubble .b-sub{font-size:12.5px;color:var(--muted);}
+
+.wb-section{background:var(--ink);color:#f0f6ff;border-radius:16px;padding:32px;margin-top:60px;}
+.wb-title{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:1px;margin-bottom:6px;}
+.wb-title span{color:#5cb8f8;}
+.wb-sub{color:rgba(240,246,255,.5);font-size:13.5px;margin-bottom:28px;}
+.wb-group{margin-bottom:28px;}
+.wb-group-title{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:2px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:12px;}
+.wb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.wb-word{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;}
+.wb-word .en{font-weight:700;font-size:13.5px;margin-bottom:2px;}
+.wb-word .es{font-size:12px;color:rgba(240,246,255,.55);}
+
+footer{text-align:center;padding:28px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--border);margin-top:20px;}
+
+/* ═══ ACTIVIDADES DEL LIBRO (práctica) ═══ */
+.activity-box{background:var(--surface);border:2px dashed var(--a5);border-radius:14px;padding:20px 22px;margin:8px 0 20px;}
+.activity-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.activity-head .ac-ico{font-size:1.4rem;}
+.activity-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.5px;color:var(--a5);}
+.activity-item{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;}
+.activity-item .ai-title{font-family:'Bebas Neue',sans-serif;color:var(--a5);font-size:1.05rem;letter-spacing:.5px;margin-bottom:4px;}
+.activity-item .ai-crit{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic;}
+
+/* ═══ QUIZ INTERACTIVO ═══ */
+.quiz-box{background:var(--surface);border:2px dashed var(--border);border-radius:14px;padding:20px 22px;margin:8px 0 32px;}
+.quiz-box.blue{border-color:var(--a1);}.quiz-box.red{border-color:var(--a2);}
+.quiz-box.green{border-color:var(--a3);}.quiz-box.gold{border-color:var(--a4);}
+.quiz-box.purple{border-color:var(--a5);}
+.quiz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.quiz-head .qz-ico{font-size:1.5rem;}
+.quiz-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.5px;}
+.quiz-head span.qz-sub{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+.quiz-score{font-size:12px;font-weight:700;margin-bottom:14px;color:var(--muted);}
+.qz-question{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.qz-question:last-child{margin-bottom:0;}
+.qz-qtext{font-weight:600;font-size:13.5px;margin-bottom:10px;display:flex;gap:8px;align-items:flex-start;}
+.qz-qtext .qz-num{font-family:'Bebas Neue',sans-serif;flex-shrink:0;font-size:1.05rem;line-height:1.3;}
+.qz-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle;}
+.qz-opts{display:flex;flex-direction:column;gap:6px;}
+.qz-tf-opts{display:flex;gap:8px;}
+.qz-opt{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-size:13px;cursor:pointer;text-align:left;transition:all .15s;font-family:inherit;color:var(--ink);}
+.qz-tf-opts .qz-opt{flex:1;text-align:center;font-weight:600;}
+.qz-opt:hover:not(.disabled){background:var(--a1l);border-color:var(--a1);}
+.qz-opt.correct{background:rgba(26,154,92,.18);border-color:var(--a3);font-weight:700;color:#0a4a2a;}
+.qz-opt.incorrect{background:rgba(196,26,26,.18);border-color:var(--a2);font-weight:700;color:#7a1414;}
+.qz-opt.disabled{cursor:default;}
+.qz-explain{font-size:12.5px;margin-top:9px;padding:9px 13px;border-radius:8px;background:rgba(0,0,0,.04);display:none;line-height:1.5;}
+.qz-explain.show{display:block;}
+.qz-explain b{color:var(--a3);}
+
+/* ═══ CRUCIGRAMA ═══ */
+.xw-wrap{overflow-x:auto;margin:14px 0;}
+.xw-table{border-collapse:collapse;margin:0 auto;}
+.xw-table td{width:34px;height:34px;padding:0;position:relative;}
+.xw-table td.cell{background:var(--surface);border:1.5px solid var(--ink);}
+.xw-table td.blank{background:transparent;border:none;}
+.xw-num{position:absolute;top:1px;left:3px;font-size:9px;font-weight:700;color:var(--a2);line-height:1;pointer-events:none;}
+.xw-in{width:100%;height:100%;border:none;background:transparent;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--ink);text-transform:uppercase;outline:none;padding-top:6px;}
+.xw-in:focus{background:var(--a1l);}
+.xw-in.ok{background:rgba(26,154,92,.22);color:#0a4a2a;}
+.xw-in.bad{background:rgba(196,26,26,.18);color:#7a1414;}
+.xw-clues{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+@media(max-width:600px){.xw-clues{grid-template-columns:1fr;}}
+.xw-clues h5{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1px;color:var(--a2);margin-bottom:6px;}
+.xw-clues li{font-size:13px;margin-bottom:5px;margin-left:18px;color:var(--ink);}
+.xw-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.xw-btn{background:var(--a1);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;}
+.xw-btn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--border);}
+.xw-msg{font-size:13px;font-weight:700;margin-top:10px;color:var(--muted);}
+
+/* ═══ EJERCICIOS CON ESPACIOS EN BLANCO ═══ */
+.ex-box{background:var(--surface);border:2px solid var(--a1);border-radius:14px;padding:18px 20px;margin:18px 0;}
+.ex-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+.ex-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:1px;color:var(--ink);}
+.ex-tag{background:var(--a1);color:#fff;font-size:11px;font-weight:700;border-radius:20px;padding:3px 10px;letter-spacing:.5px;}
+.ex-prob{font-size:15px;font-weight:700;color:var(--ink);background:var(--a1l);border-radius:10px;padding:10px 14px;margin-bottom:12px;}
+.ex-intro{font-size:13px;color:var(--ink);margin-bottom:12px;line-height:1.55;}
+.ex-step{border-left:4px solid var(--a1);padding:8px 0 8px 14px;margin:12px 0;}
+.ex-n{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:1px;color:var(--a2);}
+.ex-why{font-size:13px;color:var(--muted);margin:2px 0 8px;line-height:1.5;}
+.ex-calc{font-size:16px;color:var(--ink);line-height:2.1;font-weight:600;}
+.ex-hint{font-size:12px;color:var(--muted);margin-top:4px;}
+.fb{border:none;border-bottom:2.5px dashed var(--a1);background:var(--a1l);color:var(--ink);font-family:inherit;font-size:15px;font-weight:700;text-align:center;padding:2px 6px;border-radius:6px 6px 0 0;outline:none;min-width:44px;}
+.fb:focus{background:#fff6c9;border-bottom-style:solid;}
+select.fb{padding:2px 4px;}
+.fb.ok{border-bottom:2.5px solid #1a9a5c;background:rgba(26,154,92,.20);color:#0a4a2a;}
+.fb.bad{border-bottom:2.5px solid #c41a1a;background:rgba(196,26,26,.16);color:#7a1414;}
+.ex-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.ex-btn{background:var(--a1);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;}
+.ex-btn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--border);}
+.ex-msg{font-size:13px;font-weight:700;margin-top:10px;color:var(--muted);}
+.ex-table{border-collapse:collapse;margin:8px 0;font-size:14px;}
+.ex-table th,.ex-table td{border:1.5px solid var(--ink);padding:6px 10px;text-align:center;color:var(--ink);}
+.ex-table th{background:var(--a1l);font-weight:700;}
+.rule-box{background:var(--a1l);border:1.5px dashed var(--a1);border-radius:10px;padding:10px 14px;margin:10px 0;font-size:14px;color:var(--ink);line-height:1.7;}
+.rule-box b{color:var(--a2);}
+.svg-wrap{text-align:center;margin:10px 0;}
+.svg-wrap svg{max-width:100%;height:auto;}
+.svg-cap{font-size:12px;color:var(--muted);margin-top:4px;}
+details.ans{margin-top:8px;font-size:13px;}
+details.ans summary{cursor:pointer;font-weight:700;}
+
+.g-steps{margin:10px 0;counter-reset:s;}
+.g-steps div{counter-increment:s;position:relative;padding:8px 10px 8px 46px;margin:6px 0;background:var(--surface);border:1px solid var(--border);border-radius:10px;font-size:14px;color:var(--ink);line-height:1.55;}
+.g-steps div::before{content:counter(s);position:absolute;left:10px;top:8px;width:26px;height:26px;border-radius:50%;background:var(--a1);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:13px;}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="unit-badge">UNIDAD III</div>
+    <div class="subject-tag">Lógica · Tablas de verdad</div>
+  </div>
+  <h1>TABLAS DE VERDAD<br><span>COMPROBAR CUÁNDO UN RAZONAMIENTO ES VÁLIDO</span></h1>
+  <p class="hero-desc">En esta unidad aprenderás a construir tablas de verdad, a reconocer tautologías y contradicciones, a comprobar si un razonamiento es válido, y a usar las reglas de inferencia y las reglas de equivalencia para pasar de unas proposiciones a otras.</p>
+  <div class="hero-pills">
+    <div class="pill"><div class="pill-dot" style="background:#5cb8f8"></div>3.1 Definición</div>
+    <div class="pill"><div class="pill-dot" style="background:#ff8fa0"></div>3.2 Procedimientos</div>
+    <div class="pill"><div class="pill-dot" style="background:#86efac"></div>3.3 Tautología y contradicción</div>
+    <div class="pill"><div class="pill-dot" style="background:#fcd45c"></div>3.4 Validez</div>
+    <div class="pill"><div class="pill-dot" style="background:#c4b5fd"></div>3.5 Reglas de inferencia</div>
+    <div class="pill"><div class="pill-dot" style="background:#ff8fa0"></div>3.6 Reglas de equivalencia</div>
+  </div>
+</div>
+
+<div class="nav-strip">
+  <a href="#def">3.1 Definición</a>
+  <a href="#proc">3.2 Procedimientos</a>
+  <a href="#taut">3.3 Tautología</a>
+  <a href="#valid">3.4 Validez</a>
+  <a href="#reglas">3.5 Inferencia</a>
+  <a href="#tabla">Tabla de reglas</a>
+  <a href="#equiv">3.6 Equivalencia</a>
+  <a href="#leyes">Leyes</a>
+  <a href="#resumen">Resumen</a>
+  <a href="#glosario">Glosario</a>
+</div>
+
+<div class="wrap">
+
+<div id="def">
+  <div class="sec-head blue">
+    <div class="sec-num">3.1</div>
+    <div class="sec-info">
+      <h2>Definición y elaboración de tablas de verdad</h2>
+      <p>Cómo hallar la certeza de una proposición</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Definición</div>
+    <div class="concept-box blue">
+      <div class="concept-title">TABLA DE VERDAD</div>
+      <div class="concept-def">Independientemente de la longitud y de lo complicada que sea una proposición molecular, se pueden hallar sus valores de certeza si se conocen los valores de certeza de sus partes. Una forma de analizarlo es con un diagrama; un método en general más conveniente es poner todas las posibilidades de certeza o falsedad en forma de tabla: las <b>tablas de verdad</b>.</div>
+    </div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">PROPOSICIÓN ATÓMICA</div><div class="cc-body">Se escribe C (cierta) o F (falsa) inmediatamente debajo de la letra atómica.</div></div>
+      <div class="char-card green"><div class="cc-title green">PROPOSICIÓN MOLECULAR</div><div class="cc-body">Se escribe C o F debajo del conector lógico que domina la proposición.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">CONECTOR DOMINANTE</div><div class="cc-body">Es el enlace final que une los dos miembros del término de enlace principal.</div></div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🚦</span>
+      <span><strong>Ejemplo cotidiano:</strong> "Voy al cine y llevo mi credencial". Esa frase solo es cierta si ocurren las dos cosas: la tabla de verdad de la conjunción lo resume.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Ejemplo del libro: (P ∨ Q) ∧ R</div>
+    <table class="stab blue">
+<tr><th>Paso</th><th>Qué se hace</th><th>Resultado</th></tr>
+<tr><td style="text-align:center">1</td><td style="text-align:center">Se escribe el valor de las proposiciones atómicas: P = C, Q = F, R = C</td><td style="text-align:center">C F C</td></tr>
+<tr><td style="text-align:center">2</td><td style="text-align:center">Proposición molecular menor P ∨ Q: como P es cierta, la disyunción es cierta</td><td style="text-align:center">C bajo ∨</td></tr>
+<tr><td style="text-align:center">3</td><td style="text-align:center">Conector dominante ∧: sus dos miembros, (P ∨ Q) y R, son ciertos</td><td style="text-align:center">C bajo ∧</td></tr>
+<tr><td style="text-align:center">4</td><td style="text-align:center">El enlace más largo (el conector dominante) tiene una C</td><td style="text-align:center">La proposición completa es cierta</td></tr>
+    </table>
+    <div class="tip blue">
+      <span class="tip-ico">📐</span>
+      <span>Se empieza con las proposiciones atómicas, luego la proposición molecular menor y se continúa hasta el enlace final que une los dos miembros del término de enlace dominante.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Número de líneas de una tabla</div>
+    <table class="stab blue">
+      <tr><th>Proposiciones atómicas</th><th>Líneas de la tabla (2ⁿ)</th></tr>
+      <tr><td>1 (por ejemplo P)</td><td>2</td></tr>
+      <tr><td>2 (P y Q)</td><td>4</td></tr>
+      <tr><td>3 (P, Q y R)</td><td>8</td></tr>
+    </table>
+    <div class="tip blue">
+      <span class="tip-ico">🔢</span>
+      <span>Cada atómica tiene dos posibles valores (C o F), por eso el número de líneas se duplica con cada atómica adicional.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box blue" id="box-def">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Definición y elaboración de tablas de verdad</span></div>
+    <div class="quiz-score" id="score-def"></div>
+    <div class="qz-container" id="qz-def"></div>
+  </div>
+</div>
+
+<div id="proc">
+  <div class="sec-head red">
+    <div class="sec-num">3.2</div>
+    <div class="sec-info">
+      <h2>Procedimientos para elaborar tablas de verdad</h2>
+      <p>Las tablas básicas de los cinco conectores</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Tablas básicas</div>
+    <div class="concept-box red">
+      <div class="concept-title">CÓMO SE USAN</div>
+      <div class="concept-def">Se dan las tablas básicas de verdad para los cinco conectores lógicos de proposiciones. Si se conocen los valores de certeza de una proposición P y de una proposición Q, se busca la línea que presenta esa combinación particular de valores y, en la misma línea, en la columna de la proposición molecular se encuentra su valor de certeza.</div>
+    </div>
+    <div class="two-col">
+      <div class="mini-card">    <table class="stab red">
+<tr><th>P</th><th>Q</th><th>P ∧ Q (Conjunción)</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">F</td></tr>
+    </table>
+</div>
+      <div class="mini-card">    <table class="stab red">
+<tr><th>P</th><th>Q</th><th>P ∨ Q (Disyunción)</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">F</td></tr>
+    </table>
+</div>
+    </div>
+    <div class="two-col">
+      <div class="mini-card">    <table class="stab red">
+<tr><th>P</th><th>Q</th><th>P → Q (Condicional)</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">C</td></tr>
+    </table>
+</div>
+      <div class="mini-card">    <table class="stab red">
+<tr><th>P</th><th>Q</th><th>P ↔ Q (Equivalencia)</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">C</td></tr>
+    </table>
+</div>
+    </div>
+    <table class="stab red">
+<tr><th>P</th><th>¬P (Negación)</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">📋</span>
+      <span>En estas tablas se hallan resumidas todas las reglas de aplicación estudiadas. Si se tiene duda sobre alguna regla, se pueden usar como referencia.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Cómo recordarlas</div>
+    <table class="stab red">
+      <tr><th>Conector</th><th>Es falso solo cuando…</th></tr>
+      <tr><td>Conjunción P ∧ Q</td><td>Es cierta únicamente si P y Q son ciertas (en las demás líneas es falsa).</td></tr>
+      <tr><td>Disyunción P ∨ Q</td><td>Es falsa únicamente si P y Q son falsas.</td></tr>
+      <tr><td>Condicional P → Q</td><td>Es falso únicamente si P es cierta y Q es falsa.</td></tr>
+      <tr><td>Equivalencia P ↔ Q</td><td>Es cierta si P y Q tienen el mismo valor; falsa si son distintos.</td></tr>
+      <tr><td>Negación ¬P</td><td>Invierte el valor de P.</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">🎯</span>
+      <span><strong>Ejemplo cotidiano:</strong> "Si estudias, entonces pasas" solo es falsa cuando estudias (P cierta) y no pasas (Q falsa); en los demás casos la promesa no se rompió.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Ejemplo: P, Q, P ∨ Q, ¬P</div>
+    <table class="stab red">
+<tr><th>P</th><th>Q</th><th>P ∨ Q</th><th>¬P</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">C</td></tr>
+    </table>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">CÓMO SE FORMA</div><div class="cc-body">Se empieza poniendo todas las combinaciones de certeza o falsedad debajo de P y Q. El valor de las proposiciones moleculares depende de los valores de las atómicas: al llenar cada columna hay que referirse a los valores de sus partes.</div></div>
+      <div class="char-card green"><div class="cc-title green">EJEMPLOS DE LECTURA</div><div class="cc-body">Primera línea: P y Q ciertas → P ∨ Q es cierta y ¬P es falsa. Última línea: P y Q falsas → P ∨ Q es falsa y ¬P es cierta.</div></div>
+    </div>
+    <div class="tip red">
+      <span class="tip-ico">🔢</span>
+      <span>El número de líneas es 2 × 2 = 2² = 4, porque hay dos proposiciones atómicas y cada una tiene dos posibles valores de certeza.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box red" id="box-proc">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Procedimientos para elaborar tablas de verdad</span></div>
+    <div class="quiz-score" id="score-proc"></div>
+    <div class="qz-container" id="qz-proc"></div>
+  </div>
+</div>
+
+<div id="taut">
+  <div class="sec-head green">
+    <div class="sec-num">3.3</div>
+    <div class="sec-info">
+      <h2>Tautología, contradicción y evaluación de la validez</h2>
+      <p>Siempre cierta, siempre falsa</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Tautología</div>
+    <div class="concept-box green">
+      <div class="concept-title">TAUTOLOGÍA</div>
+      <div class="concept-def">Una proposición molecular es una tautología si es cierta, cualesquiera que sean los valores de certeza de las proposiciones atómicas que la componen. <b>Definición formal:</b> una proposición es una tautología si y solo si permanece cierta para todas las combinaciones de asignaciones de certeza atribuidas a cada una de sus distintas proposiciones atómicas.</div>
+    </div>
+    <table class="stab green">
+<tr><th>P</th><th>¬P</th><th>P ∨ ¬P</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+    </table>
+    <div class="tip green">
+      <span class="tip-ico">☀️</span>
+      <span><strong>Ejemplo cotidiano:</strong> "Mañana lloverá o no lloverá" siempre es cierta, sin importar el clima: es una tautología (P ∨ ¬P).</span>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">📝</span>
+      <span>En el libro la tabla de este ejemplo aparece con "P ∨ ¬Q" por un error de escritura; el ejemplo es P ∨ ¬P.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">¿Es P ∨ Q → P una tautología?</div>
+    <table class="stab green">
+<tr><th>P</th><th>Q</th><th>P ∨ Q</th><th>P ∨ Q → P</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">C</td></tr>
+    </table>
+    <div class="concept-box green">
+      <div class="concept-title">CONCLUSIÓN</div>
+      <div class="concept-def">En la tercera línea (P falsa y Q cierta) la proposición es falsa. <b>Una sola "F" en la columna de la proposición basta para demostrar que no es una tautología.</b> Si una proposición es una tautología, cada línea debe tener una "C" en la columna encabezada por ella.</div>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">🔑</span>
+      <span>Se debe recordar que en cada caso particular una proposición atómica tiene el mismo valor de certeza cada vez que se presenta dentro de una proposición molecular.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Contradicción</div>
+    <div class="concept-box green">
+      <div class="concept-title">CONTRADICCIÓN</div>
+      <div class="concept-def">Una proposición es una contradicción si y solo si permanece falsa para todas las combinaciones de asignaciones de certeza atribuidas a cada una de sus distintas proposiciones atómicas. Es lo contrario de una tautología.</div>
+    </div>
+    <table class="stab green">
+<tr><th>P</th><th>¬P</th><th>P ∧ ¬P</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">F</td></tr>
+    </table>
+    <div class="tip green">
+      <span class="tip-ico">🚫</span>
+      <span><strong>Ejemplo cotidiano:</strong> "Está lloviendo y no está lloviendo" (al mismo tiempo) nunca es cierta: es una contradicción (P ∧ ¬P).</span>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">📝</span>
+      <span>En el libro esta tabla se escribió como "P ∧ ¬Q"; el ejemplo es P ∧ ¬P.</span>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">🧭</span>
+      <span><strong>Complemento:</strong> las proposiciones que son ciertas en algunas líneas y falsas en otras se llaman contingentes; no son ni tautologías ni contradicciones.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box green" id="box-taut">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Tautología y contradicción</span></div>
+    <div class="quiz-score" id="score-taut"></div>
+    <div class="qz-container" id="qz-taut"></div>
+  </div>
+</div>
+
+<div id="valid">
+  <div class="sec-head gold">
+    <div class="sec-num">3.4</div>
+    <div class="sec-info">
+      <h2>Evaluación de la validez a través de la tabla de verdad</h2>
+      <p>Cuándo un razonamiento es válido</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Implicación tautológica</div>
+    <div class="concept-box gold">
+      <div class="concept-title">IMPLICACIÓN TAUTOLÓGICA</div>
+      <div class="concept-def">Una proposición P implica tautológicamente una proposición Q si y solo si la condicional P → Q es una tautología. Así, una implicación tautológica es una tautología cuya forma es la de una proposición condicional.</div>
+    </div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">RAZONAMIENTO ↔ CONDICIONAL</div><div class="cc-body">A cada razonamiento proposicional corresponde una condicional, y a cada condicional corresponde un razonamiento.</div></div>
+      <div class="char-card green"><div class="cc-title green">VÁLIDO</div><div class="cc-body">El razonamiento es válido si y solo si la condicional correspondiente es una tautología.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">SI NO ES TAUTOLOGÍA</div><div class="cc-body">Si la implicación no es tautológica, entonces la inferencia no es válida.</div></div>
+    </div>
+    <div class="rule-box"><b>Cómo se construye la condicional de un razonamiento:</b> se ligan con ∧ todas las premisas para formar la conjunción de premisas (el antecedente) y después se pone la conclusión como consecuente.</div>
+    <div class="tip gold">
+      <span class="tip-ico">💬</span>
+      <span>Una manera de hablar de un razonamiento es decir que las premisas implican la conclusión. Si la conjunción de las premisas es cierta, entonces la conclusión ha de ser cierta.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Ejemplo de construcción</div>
+    <table class="stab gold">
+      <tr><th>Razonamiento</th><th>Condicional correspondiente</th></tr>
+      <tr><td>Demostrar R ∧ S. Premisas: (1) P  (2) P → Q  (3) ¬Q ∨ (R ∧ S)</td><td>P ∧ (P → Q) ∧ (¬Q ∨ (R ∧ S)) → R ∧ S</td></tr>
+    </table>
+    <div class="tip gold">
+      <span class="tip-ico">↔️</span>
+      <span>Por otra parte, si se desea construir el razonamiento a partir de la condicional, el consecuente se escribe como conclusión y las proposiciones cuya conjunción es el antecedente son las premisas.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Implicaciones tautológicas conocidas</div>
+    <table class="stab gold">
+      <tr><th>Regla</th><th>Implicación tautológica</th></tr>
+      <tr><td>Modus ponendo ponens</td><td>(P → Q) ∧ P → Q</td></tr>
+      <tr><td>Modus tollendo tollens</td><td>(P → Q) ∧ ¬Q → ¬P</td></tr>
+    </table>
+    <div class="tip gold">
+      <span class="tip-ico">🔍</span>
+      <span>El antecedente es la conjunción de las dos premisas y el consecuente es la conclusión.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Comprobación de validez: modus tollendo tollens</div>
+    <table class="stab gold">
+<tr><th>P</th><th>Q</th><th>¬P</th><th>¬Q</th><th>P → Q</th><th>(P → Q) ∧ ¬Q</th><th>(P → Q) ∧ ¬Q → ¬P</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+    </table>
+    <div class="concept-box gold">
+      <div class="concept-title">CONCLUSIÓN</div>
+      <div class="concept-def">La implicación de la última columna es una implicación tautológica, pues cada fila de esa columna tiene una C. Si la implicación es una tautología, entonces la inferencia que deduce ¬P de las premisas P → Q y ¬Q es una <b>inferencia válida</b>.</div>
+    </div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">MÉTODO MECÁNICO</div><div class="cc-body">Las tablas de verdad proporcionan un método mecánico para comprobar la validez de cualquier inferencia sin referencia a las reglas particulares.</div></div>
+      <div class="char-card green"><div class="cc-title green">CON LAS PREMISAS</div><div class="cc-body">Se buscan las líneas donde todas las premisas son ciertas (se encierran en círculos) y se comprueba que en ellas la conclusión también es cierta (se encierra en un cuadro).</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Otro ejemplo: modus tollendo ponens</div>
+    <table class="stab gold">
+<tr><th>P</th><th>Q</th><th>P ∨ Q</th><th>¬P</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center"><b>(C)</b></td><td style="text-align:center"><b>(C)</b></td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">C</td></tr>
+    </table>
+    <div class="tip gold">
+      <span class="tip-ico">🟢</span>
+      <span>Las premisas son P ∨ Q y ¬P. En la tercera línea (P falsa, Q cierta) ambas son ciertas simultáneamente. La conclusión es Q, que en esa línea es cierta: la inferencia es válida.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box gold" id="box-valid">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Evaluación de la validez a través de la tabla de verdad</span></div>
+    <div class="quiz-score" id="score-valid"></div>
+    <div class="qz-container" id="qz-valid"></div>
+  </div>
+</div>
+
+<div id="reglas">
+  <div class="sec-head purple">
+    <div class="sec-num">3.5</div>
+    <div class="sec-info">
+      <h2>Reglas de inferencia</h2>
+      <p>Modus ponendo ponens y su uso</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Modus ponendo ponens</div>
+    <div class="concept-box purple">
+      <div class="concept-title">LA IDEA</div>
+      <div class="concept-def">Se tienen dos premisas: la fórmula P → Q y la fórmula P. ¿Se puede sacar una conclusión? Sí: <b>Q</b>. La primera proposición dice que si se verifica P, entonces se verifica Q; la segunda dice que se verifica P; la conclusión es que se verifica Q. La proposición Q es consecuencia lógica de las premisas.</div>
+    </div>
+    <table class="stab purple">
+      <tr><th>Ejemplo</th><th>Premisas y conclusión</th></tr>
+      <tr><td>Lluvia</td><td>Premisa 1: Si llueve, entonces el cielo ha de estar cubierto. Premisa 2: Llueve. <b>Conclusión: el cielo ha de estar cubierto.</b></td></tr>
+      <tr><td>Fútbol</td><td>Premisa 1: Si él está en el partido de fútbol, entonces él está en el estadio. Premisa 2: Él está en el partido de fútbol. <b>Conclusión: él está en el estadio.</b> (P = "Él está en el partido de fútbol", Q = "Él está en el estadio"; P → Q, P ⊢ Q)</td></tr>
+      <tr><td>Lago</td><td>Premisa 1: Si no hace frío, entonces el lago no se congelará. Premisa 2: No hace frío. <b>Conclusión: el lago no se congelará.</b> (P = "Hace frío", Q = "El lago se congelará"; ¬P → ¬Q, ¬P ⊢ ¬Q)</td></tr>
+    </table>
+    <div class="tip purple">
+      <span class="tip-ico">🧩</span>
+      <span>La regla de inferencia llamada <em>modus ponendo ponens</em> permite demostrar Q a partir de P → Q y P.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Cómo se aplica</div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">SE APLICA A LA FORMA</div><div class="cc-body">Siempre que se dé una proposición condicional y se dé precisamente el antecedente de aquella condicional, se sigue precisamente el consecuente.</div></div>
+      <div class="char-card green"><div class="cc-title green">ATÓMICAS O MOLECULARES</div><div class="cc-body">La misma regla se aplica si el antecedente es una proposición atómica o una molecular, y si el consecuente es atómico o molecular (en el ejemplo del lago son moleculares: ¬P y ¬Q).</div></div>
+      <div class="char-card gold"><div class="cc-title gold">CONSECUENCIA LÓGICA</div><div class="cc-body">Decir que la conclusión es consecuencia lógica de las premisas significa que siempre que las premisas son ciertas, la conclusión también lo es.</div></div>
+    </div>
+  </div>
+
+  <div class="quiz-box purple" id="box-reglas">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Reglas de inferencia</span></div>
+    <div class="quiz-score" id="score-reglas"></div>
+    <div class="qz-container" id="qz-reglas"></div>
+  </div>
+</div>
+
+<div id="tabla">
+  <div class="sec-head blue">
+    <div class="sec-num">3.5.1</div>
+    <div class="sec-info">
+      <h2>Tabla de reglas de inferencia</h2>
+      <p>Todas las reglas cuya validez se evalúa con tablas de verdad</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Reglas de inferencia</div>
+    <table class="stab blue">
+      <tr><th>Nombre</th><th>Regla (premisas ⊢ conclusión)</th></tr>
+      <tr><td>Modus ponendo ponens</td><td>P → Q,  P  ⊢  Q</td></tr>
+      <tr><td>Modus tollendo tollens</td><td>P → Q,  ¬Q  ⊢  ¬P</td></tr>
+      <tr><td>Modus tollendo ponens</td><td>P ∨ Q,  ¬P  ⊢  Q    (o bien  P ∨ Q,  ¬Q  ⊢  P)</td></tr>
+      <tr><td>Regla de simplificación</td><td>P ∧ Q  ⊢  P    (o bien  P ∧ Q  ⊢  Q)</td></tr>
+      <tr><td>Regla de adjunción</td><td>P,  Q  ⊢  P ∧ Q    (o bien  Q ∧ P)</td></tr>
+      <tr><td>Ley del silogismo hipotético</td><td>P → Q,  Q → R  ⊢  P → R</td></tr>
+      <tr><td>Ley de adición</td><td>P  ⊢  P ∨ Q    (o bien  Q  ⊢  P ∨ Q)</td></tr>
+      <tr><td>Ley de la simplificación disyuntiva</td><td>P ∨ P  ⊢  P</td></tr>
+      <tr><td>Ley del silogismo disyuntivo</td><td>P ∨ Q,  P → R,  Q → S  ⊢  R ∨ S    (o bien  S ∨ R)</td></tr>
+    </table>
+    <div class="tip blue">
+      <span class="tip-ico">📝</span>
+      <span>Nota: la última regla, tal como aparece en el libro como "silogismo disyuntivo", en otros textos se conoce como dilema constructivo.</span>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🧠</span>
+      <span><strong>Ejemplo fácil:</strong> silogismo hipotético: "Si estudio, apruebo" y "Si apruebo, me gradúo" → "Si estudio, me gradúo".</span>
+    </div>
+  </div>
+
+  <div class="quiz-box blue" id="box-tabla">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Tabla de reglas de inferencia</span></div>
+    <div class="quiz-score" id="score-tabla"></div>
+    <div class="qz-container" id="qz-tabla"></div>
+  </div>
+</div>
+
+<div id="equiv">
+  <div class="sec-head red">
+    <div class="sec-num">3.6</div>
+    <div class="sec-info">
+      <h2>Reglas de equivalencia</h2>
+      <p>Proposiciones que significan lo mismo</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Equivalencia lógica</div>
+    <div class="concept-box red">
+      <div class="concept-title">LÓGICAMENTE EQUIVALENTES</div>
+      <div class="concept-def">Dos proposiciones se dice que son lógicamente equivalentes si, en cualquier posible asignación de certeza, las dos tienen el mismo valor de certeza. Esto se puede ver mediante una tabla de verdad.</div>
+    </div>
+    <table class="stab red">
+<tr><th>P</th><th>¬P</th><th>¬¬P</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">F</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">✅</span>
+      <span>Esta tabla indica que en cualquier línea P y ¬¬P son ambas ciertas o ambas falsas: son lógicamente equivalentes.</span>
+    </div>
+    <div class="tip red">
+      <span class="tip-ico">💬</span>
+      <span><strong>Ejemplo cotidiano:</strong> "No es cierto que no haya llegado" significa lo mismo que "Ya llegó" (doble negación).</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Ejemplo: A ∧ ¬B y ¬(¬A ∨ B)</div>
+    <table class="stab red">
+<tr><th>A</th><th>B</th><th>¬A</th><th>¬B</th><th>¬A ∨ B</th><th>¬(¬A ∨ B)</th><th>A ∧ ¬B</th></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">C</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">F</td></tr>
+<tr><td style="text-align:center">F</td><td style="text-align:center">F</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">C</td><td style="text-align:center">F</td><td style="text-align:center">F</td></tr>
+    </table>
+    <div class="concept-box red">
+      <div class="concept-title">CONCLUSIÓN</div>
+      <div class="concept-def">Comparando las dos últimas columnas, línea a línea, se ve que bajo la misma asignación de certeza (en cualquier línea) tienen el mismo valor de certeza, ambas ciertas o ambas falsas. Así se sabe que son lógicamente equivalentes.</div>
+    </div>
+  </div>
+
+  <div class="quiz-box red" id="box-equiv">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Reglas de equivalencia</span></div>
+    <div class="quiz-score" id="score-equiv"></div>
+    <div class="qz-container" id="qz-equiv"></div>
+  </div>
+</div>
+
+<div id="leyes">
+  <div class="sec-head green">
+    <div class="sec-num">3.6.1</div>
+    <div class="sec-info">
+      <h2>Leyes de equivalencia</h2>
+      <p>Las leyes que se pueden verificar con tablas de verdad</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Tabla de leyes</div>
+    <table class="stab green">
+      <tr><th>Nombre</th><th>Leyes</th></tr>
+      <tr><td>Leyes de identidad</td><td>P ∨ F = P  ·  P ∧ C = P</td></tr>
+      <tr><td>Leyes de dominación</td><td>P ∨ C = C  ·  P ∧ F = F</td></tr>
+      <tr><td>Leyes de idempotencia</td><td>P ∨ P = P  ·  P ∧ P = P</td></tr>
+      <tr><td>Ley de doble negación</td><td>¬(¬P) = P</td></tr>
+      <tr><td>Leyes conmutativas</td><td>P ∨ Q = Q ∨ P  ·  P ∧ Q = Q ∧ P</td></tr>
+      <tr><td>Leyes asociativas</td><td>P ∨ (Q ∨ R) = (P ∨ Q) ∨ R  ·  P ∧ (Q ∧ R) = (P ∧ Q) ∧ R</td></tr>
+      <tr><td>Leyes distributivas</td><td>P ∨ (Q ∧ R) = (P ∨ Q) ∧ (P ∨ R)  ·  P ∧ (Q ∨ R) = (P ∧ Q) ∨ (P ∧ R)</td></tr>
+      <tr><td>Leyes de De Morgan</td><td>¬(P ∧ Q) = ¬P ∨ ¬Q  ·  ¬(P ∨ Q) = ¬P ∧ ¬Q</td></tr>
+      <tr><td>Condicional</td><td>P → Q = ¬P ∨ Q</td></tr>
+      <tr><td>Bicondicional</td><td>P ↔ Q = (P → Q) ∧ (Q → P)</td></tr>
+    </table>
+    <div class="tip green">
+      <span class="tip-ico">📝</span>
+      <span>En estas leyes F representa una contradicción (siempre falsa) y C una tautología (siempre cierta). En el libro la segunda ley de dominación aparece escrita con "V" por error.</span>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">🧠</span>
+      <span><strong>Ejemplo fácil (De Morgan):</strong> "No es cierto que llueva y haga frío" equivale a "No llueve o no hace frío": basta con que falle una de las dos.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Para qué sirven</div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">SIMPLIFICAR</div><div class="cc-body">Permiten reescribir una proposición compleja de forma más simple sin cambiar su valor de certeza.</div></div>
+      <div class="char-card green"><div class="cc-title green">DEMOSTRAR</div><div class="cc-body">Se usan junto con las reglas de inferencia para pasar de las premisas a la conclusión.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">VERIFICAR</div><div class="cc-body">Cada ley se puede comprobar con una tabla de verdad comparando las columnas de ambos lados.</div></div>
+    </div>
+  </div>
+
+  <div class="quiz-box green" id="box-leyes">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Leyes de equivalencia</span></div>
+    <div class="quiz-score" id="score-leyes"></div>
+    <div class="qz-container" id="qz-leyes"></div>
+  </div>
+</div>
+
+<div id="resumen">
+  <div class="sec-head purple">
+    <div class="sec-num">📚</div>
+    <div class="sec-info">
+      <h2>Resumen de la unidad</h2>
+      <p>Todo en una vista</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Resumen</div>
+    <table class="stab purple">
+      <tr><th>Tema</th><th>Idea principal</th></tr>
+      <tr><td>Tabla de verdad</td><td>Muestra el valor de certeza de una proposición molecular para todas las combinaciones de certeza de sus atómicas (2ⁿ líneas).</td></tr>
+      <tr><td>Conectores</td><td>∧ cierta solo con CC; ∨ falsa solo con FF; → falso solo con CF; ↔ cierta si coinciden; ¬ invierte.</td></tr>
+      <tr><td>Tautología</td><td>Cierta en todas las líneas (por ejemplo P ∨ ¬P).</td></tr>
+      <tr><td>Contradicción</td><td>Falsa en todas las líneas (por ejemplo P ∧ ¬P).</td></tr>
+      <tr><td>Validez</td><td>Un razonamiento es válido si y solo si su condicional correspondiente es una tautología.</td></tr>
+      <tr><td>Reglas de inferencia</td><td>Permiten pasar de premisas a conclusión (modus ponendo ponens, tollendo tollens, silogismos…).</td></tr>
+      <tr><td>Equivalencia</td><td>Dos proposiciones son equivalentes si tienen el mismo valor de certeza en todas las líneas.</td></tr>
+      <tr><td>Leyes</td><td>Identidad, dominación, idempotencia, doble negación, conmutativas, asociativas, distributivas, De Morgan, condicional y bicondicional.</td></tr>
+    </table>
+  </div>
+
+</div>
+
+<div id="glosario" class="wb-section">
+  <div class="wb-title">GLOSARIO DE <span>TÉRMINOS</span></div>
+  <p class="wb-sub">Lógica · Unidad III · Copia: término → definición → tu propio ejemplo</p>
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#5cb8f8">📋 TABLAS DE VERDAD</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Tabla de verdad</div><div class="es">Tabla que muestra la certeza de una proposición molecular para todas las combinaciones de sus atómicas.</div></div>
+      <div class="wb-word"><div class="en">Proposición atómica</div><div class="es">Proposición simple (P, Q, R).</div></div>
+      <div class="wb-word"><div class="en">Proposición molecular</div><div class="es">Proposición formada con conectores.</div></div>
+      <div class="wb-word"><div class="en">Conector dominante</div><div class="es">Enlace final que une los dos miembros principales.</div></div>
+      <div class="wb-word"><div class="en">Tautología</div><div class="es">Siempre cierta.</div></div>
+      <div class="wb-word"><div class="en">Contradicción</div><div class="es">Siempre falsa.</div></div>
+      <div class="wb-word"><div class="en">Contingente</div><div class="es">Cierta en unas líneas y falsa en otras.</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#fcd45c">🔗 INFERENCIA</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Premisa</div><div class="es">Proposición de partida de un razonamiento.</div></div>
+      <div class="wb-word"><div class="en">Conclusión</div><div class="es">Proposición que se deduce de las premisas.</div></div>
+      <div class="wb-word"><div class="en">Razonamiento válido</div><div class="es">Su condicional correspondiente es una tautología.</div></div>
+      <div class="wb-word"><div class="en">Implicación tautológica</div><div class="es">Condicional que es una tautología.</div></div>
+      <div class="wb-word"><div class="en">Modus ponendo ponens</div><div class="es">P → Q, P ⊢ Q.</div></div>
+      <div class="wb-word"><div class="en">Modus tollendo tollens</div><div class="es">P → Q, ¬Q ⊢ ¬P.</div></div>
+      <div class="wb-word"><div class="en">Silogismo hipotético</div><div class="es">P → Q, Q → R ⊢ P → R.</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#86efac">⚖️ EQUIVALENCIA</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Equivalencia lógica</div><div class="es">Mismo valor de certeza en toda asignación.</div></div>
+      <div class="wb-word"><div class="en">Doble negación</div><div class="es">¬(¬P) = P.</div></div>
+      <div class="wb-word"><div class="en">Leyes de De Morgan</div><div class="es">¬(P ∧ Q) = ¬P ∨ ¬Q; ¬(P ∨ Q) = ¬P ∧ ¬Q.</div></div>
+      <div class="wb-word"><div class="en">Ley condicional</div><div class="es">P → Q = ¬P ∨ Q.</div></div>
+      <div class="wb-word"><div class="en">Ley bicondicional</div><div class="es">P ↔ Q = (P → Q) ∧ (Q → P).</div></div>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- /wrap -->
+<footer>Lógica · Unidad III — Tablas de verdad</footer>
+
+<script>
+
+/* ═══ QUIZ ENGINE ═══ */
+function initQuiz(containerId, scoreId, colorClass, questions){
+  const container = document.getElementById(containerId);
+  const scoreEl = document.getElementById(scoreId);
+  let answered = 0, correct = 0;
+  const total = questions.length;
+  scoreEl.textContent = `Progreso: 0 / ${total} respondidas`;
+
+  questions.forEach((qz, i) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'qz-question';
+
+    const qText = document.createElement('div');
+    qText.className = 'qz-qtext';
+    const tag = qz.type === 'tf'
+      ? '<span class="qz-tag" style="background:var(--'+colorClass+')">V / F</span>'
+      : '<span class="qz-tag" style="background:var(--'+colorClass+')">OPCIÓN MÚLTIPLE</span>';
+    qText.innerHTML = `<span class="qz-num">${i+1}.</span><span>${qz.q} ${tag}</span>`;
+    qDiv.appendChild(qText);
+
+    const optsDiv = document.createElement('div');
+    optsDiv.className = qz.type === 'tf' ? 'qz-tf-opts' : 'qz-opts';
+
+    const explainDiv = document.createElement('div');
+    explainDiv.className = 'qz-explain';
+    explainDiv.innerHTML = qz.exp;
+
+    const opts = qz.type === 'tf' ? ['Verdadero', 'Falso'] : qz.options;
+    const correctIdx = qz.type === 'tf' ? (qz.correct ? 0 : 1) : qz.correct;
+
+    opts.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'qz-opt';
+      btn.textContent = qz.type === 'tf' ? opt : String.fromCharCode(97 + idx) + ') ' + opt;
+      btn.onclick = () => {
+        if (qDiv.dataset.done) return;
+        qDiv.dataset.done = '1';
+        answered++;
+        if (idx === correctIdx) correct++;
+        Array.from(optsDiv.children).forEach((b, bi) => {
+          b.classList.add('disabled');
+          if (bi === correctIdx) b.classList.add('correct');
+          else if (bi === idx) b.classList.add('incorrect');
+        });
+        explainDiv.classList.add('show');
+        scoreEl.textContent = `Progreso: ${answered} / ${total} respondidas · ✅ ${correct} correctas`;
+      };
+      optsDiv.appendChild(btn);
+    });
+
+    qDiv.appendChild(optsDiv);
+    qDiv.appendChild(explainDiv);
+    container.appendChild(qDiv);
+  });
+}
+
+
+/* ===== 3.1 ===== */
+initQuiz('qz-def','score-def','a1',[{"type": "mc", "q": "Independientemente de la longitud o complejidad de una proposición molecular, su valor de certeza se puede hallar si:", "options": ["Se conocen los valores de certeza de sus partes", "Se conoce solo el conector", "Se conoce solo la última", "Se conoce solo la primera letra"], "correct": 0, "exp": "<b>Respuesta correcta: a) Se conocen los valores de certeza de sus partes.</b> Esa es la base de las tablas de verdad."}, {"type": "mc", "q": "En (P ∨ Q) ∧ R, con P cierta, Q falsa y R cierta, el valor de P ∨ Q es:", "options": ["Cierto (C)", "Indeterminado", "No se puede saber", "Falso (F)"], "correct": 0, "exp": "<b>Respuesta correcta: a) Cierto (C).</b> Una disyunción es cierta si al menos una de sus partes es cierta."}, {"type": "mc", "q": "El conector dominante de (P ∨ Q) ∧ R es:", "options": ["La conjunción (∧)", "La disyunción (∨)", "El condicional", "La negación"], "correct": 0, "exp": "<b>Respuesta correcta: a) La conjunción (∧).</b> Es el que une los dos miembros del término de enlace principal."}, {"type": "mc", "q": "Para una proposición atómica, la \"C\" o la \"F\" se pone:", "options": ["Inmediatamente debajo de la letra atómica", "Encima del paréntesis", "Al final de la línea", "Debajo del conector"], "correct": 0, "exp": "<b>Respuesta correcta: a) Inmediatamente debajo de la letra atómica.</b> Por ejemplo, C debajo de P, F debajo de Q, C debajo de R."}, {"type": "mc", "q": "Para una proposición molecular, la \"C\" o la \"F\" se pone:", "options": ["Debajo del conector lógico que domina la proposición", "Solo al final", "Debajo de cada letra", "Fuera de la tabla"], "correct": 0, "exp": "<b>Respuesta correcta: a) Debajo del conector lógico que domina la proposición.</b> Se empieza por la proposición molecular menor y se continúa hasta el enlace final."}, {"type": "mc", "q": "Si P es cierta, Q falsa y R cierta, (P ∨ Q) ∧ R es:", "options": ["Indeterminada", "Contradictoria", "Falsa (F)", "Cierta (C)"], "correct": 3, "exp": "<b>Respuesta correcta: d) Cierta (C).</b> P ∨ Q es C y R es C: la conjunción es C."}, {"type": "mc", "q": "Las tablas de verdad:", "options": ["Solo sirven para negar", "Solo sirven para las proposiciones atómicas", "Solo sirven para sumar", "Resumen en forma de tabla las reglas de certeza funcional y muestran si una proposición molecular es cierta o falsa conociendo la certeza de sus partes"], "correct": 3, "exp": "<b>Respuesta correcta: d) Resumen en forma de tabla las reglas de certeza funcional y muestran si una proposición molecular es cierta o falsa conociendo la certeza de sus partes.</b> Son más convenientes que el diagrama porque muestran todas las posibilidades."}, {"type": "mc", "q": "Para que una conjunción sea cierta, sus dos partes deben ser:", "options": ["Una cierta y una falsa", "Ciertas", "Moleculares", "Falsas"], "correct": 1, "exp": "<b>Respuesta correcta: b) Ciertas.</b> Es la regla de aplicación de la conjunción."}]);
+
+/* ===== 3.2 ===== */
+initQuiz('qz-proc','score-proc','a2',[{"type": "mc", "q": "Las tablas básicas de verdad que se presentan son para:", "options": ["Solo la conjunción", "Solo la negación", "Los cinco conectores lógicos", "Los diez conectores"], "correct": 2, "exp": "<b>Respuesta correcta: c) Los cinco conectores lógicos.</b> Negación, conjunción, disyunción, condicional y equivalencia."}, {"type": "mc", "q": "La conjunción P ∧ Q es cierta solo cuando:", "options": ["Q es cierta", "P y Q son ambas ciertas", "P y Q son falsas", "P es cierta"], "correct": 1, "exp": "<b>Respuesta correcta: b) P y Q son ambas ciertas.</b> En cualquier otro caso es falsa."}, {"type": "mc", "q": "La disyunción P ∨ Q es falsa solo cuando:", "options": ["P es falsa", "P y Q son ambas falsas", "Q es falsa", "P es cierta"], "correct": 1, "exp": "<b>Respuesta correcta: b) P y Q son ambas falsas.</b> Es cierta si al menos una de las dos es cierta."}, {"type": "mc", "q": "El condicional P → Q es falso solo cuando:", "options": ["Q es cierta", "P es cierta y Q es falsa", "P y Q son falsas", "P es falsa"], "correct": 1, "exp": "<b>Respuesta correcta: b) P es cierta y Q es falsa.</b> En las demás líneas es cierto."}, {"type": "mc", "q": "La equivalencia P ↔ Q es cierta cuando:", "options": ["Solo si ambas son ciertas", "P es cierta", "Q es falsa", "P y Q tienen el mismo valor de certeza"], "correct": 3, "exp": "<b>Respuesta correcta: d) P y Q tienen el mismo valor de certeza.</b> CC → C, FF → C, CF y FC → F."}, {"type": "mc", "q": "Con dos proposiciones atómicas, el número de líneas de la tabla es:", "options": ["8", "4 (2 × 2 = 2²)", "3", "2"], "correct": 1, "exp": "<b>Respuesta correcta: b) 4 (2 × 2 = 2²).</b> En general, con n proposiciones atómicas hay 2ⁿ líneas."}, {"type": "mc", "q": "Si P es cierta, la negación ¬P es:", "options": ["Cierta", "Atómica", "Indeterminada", "Falsa"], "correct": 3, "exp": "<b>Respuesta correcta: d) Falsa.</b> La negación invierte el valor de certeza."}, {"type": "mc", "q": "El primer paso para elaborar una tabla de verdad es:", "options": ["Escribir la conclusión", "Borrar las premisas", "Contar los conectores", "Anotar todas las combinaciones posibles de certeza o falsedad de las proposiciones atómicas"], "correct": 3, "exp": "<b>Respuesta correcta: d) Anotar todas las combinaciones posibles de certeza o falsedad de las proposiciones atómicas.</b> Después se llenan las columnas de las proposiciones moleculares."}]);
+
+/* ===== 3.3 ===== */
+initQuiz('qz-taut','score-taut','a3',[{"type": "mc", "q": "Una proposición molecular es una tautología si:", "options": ["Es cierta solo a veces", "Tiene un solo conector", "Es cierta cualesquiera que sean los valores de certeza de sus proposiciones atómicas", "Es falsa siempre"], "correct": 2, "exp": "<b>Respuesta correcta: c) Es cierta cualesquiera que sean los valores de certeza de sus proposiciones atómicas.</b> En su tabla hay una C en cada línea."}, {"type": "mc", "q": "Un ejemplo de tautología es:", "options": ["P ∨ ¬P", "P → ¬P", "¬P", "P ∧ ¬P"], "correct": 0, "exp": "<b>Respuesta correcta: a) P ∨ ¬P.</b> Si P es cierta, P ∨ ¬P es C; si P es falsa, ¬P es C y P ∨ ¬P es C."}, {"type": "mc", "q": "En la tabla de verdad de una tautología, la columna de la proposición tiene:", "options": ["Ninguna letra", "Una \"C\" en cada línea", "Una C y una F", "Una \"F\" en cada línea"], "correct": 1, "exp": "<b>Respuesta correcta: b) Una \"C\" en cada línea.</b> Indica que es siempre cierta."}, {"type": "mc", "q": "P ∨ Q → P NO es una tautología porque:", "options": ["No tiene conectores", "No tiene tabla", "Es siempre cierta", "En la línea con P falsa y Q cierta la proposición resulta falsa"], "correct": 3, "exp": "<b>Respuesta correcta: d) En la línea con P falsa y Q cierta la proposición resulta falsa.</b> P ∨ Q es C y P es F, así que el condicional es F."}, {"type": "mc", "q": "Una sola \"F\" en la columna de una proposición es suficiente para demostrar que:", "options": ["Es una contradicción", "Es una tautología", "Es una premisa", "No es una tautología"], "correct": 3, "exp": "<b>Respuesta correcta: d) No es una tautología.</b> Basta una línea falsa."}, {"type": "mc", "q": "Una contradicción es una proposición que:", "options": ["Es cierta siempre", "Permanece falsa para todas las combinaciones de asignaciones de certeza", "Es cierta a veces", "No tiene valor"], "correct": 1, "exp": "<b>Respuesta correcta: b) Permanece falsa para todas las combinaciones de asignaciones de certeza.</b> Es lo contrario de una tautología."}, {"type": "mc", "q": "Un ejemplo de contradicción es:", "options": ["¬¬P", "P ∨ ¬P", "P → P", "P ∧ ¬P"], "correct": 3, "exp": "<b>Respuesta correcta: d) P ∧ ¬P.</b> Si P es cierta, ¬P es falsa y la conjunción es F; si P es falsa, también es F."}, {"type": "mc", "q": "Si una proposición atómica aparece más de una vez en una proposición molecular:", "options": ["Tiene el mismo valor de certeza cada vez que se presenta", "Puede ser cierta una vez y falsa otra", "Se elimina", "Cambia en cada conector"], "correct": 0, "exp": "<b>Respuesta correcta: a) Tiene el mismo valor de certeza cada vez que se presenta.</b> En un caso particular cada atómica conserva su valor."}]);
+
+/* ===== 3.4 ===== */
+initQuiz('qz-valid','score-valid','a4',[{"type": "mc", "q": "Una proposición P implica tautológicamente a Q si y solo si:", "options": ["La condicional P → Q es una tautología", "P es falsa", "Q es una contradicción", "P ∨ Q es falsa"], "correct": 0, "exp": "<b>Respuesta correcta: a) La condicional P → Q es una tautología.</b> Una implicación tautológica es una tautología con forma de condicional."}, {"type": "mc", "q": "Un razonamiento es válido si y solo si:", "options": ["Tiene muchas premisas", "Su conclusión es falsa", "Es muy largo", "La condicional correspondiente es una tautología"], "correct": 3, "exp": "<b>Respuesta correcta: d) La condicional correspondiente es una tautología.</b> A cada razonamiento corresponde una condicional y viceversa."}, {"type": "mc", "q": "Para construir la condicional de un razonamiento se ligan las premisas con:", "options": ["Negaciones", "Equivalencias", "Conjunciones (∧), y la conclusión se pone como consecuente", "Disyunciones"], "correct": 2, "exp": "<b>Respuesta correcta: c) Conjunciones (∧), y la conclusión se pone como consecuente.</b> La conjunción de las premisas es el antecedente."}, {"type": "mc", "q": "En la condicional correspondiente a un razonamiento, el antecedente es:", "options": ["Una sola premisa", "La conclusión", "La conjunción de las premisas", "La negación de la conclusión"], "correct": 2, "exp": "<b>Respuesta correcta: c) La conjunción de las premisas.</b> El consecuente es la conclusión."}, {"type": "mc", "q": "El modus ponendo ponens como implicación tautológica tiene la forma:", "options": ["(P ∨ Q) ∧ ¬P → Q", "(P → Q) ∧ ¬Q → ¬P", "P ∧ Q → P", "(P → Q) ∧ P → Q"], "correct": 3, "exp": "<b>Respuesta correcta: d) (P → Q) ∧ P → Q.</b> Es la regla más básica de inferencia."}, {"type": "mc", "q": "El modus tollendo tollens como implicación tautológica tiene la forma:", "options": ["(P → Q) ∧ P → Q", "(P → Q) ∧ ¬Q → ¬P", "P → Q ∧ P", "(P ∨ Q) ∧ ¬P → Q"], "correct": 1, "exp": "<b>Respuesta correcta: b) (P → Q) ∧ ¬Q → ¬P.</b> Las premisas son P → Q y ¬Q; la conclusión es ¬P."}, {"type": "mc", "q": "Si la implicación no es tautológica, entonces la inferencia es:", "options": ["Una contradicción", "Una premisa", "No válida", "Válida"], "correct": 2, "exp": "<b>Respuesta correcta: c) No válida.</b> Si es tautológica, la inferencia es válida."}, {"type": "mc", "q": "En la tabla del modus tollendo tollens, la última columna tiene C en todas las filas, por lo tanto:", "options": ["No se puede saber", "La inferencia no es válida", "Es una contradicción", "La inferencia es válida"], "correct": 3, "exp": "<b>Respuesta correcta: d) La inferencia es válida.</b> Cada fila tiene una C: es una implicación tautológica."}]);
+
+/* ===== 3.5 ===== */
+initQuiz('qz-reglas','score-reglas','a5',[{"type": "mc", "q": "El modus ponendo ponens permite concluir:", "options": ["Q a partir de las premisas P → Q y P", "¬P a partir de ¬Q", "P ∨ Q a partir de P", "P a partir de Q"], "correct": 0, "exp": "<b>Respuesta correcta: a) Q a partir de las premisas P → Q y P.</b> Si se da la condicional y su antecedente, se sigue el consecuente."}, {"type": "mc", "q": "Premisas: \"Si llueve, entonces el cielo ha de estar cubierto\" y \"Llueve\". La conclusión es:", "options": ["El cielo ha de estar cubierto", "Llueve y no llueve", "No llueve", "El cielo no está cubierto"], "correct": 0, "exp": "<b>Respuesta correcta: a) El cielo ha de estar cubierto.</b> Es un ejemplo de modus ponendo ponens."}, {"type": "mc", "q": "Premisas: \"Si no hace frío, entonces el lago no se congelará\" y \"No hace frío\". La conclusión es:", "options": ["El lago no se congelará", "El lago se congelará", "No se puede saber", "Hace frío"], "correct": 0, "exp": "<b>Respuesta correcta: a) El lago no se congelará.</b> Simbólicamente ¬P → ¬Q, ¬P ⊢ ¬Q."}, {"type": "mc", "q": "\"Si él está en el partido de fútbol, entonces él está en el estadio\" se simboliza como:", "options": ["¬P", "P ∨ Q", "P ∧ Q", "P → Q"], "correct": 3, "exp": "<b>Respuesta correcta: d) P → Q.</b> P = \"Él está en el partido de fútbol\"; Q = \"Él está en el estadio\"."}, {"type": "mc", "q": "Decir que la conclusión es consecuencia lógica de las premisas significa que:", "options": ["No hay relación", "La conclusión es falsa", "Las premisas son falsas", "Siempre que las premisas son ciertas, la conclusión también es cierta"], "correct": 3, "exp": "<b>Respuesta correcta: d) Siempre que las premisas son ciertas, la conclusión también es cierta.</b> Es el fundamento de un razonamiento válido."}, {"type": "mc", "q": "La regla de inferencia se aplica a:", "options": ["Solo proposiciones atómicas", "Solo una premisa", "La forma de las proposiciones: el antecedente y el consecuente pueden ser atómicos o moleculares", "Solo la conclusión"], "correct": 2, "exp": "<b>Respuesta correcta: c) La forma de las proposiciones: el antecedente y el consecuente pueden ser atómicos o moleculares.</b> Basta con reconocer la forma P → Q y P."}, {"type": "mc", "q": "\"Modus ponendo ponens\" es un nombre de origen:", "options": ["Árabe", "Inglés", "Griego", "Latino"], "correct": 3, "exp": "<b>Respuesta correcta: d) Latino.</b> Significa, aproximadamente, \"modo que afirmando afirma\"."}, {"type": "mc", "q": "Si se da una condicional y se da precisamente su antecedente, entonces:", "options": ["Se sigue una contradicción", "No se sigue nada", "Se sigue precisamente el consecuente", "Se sigue la negación del antecedente"], "correct": 2, "exp": "<b>Respuesta correcta: c) Se sigue precisamente el consecuente.</b> Es la idea del modus ponendo ponens."}]);
+
+/* ===== 3.5.1 ===== */
+initQuiz('qz-tabla','score-tabla','a1',[{"type": "mc", "q": "Modus tollendo tollens: de P → Q y ¬Q se concluye:", "options": ["¬P", "Q", "P", "¬Q"], "correct": 0, "exp": "<b>Respuesta correcta: a) ¬P.</b> Si el consecuente es falso, el antecedente también lo es."}, {"type": "mc", "q": "Modus tollendo ponens: de P ∨ Q y ¬P se concluye:", "options": ["¬Q", "Q", "P", "P ∧ Q"], "correct": 1, "exp": "<b>Respuesta correcta: b) Q.</b> Si una de las dos es falsa, la otra es cierta."}, {"type": "mc", "q": "La regla de simplificación dice que de P ∧ Q se concluye:", "options": ["P (o bien Q)", "P → Q", "¬P", "P ∨ Q"], "correct": 0, "exp": "<b>Respuesta correcta: a) P (o bien Q).</b> De una conjunción se puede tomar cualquiera de sus partes."}, {"type": "mc", "q": "La regla de adjunción dice que de P y Q (por separado) se concluye:", "options": ["¬P", "P ∧ Q", "P ∨ Q", "P → Q"], "correct": 1, "exp": "<b>Respuesta correcta: b) P ∧ Q.</b> Se unen dos proposiciones ciertas con una conjunción."}, {"type": "mc", "q": "La ley del silogismo hipotético: de P → Q y Q → R se concluye:", "options": ["P ∧ R", "R → P", "Q", "P → R"], "correct": 3, "exp": "<b>Respuesta correcta: d) P → R.</b> Encadena dos condicionales."}, {"type": "mc", "q": "La ley de adición dice que de P se concluye:", "options": ["¬P", "Q", "P ∨ Q", "P ∧ Q"], "correct": 2, "exp": "<b>Respuesta correcta: c) P ∨ Q.</b> Si P es cierta, la disyunción con cualquier Q también lo es."}, {"type": "mc", "q": "La ley de simplificación disyuntiva dice que de P ∨ P se concluye:", "options": ["Q", "P", "¬P", "P ∧ P"], "correct": 1, "exp": "<b>Respuesta correcta: b) P.</b> Una disyunción de P consigo misma equivale a P."}, {"type": "mc", "q": "Según el libro, la ley del silogismo disyuntivo con premisas P ∨ Q, P → R y Q → S concluye:", "options": ["R ∧ S", "P ∧ Q", "R → S", "R ∨ S"], "correct": 3, "exp": "<b>Respuesta correcta: d) R ∨ S.</b> (En otros textos esta regla se llama dilema constructivo.)"}]);
+
+/* ===== 3.6 ===== */
+initQuiz('qz-equiv','score-equiv','a2',[{"type": "mc", "q": "Dos proposiciones son lógicamente equivalentes si:", "options": ["Tienen las mismas letras", "En cualquier posible asignación de certeza tienen el mismo valor de certeza", "Tienen el mismo número de conectores", "Son ambas falsas"], "correct": 1, "exp": "<b>Respuesta correcta: b) En cualquier posible asignación de certeza tienen el mismo valor de certeza.</b> Se comprueba con una tabla de verdad."}, {"type": "mc", "q": "P y ¬¬P son:", "options": ["Contradictorias", "Lógicamente equivalentes (ambas ciertas o ambas falsas en cualquier línea)", "Una cierta y otra falsa", "Premisas"], "correct": 1, "exp": "<b>Respuesta correcta: b) Lógicamente equivalentes (ambas ciertas o ambas falsas en cualquier línea).</b> Es la ley de doble negación."}, {"type": "mc", "q": "Para comprobar una equivalencia con una tabla de verdad se comparan:", "options": ["Solo la primera columna", "Las columnas de las dos proposiciones, línea a línea", "Solo la primera línea", "Solo las atómicas"], "correct": 1, "exp": "<b>Respuesta correcta: b) Las columnas de las dos proposiciones, línea a línea.</b> Si coinciden en todas las líneas, son equivalentes."}, {"type": "mc", "q": "Las proposiciones A ∧ ¬B y ¬(¬A ∨ B) son:", "options": ["No equivalentes", "Lógicamente equivalentes", "Tautologías", "Contradicciones"], "correct": 1, "exp": "<b>Respuesta correcta: b) Lógicamente equivalentes.</b> Sus dos columnas finales coinciden línea a línea."}, {"type": "mc", "q": "Con A cierta y B falsa, A ∧ ¬B es:", "options": ["Indeterminada", "Una premisa", "Falsa (F)", "Cierta (C)"], "correct": 3, "exp": "<b>Respuesta correcta: d) Cierta (C).</b> ¬B es C y A es C."}, {"type": "mc", "q": "Si en alguna línea los valores de dos proposiciones son diferentes, entonces:", "options": ["Son equivalentes", "Son tautologías", "Son contradicciones", "No son lógicamente equivalentes"], "correct": 3, "exp": "<b>Respuesta correcta: d) No son lógicamente equivalentes.</b> La equivalencia exige coincidir en todas las líneas."}, {"type": "mc", "q": "Con A cierta y B falsa, ¬A ∨ B es:", "options": ["Falsa (F)", "Indeterminada", "Cierta (C)", "Una tautología"], "correct": 0, "exp": "<b>Respuesta correcta: a) Falsa (F).</b> ¬A es F y B es F: la disyunción es F."}, {"type": "mc", "q": "Con A cierta y B falsa, ¬(¬A ∨ B) es:", "options": ["Cierta (C)", "Indeterminada", "Falsa (F)", "Una premisa"], "correct": 0, "exp": "<b>Respuesta correcta: a) Cierta (C).</b> Es la negación de F, es decir, C."}]);
+
+/* ===== 3.6.1 ===== */
+initQuiz('qz-leyes','score-leyes','a3',[{"type": "mc", "q": "Las leyes de identidad son:", "options": ["P ∨ P = P", "P ∨ F = P  y  P ∧ C = P", "P ∨ C = C", "¬(¬P) = P"], "correct": 1, "exp": "<b>Respuesta correcta: b) P ∨ F = P  y  P ∧ C = P.</b> F es una contradicción y C una tautología."}, {"type": "mc", "q": "Las leyes de dominación son:", "options": ["P ∧ C = P", "P ∨ P = P", "P ∨ F = P", "P ∨ C = C  y  P ∧ F = F"], "correct": 3, "exp": "<b>Respuesta correcta: d) P ∨ C = C  y  P ∧ F = F.</b> En el libro la primera aparece escrita como \"P ∨ C = V\" por error."}, {"type": "mc", "q": "Las leyes de idempotencia son:", "options": ["P ∨ Q = Q ∨ P", "P ∨ F = P", "¬(¬P) = P", "P ∨ P = P  y  P ∧ P = P"], "correct": 3, "exp": "<b>Respuesta correcta: d) P ∨ P = P  y  P ∧ P = P.</b> Repetir la misma proposición no cambia nada."}, {"type": "mc", "q": "La ley de doble negación es:", "options": ["¬(¬P) = P", "¬P = P", "¬(P ∧ Q) = ¬P", "P ∨ ¬P = F"], "correct": 0, "exp": "<b>Respuesta correcta: a) ¬(¬P) = P.</b> Negar dos veces regresa al mismo valor."}, {"type": "mc", "q": "Una ley distributiva es:", "options": ["P ∧ Q = Q ∨ P", "P ∨ (Q ∧ R) = P ∧ Q ∧ R", "P ∨ Q = P ∧ Q", "P ∨ (Q ∧ R) = (P ∨ Q) ∧ (P ∨ R)"], "correct": 3, "exp": "<b>Respuesta correcta: d) P ∨ (Q ∧ R) = (P ∨ Q) ∧ (P ∨ R).</b> La otra es P ∧ (Q ∨ R) = (P ∧ Q) ∨ (P ∧ R)."}, {"type": "mc", "q": "Una ley de De Morgan es:", "options": ["¬(P ∧ Q) = ¬P ∧ ¬Q", "¬(P ∧ Q) = ¬P ∨ ¬Q", "¬(P ∧ Q) = ¬P", "¬(P ∧ Q) = P ∨ Q"], "correct": 1, "exp": "<b>Respuesta correcta: b) ¬(P ∧ Q) = ¬P ∨ ¬Q.</b> La otra es ¬(P ∨ Q) = ¬P ∧ ¬Q."}, {"type": "mc", "q": "El condicional P → Q es equivalente a:", "options": ["P ∨ ¬Q", "¬P ∧ Q", "¬P ∨ Q", "P ∧ Q"], "correct": 2, "exp": "<b>Respuesta correcta: c) ¬P ∨ Q.</b> Se comprueba con la tabla de verdad."}, {"type": "mc", "q": "El bicondicional P ↔ Q es equivalente a:", "options": ["(P → Q) ∨ (Q → P)", "P ∧ Q", "¬P ∨ ¬Q", "(P → Q) ∧ (Q → P)"], "correct": 3, "exp": "<b>Respuesta correcta: d) (P → Q) ∧ (Q → P).</b> Es la conjunción de los dos condicionales."}]);
+</script>
+</body>
+</html>
