@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antropología — Unidad III: Diversidad Cultural</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f4f8;--surface:#fff;--border:#c0d0e0;
+  --ink:#061828;--muted:#3a5a78;
+  --a1:#1a4fc4;--a2:#c41a1a;--a3:#1a9a5c;--a4:#b8860b;--a5:#7a1ac4;
+  --a1l:#e8eef9;--a2l:#fdeaea;--a3l:#e3f4e8;--a4l:#fff8e1;--a5l:#f0e8fb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;line-height:1.7;}
+
+.hero{background:var(--ink);color:#f0f6ff;padding:56px 48px 48px;position:relative;overflow:hidden;}
+.hero::after{content:'🌍';font-size:220px;position:absolute;right:20px;bottom:-30px;line-height:1;pointer-events:none;opacity:.06;}
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.unit-badge{background:var(--a1);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:4px 14px;border-radius:4px;}
+.subject-tag{font-size:12px;font-weight:500;color:rgba(240,246,255,0.45);letter-spacing:2px;text-transform:uppercase;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,8vw,5rem);line-height:.92;letter-spacing:1px;margin-bottom:16px;}
+.hero h1 span{color:#5cb8f8;}
+.hero-desc{max-width:560px;font-size:15px;color:rgba(240,246,255,0.6);margin-bottom:32px;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:10px;}
+.pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;}
+.pill-dot{width:8px;height:8px;border-radius:50%;}
+
+.nav-strip{background:var(--a1);display:flex;overflow-x:auto;position:sticky;top:0;z-index:10;}
+.nav-strip a{color:rgba(255,255,255,.75);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:12px 20px;white-space:nowrap;border-right:1px solid rgba(255,255,255,.15);transition:all .2s;}
+.nav-strip a:hover{background:rgba(255,255,255,.12);color:#fff;}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 28px 100px;}
+
+.sec-head{display:flex;align-items:flex-start;margin:56px 0 24px;border-left:5px solid var(--a1);padding-left:18px;}
+.sec-head.red{border-color:var(--a2);} .sec-head.green{border-color:var(--a3);} .sec-head.gold{border-color:var(--a4);} .sec-head.purple{border-color:var(--a5);}
+.sec-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--a1);margin-right:14px;flex-shrink:0;}
+.sec-head.red .sec-num{color:var(--a2);} .sec-head.green .sec-num{color:var(--a3);} .sec-head.gold .sec-num{color:var(--a4);} .sec-head.purple .sec-num{color:var(--a5);}
+.sec-info h2{font-family:'Bebas Neue',sans-serif;font-size:1.85rem;letter-spacing:.5px;line-height:1.1;}
+.sec-info p{font-size:13px;color:var(--muted);font-weight:500;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 26px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.card-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+.concept-box{border-radius:12px;padding:18px 22px;margin:12px 0;text-align:center;}
+.concept-box.blue{background:linear-gradient(135deg,#061828,#1a4fc4);}
+.concept-box.red{background:linear-gradient(135deg,#2a0a0a,#c41a1a);}
+.concept-box.green{background:linear-gradient(135deg,#0a2a18,#1a9a5c);}
+.concept-box.gold{background:linear-gradient(135deg,#2a1800,#b8860b);}
+.concept-box.purple{background:linear-gradient(135deg,#1a0a2a,#7a1ac4);}
+.concept-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:1px;color:#fff;margin-bottom:6px;}
+.concept-def{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65;}
+
+.tip{border-radius:10px;padding:13px 16px;font-size:13.5px;margin-top:14px;display:flex;gap:10px;align-items:flex-start;}
+.tip.blue{background:rgba(26,79,196,.08);border-left:3px solid var(--a1);}
+.tip.red{background:rgba(196,26,26,.08);border-left:3px solid var(--a2);}
+.tip.green{background:rgba(26,154,92,.08);border-left:3px solid var(--a3);}
+.tip.gold{background:rgba(184,134,11,.08);border-left:3px solid var(--a4);}
+.tip.purple{background:rgba(122,26,196,.08);border-left:3px solid var(--a5);}
+.tip-ico{font-size:18px;flex-shrink:0;margin-top:1px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px;}
+@media(max-width:600px){.two-col,.three-col,.char-grid{grid-template-columns:1fr;}}
+
+.mini-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.mini-card .mc-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.mini-card .mc-val{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.5px;}
+.mini-card .mc-body{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.55;}
+
+.char-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+.char-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;border-left:4px solid var(--a1);}
+.char-card.red{border-color:var(--a2);}.char-card.green{border-color:var(--a3);}.char-card.gold{border-color:var(--a4);}.char-card.purple{border-color:var(--a5);}
+.char-card .cc-title{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.5px;margin-bottom:6px;}
+.char-card .cc-title.blue{color:var(--a1);}.char-card .cc-title.red{color:var(--a2);}.char-card .cc-title.green{color:var(--a3);}.char-card .cc-title.gold{color:var(--a4);}.char-card .cc-title.purple{color:var(--a5);}
+.char-card .cc-body{font-size:13px;line-height:1.6;}
+.char-card .cc-ex{font-size:12px;margin-top:8px;padding:6px 10px;border-radius:6px;font-style:italic;}
+.char-card .cc-ex.blue{background:var(--a1l);color:var(--a1);}.char-card .cc-ex.red{background:var(--a2l);color:var(--a2);}
+.char-card .cc-ex.green{background:var(--a3l);color:var(--a3);}.char-card .cc-ex.gold{background:var(--a4l);color:var(--a4);}
+.char-card .cc-ex.purple{background:var(--a5l);color:var(--a5);}
+
+.stab{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+.stab th{text-align:left;padding:9px 12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid;background:rgba(0,0,0,.02);}
+.stab.blue th{color:var(--a1);border-color:var(--a1);}
+.stab.red th{color:var(--a2);border-color:var(--a2);}
+.stab.green th{color:var(--a3);border-color:var(--a3);}
+.stab.gold th{color:var(--a4);border-color:var(--a4);}
+.stab.purple th{color:var(--a5);border-color:var(--a5);}
+.stab td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.stab tr:last-child td{border-bottom:none;}
+.stab tr:nth-child(even) td{background:rgba(0,0,0,.015);}
+
+.bubbles{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.bubble{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 16px;}
+.bubble .b-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.bubble .b-main{font-weight:600;font-size:14px;margin-bottom:3px;}
+.bubble .b-sub{font-size:12.5px;color:var(--muted);}
+
+.wb-section{background:var(--ink);color:#f0f6ff;border-radius:16px;padding:32px;margin-top:60px;}
+.wb-title{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:1px;margin-bottom:6px;}
+.wb-title span{color:#5cb8f8;}
+.wb-sub{color:rgba(240,246,255,.5);font-size:13.5px;margin-bottom:28px;}
+.wb-group{margin-bottom:28px;}
+.wb-group-title{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:2px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:12px;}
+.wb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.wb-word{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;}
+.wb-word .en{font-weight:700;font-size:13.5px;margin-bottom:2px;}
+.wb-word .es{font-size:12px;color:rgba(240,246,255,.55);}
+
+footer{text-align:center;padding:28px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--border);margin-top:20px;}
+
+/* ═══ ACTIVIDADES DEL LIBRO (práctica) ═══ */
+.activity-box{background:var(--surface);border:2px dashed var(--a5);border-radius:14px;padding:20px 22px;margin:8px 0 20px;}
+.activity-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.activity-head .ac-ico{font-size:1.4rem;}
+.activity-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.5px;color:var(--a5);}
+.activity-item{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;}
+.activity-item .ai-title{font-family:'Bebas Neue',sans-serif;color:var(--a5);font-size:1.05rem;letter-spacing:.5px;margin-bottom:4px;}
+.activity-item .ai-crit{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic;}
+
+/* ═══ QUIZ INTERACTIVO ═══ */
+.quiz-box{background:var(--surface);border:2px dashed var(--border);border-radius:14px;padding:20px 22px;margin:8px 0 32px;}
+.quiz-box.blue{border-color:var(--a1);}.quiz-box.red{border-color:var(--a2);}
+.quiz-box.green{border-color:var(--a3);}.quiz-box.gold{border-color:var(--a4);}
+.quiz-box.purple{border-color:var(--a5);}
+.quiz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.quiz-head .qz-ico{font-size:1.5rem;}
+.quiz-head h4{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.5px;}
+.quiz-head span.qz-sub{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+.quiz-score{font-size:12px;font-weight:700;margin-bottom:14px;color:var(--muted);}
+.qz-question{background:var(--bg);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.qz-question:last-child{margin-bottom:0;}
+.qz-qtext{font-weight:600;font-size:13.5px;margin-bottom:10px;display:flex;gap:8px;align-items:flex-start;}
+.qz-qtext .qz-num{font-family:'Bebas Neue',sans-serif;flex-shrink:0;font-size:1.05rem;line-height:1.3;}
+.qz-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle;}
+.qz-opts{display:flex;flex-direction:column;gap:6px;}
+.qz-tf-opts{display:flex;gap:8px;}
+.qz-opt{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-size:13px;cursor:pointer;text-align:left;transition:all .15s;font-family:inherit;color:var(--ink);}
+.qz-tf-opts .qz-opt{flex:1;text-align:center;font-weight:600;}
+.qz-opt:hover:not(.disabled){background:var(--a1l);border-color:var(--a1);}
+.qz-opt.correct{background:rgba(26,154,92,.18);border-color:var(--a3);font-weight:700;color:#0a4a2a;}
+.qz-opt.incorrect{background:rgba(196,26,26,.18);border-color:var(--a2);font-weight:700;color:#7a1414;}
+.qz-opt.disabled{cursor:default;}
+.qz-explain{font-size:12.5px;margin-top:9px;padding:9px 13px;border-radius:8px;background:rgba(0,0,0,.04);display:none;line-height:1.5;}
+.qz-explain.show{display:block;}
+.qz-explain b{color:var(--a3);}
+
+/* ═══ CRUCIGRAMA ═══ */
+.xw-wrap{overflow-x:auto;margin:14px 0;}
+.xw-table{border-collapse:collapse;margin:0 auto;}
+.xw-table td{width:34px;height:34px;padding:0;position:relative;}
+.xw-table td.cell{background:var(--surface);border:1.5px solid var(--ink);}
+.xw-table td.blank{background:transparent;border:none;}
+.xw-num{position:absolute;top:1px;left:3px;font-size:9px;font-weight:700;color:var(--a2);line-height:1;pointer-events:none;}
+.xw-in{width:100%;height:100%;border:none;background:transparent;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--ink);text-transform:uppercase;outline:none;padding-top:6px;}
+.xw-in:focus{background:var(--a1l);}
+.xw-in.ok{background:rgba(26,154,92,.22);color:#0a4a2a;}
+.xw-in.bad{background:rgba(196,26,26,.18);color:#7a1414;}
+.xw-clues{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+@media(max-width:600px){.xw-clues{grid-template-columns:1fr;}}
+.xw-clues h5{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1px;color:var(--a2);margin-bottom:6px;}
+.xw-clues li{font-size:13px;margin-bottom:5px;margin-left:18px;color:var(--ink);}
+.xw-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.xw-btn{background:var(--a1);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;}
+.xw-btn.alt{background:var(--surface);color:var(--ink);border:1px solid var(--border);}
+.xw-msg{font-size:13px;font-weight:700;margin-top:10px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="unit-badge">UNIDAD III</div>
+    <div class="subject-tag">Antropología · Diversidad Cultural</div>
+  </div>
+  <h1>DIVERSIDAD CULTURAL<br><span>CONVIVIR, CAMBIAR Y PRESERVAR</span></h1>
+  <p class="hero-desc">¿Qué pasa cuando varias culturas comparten el mismo lugar? ¿Cómo se vive en el campo y en la ciudad? ¿Quiénes han hecho la antropología en México y qué pueblos hay en Veracruz? En esta unidad verás cómo se convive con la diferencia, qué es el etnocentrismo y por qué debemos cuidar nuestro patrimonio cultural.</p>
+  <div class="hero-pills">
+    <div class="pill"><div class="pill-dot" style="background:#5cb8f8"></div>3.1 Multiculturalidad, transculturalidad y etnocentrismo</div>
+    <div class="pill"><div class="pill-dot" style="background:#fcd45c"></div>3.2 Comunidades rurales</div>
+    <div class="pill"><div class="pill-dot" style="background:#c4b5fd"></div>3.3 Cultura urbana</div>
+    <div class="pill"><div class="pill-dot" style="background:#5cb8f8"></div>3.4 La antropología mexicana</div>
+    <div class="pill"><div class="pill-dot" style="background:#ff8fa0"></div>3.5 Diversidad cultural de Veracruz</div>
+    <div class="pill"><div class="pill-dot" style="background:#86efac"></div>Patrimonio cultural</div>
+  </div>
+</div>
+
+<div class="nav-strip">
+  <a href="#multi">3.1 Multiculturalidad</a>
+  <a href="#trans">Transculturalidad</a>
+  <a href="#etno">Etnocentrismo</a>
+  <a href="#rural">3.2 Rurales</a>
+  <a href="#urbana">3.3 Urbana</a>
+  <a href="#mex">3.4 Antropología mexicana</a>
+  <a href="#ver">3.5 Veracruz</a>
+  <a href="#gru">Grupos indígenas</a>
+  <a href="#pat">Patrimonio</a>
+  <a href="#practica">📝 Practica tú</a>
+  <a href="#crucigrama">🧩 Crucigrama</a>
+  <a href="#retos">Retos</a>
+  <a href="#glosario">Glosario</a>
+</div>
+
+<div class="wrap">
+
+<div id="multi">
+  <div class="sec-head blue">
+    <div class="sec-num">3.1</div>
+    <div class="sec-info">
+      <h2>Multiculturalidad, transculturalidad y etnocentrismo</h2>
+      <p>Cuando varias culturas comparten el mismo espacio</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Multiculturalidad</div>
+    <div class="concept-box blue">
+      <div class="concept-title">MULTICULTURALIDAD</div>
+      <div class="concept-def">La existencia de diferentes culturas en un mismo espacio geográfico y social. Cohabitan, pero se influyen poco, no suelen ser permeables entre sí, se mantienen en guetos y viven vidas paralelas.</div>
+    </div>
+    <div class="char-grid">
+      <div class="char-card red"><div class="cc-title red">LA SOCIEDAD ACOGIDA</div><div class="cc-body">Suele ser hegemónica y establecer jerarquías legales y sociales que colocan a los otros grupos en inferioridad. Esto lleva al conflicto, al menosprecio, a estereotipos y prejuicios, siempre en detrimento de los grupos más débiles.</div></div>
+      <div class="char-card green"><div class="cc-title green">DE MULTICULTURALIDAD A MULTICULTURALISMO</div><div class="cc-body">Cuando existe equidad y respeto mutuo se puede pasar de la multiculturalidad al multiculturalismo.</div></div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">🏘️</span>
+      <span><strong>Ejemplo fácil:</strong> en una ciudad donde conviven personas indígenas migrantes, extranjeros y mestizos, pero cada grupo vive en su colonia sin convivir con los demás, hay multiculturalidad; si además se respetan e intercambian en igualdad, hay multiculturalismo.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Clifford Geertz: la cultura como tramas de significado</div>
+    <div class="concept-box blue">
+      <div class="concept-title">ANTROPOLOGÍA INTERPRETATIVA</div>
+      <div class="concept-def">Geertz considera que el hombre es un animal suspendido en tramas de significado tejidas por él mismo; la cultura está construida con esas tramas. Por eso su análisis no es una ciencia experimental en busca de leyes, sino una actividad interpretativa en busca de significados: el quehacer humano como texto y la acción simbólica como drama.</div>
+    </div>
+    <div class="tip blue">
+      <span class="tip-ico">📖</span>
+      <span>Los escritos etnográficos, vistos con "ojos geertzianos", son interpretaciones de interpretaciones: descripciones de un mundo descrito, interpretado y reinterpretado por quienes lo viven.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">El mundo globalizado y las sociedades</div>
+    <div class="concept-def" style="color:var(--ink)">El mundo actual enfrenta diferencias y desigualdades arraigadas en problemas étnicos, de género, religiosos, raciales y territoriales, provenientes de procesos migratorios (en masa o a cuentagotas, voluntarios o forzados). La velocidad de las imágenes y discursos de los medios de comunicación produce un nuevo orden de inestabilidad en la construcción de las identidades. Las sociedades son organizaciones que expresan la suma de vínculos y relaciones, con división del trabajo social: una especie de telaraña, un tejido de acuerdos y desacuerdos dentro de un territorio.</div>
+  </div>
+
+  <div class="quiz-box blue" id="box-multi">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Multiculturalidad</span></div>
+    <div class="quiz-score" id="score-multi"></div>
+    <div class="qz-container" id="qz-multi"></div>
+  </div>
+</div>
+
+<div id="trans">
+  <div class="sec-head red">
+    <div class="sec-num">3.1.1</div>
+    <div class="sec-info">
+      <h2>Transculturalidad</h2>
+      <p>Las culturas se mezclan, se prestan y se transforman</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">De la transculturación a la transculturalidad</div>
+    <table class="stab red">
+      <tr><th>Dato</th><th>Qué pasó</th></tr>
+      <tr><td>Últimas décadas del s. XIX</td><td>Los antropólogos usan la palabra transculturación (acculturation).</td></tr>
+      <tr><td>1880</td><td>J. W. Powell la emplea para significar los préstamos culturales.</td></tr>
+      <tr><td>1899</td><td>Boas escribe sobre la diseminación de la cultura; luego la palabra difusión cobra fuerza.</td></tr>
+      <tr><td>1935</td><td>Un comité del consejo de investigaciones de la ciencia social presenta una definición que recibe amplia aceptación: fenómenos que resultan cuando grupos de culturas diferentes toman contacto continuo de primera mano, con cambios en los patrones de la cultura original de uno o ambos.</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">🍲</span>
+      <span><strong>Ejemplo fácil:</strong> el taco al pastor mezcla la tradición del maíz mesoamericano con técnicas traídas de Medio Oriente. Es un ejemplo cotidiano de contacto entre culturas que produce algo nuevo.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">¿Qué defiende la transculturalidad?</div>
+    <div class="two-col">
+      <div class="mini-card"><div class="mc-label" style="color:var(--a2)">Transculturalidad</div><div class="mc-val">Parte activa</div><div class="mc-body">Las culturas no existen aisladas: están decoradas con prácticas, objetos y palabras de otras culturas. Son sistemas abiertos en constante transformación y resalta el intercambio y la conformación de horizontes culturales diversos.</div></div>
+      <div class="mini-card"><div class="mc-label" style="color:var(--a2)">Multiculturalismo e interculturalidad vertical</div><div class="mc-val">Parte pasiva</div><div class="mc-body">Enfatizan la parte pasiva y adaptativa de las culturas consideradas "inferiores", y tienden a su asimilación e integración a los núcleos "culturalmente fuertes" o tecnológicamente avanzados.</div></div>
+    </div>
+    <div class="tip red">
+      <span class="tip-ico">🌐</span>
+      <span>La transculturalidad ayuda a entender cómo se han ido formando "transculturalmente" los pueblos y sus individuos con el paso del tiempo, aunque por sí sola no garantiza superar los desajustes entre políticas culturales y prácticas pedagógicas.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box red" id="box-trans">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Transculturalidad</span></div>
+    <div class="quiz-score" id="score-trans"></div>
+    <div class="qz-container" id="qz-trans"></div>
+  </div>
+</div>
+
+<div id="etno">
+  <div class="sec-head green">
+    <div class="sec-num">3.1.2</div>
+    <div class="sec-info">
+      <h2>Etnocentrismo</h2>
+      <p>Cuando creemos que nuestra cultura es la mejor</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">¿Qué es el etnocentrismo?</div>
+    <div class="concept-box green">
+      <div class="concept-title">ETNOCENTRISMO</div>
+      <div class="concept-def">Palabra introducida por W. G. Summer en 1907. Es la creencia de que la cultura propia es superior a las demás; suele ir acompañada de la tendencia a contemplar otras culturas a través del filtro de las preposiciones culturales propias. Hasta cierto punto, todas las culturas y todos los pueblos son etnocéntricos.</div>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">⚽</span>
+      <span><strong>Ejemplo fácil:</strong> pensar que "la comida de mi pueblo es la única buena" o que las costumbres de otro país son "raras" o "atrasadas", sin entender el contexto en el que viven, es etnocentrismo.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Etnocentrismo secundario y sus peligros</div>
+    <div class="char-grid">
+      <div class="char-card blue"><div class="cc-title blue">ETNOCENTRISMO SECUNDARIO</div><div class="cc-body">Un observador asume acríticamente los prejuicios de una cultura adoptada como lente para contemplar a otros; es frecuente en los conversos religiosos y en académicos de otras culturas.</div></div>
+      <div class="char-card red"><div class="cc-title red">TÉRMINOS DE CENSURA</div><div class="cc-body">"Bárbaro" (mundo grecolatino) y "salvaje" (civilización occidental) traducen la censura hacia la diversidad cultural y el rechazo de lo que no se ajusta a las normas de la sociedad que los emplea.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">UN JUICIO CASI UNIVERSAL</div><div class="cc-body">Para cada grupo social, la humanidad acaba en su frontera lingüística, étnica, de clase o de casta. Muchos pueblos se llaman "los hombres", "la buena gente" o "los auténticos".</div></div>
+      <div class="char-card purple"><div class="cc-title purple">CONSECUENCIAS</div><div class="cc-body">Puede engendrar intolerancia, formas extremas (religiosas, políticas, culturales), etnocidio, genocidio y racismo (teorías pseudocientíficas).</div></div>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">🔬</span>
+      <span>Las ciencias humanas del siglo XIX vincularon la diversidad cultural con etapas de un desarrollo social uniforme (Morgan, Tylor, Spencer, Frazer, Lévy-Bruhl). Los "primitivos" actuales no son niños fuera del tiempo ni testimonios vivos de los tiempos prehistóricos.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box green" id="box-etno">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Etnocentrismo</span></div>
+    <div class="quiz-score" id="score-etno"></div>
+    <div class="qz-container" id="qz-etno"></div>
+  </div>
+</div>
+
+<div id="rural">
+  <div class="sec-head gold">
+    <div class="sec-num">3.2</div>
+    <div class="sec-info">
+      <h2>Comunidades rurales y urbanización</h2>
+      <p>La vida en el campo y su relación con la sociedad</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">¿Qué es una comunidad?</div>
+    <div class="concept-box gold">
+      <div class="concept-title">COMUNIDAD</div>
+      <div class="concept-def">Agrupación o conjunto de personas que habitan un espacio geográfico delimitado y delimitable, cuyos miembros tienen conciencia de pertenencia o de identificación con algún símbolo local y que interaccionan entre sí más intensamente que en otro contexto, en redes de comunicación, interés y apoyo mutuo, para alcanzar objetivos, satisfacer necesidades, resolver problemas o desempeñar funciones sociales a nivel local.</div>
+    </div>
+    <div class="tip gold">
+      <span class="tip-ico">🏡</span>
+      <span><strong>Ejemplo fácil:</strong> un pueblo donde todos se conocen, comparten fiestas, ayudan en la cosecha y se identifican con su santo patrono es una comunidad.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Sociedades campesinas y estudios antropológicos</div>
+    <div class="concept-box gold">
+      <div class="concept-title">SOCIEDADES PARCIALES</div>
+      <div class="concept-def">Las sociedades campesinas están ligadas a la sociedad global por comunicaciones, mercados y estructuras de poder; forman parte de complejos regionales y nacionales de los que se diferencian por variables económicas, políticas y culturales.</div>
+    </div>
+    <table class="stab gold">
+      <tr><th>Técnica antropológica rural</th><th>En qué consiste</th></tr>
+      <tr><td>Observación participante</td><td>El antropólogo participa en la vida de la comunidad mientras observa.</td></tr>
+      <tr><td>Entrevistas no estructuradas</td><td>Conversaciones libres, sin cuestionario rígido.</td></tr>
+      <tr><td>Informantes seleccionados</td><td>Personas clave que conocen la vida de la comunidad.</td></tr>
+      <tr><td>Estancia de larga duración</td><td>Permite observar el ciclo anual y a veces el ciclo de vida.</td></tr>
+      <tr><td>Contacto directo e informal</td><td>Incluso íntimo con el pueblo estudiado; casi sin técnicas cuantitativas.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Cómo viven y se organizan</div>
+    <div class="char-grid">
+      <div class="char-card green"><div class="cc-title green">ACTIVIDADES</div><div class="cc-body">Agricultura y ganadería. Cultivo de la tierra desde hace al menos siete mil años: maíz, frijol, calabaza, cacao, chile y aguacate. Ganadería: bovinos, ovinos y caprinos, aves y porcinos. También silvicultura (pino, encino y oyamel).</div></div>
+      <div class="char-card purple"><div class="cc-title purple">FAMILIA RURAL</div><div class="cc-body">Funciones tradicionales (trabajo, educación, formación religiosa, recreo y socialización) tienden a pasar a instituciones especializadas; cambia también el rol de la mujer.</div></div>
+      <div class="char-card blue"><div class="cc-title blue">ORGANIZACIÓN</div><div class="cc-body">Unión de Ejidatarios: mesa directiva con presidente, secretario, tesorero y consejo de vigilancia; cada funcionario con suplente (ocho elementos). Comisariados ejidales representan a los ejidos y defienden los derechos agrarios.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">TENENCIA DE LA TIERRA</div><div class="cc-body">La tenencia es ejidal; con base en ella existen tres tipos de pobladores en la región.</div></div>
+    </div>
+  </div>
+
+  <div class="quiz-box gold" id="box-rural">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Comunidades rurales y urbanización</span></div>
+    <div class="quiz-score" id="score-rural"></div>
+    <div class="qz-container" id="qz-rural"></div>
+  </div>
+</div>
+
+<div id="urbana">
+  <div class="sec-head purple">
+    <div class="sec-num">3.3</div>
+    <div class="sec-info">
+      <h2>Cultura urbana: urbanización y marginación</h2>
+      <p>Cuando la antropología llega a la ciudad</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Oscar Lewis y la antropología en la ciudad</div>
+    <div class="concept-box purple">
+      <div class="concept-title">EL HOMBRE URBANO</div>
+      <div class="concept-def">Oscar Lewis destacó un nuevo objeto de estudio: el hombre urbano, cuya base es su situación de privación económica, que implica falta de integración a la modernidad y una cultura de la pobreza. Su trabajo en la ciudad de México buscó un objeto de estudio similar a la comunidad.</div>
+    </div>
+    <table class="stab purple">
+      <tr><th>Idea</th><th>En qué consiste</th></tr>
+      <tr><td>Familia y subcultura</td><td>La familia fue el campo privilegiado de investigación y la subcultura el concepto teórico (de la vecindad, de la pobreza o de la clase).</td></tr>
+      <tr><td>Antropología en la ciudad</td><td>Se basó en trasladar a la ciudad la experiencia del trabajo de campo de contextos no urbanos; los inmigrantes fueron un campo privilegiado.</td></tr>
+      <tr><td>Ciudad y cultura</td><td>Se entiende como lugar de producción de identidades culturales segmentadas, o como institución organizadora de una cultura con comportamientos fijos y normados.</td></tr>
+    </table>
+    <div class="tip purple">
+      <span class="tip-ico">🏙️</span>
+      <span><strong>Ejemplo fácil:</strong> estudiar cómo una familia que llegó del campo se adapta a vivir en una vecindad de la ciudad (empleo, escuela, vivienda) es estudio de antropología urbana.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a5)">Urbanización y marginación</div>
+    <div class="two-col">
+      <div class="mini-card"><div class="mc-label" style="color:var(--a5)">Urbanización</div><div class="mc-val">Ildefonso Cerdá</div><div class="mc-body">Ingeniero español que usó por primera vez la expresión en su Teoría General de la Urbanización y aplicación de sus principios a la reforma y ensanche de Barcelona (1867), el primer tratado de urbanismo de la Europa moderna. Buscaba ordenar el "maremagnum" de personas, cosas e intereses de la ciudad.</div></div>
+      <div class="mini-card"><div class="mc-label" style="color:var(--a5)">Marginación</div><div class="mc-val">Fenómeno estructural</div><div class="mc-body">Se origina en el patrón histórico de desarrollo: dificultad para propagar el progreso técnico y exclusión de grupos sociales del desarrollo y de sus beneficios. Genera privaciones, riesgos y vulnerabilidades; su reversión requiere a agentes públicos, privados y sociales.</div></div>
+    </div>
+    <div class="tip purple">
+      <span class="tip-ico">📍</span>
+      <span>Las medidas de marginación son útiles para planear el desarrollo y establecer órdenes de prioridad en las políticas públicas que mejoren la calidad de vida y la justicia distributiva.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box purple" id="box-urbana">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Cultura urbana: urbanización y marginación</span></div>
+    <div class="quiz-score" id="score-urbana"></div>
+    <div class="qz-container" id="qz-urbana"></div>
+  </div>
+</div>
+
+<div id="mex">
+  <div class="sec-head blue">
+    <div class="sec-num">3.4</div>
+    <div class="sec-info">
+      <h2>La antropología mexicana</h2>
+      <p>Quiénes la han hecho y cómo se desarrolló</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Historia y escuelas</div>
+    <table class="stab blue">
+      <tr><th>Momento</th><th>Qué ocurrió</th></tr>
+      <tr><td>Teoría</td><td>Poco se ha hecho en teoría antropológica en México: se siguen las corrientes del mundo. Hacia 1930, difusionismo; después, funcionalismo (Malinowski); hoy, estructuralismo o análisis marxista.</td></tr>
+      <tr><td>Inicio tardío</td><td>Los primeros antropólogos fueron extranjeros (alemanes, ingleses y estadounidenses), atraídos por pueblos indígenas y sitios arqueológicos.</td></tr>
+      <tr><td>Década de 1940</td><td>Se crea la Escuela Nacional de Antropología e Historia (SEP). Diez años después, primeras generaciones escolarizadas.</td></tr>
+      <tr><td>1957</td><td>Surge en la Universidad Veracruzana la segunda Escuela de Antropología; luego Yucatán, Iberoamericana, de las Américas, UNAM, UAM y otras.</td></tr>
+    </table>
+    <div class="tip blue">
+      <span class="tip-ico">🏛️</span>
+      <span><strong>Ejemplo fácil:</strong> el Museo Nacional de Antropología es una de las instituciones más conocidas donde se resguarda y se muestra el trabajo de estos antropólogos.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a1)">Antropólogos mexicanos destacados</div>
+    <table class="stab blue">
+      <tr><th>Antropólogo</th><th>Aportación</th></tr>
+      <tr><td>Manuel Gamio</td><td>Estudio integral del valle de Teotihuacán; pilar de la antropología en México.</td></tr>
+      <tr><td>Othón de Mendizábal</td><td>Profesor normalista dedicado a la antropología aplicada.</td></tr>
+      <tr><td>Miguel Covarrubias</td><td>Pintor; estudios sobre arquitectura y etnología.</td></tr>
+      <tr><td>Alfonso Caso</td><td>Arqueología e indigenismo; descubridor de las tumbas de Monte Albán, Oaxaca.</td></tr>
+      <tr><td>Eduardo Marquina</td><td>Diseñó, con evidencias arqueológicas, la plaza central de Tenochtitlán.</td></tr>
+      <tr><td>Julio de la Fuente</td><td>Indigenismo y educación bilingüe.</td></tr>
+      <tr><td>Alfonso Villa Rojas</td><td>Antropología social.</td></tr>
+      <tr><td>Eusebio Dávalos Hurtado</td><td>Etnólogo; estudios de huastecos y totonacos.</td></tr>
+      <tr><td>Eulalia Guzmán</td><td>Varios descubrimientos de carácter histórico.</td></tr>
+      <tr><td>Felipe Montemayor</td><td>Antropología física.</td></tr>
+      <tr><td>Ángel María Garibay</td><td>Estudio de la lengua náhuatl.</td></tr>
+      <tr><td>Gonzalo Aguirre Beltrán</td><td>Antropología social y etnología; veracruzano; medalla Belisario Domínguez.</td></tr>
+      <tr><td>Fernando Cámara Barbachano y Arturo Monzón</td><td>Antropología social.</td></tr>
+      <tr><td>Evangelina Arana</td><td>Lingüista; glotocronología de lenguas indígenas.</td></tr>
+    </table>
+    <div class="char-grid">
+      <div class="char-card gold"><div class="cc-title gold">EXTRANJEROS EN MÉXICO</div><div class="cc-body">Paul Kirchhoff (creador del concepto de Mesoamérica), José García Payón, Oscar Lewis y Juan Comas.</div></div>
+      <div class="char-card red"><div class="cc-title red">INDIGENISMO</div><div class="cc-body">Alfonso Caso y Gonzalo Aguirre Beltrán fueron directores del Instituto Nacional Indigenista, y representan la postura comprometida de la antropología.</div></div>
+    </div>
+  </div>
+
+  <div class="quiz-box blue" id="box-mex">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: La antropología mexicana</span></div>
+    <div class="quiz-score" id="score-mex"></div>
+    <div class="qz-container" id="qz-mex"></div>
+  </div>
+</div>
+
+<div id="ver">
+  <div class="sec-head red">
+    <div class="sec-num">3.5</div>
+    <div class="sec-info">
+      <h2>Diversidad cultural de Veracruz</h2>
+      <p>Una de las zonas más diversas de México</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">¿Qué es la diversidad cultural?</div>
+    <div class="concept-box red">
+      <div class="concept-title">DIVERSIDAD CULTURAL</div>
+      <div class="concept-def">La convivencia e interacción entre distintas culturas. La existencia de múltiples culturas es un activo importante de la humanidad. Cada persona tiene derecho a que su cultura sea respetada, y el gobierno debe proteger a la cultura con menos poder cuando otra con vocación hegemónica la amenaza.</div>
+    </div>
+    <div class="tip red">
+      <span class="tip-ico">🌴</span>
+      <span><strong>Ejemplo fácil:</strong> en un solo estado como Veracruz puedes oír náhuatl, totonaco, popoluca y español, y ver fiestas, trajes y comidas muy distintos.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a2)">Regiones culturales de Veracruz (de Norte a Sur)</div>
+    <div class="concept-def" style="color:var(--ink);margin-bottom:8px">Se divide en tres zonas: Norte (del río Pánuco al Cazones), Centro (hasta el Jamapa, cerca del puerto de Veracruz) y Sur (hasta el río Tonalá, límite con Tabasco).</div>
+    <table class="stab red">
+      <tr><th>Región</th><th>Grupos indígenas</th></tr>
+      <tr><td>La Huasteca</td><td>Huasteco y náhuatl</td></tr>
+      <tr><td>Chicontepec</td><td>Náhuatl, otomí, tepehua y huasteco</td></tr>
+      <tr><td>Totonaca de Papantla y sierra Norte de Puebla</td><td>Totonaco y náhuatl</td></tr>
+      <tr><td>Misantla</td><td>Náhuatl</td></tr>
+      <tr><td>Zongolica</td><td>Náhuatl</td></tr>
+      <tr><td>Playa Vicente</td><td>Chinanteco, mazateco, mixe, mixteco y popoluca</td></tr>
+      <tr><td>Tuxtlas-Soteapan</td><td>Popoluca y náhuatl</td></tr>
+      <tr><td>Coatzacoalcos</td><td>Zapoteco y mixteco</td></tr>
+    </table>
+    <div class="tip red">
+      <span class="tip-ico">🌍</span>
+      <span>Además de la población mestiza, hay mestizos franceses en San Rafael, italianos en Manuel González (Zentla), negros en la región costeña y Córdoba, y chinos, españoles, árabes, sirio-libaneses y judíos en distintas ciudades.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box red" id="box-ver">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Diversidad cultural de Veracruz</span></div>
+    <div class="quiz-score" id="score-ver"></div>
+    <div class="qz-container" id="qz-ver"></div>
+  </div>
+</div>
+
+<div id="gru">
+  <div class="sec-head green">
+    <div class="sec-num">3.5.1</div>
+    <div class="sec-info">
+      <h2>Grupos indígenas de Veracruz</h2>
+      <p>Náhuatl, huasteco, otomí, tepehua, totonaco, chinanteco, mazateco, mixe y popoluca</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a3)">Grupos y rasgos</div>
+    <div class="char-grid">
+      <div class="char-card green"><div class="cc-title green">NÁHUATL</div><div class="cc-body">Los nahuas de Veracruz viven en 14 municipios de la región norte Huasteca, 20 de la región centro Orizaba-Córdoba y cinco de la región sur Istmo-Coatzacoalcos. Náhuatl significa "el que habla con autoridad o conocimiento"; nahuatlaca, "la gente superior, la gente que manda".</div></div>
+      <div class="char-card blue"><div class="cc-title blue">HUASTECO</div><div class="cc-body">Cerca del río Pánuco, en La Huasteca. Origen maya-guatemalteco; emigraron hace más de 4000 años. Muy integrados a la comunidad mestiza, conservan la bolsa de henequén y el tocado de hilos de las mujeres. Famosos por su música y sus bailes con trece ritmos.</div></div>
+      <div class="char-card red"><div class="cc-title red">OTOMÍ</div><div class="cc-body">Pueblo indígena del centro de México, emparentado con los pueblos de habla otomangueana. En el año 2000 sumaban 646,875 personas (quinto pueblo indígena más numeroso). Su lengua tiene gran diversificación interna.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">TEPEHUA</div><div class="cc-body">Vocablo náhuatl que significa "cerro-dueño". Pertenece a la familia lingüística totonaca. Viven en la sierra Madre Oriental; practican la agricultura (maíz, frijol, haba y quelites); la caña y el café los venden.</div></div>
+      <div class="char-card purple"><div class="cc-title purple">TOTONACO</div><div class="cc-body">Sierra norte de Puebla y Totonacapan. Cultura devota de sus costumbres y tradiciones; danzas como la de los negritos, los huehues, los santiagueros, los quetzales y los migueles. Los colores vivos son preferidos por las mujeres.</div></div>
+      <div class="char-card blue"><div class="cc-title blue">CHINANTECO</div><div class="cc-body">Se llaman tsa ju jmí, "gente de palabra antigua". Región de la Chinantla, a unos 100 km de la ciudad de Oaxaca (17 municipios). Idioma tonal del grupo otomangue, con cinco macrovariantes dialectales.</div></div>
+      <div class="char-card red"><div class="cc-title red">MAZATECO</div><div class="cc-body">Norte de Oaxaca y parte de Veracruz. Familia nuclear o extensa; en la boda los novios reciben regalos rituales. Economía de maíz, frijol y calabaza.</div></div>
+      <div class="char-card gold"><div class="cc-title gold">MIXE</div><div class="cc-body">Noreste de Oaxaca, superficie de 4,668.55 km². Tres zonas climáticas: alta o fría, media o templada y baja o caliente. Sus fiestas unen localidades y tienen "duelos musicales" entre bandas, danzas, carnavales y peregrinaciones.</div></div>
+      <div class="char-card green"><div class="cc-title green">POPOLUCA</div><div class="cc-body">Región del istmo, en Sotavento. Lenguas habladas en el sur de Veracruz: náhuatl, popoluca, zapoteco, chinanteco y mazateco. Actividades: agricultura, ganadería, explotación forestal y pesquera. Traje tradicional de tres piezas.</div></div>
+    </div>
+    <div class="tip green">
+      <span class="tip-ico">🗣️</span>
+      <span><strong>Ejemplo fácil:</strong> el nombre de un pueblo ya cuenta una historia: tepehua quiere decir "cerro-dueño", y náhuatl, "el que habla con autoridad o conocimiento".</span>
+    </div>
+  </div>
+
+  <div class="quiz-box green" id="box-gru">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Grupos indígenas de Veracruz</span></div>
+    <div class="quiz-score" id="score-gru"></div>
+    <div class="qz-container" id="qz-gru"></div>
+  </div>
+</div>
+
+<div id="pat">
+  <div class="sec-head gold">
+    <div class="sec-num">3.5.2</div>
+    <div class="sec-info">
+      <h2>Patrimonio cultural</h2>
+      <p>Lo que heredamos y debemos cuidar</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">¿Qué es el patrimonio cultural?</div>
+    <div class="concept-box gold">
+      <div class="concept-title">PATRIMONIO CULTURAL</div>
+      <div class="concept-def">Elementos de valor histórico y artístico que reflejan la herencia de las generaciones pasadas y permiten comprender la historia y la forma de ser de un pueblo o, más ampliamente, de una civilización.</div>
+    </div>
+    <div class="tip gold">
+      <span class="tip-ico">🏺</span>
+      <span><strong>Ejemplo fácil:</strong> una pirámide, una danza como la del volador, una artesanía o una fiesta popular son patrimonio: nos conectan con nuestro pasado y hay que protegerlos.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label" style="color:var(--a4)">Cómo se ha protegido en México</div>
+    <table class="stab gold">
+      <tr><th>Fecha / persona</th><th>Hecho</th></tr>
+      <tr><td>Siglos XVII y XVIII</td><td>Los criollos crean y difunden los primeros símbolos patrióticos.</td></tr>
+      <tr><td>Francisco Javier Clavijero</td><td>Jesuita veracruzano; en su Historia Antigua de México plasma la idea de la nacionalidad mexicana.</td></tr>
+      <tr><td>1825</td><td>Orden para crear el Museo Nacional (1866: Moneda 13; 1964: sede actual en Chapultepec).</td></tr>
+      <tr><td>Segunda mitad del s. XIX</td><td>Surge la necesidad de conservar monumentos históricos; 1885, inspección general de monumentos.</td></tr>
+      <tr><td>1897</td><td>Primera protección legal de los restos arqueológicos.</td></tr>
+      <tr><td>Leopoldo Batres</td><td>Investigó Teotihuacán, Mitla y el Papaloapan.</td></tr>
+      <tr><td>Manuel Gamio</td><td>Fundador moderno de la antropología en México; La población del valle de Teotihuacán.</td></tr>
+      <tr><td>1939</td><td>Carta Arqueológica de la República Mexicana (INAH).</td></tr>
+      <tr><td>1972</td><td>Ley Federal sobre Monumentos y Zonas Arqueológicos, Artísticos e Históricos (incluye protección a los fósiles).</td></tr>
+    </table>
+    <div class="tip gold">
+      <span class="tip-ico">🛡️</span>
+      <span>Hoy la población es la mejor defensora de sus bienes culturales. Entre las instituciones que resguardan el patrimonio están el INAH, el Instituto Veracruzano de Cultura y el Instituto y Museo de Antropología de la Universidad Veracruzana.</span>
+    </div>
+  </div>
+
+  <div class="quiz-box gold" id="box-pat">
+    <div class="quiz-head"><span class="qz-ico">🙋</span><h4>Preguntas para participar</h4><span class="qz-sub">Tema: Patrimonio cultural</span></div>
+    <div class="quiz-score" id="score-pat"></div>
+    <div class="qz-container" id="qz-pat"></div>
+  </div>
+</div>
+
+<!-- PRACTICA TÚ -->
+<div id="practica">
+  <div class="sec-head green">
+    <div class="sec-num">📝</div>
+    <div class="sec-info">
+      <h2>Practica tú — Actividades finales de la Unidad</h2>
+      <p>Las mismas actividades del libro, para que las resuelvas y entregues</p>
+    </div>
+  </div>
+
+  <div class="activity-box">
+    <div class="activity-head"><span class="ac-ico">1️⃣</span><h4>Actividad 1</h4></div>
+    <div class="activity-item">
+      <div class="ai-title">Ensayo sobre la multiculturalidad</div>
+      Hacer un ensayo de una cuartilla acerca de lo que entiendes por Multiculturalidad.
+      <div class="ai-crit">Criterio de evaluación: se solicita un archivo en Word con las actividades descritas; claridad en la redacción.</div>
+    </div>
+  </div>
+
+  <div class="activity-box">
+    <div class="activity-head"><span class="ac-ico">2️⃣</span><h4>Actividad 2</h4></div>
+    <div class="activity-item">
+      <div class="ai-title">Ensayo sobre la transculturalidad</div>
+      Hacer un ensayo de una cuartilla acerca de lo que entiendes por Transculturalidad.
+      <div class="ai-crit">Criterio de evaluación: se solicita un archivo en Word con la actividad descrita.</div>
+    </div>
+  </div>
+
+  <div class="activity-box">
+    <div class="activity-head"><span class="ac-ico">3️⃣</span><h4>Actividad 3</h4></div>
+    <div class="activity-item">
+      <div class="ai-title">Cuadro sinóptico de comunidades rurales</div>
+      Elabora un cuadro sinóptico en donde resaltes lo más importante de las comunidades rurales.
+      <div class="ai-crit">Criterio de evaluación: se solicita un archivo en Word con la actividad descrita.</div>
+    </div>
+  </div>
+
+</div>
+
+<div id="autoeval">
+  <div class="sec-head purple">
+    <div class="sec-num">✅</div>
+    <div class="sec-info">
+      <h2>Autoevaluación</h2>
+      <p>Actividades de repaso del libro</p>
+    </div>
+  </div>
+
+  <div class="activity-box">
+    <div class="activity-head"><span class="ac-ico">1️⃣</span><h4>Actividad 1</h4></div>
+    <div class="activity-item">
+      <div class="ai-title">Cuadro sinóptico de planteamientos teórico-metodológicos</div>
+      Elabora un cuadro sinóptico donde resaltes los más importantes planteamientos teórico-metodológicos de la Antropología.
+      <div class="ai-crit">Criterio de evaluación: se solicita un archivo en Word con la actividad descrita.</div>
+    </div>
+  </div>
+
+  <div class="activity-box">
+    <div class="activity-head"><span class="ac-ico">2️⃣</span><h4>Actividad 2</h4></div>
+    <div class="activity-item">
+      <div class="ai-title">Mapa conceptual de las disciplinas</div>
+      Elabora un mapa conceptual donde destaques las diferentes disciplinas de la Antropología.
+      <div class="ai-crit">Criterio de evaluación: se solicita un archivo en Word con la actividad descrita.</div>
+    </div>
+  </div>
+
+  <div class="activity-box">
+    <div class="activity-head"><span class="ac-ico">3️⃣</span><h4>Actividad 3</h4></div>
+    <div class="activity-item">
+      <div class="ai-title">Cuadro comparativo: relación con otras ciencias</div>
+      Instrucciones: lee el tema Relación con otras Ciencias. Elabora un cuadro comparativo en donde se muestren las relaciones (la instrucción completa continúa en tu libro).
+      <div class="ai-crit">Criterio de evaluación: sigue lo que indique tu libro.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CRUCIGRAMA -->
+<div id="crucigrama">
+  <div class="sec-head purple">
+    <div class="sec-num">🧩</div>
+    <div class="sec-info">
+      <h2>Crucigrama de la Unidad III</h2>
+      <p>Las palabras se cruzan entre sí: escribe una letra por casilla (sin acentos)</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="xw-wrap"><table class="xw-table">
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">1</span><input class="xw-in" maxlength="1" data-a="V" data-r="0" data-c="5" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="1" data-c="5" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">2</span><input class="xw-in" maxlength="1" data-a="T" data-r="1" data-c="9" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="1" data-c="10" autocomplete="off"></td><td class="cell"><span class="xw-num">3</span><input class="xw-in" maxlength="1" data-a="P" data-r="1" data-c="11" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="1" data-c="12" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="H" data-r="1" data-c="13" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="1" data-c="14" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="1" data-c="15" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="cell"><span class="xw-num">4</span><input class="xw-in" maxlength="1" data-a="S" data-r="2" data-c="0" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="2" data-c="1" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="2" data-c="2" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="2" data-c="3" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="2" data-c="4" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="2" data-c="5" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="2" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="3" data-c="5" autocomplete="off"></td><td class="blank"></td><td class="cell"><span class="xw-num">5</span><input class="xw-in" maxlength="1" data-a="E" data-r="3" data-c="7" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="P" data-r="3" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">6</span><input class="xw-in" maxlength="1" data-a="M" data-r="3" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="4" data-c="5" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="4" data-c="7" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="4" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="4" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">7</span><input class="xw-in" maxlength="1" data-a="F" data-r="4" data-c="18" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="cell"><span class="xw-num">8</span><input class="xw-in" maxlength="1" data-a="C" data-r="5" data-c="1" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">9</span><input class="xw-in" maxlength="1" data-a="T" data-r="5" data-c="4" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="5" data-c="5" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="5" data-c="6" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="5" data-c="7" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="S" data-r="5" data-c="8" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="5" data-c="9" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="5" data-c="10" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="L" data-r="5" data-c="11" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="5" data-c="12" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="5" data-c="13" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="5" data-c="14" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="5" data-c="15" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="5" data-c="16" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="5" data-c="17" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="5" data-c="18" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="5" data-c="19" autocomplete="off"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="6" data-c="1" autocomplete="off"></td><td class="blank"></td><td class="cell"><span class="xw-num">10</span><input class="xw-in" maxlength="1" data-a="G" data-r="6" data-c="3" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="6" data-c="5" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="6" data-c="7" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="6" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="G" data-r="6" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="L" data-r="6" data-c="18" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="7" data-c="1" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="7" data-c="3" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="Z" data-r="7" data-c="5" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="7" data-c="7" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="7" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="7" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="K" data-r="7" data-c="18" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="8" data-c="1" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="8" data-c="3" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="8" data-c="7" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="8" data-c="11" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="8" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="cell"><span class="xw-num">11</span><input class="xw-in" maxlength="1" data-a="P" data-r="9" data-c="0" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="9" data-c="1" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="9" data-c="2" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="9" data-c="3" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="9" data-c="4" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="9" data-c="5" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="9" data-c="6" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="9" data-c="7" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="9" data-c="8" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="9" data-c="9" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">12</span><input class="xw-in" maxlength="1" data-a="G" data-r="9" data-c="13" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="9" data-c="14" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="9" data-c="15" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="9" data-c="16" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="9" data-c="17" autocomplete="off"></td><td class="blank"></td><td class="cell"><span class="xw-num">13</span><input class="xw-in" maxlength="1" data-a="O" data-r="9" data-c="19" autocomplete="off"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="10" data-c="3" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="10" data-c="7" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">14</span><input class="xw-in" maxlength="1" data-a="N" data-r="10" data-c="12" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="10" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="10" data-c="19" autocomplete="off"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="Z" data-r="11" data-c="3" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="11" data-c="7" autocomplete="off"></td><td class="blank"></td><td class="cell"><span class="xw-num">15</span><input class="xw-in" maxlength="1" data-a="U" data-r="11" data-c="9" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="R" data-r="11" data-c="10" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="B" data-r="11" data-c="11" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="11" data-c="12" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="11" data-c="13" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="11" data-c="14" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="Z" data-r="11" data-c="15" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="11" data-c="16" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="C" data-r="11" data-c="17" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="11" data-c="18" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="11" data-c="19" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="11" data-c="20" autocomplete="off"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">16</span><input class="xw-in" maxlength="1" data-a="L" data-r="12" data-c="4" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="E" data-r="12" data-c="5" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="W" data-r="12" data-c="6" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="12" data-c="7" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="S" data-r="12" data-c="8" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="H" data-r="12" data-c="12" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="12" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="12" data-c="19" autocomplete="off"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="S" data-r="13" data-c="7" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="13" data-c="12" autocomplete="off"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="13" data-c="14" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">17</span><input class="xw-in" maxlength="1" data-a="E" data-r="13" data-c="17" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="J" data-r="13" data-c="18" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="13" data-c="19" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="13" data-c="20" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="13" data-c="21" autocomplete="off"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><span class="xw-num">18</span><input class="xw-in" maxlength="1" data-a="C" data-r="14" data-c="5" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="14" data-c="6" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="M" data-r="14" data-c="7" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="U" data-r="14" data-c="8" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="N" data-r="14" data-c="9" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="I" data-r="14" data-c="10" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="14" data-c="11" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="A" data-r="14" data-c="12" autocomplete="off"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="D" data-r="14" data-c="13" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="O" data-r="15" data-c="7" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="T" data-r="15" data-c="12" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="cell"><input class="xw-in" maxlength="1" data-a="L" data-r="16" data-c="12" autocomplete="off"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+</table></div>
+    <div class="xw-btns"><button class="xw-btn" onclick="xwCheck()">✅ Comprobar</button><button class="xw-btn alt" onclick="xwReveal()">👀 Mostrar respuestas</button><button class="xw-btn alt" onclick="xwClear()">🧹 Borrar</button></div>
+    <div class="xw-msg" id="xw-msg"></div>
+    <div class="xw-clues"><div><h5>HORIZONTALES →</h5><ol style="list-style:none;margin-left:-18px"><li><b>2.</b> Vocablo náhuatl que significa "cerro-dueño" <i>(7 letras)</i></li><li><b>4.</b> Autor que introdujo la palabra etnocentrismo en 1907 <i>(6 letras)</i></li><li><b>9.</b> Contacto continuo entre culturas que cambia los patrones de una o ambas <i>(16 letras)</i></li><li><b>11.</b> Cultural: elementos de valor histórico y artístico heredados <i>(10 letras)</i></li><li><b>12.</b> Fundador moderno de la antropología en México; estudió Teotihuacán <i>(5 letras)</i></li><li><b>15.</b> Expresión usada por primera vez por Ildefonso Cerdá <i>(12 letras)</i></li><li><b>16.</b> Antropólogo de la "cultura de la pobreza" en la ciudad de México <i>(5 letras)</i></li><li><b>17.</b> Tipo de tenencia de la tierra en las comunidades rurales de México <i>(5 letras)</i></li><li><b>18.</b> Agrupación de personas en un espacio delimitado con conciencia de pertenencia <i>(9 letras)</i></li></ol></div><div><h5>VERTICALES ↓</h5><ol style="list-style:none;margin-left:-18px"><li><b>1.</b> Estado dividido en zonas Norte, Centro y Sur <i>(8 letras)</i></li><li><b>3.</b> Grupo indígena del istmo veracruzano <i>(8 letras)</i></li><li><b>5.</b> Creencia de que la cultura propia es superior a las demás <i>(13 letras)</i></li><li><b>6.</b> Fenómeno estructural que excluye a grupos del desarrollo y sus beneficios <i>(11 letras)</i></li><li><b>7.</b> Tipo de pequeña comunidad rural que estudiaban los antropólogos <i>(4 letras)</i></li><li><b>8.</b> Ingeniero español que usó por primera vez la palabra urbanización <i>(5 letras)</i></li><li><b>10.</b> Antropólogo que ve al hombre como un animal suspendido en tramas de significado <i>(6 letras)</i></li><li><b>13.</b> Pueblo del centro de México de habla otomangueana <i>(5 letras)</i></li><li><b>14.</b> Lengua cuyo nombre significa "el que habla con autoridad o conocimiento" <i>(7 letras)</i></li></ol></div></div>
+  </div>
+</div>
+
+<!-- RETOS -->
+<div id="retos">
+  <div class="sec-head red">
+    <div class="sec-num">🏆</div>
+    <div class="sec-info">
+      <h2>Retos de repaso — Unidad III</h2>
+      <p>Pon a prueba todo lo aprendido sobre diversidad cultural</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="bubbles">
+      <div class="bubble blue"><div class="b-label">🔵 Reto 1 — Multicultural o transcultural</div><div class="b-main">En una ciudad hay barrios donde cada grupo vive aparte, sin convivir. En otra, los grupos intercambian comida, lengua y fiestas. ¿Cuál es multiculturalidad y cuál transculturalidad? Explica por qué.</div></div>
+      <div class="bubble green"><div class="b-label">🟢 Reto 2 — Detecta el etnocentrismo</div><div class="b-main">Escribe un ejemplo cotidiano de etnocentrismo y cómo lo cambiarías con una actitud de respeto a la diversidad.</div></div>
+      <div class="bubble gold"><div class="b-label">🟡 Reto 3 — ¿Quién fue?</div><div class="b-main">Une cada nombre con su aportación: Oscar Lewis · Ildefonso Cerdá · Manuel Gamio · Alfonso Caso · Gonzalo Aguirre Beltrán · Clifford Geertz.</div></div>
+      <div class="bubble purple"><div class="b-label">🟣 Reto 4 — BOSS LEVEL: Veracruz</div><div class="b-main">Elige 3 regiones culturales de Veracruz y describe sus grupos indígenas y una tradición que conozcas de cada una.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- GLOSARIO -->
+<div id="glosario" class="wb-section">
+  <div class="wb-title">GLOSARIO DE <span>TÉRMINOS</span></div>
+  <p class="wb-sub">Antropología · Unidad III · Copia: término → definición → tu propio ejemplo</p>
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#5cb8f8">🌍 DIVERSIDAD CULTURAL</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Multiculturalidad</div><div class="es">Existencia de diferentes culturas en un mismo espacio.</div></div>
+      <div class="wb-word"><div class="en">Multiculturalismo</div><div class="es">Convivencia con equidad y respeto mutuo entre culturas.</div></div>
+      <div class="wb-word"><div class="en">Transculturación</div><div class="es">Contacto continuo entre culturas que cambia los patrones de una o ambas.</div></div>
+      <div class="wb-word"><div class="en">Transculturalidad</div><div class="es">Las culturas son sistemas abiertos, influidos unas por otras.</div></div>
+      <div class="wb-word"><div class="en">Etnocentrismo</div><div class="es">Creencia de que la cultura propia es superior (Summer, 1907).</div></div>
+      <div class="wb-word"><div class="en">Etnocentrismo secundario</div><div class="es">Asumir sin crítica los prejuicios de una cultura adoptada.</div></div>
+      <div class="wb-word"><div class="en">Diversidad cultural</div><div class="es">Convivencia e interacción entre distintas culturas.</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#fcd45c">🌾 CAMPO Y CIUDAD</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Comunidad</div><div class="es">Personas en un espacio delimitado con conciencia de pertenencia.</div></div>
+      <div class="wb-word"><div class="en">Sociedad parcial</div><div class="es">Sociedad campesina ligada a la sociedad global.</div></div>
+      <div class="wb-word"><div class="en">Comunidad folk</div><div class="es">Pequeña comunidad rural que estudiaban los antropólogos.</div></div>
+      <div class="wb-word"><div class="en">Ejido</div><div class="es">Tenencia de la tierra en las comunidades rurales.</div></div>
+      <div class="wb-word"><div class="en">Cultura de la pobreza</div><div class="es">Concepto de Oscar Lewis sobre el hombre urbano marginado.</div></div>
+      <div class="wb-word"><div class="en">Subcultura</div><div class="es">Cultura propia de la vecindad, la pobreza o la clase.</div></div>
+      <div class="wb-word"><div class="en">Urbanización</div><div class="es">Término usado por primera vez por Ildefonso Cerdá.</div></div>
+      <div class="wb-word"><div class="en">Marginación</div><div class="es">Fenómeno estructural de exclusión del desarrollo.</div></div>
+    </div>
+  </div>
+
+  <div class="wb-group">
+    <div class="wb-group-title" style="color:#86efac">🏛️ ANTROPOLOGÍA MEXICANA Y VERACRUZ</div>
+    <div class="wb-grid">
+      <div class="wb-word"><div class="en">Indigenismo</div><div class="es">Postura comprometida con los pueblos indígenas (Caso y Aguirre Beltrán).</div></div>
+      <div class="wb-word"><div class="en">Mesoamérica</div><div class="es">Concepto creado por Paul Kirchhoff.</div></div>
+      <div class="wb-word"><div class="en">Náhuatl</div><div class="es">"El que habla con autoridad o conocimiento".</div></div>
+      <div class="wb-word"><div class="en">Tepehua</div><div class="es">"Cerro-dueño".</div></div>
+      <div class="wb-word"><div class="en">Chinanteco</div><div class="es">Se llaman tsa ju jmí, "gente de palabra antigua".</div></div>
+      <div class="wb-word"><div class="en">Patrimonio cultural</div><div class="es">Elementos de valor histórico y artístico heredados.</div></div>
+    </div>
+  </div>
+
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:16px 18px;font-size:13px;color:rgba(240,246,255,.65);margin-top:4px">
+    🎯 <strong style="color:#fff">Tarea — Unidad III de Antropología:</strong><br>
+    1. Resuelve las 3 Actividades Finales de Unidad en un archivo de Word.<br>
+    2. Explica con tus palabras la diferencia entre multiculturalidad, transculturalidad y etnocentrismo, con un ejemplo de cada uno.<br>
+    3. Elige 3 antropólogos mexicanos y escribe su aportación a la antropología.<br>
+    4. Investiga un elemento del patrimonio cultural de tu comunidad (danza, fiesta, artesanía o monumento) y explica por qué debe protegerse.
+  </div>
+</div>
+
+</div><!-- /wrap -->
+<footer>Antropología · Unidad III — Diversidad Cultural</footer>
+
+<script>
+/* ═══ QUIZ ENGINE ═══ */
+function initQuiz(containerId, scoreId, colorClass, questions){
+  const container = document.getElementById(containerId);
+  const scoreEl = document.getElementById(scoreId);
+  let answered = 0, correct = 0;
+  const total = questions.length;
+  scoreEl.textContent = `Progreso: 0 / ${total} respondidas`;
+
+  questions.forEach((qz, i) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'qz-question';
+
+    const qText = document.createElement('div');
+    qText.className = 'qz-qtext';
+    const tag = qz.type === 'tf'
+      ? '<span class="qz-tag" style="background:var(--'+colorClass+')">V / F</span>'
+      : '<span class="qz-tag" style="background:var(--'+colorClass+')">OPCIÓN MÚLTIPLE</span>';
+    qText.innerHTML = `<span class="qz-num">${i+1}.</span><span>${qz.q} ${tag}</span>`;
+    qDiv.appendChild(qText);
+
+    const optsDiv = document.createElement('div');
+    optsDiv.className = qz.type === 'tf' ? 'qz-tf-opts' : 'qz-opts';
+
+    const explainDiv = document.createElement('div');
+    explainDiv.className = 'qz-explain';
+    explainDiv.innerHTML = qz.exp;
+
+    const opts = qz.type === 'tf' ? ['Verdadero', 'Falso'] : qz.options;
+    const correctIdx = qz.type === 'tf' ? (qz.correct ? 0 : 1) : qz.correct;
+
+    opts.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'qz-opt';
+      btn.textContent = qz.type === 'tf' ? opt : String.fromCharCode(97 + idx) + ') ' + opt;
+      btn.onclick = () => {
+        if (qDiv.dataset.done) return;
+        qDiv.dataset.done = '1';
+        answered++;
+        if (idx === correctIdx) correct++;
+        Array.from(optsDiv.children).forEach((b, bi) => {
+          b.classList.add('disabled');
+          if (bi === correctIdx) b.classList.add('correct');
+          else if (bi === idx) b.classList.add('incorrect');
+        });
+        explainDiv.classList.add('show');
+        scoreEl.textContent = `Progreso: ${answered} / ${total} respondidas · ✅ ${correct} correctas`;
+      };
+      optsDiv.appendChild(btn);
+    });
+
+    qDiv.appendChild(optsDiv);
+    qDiv.appendChild(explainDiv);
+    container.appendChild(qDiv);
+  });
+}
+
+
+/* ===== 3.1 MULTICULTURALIDAD ===== */
+initQuiz('qz-multi','score-multi','a1',[{"type": "mc", "q": "La multiculturalidad es:", "options": ["La existencia de diferentes culturas en un mismo espacio geográfico y social", "El aislamiento total de un pueblo", "El estudio de los fósiles", "Una sola cultura dominante en todo un país"], "correct": 0, "exp": "<b>Respuesta correcta: a) La existencia de diferentes culturas en un mismo espacio geográfico y social.</b> Es un concepto sociológico o de antropología cultural."}, {"type": "mc", "q": "Cuando las culturas conviven pero se influyen poco y no son permeables entre sí, suelen vivir en:", "options": ["Islas aisladas", "Guetos y vidas paralelas", "Una fusión total en una sola cultura", "Una igualdad perfecta"], "correct": 1, "exp": "<b>Respuesta correcta: b) Guetos y vidas paralelas.</b> La sociedad acogida suele ser hegemónica y establecer jerarquías que colocan a los otros grupos en inferioridad."}, {"type": "tf", "q": "La sociedad acogida suele establecer jerarquías que llevan al conflicto, al menosprecio y a estereotipos y prejuicios, siempre en detrimento de los grupos más débiles.", "correct": true, "exp": "<b>Verdadero.</b> Esto dificulta la convivencia social."}, {"type": "mc", "q": "Cuando existe equidad y respeto mutuo se puede pasar de la multiculturalidad al:", "options": ["Etnocentrismo", "Multiculturalismo", "Aislamiento", "Racismo"], "correct": 1, "exp": "<b>Respuesta correcta: b) Multiculturalismo.</b> El multiculturalismo implica convivencia con igualdad y respeto."}, {"type": "mc", "q": "Para Clifford Geertz, el ser humano es:", "options": ["Un organismo aislado", "Un ser que solo obedece leyes naturales", "Un animal suspendido en tramas de significado tejidas por él mismo", "Un animal sin cultura"], "correct": 2, "exp": "<b>Respuesta correcta: c) Un animal suspendido en tramas de significado tejidas por él mismo.</b> Para él, la cultura está construida con esas tramas."}, {"type": "mc", "q": "Según Geertz, el análisis de la cultura no es una ciencia experimental en busca de leyes, sino:", "options": ["Una actividad interpretativa en busca de significados", "Una ciencia exacta", "Una colección de fósiles", "Un cálculo estadístico"], "correct": 0, "exp": "<b>Respuesta correcta: a) Una actividad interpretativa en busca de significados.</b> Por eso los escritos etnográficos son \"interpretaciones de interpretaciones\"."}, {"type": "tf", "q": "El mundo globalizado enfrenta diferencias y desigualdades étnicas, de género, religiosas, raciales y territoriales derivadas de procesos migratorios.", "correct": true, "exp": "<b>Verdadero.</b> La migración puede ser en masa o a cuentagotas, voluntaria o forzada."}, {"type": "mc", "q": "🔁 Repaso Unidad II: Un grupo con el mismo origen, lengua y costumbres que convive con otros en una sociedad multicultural es:", "options": ["Una horda", "Una pauta cultural", "Un complejo cultural", "Una etnia"], "correct": 3, "exp": "<b>Respuesta correcta: d) Una etnia.</b> La etnia comparte origen, pasado histórico, lengua, costumbres y visión del mundo."}]);
+
+/* ===== 3.1.1 TRANSCULTURALIDAD ===== */
+initQuiz('qz-trans','score-trans','a2',[{"type": "mc", "q": "J. W. Powell empleó la palabra transculturación para significar:", "options": ["La enseñanza escolar", "El aislamiento de un pueblo", "Los préstamos culturales (no antes de 1880)", "La destrucción de una cultura"], "correct": 2, "exp": "<b>Respuesta correcta: c) Los préstamos culturales (no antes de 1880).</b> La palabra acculturation se usa desde las últimas décadas del siglo XIX."}, {"type": "mc", "q": "En 1899 aparecen los escritos sobre la diseminación de la cultura de:", "options": ["Summer", "Geertz", "Boas", "Cerdá"], "correct": 2, "exp": "<b>Respuesta correcta: c) Boas.</b> Poco después la palabra difusión salto a la escena."}, {"type": "mc", "q": "La transculturación comprende los fenómenos que resultan cuando grupos de culturas diferentes:", "options": ["Nunca se encuentran", "Viven en completo aislamiento", "Toman contacto continuo de primera mano, con cambios en los patrones culturales de uno o de ambos", "Se destruyen mutuamente"], "correct": 2, "exp": "<b>Respuesta correcta: c) Toman contacto continuo de primera mano, con cambios en los patrones culturales de uno o de ambos.</b> Es la definición presentada hacia 1935 por un comité del consejo de investigaciones de la ciencia social."}, {"type": "tf", "q": "Hacia 1935 se presentó una definición de transculturación que recibió amplia aceptación y orientó muchos estudios.", "correct": true, "exp": "<b>Verdadero.</b> Fue parte de un memorándum guía para la investigación de transculturación."}, {"type": "mc", "q": "La transculturalidad supone que las culturas:", "options": ["Son superiores unas a otras", "Existen encerradas en sí mismas", "No existen aisladas, sino con prácticas, objetos y palabras de otras culturas", "Nunca cambian"], "correct": 2, "exp": "<b>Respuesta correcta: c) No existen aisladas, sino con prácticas, objetos y palabras de otras culturas.</b> Da pie a síntesis culturales dinámicas y cambiantes: identidades culturales como sistemas abiertos."}, {"type": "tf", "q": "Para la transculturalidad, las identidades culturales son sistemas cerrados que nunca se transforman.", "correct": false, "exp": "<b>Falso.</b> Son sistemas abiertos en constante transformación."}, {"type": "mc", "q": "El multiculturalismo y la interculturalidad vertical tienden a:", "options": ["La asimilación e integración de las culturas \"inferiores\" a los núcleos \"fuertes\"", "Ignorar la economía", "Eliminar toda cultura", "Respetar el aislamiento"], "correct": 0, "exp": "<b>Respuesta correcta: a) La asimilación e integración de las culturas \"inferiores\" a los núcleos \"fuertes\".</b> La transculturalidad, en cambio, resalta la parte activa y propositiva del intercambio."}, {"type": "mc", "q": "🔁 Repaso Unidad II: El proceso por el cual la cultura está siempre cambiando se llama:", "options": ["Aislamiento estructural", "Horda", "Pauta cultural", "Dinámica cultural"], "correct": 3, "exp": "<b>Respuesta correcta: d) Dinámica cultural.</b> La transculturación es una forma de ese cambio cultural."}]);
+
+/* ===== 3.1.2 ETNOCENTRISMO ===== */
+initQuiz('qz-etno','score-etno','a3',[{"type": "mc", "q": "La palabra etnocentrismo fue introducida en 1907 por:", "options": ["Clifford Geertz", "Oscar Lewis", "W. G. Summer", "Ildefonso Cerdá"], "correct": 2, "exp": "<b>Respuesta correcta: c) W. G. Summer.</b> Summer la introdujo para nombrar la creencia en la superioridad de la cultura propia."}, {"type": "mc", "q": "El etnocentrismo es la creencia de que:", "options": ["La cultura propia es superior a las demás", "La cultura es solo material", "Todas las culturas son iguales", "Las culturas no cambian"], "correct": 0, "exp": "<b>Respuesta correcta: a) La cultura propia es superior a las demás.</b> Suele ir acompañado de contemplar otras culturas con el filtro de las preposiciones culturales propias."}, {"type": "tf", "q": "Hasta cierto punto, todas las culturas y todos los pueblos son etnocéntricos.", "correct": true, "exp": "<b>Verdadero.</b> Por eso es un fenómeno casi universal."}, {"type": "mc", "q": "El \"etnocentrismo secundario\" ocurre cuando:", "options": ["Una cultura se aísla", "Se estudia solo la lengua", "Un observador adopta acríticamente los prejuicios de una cultura adoptada como lente para ver a otras", "Un pueblo se aleja de sus vecinos"], "correct": 2, "exp": "<b>Respuesta correcta: c) Un observador adopta acríticamente los prejuicios de una cultura adoptada como lente para ver a otras.</b> Se encuentra con frecuencia en los conversos religiosos y en académicos de otras culturas."}, {"type": "mc", "q": "Que muchos pueblos se llamen a sí mismos \"los hombres\" o \"la buena gente\" muestra que:", "options": ["Solo ocurre en Europa", "Para cada grupo social la humanidad acaba en su frontera lingüística, étnica, de clase o de casta", "Todos los pueblos son iguales", "No existe el etnocentrismo"], "correct": 1, "exp": "<b>Respuesta correcta: b) Para cada grupo social la humanidad acaba en su frontera lingüística, étnica, de clase o de casta.</b> El extraño queda excluido \"por naturaleza\"."}, {"type": "mc", "q": "El etnocentrismo extremo puede llegar hasta:", "options": ["El etnocidio, el genocidio y el racismo", "El multiculturalismo", "La igualdad entre pueblos", "La cooperación total"], "correct": 0, "exp": "<b>Respuesta correcta: a) El etnocidio, el genocidio y el racismo.</b> También puede engendrar intolerancia, adhesión ciega a los propios valores."}, {"type": "mc", "q": "Los términos \"bárbaro\" (mundo grecolatino) y \"salvaje\" (civilización occidental) expresan:", "options": ["Admiración por otras culturas", "Un estudio científico neutral", "Una teoría económica", "La censura hacia la diversidad cultural y el rechazo de lo que no es conforme a las normas de la propia sociedad"], "correct": 3, "exp": "<b>Respuesta correcta: d) La censura hacia la diversidad cultural y el rechazo de lo que no es conforme a las normas de la propia sociedad.</b> Son términos históricamente datados y metafóricos."}, {"type": "mc", "q": "🔁 Repaso Unidad II: ¿Qué evolucionista dividió la cultura en salvajismo, barbarie y civilización y se cita como ejemplo de norma científica etnocentrista?", "options": ["Franz Boas", "Lewis Henry Morgan", "Clifford Geertz", "Claude Lévi-Strauss"], "correct": 1, "exp": "<b>Respuesta correcta: b) Lewis Henry Morgan.</b> Junto con Tylor, Spencer, Frazer y Lévy-Bruhl, su enfoque jerarquizaba las culturas."}]);
+
+/* ===== 3.2 COMUNIDADES RURALES ===== */
+initQuiz('qz-rural','score-rural','a4',[{"type": "mc", "q": "Una comunidad es:", "options": ["Un edificio", "Una agrupación de personas en un espacio geográfico delimitado, con conciencia de pertenencia o identificación con algún símbolo local, que interactúan intensamente", "Un animal solitario", "Una empresa extranjera"], "correct": 1, "exp": "<b>Respuesta correcta: b) Una agrupación de personas en un espacio geográfico delimitado, con conciencia de pertenencia o identificación con algún símbolo local, que interactúan intensamente.</b> Operan en redes de comunicación, interés y apoyo mutuo para alcanzar objetivos y resolver problemas."}, {"type": "tf", "q": "Las sociedades campesinas son sociedades parciales: están ligadas a la sociedad global por comunicaciones, mercados y estructuras de poder.", "correct": true, "exp": "<b>Verdadero.</b> Forman parte de complejos regionales y nacionales de los que se diferencian por variables económicas, políticas y culturales."}, {"type": "mc", "q": "El enfoque tradicional de los antropólogos al estudiar el medio rural era:", "options": ["Las empresas", "Los fósiles", "La pequeña comunidad rural de tipo folk", "La gran ciudad industrial"], "correct": 2, "exp": "<b>Respuesta correcta: c) La pequeña comunidad rural de tipo folk.</b> Se pensaba que era un universo social explicable en términos de sí mismo."}, {"type": "mc", "q": "¿Cuál es una técnica propia de los estudios antropológicos del medio rural?", "options": ["La excavación de tumbas", "La observación participante", "La encuesta masiva únicamente", "El análisis cuantitativo exclusivo"], "correct": 1, "exp": "<b>Respuesta correcta: b) La observación participante.</b> También: entrevistas no estructuradas, informantes seleccionados y estancia larga en un solo lugar."}, {"type": "mc", "q": "Las comunidades rurales son las que se establecen en el campo y por lo general se dedican a:", "options": ["La agricultura y la ganadería", "El turismo internacional", "La industria pesada", "La banca"], "correct": 0, "exp": "<b>Respuesta correcta: a) La agricultura y la ganadería.</b> La silvicultura (pino, encino y oyamel) también es importante."}, {"type": "mc", "q": "¿Qué cultivos ya se sembraban en México antes de que llegaran los colonizadores?", "options": ["Arroz y soya", "Café y caña de azúcar", "Trigo y cebada", "Maíz, frijol y calabaza"], "correct": 3, "exp": "<b>Respuesta correcta: d) Maíz, frijol y calabaza.</b> También cacao, chile y aguacate; el cultivo de la tierra tiene por lo menos siete mil años."}, {"type": "mc", "q": "La mesa directiva de la Unión de Ejidatarios está integrada por:", "options": ["Rey y nobles", "Alcalde y gobernador", "Director y subdirector", "Presidente, secretario, tesorero y consejo de vigilancia"], "correct": 3, "exp": "<b>Respuesta correcta: d) Presidente, secretario, tesorero y consejo de vigilancia.</b> Cada funcionario tiene un suplente, en total ocho elementos."}, {"type": "mc", "q": "🔁 Repaso Unidad II: La primera institución social que formó el hombre primitivo fue:", "options": ["La familia", "El Estado", "La tribu", "La ciudad-estado"], "correct": 0, "exp": "<b>Respuesta correcta: a) La familia.</b> En las familias rurales aún se realizan funciones de trabajo, educación, formación religiosa, recreo y socialización."}]);
+
+/* ===== 3.3 CULTURA URBANA ===== */
+initQuiz('qz-urbana','score-urbana','a5',[{"type": "mc", "q": "¿Quién fue uno de los primeros en preocuparse por la cultura urbana en México?", "options": ["Ildefonso Cerdá", "Clifford Geertz", "Oscar Lewis", "W. G. Summer"], "correct": 2, "exp": "<b>Respuesta correcta: c) Oscar Lewis.</b> Su enfoque tiene encuentros con la teoría de la modernización."}, {"type": "mc", "q": "Lewis destacó como nuevo objeto de estudio de la antropología:", "options": ["El hombre urbano, con su situación de privación económica y su cultura de la pobreza", "El hombre prehistórico", "Los primates", "El campesino tradicional únicamente"], "correct": 0, "exp": "<b>Respuesta correcta: a) El hombre urbano, con su situación de privación económica y su cultura de la pobreza.</b> Se orientó a sectores de la ciudad que ya no eran campesinos tradicionales pero tampoco gozaban de los beneficios de la modernización."}, {"type": "tf", "q": "Para Lewis la familia fue el campo privilegiado de investigación y el concepto de subcultura fue central desde el punto de vista teórico.", "correct": true, "exp": "<b>Verdadero.</b> Proliferaron subculturas: de la vecindad, de la pobreza o de la clase."}, {"type": "mc", "q": "La antropología en la ciudad se cimentó en:", "options": ["Usar solo documentos", "Estudiar solo fósiles", "Prohibir el trabajo de campo", "Trasladar a la ciudad la experiencia acumulada del trabajo de campo en contextos no urbanos"], "correct": 3, "exp": "<b>Respuesta correcta: d) Trasladar a la ciudad la experiencia acumulada del trabajo de campo en contextos no urbanos.</b> Los inmigrantes fueron un campo de trabajo privilegiado."}, {"type": "mc", "q": "¿Quién utilizó por primera vez la expresión \"urbanización\"?", "options": ["El ingeniero español Ildefonso Cerdá", "Oscar Lewis", "Clifford Geertz", "Manuel Gamio"], "correct": 0, "exp": "<b>Respuesta correcta: a) El ingeniero español Ildefonso Cerdá.</b> La usó en su Teoría General de la Urbanización."}, {"type": "mc", "q": "Cerdá usó el término al escribir sobre la reforma y ensanche de:", "options": ["Madrid (1900)", "Roma (1800)", "México (1950)", "Barcelona (1867)"], "correct": 3, "exp": "<b>Respuesta correcta: d) Barcelona (1867).</b> Es el primer tratado de urbanismo de la Europa moderna."}, {"type": "mc", "q": "La marginación es un fenómeno:", "options": ["Estructural que se origina en el patrón histórico de desarrollo", "Exclusivo de los países ricos", "Solo individual", "Natural e imposible de cambiar"], "correct": 0, "exp": "<b>Respuesta correcta: a) Estructural que se origina en el patrón histórico de desarrollo.</b> Excluye a grupos sociales del proceso de desarrollo y de sus beneficios; revertirla requiere a agentes públicos, privados y sociales."}, {"type": "mc", "q": "🔁 Repaso 3.2: A diferencia de la ciudad, las comunidades rurales se dedican por lo general a:", "options": ["La agricultura y la ganadería", "La publicidad", "La aviación", "La banca y los servicios financieros"], "correct": 0, "exp": "<b>Respuesta correcta: a) La agricultura y la ganadería.</b> La urbanización transforma estas actividades y los roles de la familia."}]);
+
+/* ===== 3.4 ANTROPOLOGÍA MEXICANA ===== */
+initQuiz('qz-mex','score-mex','a1',[{"type": "tf", "q": "Los primeros antropólogos que hubo en México fueron extranjeros: alemanes, ingleses y estadounidenses principalmente.", "correct": true, "exp": "<b>Verdadero.</b> Quizá porque México era considerado un lugar exótico con muchos pobladores indígenas."}, {"type": "mc", "q": "Hacia 1930, cuando el difusionismo cobró resonancia, la mayoría de los antropólogos que trabajaban en México:", "options": ["Se dedicaron a las matemáticas", "Se sumaron a esa postura", "Abandonaron la antropología", "Lo rechazaron"], "correct": 1, "exp": "<b>Respuesta correcta: b) Se sumaron a esa postura.</b> Luego, con la obra de Malinowski, muchos adoptaron el funcionalismo."}, {"type": "mc", "q": "🔁 Repaso Unidad II: Hoy la tendencia en México se inclina hacia el estructuralismo o el análisis marxista. ¿Quién es el principal representante del estructuralismo?", "options": ["Bronislaw Malinowski", "Claude Lévi-Strauss", "Lewis H. Morgan", "Karl Marx"], "correct": 1, "exp": "<b>Respuesta correcta: b) Claude Lévi-Strauss.</b> Lévi-Strauss estudia las oposiciones binarias de la mente humana."}, {"type": "mc", "q": "La Escuela Nacional de Antropología e Historia se creó en:", "options": ["1990", "La década de los 40, dependiente de la Secretaría de Educación Pública", "La Universidad de Oxford", "1700"], "correct": 1, "exp": "<b>Respuesta correcta: b) La década de los 40, dependiente de la Secretaría de Educación Pública.</b> Solo diez años después aparecieron las primeras generaciones de antropólogos escolarizados."}, {"type": "mc", "q": "La segunda Escuela de Antropología surgió en 1957 en:", "options": ["La Universidad Veracruzana", "La Iberoamericana", "La Universidad de Yucatán", "La UNAM"], "correct": 0, "exp": "<b>Respuesta correcta: a) La Universidad Veracruzana.</b> Poco después surgieron las de Yucatán y otras particulares."}, {"type": "mc", "q": "Considerado el fundador moderno de la antropología en México, realizó el estudio integral del valle de Teotihuacán:", "options": ["Manuel Gamio", "Felipe Montemayor", "Julio de la Fuente", "Miguel Covarrubias"], "correct": 0, "exp": "<b>Respuesta correcta: a) Manuel Gamio.</b> Fue discípulo de la Escuela Internacional de Etnología en México."}, {"type": "mc", "q": "Alfonso Caso, arqueólogo e indigenista, descubrió:", "options": ["Las pirámides de Egipto", "Las tumbas de Monte Albán, en Oaxaca", "La plaza de Tenochtitlán", "La ciudad de Teotihuacán"], "correct": 1, "exp": "<b>Respuesta correcta: b) Las tumbas de Monte Albán, en Oaxaca.</b> Junto con Gonzalo Aguirre Beltrán fue director del Instituto Nacional Indigenista."}, {"type": "mc", "q": "Paul Kirchhoff, antropólogo extranjero radicado en México, es el creador del concepto de:", "options": ["Subcultura", "Etnocentrismo", "Mesoamérica", "Aridoamérica"], "correct": 2, "exp": "<b>Respuesta correcta: c) Mesoamérica.</b> Otros extranjeros: José García Payón, Oscar Lewis y Juan Comas."}]);
+
+/* ===== 3.5 DIVERSIDAD DE VERACRUZ ===== */
+initQuiz('qz-ver','score-ver','a2',[{"type": "mc", "q": "La diversidad cultural se refiere a:", "options": ["La convivencia e interacción entre distintas culturas", "La existencia de una sola cultura", "El aislamiento de pueblos", "La destrucción de tradiciones"], "correct": 0, "exp": "<b>Respuesta correcta: a) La convivencia e interacción entre distintas culturas.</b> La existencia de múltiples culturas es un activo importante de la humanidad."}, {"type": "tf", "q": "Cada persona tiene derecho a que su cultura sea respetada tanto por otras personas como por las autoridades.", "correct": true, "exp": "<b>Verdadero.</b> El gobierno debe proteger a la cultura con menos poder para garantizar su subsistencia."}, {"type": "mc", "q": "El estado de Veracruz se divide en tres zonas geográficas:", "options": ["Este, Oeste y Mar", "Alta, media y baja", "Norte, Centro y Sur", "Costa, Montaña y Valle"], "correct": 2, "exp": "<b>Respuesta correcta: c) Norte, Centro y Sur.</b> Sus límites son los ríos Pánuco, Cazones, Jamapa y Tonalá."}, {"type": "mc", "q": "En la región cultural de La Huasteca los grupos indígenas son:", "options": ["Chinanteco y mazateco", "Popoluca y mixe", "Zapoteco y mixteco", "Huasteco y náhuatl"], "correct": 3, "exp": "<b>Respuesta correcta: d) Huasteco y náhuatl.</b> Chicontepec reúne náhuatl, otomí, tepehua y huasteco."}, {"type": "mc", "q": "¿En qué región se encuentran chinantecos, mazatecos, mixes, mixtecos y popolucas?", "options": ["Playa Vicente", "Coatzacoalcos", "Misantla", "Zongolica"], "correct": 0, "exp": "<b>Respuesta correcta: a) Playa Vicente.</b> Es una región de mucha diversidad de grupos."}, {"type": "mc", "q": "Los grupos indígenas de la región de Coatzacoalcos son:", "options": ["Popoluca y mazateco", "Totonaco y otomí", "Zapoteco y mixteco", "Huasteco y náhuatl"], "correct": 2, "exp": "<b>Respuesta correcta: c) Zapoteco y mixteco.</b> En Tuxtlas-Soteapan son popoluca y náhuatl."}, {"type": "mc", "q": "Además de la población mestiza, en San Rafael, Veracruz, hay mestizos:", "options": ["Japoneses", "Rusos", "Franceses", "Vikingos"], "correct": 2, "exp": "<b>Respuesta correcta: c) Franceses.</b> También hay italianos en Manuel González (Zentla), negros en la costa y en Córdoba, y chinos, españoles, árabes, sirio-libaneses y judíos."}, {"type": "mc", "q": "🔁 Repaso 2.2.3: ¿Qué grupo, de Papantla, destaca por la danza del volador?", "options": ["Los tarahumaras", "Los totonacos", "Los yaquis", "Los mayos"], "correct": 1, "exp": "<b>Respuesta correcta: b) Los totonacos.</b> Se asientan en el Totonacapan, en Veracruz y la sierra norte de Puebla."}]);
+
+/* ===== 3.5.1 GRUPOS INDÍGENAS DE VERACRUZ ===== */
+initQuiz('qz-gru','score-gru','a3',[{"type": "mc", "q": "Náhuatl significa:", "options": ["\"Gente del murciélago\"", "\"Lugar cercado\"", "\"Cerro-dueño\"", "\"El que habla con autoridad o conocimiento\""], "correct": 3, "exp": "<b>Respuesta correcta: d) \"El que habla con autoridad o conocimiento\".</b> Es superior, competente, astuto."}, {"type": "mc", "q": "El sentido real del término nahuatlaca es:", "options": ["\"Los hombres de maíz\"", "\"La gente sin lengua\"", "\"La gente superior, la gente que manda\"", "\"La gente del agua\""], "correct": 2, "exp": "<b>Respuesta correcta: c) \"La gente superior, la gente que manda\".</b> Viene de náhuatl y tlácatl."}, {"type": "mc", "q": "Los huastecos son un pueblo de origen maya-guatemalteco famoso por:", "options": ["Sus barcos", "Su música y sus bailes con trece ritmos diferentes", "Sus pirámides", "Sus telares de seda"], "correct": 1, "exp": "<b>Respuesta correcta: b) Su música y sus bailes con trece ritmos diferentes.</b> Emigraron hacia el norte hace más de 4000 años."}, {"type": "mc", "q": "Los otomíes están emparentados lingüísticamente con los pueblos de habla:", "options": ["Náhuatl", "Totonaca", "Otomangueana", "Maya"], "correct": 2, "exp": "<b>Respuesta correcta: c) Otomangueana.</b> En el año 2000 sumaban 646,875 personas; es el quinto pueblo indígena más numeroso del país."}, {"type": "mc", "q": "El vocablo tepehua, de origen náhuatl, significa literalmente:", "options": ["\"Lugar cercado\"", "\"Gente del murciélago\"", "\"Cerro-dueño\"", "\"Gente de palabra antigua\""], "correct": 2, "exp": "<b>Respuesta correcta: c) \"Cerro-dueño\".</b> El tepehua pertenece a la familia lingüística totonaca."}, {"type": "mc", "q": "Los chinantecos se llaman a sí mismos tsa ju jmí, que significa:", "options": ["\"El que habla con autoridad\"", "\"Gente del maíz\"", "\"Gente de palabra antigua\"", "\"Cerro-dueño\""], "correct": 2, "exp": "<b>Respuesta correcta: c) \"Gente de palabra antigua\".</b> El chinanteco es un idioma tonal del grupo otomangue."}, {"type": "mc", "q": "Las actividades productivas de la región popoluca (istmo) son:", "options": ["Turismo de lujo", "Industria textil", "Agricultura, ganadería, explotación forestal y pesquera", "Minería y petróleo únicamente"], "correct": 2, "exp": "<b>Respuesta correcta: c) Agricultura, ganadería, explotación forestal y pesquera.</b> Son actividades rurales y tradicionales que contrastan con la modernidad."}, {"type": "mc", "q": "La región mixe se encuentra al:", "options": ["Norte de Veracruz", "Noreste del estado de Oaxaca", "Sur de Chiapas", "Centro de Puebla"], "correct": 1, "exp": "<b>Respuesta correcta: b) Noreste del estado de Oaxaca.</b> Se divide en tres zonas climáticas: alta o fría, media o templada y baja o caliente."}]);
+
+/* ===== 3.5.2 PATRIMONIO CULTURAL ===== */
+initQuiz('qz-pat','score-pat','a4',[{"type": "mc", "q": "El patrimonio cultural está formado por:", "options": ["Solo la tecnología moderna", "Únicamente los recursos naturales", "Solo el dinero de un país", "Elementos de valor histórico y artístico que reflejan la herencia de generaciones pasadas y permiten comprender la historia de un pueblo"], "correct": 3, "exp": "<b>Respuesta correcta: d) Elementos de valor histórico y artístico que reflejan la herencia de generaciones pasadas y permiten comprender la historia de un pueblo.</b> El interés por inventariar y proteger testimonios de culturas pasadas se asocia a los inicios del nacionalismo en México."}, {"type": "mc", "q": "Los criollos de los siglos XVII y XVIII:", "options": ["Ignoraron el pasado prehispánico", "Destruyeron los monumentos", "Prohibieron la historia", "Crearon y difundieron los primeros símbolos patrióticos"], "correct": 3, "exp": "<b>Respuesta correcta: d) Crearon y difundieron los primeros símbolos patrióticos.</b> Los asentaron en valores religiosos e históricos."}, {"type": "mc", "q": "El jesuita veracruzano Francisco Javier Clavijero plasmó la idea de la nacionalidad mexicana en su:", "options": ["Teoría General de la Urbanización", "Historia Antigua de México", "Ancient Society", "Carta Arqueológica"], "correct": 1, "exp": "<b>Respuesta correcta: b) Historia Antigua de México.</b> Con ello expresó un sentimiento mexicano por antonomasia."}, {"type": "mc", "q": "La orden para crear el Museo Nacional se firmó en:", "options": ["1897", "1521", "1972", "1825"], "correct": 3, "exp": "<b>Respuesta correcta: d) 1825.</b> Comenzó a funcionar en el edificio de la Real y Pontificia Universidad de México; en 1866 se trasladó al edificio de Moneda 13 y en 1964 a su sede actual en Chapultepec."}, {"type": "mc", "q": "La primera protección legal de los restos arqueológicos ocurrió en:", "options": ["1939", "1897", "1972", "1825"], "correct": 1, "exp": "<b>Respuesta correcta: b) 1897.</b> Se logró con la ley sobre monumentos y zonas arqueológicas."}, {"type": "mc", "q": "En 1972 México actualizó su marco jurídico con la:", "options": ["Ley Federal sobre Monumentos y Zonas Arqueológicos, Artísticos e Históricos", "Ley Agraria", "Ley del Trabajo", "Ley de Aguas"], "correct": 0, "exp": "<b>Respuesta correcta: a) Ley Federal sobre Monumentos y Zonas Arqueológicos, Artísticos e Históricos.</b> Sigue vigente, con una adición que protege a los fósiles."}, {"type": "mc", "q": "¿Cuál de estas instituciones resguarda el patrimonio cultural?", "options": ["La Comisión Federal de Electricidad", "El Instituto Nacional de Antropología e Historia (INAH)", "El Instituto Mexicano del Seguro Social", "El Servicio de Administración Tributaria"], "correct": 1, "exp": "<b>Respuesta correcta: b) El Instituto Nacional de Antropología e Historia (INAH).</b> También el Instituto Veracruzano de Cultura y el Instituto y Museo de Antropología de la Universidad Veracruzana."}, {"type": "mc", "q": "🔁 Repaso 3.4: ¿Quién es considerado el fundador moderno de la antropología en México y escribió sobre la población del valle de Teotihuacán?", "options": ["Manuel Gamio", "Gonzalo Aguirre Beltrán", "Paul Kirchhoff", "Alfonso Caso"], "correct": 0, "exp": "<b>Respuesta correcta: a) Manuel Gamio.</b> Su investigación es el primer estudio multidisciplinario del país."}]);
+
+/* ═══ CRUCIGRAMA ═══ */
+const xwIns=()=>Array.from(document.querySelectorAll('.xw-in'));
+xwIns().forEach(inp=>{
+  inp.addEventListener('input',()=>{inp.value=inp.value.toUpperCase().replace(/[^A-ZÑ]/g,'');inp.classList.remove('ok','bad');
+    if(inp.value){const r=+inp.dataset.r,c=+inp.dataset.c;const n=document.querySelector(`.xw-in[data-r="${r}"][data-c="${c+1}"]`)||document.querySelector(`.xw-in[data-r="${r+1}"][data-c="${c}"]`);if(n)n.focus();}});
+});
+function xwCheck(){let ok=0,tot=0,empty=0;xwIns().forEach(i=>{tot++;i.classList.remove('ok','bad');if(!i.value){empty++;return;}if(i.value===i.dataset.a){ok++;i.classList.add('ok');}else i.classList.add('bad');});
+ document.getElementById('xw-msg').textContent=ok===tot?'🎉 ¡Crucigrama completo y correcto!':`✅ ${ok} correctas · ❌ ${tot-ok-empty} incorrectas · ⬜ ${empty} vacías`;}
+function xwReveal(){xwIns().forEach(i=>{i.value=i.dataset.a;i.classList.remove('bad');i.classList.add('ok');});document.getElementById('xw-msg').textContent='Respuestas mostradas. ¡Inténtalo tú primero la próxima vez!';}
+function xwClear(){xwIns().forEach(i=>{i.value='';i.classList.remove('ok','bad');});document.getElementById('xw-msg').textContent='';}
+</script>
+</body>
+</html>
