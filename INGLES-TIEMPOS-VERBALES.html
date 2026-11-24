@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English Tenses: Future Simple y Continuous + Repaso</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eaf0fb;color:#1d2b53;font:17px/1.55 "Trebuchet MS","Segoe UI",Arial,sans-serif}
+header{background:#1d2b53;color:#fff;padding:26px 18px 18px;text-align:center}
+header h1{margin:0 0 4px;font-size:2rem;letter-spacing:.5px}
+header p{margin:0;color:#ffe08a}
+nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:3px solid #1d2b53;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:8px}
+nav a{color:#fff;background:var(--c);text-decoration:none;padding:6px 12px;border-radius:20px;font-weight:700;font-size:.9rem}
+nav .sc{background:#ffd23f;color:#1d2b53;padding:6px 12px;border-radius:20px;font-weight:700}
+nav button{border:2px solid #1d2b53;background:#fff;color:#1d2b53;border-radius:20px;padding:5px 12px;font-weight:700;cursor:pointer}
+main{max-width:900px;margin:0 auto;padding:14px}
+section{background:#fff;border-radius:18px;margin:22px 0;overflow:hidden;border:3px solid var(--c);box-shadow:0 5px 0 var(--c)}
+section>.in{padding:6px 20px 22px}
+.hd{background:var(--c);color:#fff;padding:18px 20px}
+.hd h2{margin:0;font-size:1.8rem}
+.hd p{margin:4px 0 0;color:#fff;opacity:.95}
+h3{color:var(--c);margin:22px 0 8px;font-size:1.2rem}
+.box{background:#f4f6fd;border-left:6px solid var(--c);padding:10px 16px;border-radius:10px;margin:12px 0}
+.box h3{margin-top:4px}
+.box ul{margin:4px 0;padding-left:20px}
+.forms{display:grid;gap:8px;margin:12px 0}
+.fm{border:2px dashed var(--c);border-radius:12px;padding:8px 14px;background:#fff}
+.fm b{display:block;color:var(--c)}
+.ex{border:2px solid #d5dcf0;border-radius:12px;padding:10px 14px;margin:8px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.ex .t{flex:1;min-width:230px}
+.ex b{font-size:1.1rem}
+.ex i{color:#4a4f7a;display:block;font-size:.92rem}
+.say{border:0;background:var(--c);color:#fff;border-radius:10px;padding:7px 12px;font-weight:700;cursor:pointer;margin-left:4px}
+.q{border:2px solid #d5dcf0;border-radius:12px;padding:10px 14px;margin:10px 0;background:#fff}
+.q p{margin:0 0 8px;font-weight:700}
+.o{display:inline-block;margin:3px 6px 3px 0;padding:7px 14px;border:2px solid var(--c);background:#fff;color:#1d2b53;border-radius:10px;font:inherit;cursor:pointer}
+.o:hover{background:#eef0fc}
+.o.good,.q.good{background:#d8f5e0;border-color:#1f8a43;color:#0d3b1c}
+.o.bad,.q.bad{background:#fde0e0;border-color:#c0392b;color:#5c1410}
+.q input{font:inherit;border:0;border-bottom:3px solid var(--c);background:#f4f6fd;color:#1d2b53;padding:2px 8px;width:210px;border-radius:6px 6px 0 0}
+.hint{color:#5a5f88;font-weight:400}
+.btn{border:0;background:var(--c);color:#fff;border-radius:10px;padding:6px 14px;font:inherit;font-weight:700;cursor:pointer;margin:4px 6px 0 0}
+.btn.g{background:#e3e6f5;color:#1d2b53}
+.zone{min-height:46px;border:2px dashed var(--c);border-radius:10px;padding:6px;margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;background:#f9faff}
+.w{border:2px solid var(--c);background:#fff;color:#1d2b53;border-radius:10px;padding:5px 11px;font:inherit;cursor:pointer;font-weight:700}
+.fb{display:block;margin-top:6px;font-weight:700}
+.key{display:none;color:#6b21a8;font-weight:700;margin-top:4px}
+body.t .key{display:block}
+footer{text-align:center;padding:20px;color:#4a4f7a}
+</style>
+</head>
+<body>
+<header>
+<h1>🇬🇧 English Tenses Lab</h1>
+<p>Future Simple · Present, Past y Future Continuous · Repaso de Present y Past Simple</p>
+</header>
+<nav id="nav"></nav>
+<main id="main"></main>
+<footer>Tip: si el audio no suena, usa Chrome o Edge y sube el volumen. 🔊</footer>
+<script>
+/* ===== DATOS (mc: correcta primero | fill: texto|respuesta | build: español|inglés) ===== */
+const S=[
+{id:"fs",c:"#5b3fd1",e:"🔮",n:"Future Simple (will)",es:"Para hablar de decisiones, predicciones y promesas.",
+use:["Decisiones del momento: <b>I will answer the phone.</b>","Predicciones: <b>It will rain tonight.</b>","Promesas y ofertas: <b>I will help you.</b>"],
+f:[["✅ Afirmativo","Sujeto + will + verbo base → She will answer."],["❌ Negativo","Sujeto + will not (won't) + verbo base → She won't answer."],["❓ Pregunta","Will + sujeto + verbo base? → Will she answer? · Yes, she will. / No, she won't."]],
+k:"Palabras clave: <b>tomorrow, tonight, next week, soon, in 2030, later</b>. Tip: <b>will</b> es igual para todos los sujetos (¡sin -s en he/she/it!) y el verbo SIEMPRE va en base: <i>He will play</i> ✅, <i>He will plays</i> ❌.",
+ex:["I will answer the phone.|Yo contestaré el teléfono.|ái uíl ánser de fóun","You will pass the exam.|Vas a pasar el examen.|iú uíl pas di igsám","She won't be late.|Ella no llegará tarde.|shí uónt bi léit","Will they come tomorrow?|¿Vendrán mañana?|uíl déi cam tumárrou","It will rain tonight.|Va a llover esta noche.|it uíl réin tunáit","We will help you.|Te ayudaremos.|uí uíl jelp iú"],
+mc:["I ___ you tomorrow.|will call|called|calling|am call","She ___ come to the party. (negativo)|won't|doesn't|isn't|didn't","___ you help me, please?|Will|Are|Did|Do","Look at the dark clouds! I think it ___ rain.|will|was|did|rains","They ___ go to the beach next summer.|will|goes|went|are","¿Cuál oración es correcta?|He will play soccer.|He will plays soccer.|He wills play soccer.|He will to play soccer.","¿Cuál es una promesa?|I will never lie to you.|I lied to you.|I am lying.|I lie always.","Will she answer? Respuesta corta (sí):|Yes, she will.|Yes, she does.|Yes, she answers.|Yes, she is."],
+fill:["I ___ to Cancún next month. (travel)|will travel","She ___ your birthday. (not / forget)|will not forget","They ___ the game tomorrow. (win)|will win","___ you tonight? (he / call)|Will he call","We ___ to school on Sunday. (not / go)|will not go","The teacher ___ us homework. (give)|will give","It ___ sunny tomorrow. (be)|will be","My brother ___ me with the project. (help)|will help"],
+build:["Yo responderé la pregunta.|I will answer the question","Ella no vendrá mañana.|She will not come tomorrow","¿Ayudarás a tu mamá?|Will you help your mom","Ellos viajarán a Veracruz.|They will travel to Veracruz","Nosotros ganaremos el partido.|We will win the game","Él te llamará esta noche.|He will call you tonight"]},
+
+{id:"pc",c:"#0b7d8a",e:"⏱️",n:"Present Continuous",es:"Lo que pasa AHORA o planes cercanos.",
+use:["Acciones que ocurren <b>ahora</b>: <b>I am answering the question.</b>","Cosas temporales: <b>She is studying a lot these days.</b>","Planes cercanos: <b>We are meeting Ana tomorrow.</b>"],
+f:[["✅ Afirmativo","Sujeto + am/is/are + verbo-ing → He is cooking."],["❌ Negativo","Sujeto + am/is/are + not + verbo-ing → He isn't cooking."],["❓ Pregunta","Am/Is/Are + sujeto + verbo-ing? → Is he cooking?"]],
+k:"Palabras clave: <b>now, right now, at the moment, today, these days, look!</b> · I → <b>am</b> · he/she/it → <b>is</b> · you/we/they → <b>are</b>.<br>Ortografía: write→<b>writing</b> (quita la e) · run→<b>running</b>, sit→<b>sitting</b> (duplica la consonante) · lie→<b>lying</b>. Verbos de estado (<i>know, like, want, love</i>) normalmente NO se usan en continuo: <i>I know</i> ✅, <i>I am knowing</i> ❌.",
+ex:["I am answering the question.|Estoy contestando la pregunta.|ái am ánsering de cuésschon","He is cooking dinner.|Él está cocinando la cena.|jí is cúking díner","They are running in the park.|Ellos están corriendo en el parque.|déi ar ráning in de park","Are you studying now?|¿Estás estudiando ahora?|ar iú stádiing náu","She isn't sleeping.|Ella no está durmiendo.|shí ísent slíping","We are meeting Ana tomorrow.|Nos vemos con Ana mañana.|uí ar míting ána tumárrou"],
+mc:["I ___ English right now.|am studying|study|studied|will study","She ___ TV at the moment.|is watching|are watching|watches|watching","They ___ in the park.|are running|is running|are runing|run","___ you listening to me?|Are|Do|Is|Did","He ___ his homework now. (negativo)|isn't doing|doesn't doing|not is doing|don't do","La forma -ing correcta de write es:|writing|writeing|writting|writeng","La forma -ing correcta de sit es:|sitting|siting|sitying|sittting","¿Qué verbo NO se usa normalmente en continuo?|know|run|eat|read"],
+fill:["I ___ a book now. (read)|am reading","She ___ dinner. (cook)|is cooking","We ___ soccer today. (play)|are playing","They ___ now. (not / work)|are not working","___ now? (he / sleep)|Is he sleeping","The kids ___ in the yard. (run)|are running","My mom ___ an email. (write)|is writing","I ___ TV right now. (not / watch)|am not watching"],
+build:["Estoy contestando la pregunta.|I am answering the question","Ella está cantando ahora.|She is singing now","Ellos no están estudiando.|They are not studying","¿Estás comiendo?|Are you eating","Nosotros estamos corriendo.|We are running","Él está leyendo un libro.|He is reading a book"]},
+
+{id:"pac",c:"#c2410c",e:"⏪",n:"Past Continuous",es:"Una acción que estaba en progreso en un momento del pasado.",
+use:["Acción en progreso en un momento exacto: <b>At 8 p.m. I was answering emails.</b>","Acción larga interrumpida (when): <b>She was cooking when I arrived.</b>","Dos acciones al mismo tiempo (while): <b>I was studying while he was sleeping.</b>"],
+f:[["✅ Afirmativo","Sujeto + was/were + verbo-ing → I was answering."],["❌ Negativo","Sujeto + was/were + not + verbo-ing → I wasn't answering."],["❓ Pregunta","Was/Were + sujeto + verbo-ing? → Were you answering?"]],
+k:"Palabras clave: <b>while, when, at 8 p.m. yesterday, all morning, last night</b>. I/he/she/it → <b>was</b> · you/we/they → <b>were</b>.<br>Truco: <b>while</b> + continuo (acción larga) · <b>when</b> + pasado simple (la que interrumpe): <i>I was sleeping when the phone rang.</i>",
+ex:["I was answering the phone.|Estaba contestando el teléfono.|ái uás ánsering de fóun","You were sleeping at 10 p.m.|Dormías a las 10 p.m.|iú uér slíping at ten pi ém","She was cooking when I arrived.|Ella cocinaba cuando llegué.|shí uás cúking uén ái aráivd","We were playing while it was raining.|Jugábamos mientras llovía.|uí uér pléiing uáil it uás réining","Were they studying?|¿Estaban estudiando?|uér déi stádiing","He wasn't listening.|Él no estaba escuchando.|jí uásent lísening"],
+mc:["I ___ TV when you called.|was watching|were watching|watching|am watching","They ___ soccer at 5 p.m. yesterday.|were playing|was playing|are playing|play","___ she sleeping?|Was|Were|Did|Is","We ___ not listening.|were|was|are|did","She was reading ___ the phone rang.|when|will|tomorrow|now","While I ___, my brother was cooking.|was studying|study|will study|studies","He ___ sleeping. (negativo)|wasn't|weren't|didn't|isn't","¿Cuál es correcta?|You were running.|You was running.|You were run.|You was run."],
+fill:["I ___ at 8 p.m. yesterday. (study)|was studying","They ___ in the garden. (play)|were playing","She ___ to the teacher. (not / listen)|was not listening","___ at midnight? (you / sleep)|Were you sleeping","We ___ a movie last night. (watch)|were watching","He ___ when I arrived. (cook)|was cooking","The kids ___ . (not / run)|were not running","It ___ all morning. (rain)|was raining"],
+build:["Yo estaba contestando el teléfono.|I was answering the phone","Ellos estaban jugando futbol.|They were playing soccer","Ella no estaba durmiendo.|She was not sleeping","¿Estabas estudiando?|Were you studying","Nosotros estábamos comiendo.|We were eating","Él estaba leyendo cuando llegué.|He was reading when I arrived"]},
+
+{id:"fc",c:"#1f7a3d",e:"🚀",n:"Future Continuous",es:"Una acción que estará en progreso en un momento del futuro.",
+use:["Acción en progreso en un momento futuro: <b>At 9 a.m. I will be answering emails.</b>","Lo que estaremos haciendo \"a esta hora mañana\": <b>This time tomorrow, I will be flying.</b>"],
+f:[["✅ Afirmativo","Sujeto + will be + verbo-ing → I will be answering."],["❌ Negativo","Sujeto + will not (won't) be + verbo-ing → I won't be answering."],["❓ Pregunta","Will + sujeto + be + verbo-ing? → Will you be answering?"]],
+k:"Palabras clave: <b>at 8 p.m. tomorrow, this time next week, at midnight tonight, next Friday at 6</b>. Fórmula fácil: <b>will + be + -ing</b> = Future Simple (will) + Present Continuous (be + -ing). Igual para todos los sujetos.",
+ex:["I will be answering emails at 9 a.m.|Estaré contestando correos a las 9.|ái uíl bi ánsering ímeils at náin éi ém","You will be sleeping at midnight.|Estarás durmiendo a medianoche.|iú uíl bi slíping at mídnait","She will be traveling next Friday.|Ella estará viajando el viernes.|shí uíl bi tráveling nekst fráidei","We will be eating dinner at 8.|Estaremos cenando a las 8.|uí uíl bi íting díner at éit","Will they be waiting for us?|¿Estarán esperándonos?|uíl déi bi uéiting for as","He won't be working tomorrow.|Él no estará trabajando mañana.|jí uónt bi uérking tumárrou"],
+mc:["At 8 p.m. tomorrow, I ___ dinner.|will be eating|am ate|was eating|eat","This time next week, we ___ on the beach.|will be lying|lie|were lying|lay","She ___ be working tomorrow. (negativo)|won't|isn't|doesn't|wasn't","___ they be waiting for us?|Will|Are|Do|Were","La estructura correcta es:|will + be + verbo-ing|will + verbo-ing|be + will + verbo|will + verbo-ed","¿Cuál es correcta?|He will be sleeping.|He will be sleep.|He will sleeping.|He is will sleeping.","At 10 a.m. tomorrow se usa con:|Future Continuous|Past Continuous|Present Simple|Past Simple","I ___ you at the airport at 6.|will be waiting|was waiting|wait|waited"],
+fill:["I ___ at 11 p.m. tonight. (sleep)|will be sleeping","She ___ next Monday. (cook)|will be cooking","They ___ tomorrow at 9. (work)|will be working","We ___ TV tonight. (not / watch)|will not be watching","___ for me? (you / wait)|Will you be waiting","He ___ at this time tomorrow. (study)|will be studying","The kids ___ outside. (play)|will be playing","I ___ . (not / sleep)|will not be sleeping"],
+build:["Estaré contestando correos mañana.|I will be answering emails tomorrow","Ella estará durmiendo el viernes.|She will be sleeping on Friday","Ellos no estarán trabajando.|They will not be working","¿Estarás esperando?|Will you be waiting","Nosotros estaremos comiendo a las ocho.|We will be eating at eight","Él estará estudiando.|He will be studying"]},
+
+{id:"rp",c:"#a21caf",e:"🔁",n:"Repaso: Present Simple y Past Simple",es:"Hábitos y hechos (presente) vs. acciones terminadas (pasado).",
+use:["<b>Present Simple:</b> rutinas y hechos → I answer every day. / He answers (+s en he/she/it)","<b>Past Simple:</b> acciones terminadas → I answered yesterday. / irregulares: go→went, eat→ate"],
+f:[["Present Simple","+ I answer / she answers · − I do not (don't) answer / she does not (doesn't) answer · ? Do you answer? / Does she answer?"],["Past Simple","+ I answered / I went · − I did not (didn't) answer · ? Did you answer? (el verbo vuelve a base)"]],
+k:"Present: <b>every day, always, usually, never</b>. Past: <b>yesterday, last week, in 2020, ago</b>. Con <b>did</b>/<b>does</b> el verbo principal va en base: <i>Did she <b>go</b>?</i> ✅ <i>Did she went?</i> ❌",
+ex:["I answer the phone every day.|Contesto el teléfono todos los días.|ái ánser de fóun évri déi","She answers emails at work.|Ella contesta correos en el trabajo.|shí ánsers ímeils at uérk","Does he play soccer?|¿Él juega futbol?|das jí pléi sóker","We answered the question yesterday.|Contestamos la pregunta ayer.|uí ánserd de cuésschon iésterdei","He went to Mexico City last year.|Él fue a la CDMX el año pasado.|jí uént tu méksico síti last ier","Did you see the movie?|¿Viste la película?|did iú sí de múvi","They didn't answer.|Ellos no contestaron.|déi dídent ánser"],
+mc:["She ___ coffee every morning.|drinks|drink|drinking|drank","I ___ pizza yesterday.|ate|eat|eated|eats","___ he work on Saturdays?|Does|Do|Is|Did","They ___ to school last week.|went|go|goed|goes","He ___ like spinach. (siempre)|doesn't|don't|didn't|isn't","Did you ___ the answer?|know|knew|knows|knowed","My sister ___ the bus every day.|takes|take|took|taking","We ___ a movie last night.|watched|watch|watches|watching","El pasado de buy es:|bought|buyed|boughted|buys","She ___ answer the phone yesterday.|didn't|doesn't|don't|isn't","Water ___ at 100°C.|boils|boiled|boil|boiling","When ___ you arrive yesterday?|did|do|will|are"],
+fill:["She ___ to school every day. (go)|goes","They ___ soccer last Sunday. (play)|played","Every day I ___ coffee. (not / drink)|do not drink","He ___ me yesterday. (not / call)|did not call","___ in Mexico City? (she / live)|Does she live","___ the game last night? (you / watch)|Did you watch","My dad ___ on Saturdays. (work)|works","We ___ Puebla last year. (visit)|visited","The teacher ___ English. (teach)|teaches","I ___ tacos yesterday. (eat)|ate","She ___ every night. (study)|studies","They ___ to the party last night. (not / go)|did not go"],
+build:["Yo contesto el teléfono todos los días.|I answer the phone every day","Ella contestó la pregunta ayer.|She answered the question yesterday","Él no contesta los mensajes.|He does not answer the messages","Ellos no contestaron el teléfono.|They did not answer the phone","¿Tú trabajas aquí?|Do you work here","¿Ella comió ayer?|Did she eat yesterday","Nosotros jugamos futbol ayer.|We played soccer yesterday","Mi mamá cocina todos los días.|My mom cooks every day"]},
+
+{id:"mx",c:"#1d2b53",e:"🏆",n:"Mega Reto: ¡Todos los tiempos!",es:"Mezcla de Present, Past y Future (simple y continuous). ¡Fíjate en las palabras clave!",
+mc:["Right now, I ___ my homework.|am doing|do|did|will do","Yesterday at 8 p.m., I ___ TV.|was watching|am watching|will watch|watch","Tomorrow at 8 p.m., I ___ TV.|will be watching|was watching|watch|watched","I ___ to the gym every Monday.|go|will go|went|am going","Next year, she ___ 18.|will be|was|is being|were","When I called, they ___ dinner.|were eating|will eat|eat|are eating","He ___ his keys yesterday.|lost|loses|will lose|is losing","Look! The baby ___.|is crying|cries|cried|will cry","I promise I ___ you.|will help|helped|am helping|help","She ___ in Veracruz last year.|lived|lives|will live|is living","This time next week, we ___ in Cancún.|will be swimming|swam|swim|were swimming","My brother ___ English at the moment.|is studying|studies|studied|will study"],
+fill:["At 7 p.m. yesterday, she ___ . (cook)|was cooking","Tomorrow I ___ my aunt. (visit)|will visit","Right now they ___ in the park. (play)|are playing","He ___ to school every day. (walk)|walks","We ___ a movie last Friday. (see)|saw","This time tomorrow, I ___ to Madrid. (fly)|will be flying","She ___ now. (not / sleep)|is not sleeping","When you called, I ___ a shower. (take)|was taking","___ me tomorrow? (you / help)|Will you help","They ___ on Sundays. (not / work)|do not work","At 9 p.m. tomorrow we ___ a show. (watch)|will be watching","My cat ___ milk yesterday. (drink)|drank"],
+build:["Mañana estaré viajando a las nueve.|Tomorrow I will be traveling at nine","Ayer ella estaba cocinando cuando llegué.|Yesterday she was cooking when I arrived","Ahora estamos estudiando inglés.|Now we are studying English","Mi hermano no contestó el teléfono.|My brother did not answer the phone"]}
+];
+
+/* ===== UTILIDADES ===== */
+const sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const N=s=>s.toLowerCase().replace(/[’‘]/g,"'").replace(/won't/g,"will not").replace(/'ll/g," will").replace(/n't/g," not").replace(/'m/g," am").replace(/'re/g," are").replace(/[.,?!¿¡]/g,"").replace(/\s+/g," ").trim();
+const h=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+let ok=0,tot=0;
+const score=r=>{tot++;if(r)ok++;document.getElementById("sc").textContent="⭐ "+ok+" / "+tot};
+const say=(t,r)=>{if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=r;speechSynthesis.speak(u)};
+document.addEventListener("click",e=>{const b=e.target.closest("[data-say]");if(b)say(b.dataset.say,+b.dataset.r)});
+
+/* ===== CONSTRUCCIÓN ===== */
+const nav=document.getElementById("nav"),main=document.getElementById("main");
+const sc=h("span","sc","⭐ 0 / 0");sc.id="sc";nav.appendChild(sc);
+S.forEach(t=>{const a=h("a","",t.e+" "+t.n.split(":")[0].split(" (")[0]);a.href="#"+t.id;a.style.setProperty("--c",t.c);nav.appendChild(a)});
+const tb=h("button","","👩‍🏫 Respuestas");tb.onclick=()=>document.body.classList.toggle("t");nav.appendChild(tb);
+
+function mcBlock(list,box){
+ list.forEach((x,i)=>{const p=x.split("|"),good=p[1],q=h("div","q");
+  q.appendChild(h("p","",(i+1)+". "+p[0]));let done=false;
+  sh(p.slice(1)).forEach(o=>{const b=h("button","o",o);b.onclick=()=>{if(done)return;done=true;
+   q.querySelectorAll(".o").forEach(z=>{if(z.textContent===good)z.classList.add("good")});
+   if(o!==good)b.classList.add("bad");score(o===good)};q.appendChild(b)});
+  q.appendChild(h("div","key","✔ "+good));box.appendChild(q)})}
+
+function fillBlock(list,box){
+ list.forEach((x,i)=>{const [txt,ans]=x.split("|"),q=h("div","q"),pp=txt.split("___"),hint=pp[1].match(/\(.*\)\s*$/);
+  const p=h("p");p.appendChild(document.createTextNode((i+1)+". "+pp[0]));
+  const inp=h("input");inp.placeholder="escribe aquí";inp.autocomplete="off";inp.spellcheck=false;p.appendChild(inp);
+  p.appendChild(document.createTextNode(pp[1].replace(/\(.*\)\s*$/,"")));
+  if(hint)p.appendChild(h("span","hint"," "+hint[0]));
+  const b=h("button","btn","Revisar"),fb=h("span","fb");let done=false;
+  const chk=()=>{if(done||!inp.value.trim())return;done=true;const r=ans.split("/").some(a=>N(a)===N(inp.value));
+   q.classList.add(r?"good":"bad");fb.textContent=r?"✅ ¡Correcto!":"❌ Respuesta: "+ans;score(r)};
+  b.onclick=chk;inp.onkeydown=e=>{if(e.key==="Enter")chk()};
+  q.append(p,b,fb,h("div","key","✔ "+ans));box.appendChild(q)})}
+
+function buildBlock(list,box){
+ list.forEach((x,i)=>{const [es,en]=x.split("|"),q=h("div","q");
+  q.appendChild(h("p","",(i+1)+". Arma la oración: "+es));
+  const zone=h("div","zone"),bank=h("div","zone");let done=false;
+  sh(en.split(" ")).forEach(w=>{const b=h("button","w",w);b.onclick=()=>{if(done)return;(b.parentNode===bank?zone:bank).appendChild(b)};bank.appendChild(b)});
+  const c=h("button","btn","Revisar"),r=h("button","btn g","Reiniciar"),fb=h("span","fb");
+  c.onclick=()=>{if(done)return;const s=[...zone.children].map(z=>z.textContent).join(" ");if(!s)return;done=true;const g=N(s)===N(en);
+   q.classList.add(g?"good":"bad");fb.textContent=g?"✅ ¡Perfecto!":"❌ Correcta: "+en;score(g)};
+  r.onclick=()=>{if(done)return;[...zone.children].forEach(z=>bank.appendChild(z))};
+  q.append(zone,bank,c,r,fb,h("div","key","✔ "+en));box.appendChild(q)})}
+
+S.forEach(t=>{
+ const d=h("section");d.id=t.id;d.style.setProperty("--c",t.c);
+ d.innerHTML='<div class="hd"><h2>'+t.e+" "+t.n+"</h2><p>"+t.es+"</p></div>";
+ const w=h("div","in");d.appendChild(w);
+ if(t.use){
+  w.insertAdjacentHTML("beforeend",'<div class="box"><h3>¿Cuándo se usa?</h3><ul>'+t.use.map(x=>"<li>"+x+"</li>").join("")+"</ul></div>");
+  w.insertAdjacentHTML("beforeend",'<div class="forms">'+t.f.map(x=>"<div class='fm'><b>"+x[0]+"</b>"+x[1]+"</div>").join("")+"</div>");
+  w.insertAdjacentHTML("beforeend",'<div class="box"><h3>Palabras clave y tips</h3><p>'+t.k+"</p></div>");
+  w.appendChild(h("h3","","🔊 Escucha y repite (normal 🔊 y lento 🐢)"));
+  t.ex.forEach(x=>{const [en,es,pr]=x.split("|"),r=h("div","ex"),i=h("div","t");
+   i.innerHTML="<b></b><i></i><i></i>";i.children[0].textContent=en;i.children[1].textContent=es;i.children[2].textContent="🗣️ "+pr;
+   const a=h("span");[["🔊 Normal",1],["🐢 Lento",.5]].forEach(([l,v])=>{const b=h("button","say",l);b.dataset.say=en;b.dataset.r=v;a.appendChild(b)});
+   r.append(i,a);w.appendChild(r)})}
+ const blocks=[["📝 Opción múltiple ("+t.mc.length+")",mcBlock,t.mc],["✍️ Completa la oración ("+t.fill.length+")",fillBlock,t.fill],["🧩 Arma la oración, estilo Duolingo ("+t.build.length+")",buildBlock,t.build]];
+ blocks.forEach(([ti,fn,l])=>{w.appendChild(h("h3","",ti));const b=h("div");fn(l,b);w.appendChild(b)});
+ main.appendChild(d)});
+</script>
+</body>
+</html>
