@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verb Arena: juegos de verbos regulares e irregulares</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#1b1740;color:#fff;font:17px/1.5 "Trebuchet MS","Segoe UI",Arial,sans-serif}
+header{text-align:center;padding:22px 12px 8px}
+header h1{margin:0;font:900 2.4rem Impact,"Arial Black",sans-serif;letter-spacing:2px;color:#ffd23f}
+header p{margin:4px 0 0;color:#cfd3ff}
+#bar{position:sticky;top:0;z-index:9;background:#0f0d2b;border-bottom:3px solid #ffd23f;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:8px}
+.tm{background:#fff;color:#1b1740;border-radius:12px;padding:5px 10px;display:flex;align-items:center;gap:8px;border:3px solid #fff;cursor:pointer}
+.tm.on{background:#ffd23f;border-color:#ff5d73}
+.tm .pt{font:900 1.4rem Impact,sans-serif;min-width:28px;text-align:center}
+.mini{border:0;background:#1b1740;color:#fff;border-radius:8px;width:26px;height:26px;font-weight:900;cursor:pointer}
+.ctl{background:#3b3590;color:#fff;border:2px solid #fff;border-radius:12px;padding:5px 12px;font:inherit;font-weight:700;cursor:pointer}
+main{max-width:980px;margin:0 auto;padding:12px}
+#modes{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0 14px}
+.pill{border:3px solid #fff;background:transparent;color:#fff;border-radius:30px;padding:7px 18px;font:inherit;font-weight:800;cursor:pointer}
+.pill.on{background:#ffd23f;color:#1b1740;border-color:#ffd23f}
+#menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.gc{background:var(--c);color:#1b1740;border:0;border-radius:18px;padding:14px 16px;text-align:left;font:inherit;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.35)}
+.gc:hover{transform:translateY(-2px)}
+.gc b{display:block;font-size:1.15rem}
+.gc span{font-size:.92rem}
+.gc .ic{font-size:2rem;display:block}
+#game{background:#fff;color:#1b1740;border-radius:20px;padding:16px;margin-top:6px}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.top b{font-size:1.3rem}
+.prog{color:#4a4f7a;font-weight:700;margin-bottom:6px}
+.qbox{background:#f1f3ff;border-radius:14px;padding:16px}
+.qt{font-size:1.35rem;font-weight:800;margin:0 0 12px}
+.opt,.key{border:3px solid #3b3590;background:#fff;color:#1b1740;border-radius:12px;padding:9px 18px;margin:4px 8px 4px 0;font:inherit;font-weight:700;font-size:1.1rem;cursor:pointer}
+.key{padding:6px 10px;margin:3px;font-size:1rem;min-width:38px}
+.good{background:#c9f2d3;border-color:#1f8a43}
+.bad{background:#ffd3d3;border-color:#c0392b}
+.key:disabled{cursor:default}
+input{font:inherit;font-size:1.15rem;padding:7px 12px;border:3px solid #3b3590;border-radius:10px;background:#fff;color:#1b1740;width:210px;max-width:100%;margin-right:8px}
+.btn{border:0;background:#3b3590;color:#fff;border-radius:12px;padding:9px 18px;font:inherit;font-weight:800;cursor:pointer;margin:8px 8px 0 0}
+.btn.g{background:#dfe2f7;color:#1b1740;margin:0}
+.fb{margin-top:10px;font-weight:800;font-size:1.1rem}
+.fb.y{color:#0d6b2f}.fb.n{color:#a3231a}
+.tb{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:6px 0}
+.tb label{font-weight:700;display:block}
+.tb strong{display:block;font-size:1.4rem;color:#3b3590}
+.wd{font:900 2.2rem "Courier New",monospace;letter-spacing:4px;margin:6px 0}
+.lv{font-size:1.4rem;margin-bottom:8px}
+.sc{font:900 2rem "Courier New",monospace;letter-spacing:6px;color:#c2410c}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.card{height:84px;border:3px solid #3b3590;border-radius:14px;background:#3b3590;color:#fff;font:800 1.25rem "Trebuchet MS","Segoe UI",Arial,sans-serif;cursor:pointer}
+.card.up{background:#ffd23f;color:#1b1740}
+.card.ok{background:#c9f2d3;color:#0d3b1c;border-color:#1f8a43}
+.end{text-align:center}
+.end h2{margin:6px 0}
+details{margin:20px 0;background:#fff;color:#1b1740;border-radius:14px;padding:10px 16px}
+summary{font-weight:800;cursor:pointer}
+table{border-collapse:collapse;width:100%;margin-top:8px}
+th,td{border-bottom:1px solid #d5dcf0;padding:4px 8px;text-align:left}
+th{background:#3b3590;color:#fff}
+td.r{color:#0b7d8a;font-weight:700}
+@media(max-width:560px){.cards{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header><h1>🎮 VERB ARENA</h1><p>Verbos regulares e irregulares · ¡Juega por equipos!</p></header>
+<div id="bar"></div>
+<main>
+<div id="modes"></div>
+<div id="menu"></div>
+<div id="game" hidden></div>
+<details><summary>📖 Tabla de verbos (para consultar)</summary><div id="ref"></div></details>
+</main>
+<script>
+/* base|pasado|participio(vacío = igual)|español|oración con ___ */
+const IRR=["be|was/were|been|ser, estar|","begin|began|begun|empezar|The class ___ at eight.","break|broke|broken|romper|He ___ the window.","bring|brought||traer|She ___ her laptop to class.","build|built||construir|They ___ a house last year.","buy|bought||comprar|I ___ new shoes yesterday.","catch|caught||atrapar|He ___ the ball.","choose|chose|chosen|elegir|She ___ the red dress.","come|came|come|venir|My cousin ___ to my party.","cost|cost||costar|The tickets ___ 200 pesos.","cut|cut||cortar|I ___ my finger.","do|did|done|hacer|We ___ our homework.","draw|drew|drawn|dibujar|She ___ a beautiful flower.","drink|drank|drunk|beber|I ___ orange juice this morning.","drive|drove|driven|manejar|My dad ___ to Puebla.","eat|ate|eaten|comer|We ___ tacos yesterday.","fall|fell|fallen|caer|The boy ___ from his bike.","feel|felt||sentir|I ___ sick last night.","fight|fought||pelear|The dogs ___ in the street.","find|found||encontrar|She ___ her keys.","fly|flew|flown|volar|They ___ to Cancún.","forget|forgot|forgotten|olvidar|I ___ my homework.","get|got||obtener|He ___ a good grade.","give|gave|given|dar|She ___ me a gift.","go|went|gone|ir|We ___ to the beach last summer.","grow|grew|grown|crecer|The plant ___ very fast.","have|had||tener|I ___ breakfast at seven.","hear|heard||oír|I ___ a loud noise.","hide|hid|hidden|esconder|The cat ___ under the bed.","hit|hit||golpear|He ___ the ball very hard.","hold|held||sostener|She ___ my hand.","hurt|hurt||lastimar|I ___ my knee.","keep|kept||guardar|He ___ the secret.","know|knew|known|saber, conocer|I ___ the answer.","leave|left||salir, dejar|They ___ at six.","lend|lent||prestar|She ___ me a pen.","let|let||permitir|My mom ___ me go out.","lose|lost||perder|We ___ the game.","make|made||hacer, preparar|My mom ___ a cake.","mean|meant||significar|That word ___ something different.","meet|met||conocer, encontrarse|I ___ Ana at school.","pay|paid||pagar|He ___ for dinner.","put|put||poner|She ___ the book on the table.","read|read||leer|I ___ a book last night.","ride|rode|ridden|montar|We ___ our bikes.","ring|rang|rung|sonar|The phone ___ at midnight.","run|ran|run|correr|She ___ in the park.","say|said||decir|He ___ hello.","see|saw|seen|ver|I ___ a movie yesterday.","sell|sold||vender|They ___ their car.","send|sent||enviar|She ___ me a message.","sing|sang|sung|cantar|He ___ a beautiful song.","sit|sat||sentarse|We ___ in the front row.","sleep|slept||dormir|I ___ for ten hours.","speak|spoke|spoken|hablar|She ___ to the teacher.","spend|spent||gastar, pasar tiempo|I ___ all my money.","stand|stood||pararse|He ___ up quickly.","steal|stole|stolen|robar|Someone ___ my bike.","swim|swam|swum|nadar|We ___ in the sea.","take|took|taken|tomar, llevar|She ___ a photo.","teach|taught||enseñar|He ___ English last year.","tell|told||decir, contar|She ___ me a story.","think|thought||pensar|I ___ about you.","throw|threw|thrown|lanzar|He ___ the ball.","understand|understood||entender|I ___ the lesson.","wake|woke|woken|despertar|I ___ up at six.","wear|wore|worn|usar ropa|She ___ a blue dress.","win|won||ganar|Our team ___ the match.","write|wrote|written|escribir|He ___ a letter."];
+const REG=["walk|walked||caminar|She ___ to school.","talk|talked||hablar|We ___ on the phone.","work|worked||trabajar|He ___ all day.","play|played||jugar|They ___ soccer.","watch|watched||ver|I ___ TV last night.","help|helped||ayudar|She ___ me with the project.","open|opened||abrir|He ___ the door.","listen|listened||escuchar|We ___ to music.","clean|cleaned||limpiar|I ___ my room.","cook|cooked||cocinar|My mom ___ dinner.","call|called||llamar|He ___ me yesterday.","ask|asked||preguntar|She ___ a question.","answer|answered||contestar|I ___ the phone.","visit|visited||visitar|We ___ our grandma.","want|wanted||querer|He ___ a new phone.","need|needed||necesitar|I ___ help.","start|started||empezar|The movie ___ at nine.","like|liked||gustar|She ___ the gift.","love|loved||amar|They ___ the movie.","live|lived||vivir|I ___ in Veracruz in 2015.","dance|danced||bailar|We ___ all night.","use|used||usar|He ___ my pen.","move|moved||mudarse, mover|They ___ to Puebla.","arrive|arrived||llegar|She ___ late.","decide|decided||decidir|He ___ to stay.","stop|stopped||detenerse|The bus ___ here.","plan|planned||planear|We ___ a trip.","study|studied||estudiar|I ___ for the exam.","try|tried||intentar|She ___ again.","cry|cried||llorar|The baby ___ all night.","carry|carried||cargar|He ___ the boxes.","travel|traveled/travelled||viajar|We ___ to Spain.","wash|washed||lavar|I ___ the dishes.","stay|stayed||quedarse|They ___ at a hotel.","wait|waited||esperar|I ___ for you.","learn|learned/learnt||aprender|She ___ English.","rain|rained||llover|It ___ all day yesterday.","paint|painted||pintar|He ___ the wall.","enjoy|enjoyed||disfrutar|We ___ the party."];
+const P=(s,r)=>{const [b,p,pp,es,st]=s.split("|");return{b,p,pp:pp||p,es,s:st||"",r}};
+const ALL=[...IRR.map(x=>P(x,0)),...REG.map(x=>P(x,1))];
+
+/* ===== utilidades ===== */
+const $=s=>document.querySelector(s);
+const h=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+const sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const nz=s=>s.toLowerCase().replace(/[’‘]/g,"'").trim();
+const U=s=>s.toUpperCase();
+const say=(t,r)=>{if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=r||1;speechSynthesis.speak(u)};
+const reg=b=>/e$/.test(b)?b+"d":/[^aeiou]y$/.test(b)?b.slice(0,-1)+"ied":b+"ed";
+const one=w=>!w.includes("/");
+let mode="all";
+const pool=()=>ALL.filter(v=>mode=="all"||(mode=="irr"?!v.r:v.r));
+
+/* ===== equipos ===== */
+let T=[{n:"Equipo 1",s:0},{n:"Equipo 2",s:0}],cur=0,rot=true;
+function bar(){const b=$("#bar");b.innerHTML="";
+ T.forEach((t,i)=>{const d=h("div","tm"+(i==cur?" on":""));d.onclick=()=>{cur=i;bar()};
+  const m=h("button","mini","−"),p=h("button","mini","+");
+  m.onclick=e=>{e.stopPropagation();t.s=Math.max(0,t.s-1);bar()};p.onclick=e=>{e.stopPropagation();t.s++;bar()};
+  d.append(h("b","",t.n),h("span","pt",t.s),m,p);b.appendChild(d)});
+ const add=h("button","ctl","➕ Equipo");add.onclick=()=>{if(T.length<5){T.push({n:"Equipo "+(T.length+1),s:0});bar()}};
+ const tr=h("button","ctl","🔄 Turnos: "+(rot?"SÍ":"NO"));tr.onclick=()=>{rot=!rot;bar()};
+ const rs=h("button","ctl","🧹 Reiniciar");rs.onclick=()=>{T.forEach(t=>t.s=0);cur=0;bar()};
+ b.append(add,tr,rs)}
+function pt(good){if(good)T[cur].s++;if(rot)cur=(cur+1)%T.length;bar()}
+
+/* ===== modos ===== */
+function modes(){const m=$("#modes");m.innerHTML="";
+ [["all","🌈 Todos"],["irr","⚡ Irregulares"],["reg","📏 Regulares"]].forEach(([k,l])=>{const b=h("button","pill"+(mode==k?" on":""),l);b.onclick=()=>{mode=k;modes()};m.appendChild(b)})}
+
+/* ===== bloques de pregunta ===== */
+const fbk=(box,good,ans)=>box.appendChild(h("div","fb "+(good?"y":"n"),good?"✅ ¡Correcto! "+ans:"❌ Era: "+ans));
+function mcQ(box,q,opts,c,done,note){box.appendChild(h("p","qt",q));const w=h("div");let d=0;
+ sh(opts).forEach(o=>{const b=h("button","opt",o);b.onclick=()=>{if(d)return;d=1;
+  [...w.children].forEach(x=>{if(x.textContent===c)x.classList.add("good")});if(o!==c)b.classList.add("bad");
+  fbk(box,o===c,note||c);done(o===c)};w.appendChild(b)});box.appendChild(w)}
+function typeQ(box,q,ans,done,extra){box.appendChild(h("p","qt",q));if(extra)box.appendChild(extra);
+ const i=h("input");i.placeholder="escribe aquí";i.autocomplete="off";i.spellcheck=false;i.autocapitalize="off";
+ const b=h("button","btn","Revisar");let d=0;
+ const go=()=>{if(d||!i.value.trim())return;d=1;const g=ans.split("/").includes(nz(i.value));fbk(box,g,ans.replace("/"," / "));done(g)};
+ b.onclick=go;i.onkeydown=e=>{if(e.key==="Enter")go()};box.append(i,b);i.focus()}
+function tableQ(box,v,done){box.appendChild(h("p","qt","Completa los 3 tiempos de "+U(v.b)+" ("+v.es+")"));
+ const r=h("div","tb"),a=h("input"),c=h("input");
+ [["Base",null,v.b],["Past Simple",a],["Past Participle",c]].forEach(([l,inp,t])=>{const w=h("label","",l);
+  if(inp){inp.autocomplete="off";inp.spellcheck=false;w.appendChild(inp)}else w.appendChild(h("strong","",t));r.appendChild(w)});
+ const b=h("button","btn","Revisar");let d=0;
+ b.onclick=()=>{if(d||!a.value.trim()||!c.value.trim())return;d=1;
+  const g=v.p.split("/").includes(nz(a.value))&&v.pp.split("/").includes(nz(c.value));fbk(box,g,v.b+" → "+v.p+" → "+v.pp);done(g)};
+ box.append(r,b);a.focus()}
+function hang(v,box,done){const w=v.p,ls=new Set();let L=6,d=0;
+ box.appendChild(h("p","qt","Adivina el pasado de "+U(v.b)+" ("+v.es+")"));
+ const wd=h("div","wd"),lv=h("div","lv"),kb=h("div");box.append(wd,lv,kb);
+ const draw=()=>{wd.textContent=[...w].map(c=>ls.has(c)?U(c):"_").join(" ");lv.textContent="❤️".repeat(L)+"🖤".repeat(6-L)};draw();
+ "abcdefghijklmnopqrstuvwxyz".split("").forEach(c=>{const b=h("button","key",U(c));
+  b.onclick=()=>{if(d||b.disabled)return;b.disabled=true;ls.add(c);
+   if(w.includes(c))b.classList.add("good");else{L--;b.classList.add("bad")}draw();
+   if([...w].every(x=>ls.has(x))){d=1;fbk(box,1,w);done(1)}
+   else if(L<=0){d=1;wd.textContent=[...w].map(U).join(" ");fbk(box,0,w);done(0)}};kb.appendChild(b)})}
+
+/* ===== ronda de 10 ===== */
+function panel(title){const g=$("#game");$("#menu").hidden=true;g.hidden=false;g.innerHTML="";
+ const top=h("div","top"),bk=h("button","btn g","⬅ Menú");bk.onclick=menu;top.append(bk,h("b","",title));g.appendChild(top);return g}
+function menu(){$("#game").hidden=true;$("#menu").hidden=false;if(window.speechSynthesis)speechSynthesis.cancel()}
+function run(title,gen,flt){const g=panel(title),pl=sh(pool().filter(flt||(()=>true))).slice(0,10),area=h("div");let i=0,r=0;g.appendChild(area);
+ const step=()=>{area.innerHTML="";
+  if(!pl.length){area.textContent="No hay verbos para este juego en este modo. Cambia el modo arriba y vuelve a entrar.";return}
+  if(i>=pl.length){const e=h("div","end");e.innerHTML="<h2>🏁 ¡Ronda terminada!</h2><p>"+r+" de "+pl.length+" correctas</p>";
+   const b=h("button","btn","🔁 Otra ronda");b.onclick=()=>run(title,gen,flt);e.appendChild(b);area.appendChild(e);return}
+  area.appendChild(h("div","prog","Pregunta "+(i+1)+" de "+pl.length));const box=h("div","qbox");area.appendChild(box);
+  gen(pl[i],box,good=>{if(good)r++;pt(good);i++;const n=h("button","btn",i>=pl.length?"Ver resultado ➜":"Siguiente ➜");n.onclick=step;box.appendChild(n)})};
+ step()}
+
+/* ===== generadores ===== */
+const uniq=(a,c)=>[...new Set(a)].filter(x=>x&&x!==c);
+const gMC=(v,box,d)=>{const c=v.p.split("/")[0],w=uniq(v.r?[v.b,v.b+"s",v.b+"ing"]:[reg(v.b),v.pp!==v.p?v.pp:"",v.b,v.b+"s",v.b+"ing"],c).slice(0,3);
+ mcQ(box,"¿Cuál es el pasado de "+U(v.b)+" ("+v.es+")?",[c,...w],c,d)};
+const gTrans=(v,box,d)=>typeQ(box,"Escribe el pasado de: “"+v.es+"” (verbo "+v.b+")",v.p,d);
+const gSent=(v,box,d)=>typeQ(box,v.s.replace("___","______")+"  ("+v.b+")",v.p,d);
+const gScr=(v,box,d)=>{let l=[...v.p],s;for(let k=0;k<9;k++){s=sh(l);if(s.join("")!==v.p)break}
+ const e=h("div","sc",s.map(U).join(" "));typeQ(box,"Ordena las letras del pasado de "+U(v.b)+" ("+v.es+")",v.p,d,e)};
+const gCls=(v,box,d)=>mcQ(box,"¿Regular o irregular?  "+U(v.b)+" ("+v.es+")",["Regular","Irregular"],v.r?"Regular":"Irregular",d,(v.r?"Regular":"Irregular")+": "+v.b+" → "+v.p+" → "+v.pp);
+const gLis=(v,box,d)=>{const t=v.p.split("/")[0],e=h("div");
+ [["🔊 Normal",1],["🐢 Lento",.5]].forEach(([l,r])=>{const b=h("button","btn",l);b.onclick=()=>say(t,r);e.appendChild(b)});
+ setTimeout(()=>say(t,.8),250);typeQ(box,"🎧 Escucha el pasado y escríbelo (verbo base: "+v.b+")",v.p,d,e)};
+const gPP=(v,box,d)=>{const w=uniq([v.p,v.b,reg(v.b),v.b+"ing"],v.pp).slice(0,3);
+ mcQ(box,"Participio (have/has ___): I have ___  ("+v.b+")",[v.pp,...w],v.pp,d)};
+const gBase=(v,box,d)=>{const c=v.b,w=sh(pool().filter(x=>x.b!==c&&one(x.p))).slice(0,3).map(x=>x.b);
+ mcQ(box,"¿Cuál es el verbo base de “"+v.p.split("/")[0]+"”?",[c,...w],c,d,v.b+" → "+v.p)};
+function memo(){const g=panel("Memorama: base ↔ pasado"),vs=sh(pool().filter(v=>one(v.p))).slice(0,6);
+ const cs=sh(vs.flatMap((v,i)=>[{i,t:v.b},{i,t:v.p}])),gr=h("div","cards");let a=null,lock=false,f=0;
+ g.append(h("p","prog","Encuentra cada verbo con su pasado. Acierto = punto; fallo = pasa el turno."),gr);
+ cs.forEach(c=>{const b=h("button","card","?");c.el=b;
+  b.onclick=()=>{if(lock||b.classList.contains("up")||b.classList.contains("ok"))return;b.classList.add("up");b.textContent=c.t;say(c.t,.8);
+   if(!a){a=c;return}
+   if(a.i===c.i){a.el.className=b.className="card ok";T[cur].s++;bar();a=null;f++;
+    if(f==vs.length){const e=h("div","end");e.innerHTML="<h2>🎉 ¡Todas las parejas!</h2>";const n=h("button","btn","🔁 Otro memorama");n.onclick=memo;e.appendChild(n);g.appendChild(e)}}
+   else{lock=true;const p=a;a=null;setTimeout(()=>{p.el.className=b.className="card";p.el.textContent=b.textContent="?";lock=false;if(rot){cur=(cur+1)%T.length;bar()}},1100)}};
+  gr.appendChild(b)})}
+
+/* ===== menú de juegos ===== */
+const G=[
+["🃏","Memorama","Une cada verbo con su pasado.",memo,"#ff9f68"],
+["🎯","Elige el pasado","Opción múltiple con trampas (¡goed!).",()=>run("Elige el pasado",gMC),"#7ee0c3"],
+["✍️","Traduce y escribe","Lee el español y escribe el pasado.",()=>run("Traduce y escribe",gTrans),"#ffd23f"],
+["🧩","Completa la oración","Escribe el verbo en pasado dentro de la frase.",()=>run("Completa la oración",gSent,v=>v.s),"#b9a7ff"],
+["📋","Tabla de 3 columnas","Base, Past Simple y Past Participle.",()=>run("Tabla de 3 columnas",tableQ),"#8fd3ff"],
+["🔀","Letras revueltas","Ordena las letras del pasado.",()=>run("Letras revueltas",gScr,v=>one(v.p)),"#ff8fa3"],
+["🪢","Ahorcado","Adivina el pasado letra por letra.",()=>run("Ahorcado",hang,v=>one(v.p)),"#c7e86b"],
+["⚡","Regular o irregular","¿Lleva -ed o es irregular?",()=>run("Regular o irregular",gCls),"#ffb347"],
+["🎧","Escucha y escribe","Oye el pasado y escríbelo.",()=>run("Escucha y escribe",gLis,v=>one(v.p)),"#7fd6ff"],
+["🏅","Participio","Elige el past participle correcto (solo irregulares).",()=>run("Participio",gPP,v=>!v.r&&v.pp!==v.p&&one(v.pp)),"#f5a6ff"],
+["🕵️","Detective de verbos","Descubre el verbo base a partir del pasado.",()=>run("Detective de verbos",gBase,v=>one(v.p)),"#a8f0a0"]];
+const mn=$("#menu");
+G.forEach(([ic,t,d,f,c])=>{const b=h("button","gc");b.style.setProperty("--c",c);b.innerHTML="<span class='ic'>"+ic+"</span><b>"+t+"</b><span>"+d+"</span>";b.onclick=f;mn.appendChild(b)});
+
+/* ===== tabla de referencia ===== */
+$("#ref").innerHTML="<table><tr><th>Base</th><th>Past</th><th>Participle</th><th>Español</th></tr>"+
+ [...ALL].sort((a,b)=>a.r-b.r||a.b.localeCompare(b.b)).map(v=>"<tr><td"+(v.r?" class=r":"")+">"+v.b+"</td><td>"+v.p+"</td><td>"+v.pp+"</td><td>"+v.es+"</td></tr>").join("")+"</table>";
+bar();modes();
+</script>
+</body>
+</html>
